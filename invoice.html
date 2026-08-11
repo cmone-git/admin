@@ -678,7 +678,13 @@
             const clientUrl = invData.clientUrl;
             
             // EXACT WHATSAPP FORMAT APPLIED HERE
-            const waText = `*Amount Reminder*%0A%0ADear. ${invData.clientName}%0AGreetings From CM Filings%0A%0A*Proforma Invoice Details*%0ADate: ${displayDate}%0AAmount: Rs ${invData.amount}%0ADescription: ${invData.serviceDescription}%0A%0A*Total Due: Rs ${invData.amount}*%0A%0A*View & Pay*%0AClick here: ${clientUrl}`;
+                        // Formatted running date and description
+            const dateObj = new Date(invData.createdAt);
+            const displayDate = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth()+1).padStart(2, '0')}/${dateObj.getFullYear()}`;
+            
+            // EXACT FORMAT YOU REQUESTED WITH LINK INCLUDED
+            const waText = `*Amount Reminder*%0A%0ADear. ${invData.clientName}%0AGreetings from CM Filings! 🙏%0A%0AA payment request has been generated for you:%0A%0A📋 *Proforma Invoice Details:*%0A• Date: ${displayDate}%0A• Amount: ₹${invData.amount}%0A• Description: ${invData.serviceDescription}%0A%0A*Total Due: ₹${invData.amount}*%0A%0A💳 *Click below to Scan QR & Download your Invoice:*%0A${invData.clientUrl}%0A%0APlease complete the payment at your earliest convenience.%0A%0AThank you for choosing CMFilings! ✅%0A%0A_This is an official payment request from CM Filings._%0A%0A📞 For queries: +91 9946151111`;
+            
             btnWhatsapp.href = `https://wa.me/91${invData.mobile}?text=${waText}`;
 
             placeholder.classList.add('hidden');
