@@ -217,24 +217,24 @@
                     for (let i = 0; i < total; i++) {
                         const row = data[i];
                         
-                        // Clean up field names to match PascalCase exactly
+                        // Mapping CSV PascalCase headers to standard Firebase camelCase format
                         const clientData = {
-                            ClientId: row.ClientId || '',
-                            ClientName: row.ClientName || '',
-                            Mobile: row.Mobile || '',
-                            Email: row.Email || '',
-                            LegalName: row.LegalName || '',
-                            Constitution: row.Constitution || '',
-                            Status: row.Status || 'Active',
-                            Pan: row.Pan || '',
-                            Gstin: row.Gstin || '',
-                            Adhar: row.Adhar || '',
-                            Address: row.Address || '',
-                            BranchId: row.BranchId || '',
-                            Notes: row.Notes || '',
-                            ClientFolderUrl: row.ClientFolderUrl || '',
-                            CreatedAt: row.CreatedAt || new Date().toISOString(),
-                            UpdatedAt: row.UpdatedAt || new Date().toISOString()
+                            clientId: row.ClientId || '',
+                            clientName: row.ClientName || '',
+                            mobile: row.Mobile || '',
+                            email: row.Email || '',
+                            legalName: row.LegalName || '',
+                            constitution: row.Constitution || '',
+                            status: row.Status || 'Active',
+                            pan: row.Pan || '',
+                            gstin: row.Gstin || '',
+                            adhar: row.Adhar || '',
+                            address: row.Address || '',
+                            branchId: row.BranchId || '',
+                            notes: row.Notes || '',
+                            clientFolderUrl: row.ClientFolderUrl || '',
+                            createdAt: row.CreatedAt || new Date().toISOString(),
+                            updatedAt: row.UpdatedAt || new Date().toISOString()
                         };
 
                         try {
@@ -252,7 +252,7 @@
                             percentageText.textContent = `${percentage}%`;
                             
                             // Add to log and scroll to bottom
-                            errorLog.innerHTML += `<span>Uploaded: ${clientData.ClientName || docId}</span><br/>`;
+                            errorLog.innerHTML += `<span>Uploaded: ${clientData.clientName || docId}</span><br/>`;
                             errorLog.scrollTop = errorLog.scrollHeight;
 
                         } catch (error) {
