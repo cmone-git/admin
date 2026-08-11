@@ -142,8 +142,33 @@
                 
                 <div class="mb-10 text-center lg:text-left">
                     <h2 class="text-xs font-extrabold tracking-widest uppercase text-brand-red mb-2">Proforma Engine</h2>
-                    <h1 class="text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight">Generate Invoice</h1>
-                    <p class="text-slate-500 font-medium mt-2">Create, save, and download professional proforma invoices automatically.</p>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight">Dashboard & Generator</h1>
+                    <p class="text-slate-500 font-medium mt-2">Manage outstanding payments and create professional proforma invoices automatically.</p>
+                </div>
+
+                <!-- PREMIUM KPI CARDS (MOVED TO TOP) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                    <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex items-center gap-6 relative overflow-hidden group">
+                        <div class="absolute -right-6 -top-6 w-32 h-32 bg-amber-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+                        <div class="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 shrink-0 relative z-10">
+                            <i data-lucide="clock" class="w-8 h-8"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <p class="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-1.5">Total Unpaid Invoices</p>
+                            <h3 class="text-4xl font-black text-brand-navy leading-none tracking-tight" id="kpi-unpaid-count">0</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex items-center gap-6 relative overflow-hidden group">
+                        <div class="absolute -right-6 -top-6 w-32 h-32 bg-brand-redlight rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+                        <div class="w-16 h-16 bg-brand-redlight rounded-2xl flex items-center justify-center text-brand-red shrink-0 relative z-10">
+                            <i data-lucide="indian-rupee" class="w-8 h-8"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <p class="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-1.5">Total Outstanding Amount</p>
+                            <h3 class="text-4xl font-black text-brand-red leading-none tracking-tight" id="kpi-unpaid-sum">₹0.00</h3>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="flex flex-col lg:flex-row gap-8 items-start mb-12">
@@ -321,28 +346,6 @@
                     </div>
                 </div>
 
-                <!-- NEW: KPI CARDS -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4">
-                        <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 shrink-0">
-                            <i data-lucide="clock" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Unpaid Invoices</p>
-                            <h3 class="text-3xl font-extrabold text-brand-navy leading-none" id="kpi-unpaid-count">0</h3>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4">
-                        <div class="w-12 h-12 bg-brand-redlight rounded-xl flex items-center justify-center text-brand-red shrink-0">
-                            <i data-lucide="indian-rupee" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total Amount Due</p>
-                            <h3 class="text-3xl font-extrabold text-brand-red leading-none" id="kpi-unpaid-sum">₹0.00</h3>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- TRACKER TABLE SECTION -->
                 <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm mt-4">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
@@ -350,7 +353,7 @@
                             <i data-lucide="list" class="w-5 h-5 text-brand-red"></i> Proforma Invoices Tracker
                         </h3>
                         
-                        <!-- NEW: ADVANCED FILTER PANEL -->
+                        <!-- FILTER PANEL -->
                         <div class="flex flex-wrap items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-100">
                             <select id="filter-status" class="text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-lg px-3 py-2 outline-none hover:border-brand-navy transition-colors cursor-pointer">
                                 <option value="All">All Statuses</option>
@@ -519,8 +522,8 @@
         const btnSaveStatus = document.getElementById('btn-save-status');
 
         let clientsData = [];
-        let allInvoicesStore = []; // Array of all invoices from DB
-        let invoicesDataMap = {}; // Map for easy lookup by ID
+        let allInvoicesStore = []; 
+        let invoicesDataMap = {}; 
         
         let currentInvNoDisplay = "";
         let currentDocId = ""; 
@@ -674,7 +677,6 @@
 
             const clientUrl = invData.clientUrl;
             
-            // EXACT WHATSAPP FORMAT APPLIED HERE
             const waText = `*Amount Reminder*%0A%0ADear. ${invData.clientName}%0AGreetings From CM Filings%0A%0A*Proforma Invoice Details*%0ADate: ${displayDate}%0AAmount: Rs ${invData.amount}%0ADescription: ${invData.serviceDescription}%0A%0A*Total Due: Rs ${invData.amount}*%0A%0A*View & Pay*%0AClick here: ${clientUrl}`;
             btnWhatsapp.href = `https://wa.me/91${invData.mobile}?text=${waText}`;
 
@@ -701,10 +703,8 @@
             const hh = String(date.getHours()).padStart(2, '0');
             const mins = String(date.getMinutes()).padStart(2, '0');
             
-            // Format ID for URL and Invoice Number (Removing weird symbols to keep URL safe)
             const safeClientId = clientIdRaw ? clientIdRaw.toUpperCase().replace(/[^A-Z0-9]/g, '') : generateRandom5();
 
-            // FORMAT: PI/DDMMYY/HHMM/CLIENTID
             currentInvNoDisplay = `PI/${dd}${mm}${yy}/${hh}${mins}/${safeClientId}`;
             currentDocId = `PI-${dd}${mm}${yy}-${hh}${mins}-${safeClientId}`;
 
@@ -716,7 +716,7 @@
             const newInvoiceData = {
                 invoiceNo: currentInvNoDisplay,
                 clientName: name,
-                clientId: clientIdRaw, // Store original in DB
+                clientId: clientIdRaw,
                 mobile: mobile,
                 amount: Number(amount),
                 serviceDescription: service,
@@ -809,7 +809,6 @@
             });
         }
 
-        // Apply filters when changed
         filterStatus.addEventListener('change', renderTableAndKPIs);
         filterFrom.addEventListener('change', renderTableAndKPIs);
         filterTo.addEventListener('change', renderTableAndKPIs);
@@ -826,7 +825,6 @@
             const fFrom = filterFrom.value;
             const fTo = filterTo.value;
 
-            // 1. Filter the dataset locally
             let filteredSet = allInvoicesStore;
 
             if (stat !== 'All') {
@@ -834,7 +832,6 @@
             }
 
             const now = new Date();
-            // End of today to include all of today's records
             const endOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
 
             if (dateMode === 'Today') {
@@ -852,7 +849,6 @@
                 }
             }
 
-            // 2. Calculate KPIs from the Filtered Dataset
             let sumUnpaid = 0;
             let countUnpaid = 0;
 
@@ -866,13 +862,11 @@
             filteredSet.forEach(data => {
                 invoicesDataMap[data.id] = data; 
 
-                // KPI calculations
                 if(data.status === 'Unpaid') {
                     countUnpaid++;
                     sumUnpaid += parseFloat(data.amount || 0);
                 }
 
-                // Table Rendering
                 const dateObj = new Date(data.createdAt);
                 const formattedDate = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth()+1).padStart(2, '0')}/${dateObj.getFullYear()}`;
                 
@@ -903,7 +897,6 @@
                 trackerBody.appendChild(tr);
             });
 
-            // Update DOM KPIs
             kpiUnpaidCount.textContent = countUnpaid;
             kpiUnpaidSum.textContent = `₹${sumUnpaid.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
 
