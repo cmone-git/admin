@@ -21,8 +21,9 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- html2canvas for Invoice Downloading -->
+    <!-- html2canvas and jsPDF for Image & PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <!-- Tailwind Configuration -->
     <script>
@@ -108,19 +109,23 @@
         <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-20">
-                    <a href="index.html" class="flex items-center gap-3 group">
-                        <div class="w-10 h-10 bg-brand-navy rounded-lg flex items-center justify-center text-white shadow-sm transition-colors">
-                            <i data-lucide="file-text" class="w-5 h-5"></i>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="font-extrabold text-xl tracking-tight text-brand-navy leading-none">CM FILINGS</span>
-                            <span class="text-[9px] font-bold text-brand-red uppercase tracking-widest leading-none mt-1">Invoice Admin</span>
-                        </div>
-                    </a>
                     <div class="flex items-center gap-4">
-                        <a href="index.html" class="hidden sm:flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-brand-navy transition-colors mr-2">
-                            <i data-lucide="link" class="w-4 h-4"></i> Payment Links
+                        <a href="index.html" class="flex items-center gap-3 group border-r border-slate-200 pr-4">
+                            <div class="w-10 h-10 bg-brand-navy rounded-lg flex items-center justify-center text-white shadow-sm transition-colors">
+                                <i data-lucide="file-text" class="w-5 h-5"></i>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-extrabold text-xl tracking-tight text-brand-navy leading-none">CM FILINGS</span>
+                                <span class="text-[9px] font-bold text-brand-red uppercase tracking-widest leading-none mt-1">Invoice Admin</span>
+                            </div>
                         </a>
+                        <!-- Back to Home Action -->
+                        <a href="index.html" class="hidden sm:flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-brand-navy transition-colors">
+                            <i data-lucide="home" class="w-4 h-4"></i> Home Dashboard
+                        </a>
+                    </div>
+
+                    <div class="flex items-center gap-4">
                         <div class="hidden sm:flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-500">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> <span id="admin-user-email">Online</span>
                         </div>
@@ -137,9 +142,9 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
                 <div class="mb-10 text-center lg:text-left">
-                    <h2 class="text-xs font-extrabold tracking-widest uppercase text-brand-red mb-2">Billing Engine</h2>
+                    <h2 class="text-xs font-extrabold tracking-widest uppercase text-brand-red mb-2">Proforma Engine</h2>
                     <h1 class="text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight">Generate Invoice</h1>
-                    <p class="text-slate-500 font-medium mt-2">Create professional digital invoices with embedded QR payments.</p>
+                    <p class="text-slate-500 font-medium mt-2">Create, save, and download professional proforma invoices automatically.</p>
                 </div>
 
                 <div class="flex flex-col lg:flex-row gap-8 items-start mb-12">
@@ -158,39 +163,43 @@
                             </div>
 
                             <form id="invoice-form" class="space-y-5">
+                                <!-- Hidden Client ID -->
+                                <input type="hidden" id="inv-client-id">
+                                
                                 <div>
                                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Client Name (Search) *</label>
                                     <input list="clients-list" type="text" id="inv-name" required class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-white font-medium text-slate-800" placeholder="Type name to search...">
                                     <datalist id="clients-list"></datalist>
                                 </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Mobile Number *</label>
-                                    <input type="tel" id="inv-mobile" required pattern="[0-9]{10}" class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-white font-medium text-slate-800" placeholder="10-digit mobile">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Mobile Number *</label>
+                                        <input type="tel" id="inv-mobile" required pattern="[0-9]{10}" class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-white font-medium text-slate-800" placeholder="10-digit mobile">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Amount (₹) *</label>
+                                        <input type="number" id="inv-amount" required min="1" class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-white font-extrabold text-lg text-brand-navy" placeholder="0.00">
+                                    </div>
                                 </div>
+                                
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Amount (₹) *</label>
-                                    <input type="number" id="inv-amount" required min="1" class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-white font-extrabold text-xl text-brand-navy" placeholder="0.00">
+                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Service Description *</label>
+                                    <input type="text" id="inv-service" required class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-white font-medium text-slate-800" placeholder="e.g., Professional Fees for Tax Return">
                                 </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Service Rendered *</label>
-                                    <select id="inv-service" required class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-white font-medium text-slate-800 appearance-none">
-                                        <option value="" disabled selected>Select service type...</option>
-                                        <option value="Professional Fees - Tax Return">Professional Fees - Tax Return</option>
-                                        <option value="Professional Fees - GST">Professional Fees - GST</option>
-                                        <option value="Business Advisory Services">Business Advisory Services</option>
-                                        <option value="Accounting & Bookkeeping">Accounting & Bookkeeping</option>
-                                        <option value="Company Incorporation & ROC">Company Incorporation & ROC</option>
-                                        <option value="Software Subscription - BIZFLOW">Software Subscription - BIZFLOW</option>
-                                        <option value="Other Professional Services">Other Professional Services</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Description / Period</label>
-                                    <input type="text" id="inv-desc" required class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-white font-medium text-slate-800" placeholder="e.g., ITR Filing FY 2024-25">
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Period (Optional)</label>
+                                        <input type="text" id="inv-period" class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-white font-medium text-slate-800" placeholder="e.g., FY 2024-25">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Narration (Optional)</label>
+                                        <input type="text" id="inv-narration" class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-white font-medium text-slate-800" placeholder="Additional notes...">
+                                    </div>
                                 </div>
 
                                 <button type="submit" id="btn-generate" class="w-full py-4 bg-brand-red text-white font-bold rounded-xl shadow-[0_8px_20px_rgb(177,0,0,0.2)] hover:bg-brand-redhover transition-colors flex items-center justify-center gap-2 mt-6">
-                                    <i data-lucide="file-check" class="w-5 h-5"></i> Generate Digital Invoice
+                                    <i data-lucide="file-check" class="w-5 h-5"></i> Generate Proforma Invoice
                                 </button>
                             </form>
                         </div>
@@ -205,19 +214,24 @@
                                 <i data-lucide="file-text" class="w-8 h-8"></i>
                             </div>
                             <h4 class="text-lg font-bold text-slate-400 mb-2">Ready to Generate</h4>
-                            <p class="text-sm font-medium text-slate-400 max-w-xs">Fill out the form to instantly create a beautiful, downloadable Proforma Invoice.</p>
+                            <p class="text-sm font-medium text-slate-400 max-w-xs">Fill out the form or select a client to create a downloadable Proforma Invoice with QR integration.</p>
                         </div>
 
                         <!-- Active Generated State Wrapper -->
                         <div id="output-container" class="hidden animate-in slide-in-from-right-8 duration-500">
                             
-                            <!-- ACTIONS HEADER -->
-                            <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                                <button id="btn-download" class="flex-1 py-3 bg-brand-navy text-white font-bold rounded-xl shadow-sm hover:bg-brand-navyhover transition-colors flex items-center justify-center gap-2 text-sm">
-                                    <i data-lucide="download" class="w-4 h-4"></i> Download Image
+                            <!-- ACTIONS HEADER (Minimal Icons) -->
+                            <div class="flex items-center justify-end gap-3 mb-4">
+                                <span class="text-xs font-bold text-slate-400 mr-auto flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i> Active Preview</span>
+                                
+                                <button id="btn-download-jpg" class="p-2.5 bg-white text-slate-600 border border-slate-200 rounded-lg shadow-sm hover:text-brand-navy hover:bg-slate-50 transition-colors tooltip relative" title="Download JPEG">
+                                    <i data-lucide="image" class="w-5 h-5"></i>
                                 </button>
-                                <a id="btn-send-wa" href="#" target="_blank" class="flex-1 py-3 bg-[#25D366] text-white font-bold rounded-xl shadow-md hover:bg-[#20bd5a] transition-colors flex items-center justify-center gap-2 text-sm">
-                                    <i data-lucide="message-circle" class="w-4 h-4"></i> Send via WhatsApp
+                                <button id="btn-download-pdf" class="p-2.5 bg-white text-slate-600 border border-slate-200 rounded-lg shadow-sm hover:text-brand-red hover:bg-slate-50 transition-colors tooltip relative" title="Download PDF">
+                                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                                </button>
+                                <a id="btn-send-wa" href="#" target="_blank" class="p-2.5 bg-[#25D366] text-white rounded-lg shadow-md hover:bg-[#20bd5a] transition-colors tooltip relative" title="Send to Client">
+                                    <i data-lucide="message-circle" class="w-5 h-5"></i>
                                 </a>
                             </div>
 
@@ -236,8 +250,8 @@
                                         </div>
                                     </div>
                                     <div class="text-right">
-                                        <h1 class="text-3xl font-extrabold text-slate-200 uppercase tracking-wider mb-2">INVOICE</h1>
-                                        <p class="text-xs font-bold text-slate-500 mb-1">Inv No: <span id="render-inv-no" class="text-brand-navy">PI---</span></p>
+                                        <h1 class="text-2xl font-extrabold text-slate-300 uppercase tracking-wider mb-2">PROFORMA INVOICE</h1>
+                                        <p class="text-xs font-bold text-slate-500 mb-1">Inv No: <span id="render-inv-no" class="text-brand-navy">PI/--/--</span></p>
                                         <p class="text-xs font-bold text-slate-500">Date: <span id="render-date" class="text-brand-navy">--/--/----</span></p>
                                     </div>
                                 </div>
@@ -247,14 +261,15 @@
                                     <h4 class="text-[10px] font-extrabold text-brand-red uppercase tracking-widest mb-2 border-b border-brand-red/20 inline-block pb-1">Billed To</h4>
                                     <p id="render-client-name" class="text-lg font-bold text-brand-navy">Client Name</p>
                                     <p id="render-client-mobile" class="text-sm font-medium text-slate-500 mt-1">+91 XXXXX XXXXX</p>
+                                    <p id="render-client-id-display" class="text-xs text-slate-400 mt-1 hidden">ID: <span></span></p>
                                 </div>
 
                                 <!-- Table -->
-                                <div class="border border-slate-200 rounded-xl overflow-hidden mb-8">
+                                <div class="border border-slate-200 rounded-xl overflow-hidden mb-6">
                                     <table class="w-full text-left">
                                         <thead class="bg-slate-50 border-b border-slate-200">
                                             <tr>
-                                                <th class="py-3 px-4 text-xs font-bold text-slate-500 uppercase">Description</th>
+                                                <th class="py-3 px-4 text-xs font-bold text-slate-500 uppercase">Service Description</th>
                                                 <th class="py-3 px-4 text-xs font-bold text-slate-500 uppercase text-right">Amount</th>
                                             </tr>
                                         </thead>
@@ -262,7 +277,10 @@
                                             <tr>
                                                 <td class="py-4 px-4 border-b border-slate-100">
                                                     <p id="render-service" class="font-bold text-slate-800 text-sm">Service Type</p>
-                                                    <p id="render-desc" class="text-xs text-slate-500 font-medium mt-1">Details...</p>
+                                                    <div class="mt-1 space-y-0.5">
+                                                        <p id="render-period" class="text-xs text-slate-500 font-medium hidden"><span class="font-semibold text-slate-400">Period:</span> <span class="val"></span></p>
+                                                        <p id="render-narration" class="text-xs text-slate-500 font-medium hidden"><span class="font-semibold text-slate-400">Note:</span> <span class="val"></span></p>
+                                                    </div>
                                                 </td>
                                                 <td class="py-4 px-4 border-b border-slate-100 text-right font-bold text-slate-800">
                                                     ₹<span id="render-amount-row">0.00</span>
@@ -282,7 +300,7 @@
                                 <div class="bg-brand-light border border-slate-200 rounded-xl p-5 flex items-center justify-between">
                                     <div>
                                         <h4 class="text-xs font-bold text-brand-navy uppercase tracking-widest mb-1 flex items-center gap-1.5"><i data-lucide="qr-code" class="w-4 h-4 text-brand-red"></i> Scan to Pay</h4>
-                                        <p class="text-[10px] font-medium text-slate-500 mb-3">Pay securely via GPay, PhonePe, Paytm, or BHIM.</p>
+                                        <p class="text-[10px] font-medium text-slate-500 mb-3">Pay securely via any UPI Application.</p>
                                         <p class="text-xs font-bold text-slate-700">UPI ID: <span class="font-mono text-brand-red">cmfilings@upi</span></p>
                                     </div>
                                     <div class="bg-white p-2 rounded-lg border border-slate-200 shadow-sm shrink-0">
@@ -300,7 +318,7 @@
                 <!-- TRACKER TABLE SECTION -->
                 <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm mt-4">
                     <h3 class="text-lg font-bold text-brand-navy mb-6 flex items-center gap-2">
-                        <i data-lucide="list" class="w-5 h-5 text-brand-red"></i> Invoice Tracker
+                        <i data-lucide="list" class="w-5 h-5 text-brand-red"></i> Proforma Invoices Tracker
                     </h3>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-sm text-slate-600 whitespace-nowrap">
@@ -311,7 +329,7 @@
                                     <th class="px-4 py-3">Client Name</th>
                                     <th class="px-4 py-3">Amount</th>
                                     <th class="px-4 py-3">Status</th>
-                                    <th class="px-4 py-3 rounded-tr-lg text-right">Action</th>
+                                    <th class="px-4 py-3 rounded-tr-lg text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="tracker-body" class="divide-y divide-slate-100">
@@ -363,7 +381,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, setDoc, onSnapshot, query, orderBy, doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // ==========================================
         // ADD YOUR FIREBASE CONFIG HERE
@@ -381,6 +399,9 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // Required to initialize jsPDF
+        const { jsPDF } = window.jspdf;
+
         lucide.createIcons();
 
         // UI DOM Elements
@@ -397,9 +418,11 @@
         const invoiceForm = document.getElementById('invoice-form');
         const inputName = document.getElementById('inv-name');
         const inputMobile = document.getElementById('inv-mobile');
+        const inputClientId = document.getElementById('inv-client-id');
         const inputAmount = document.getElementById('inv-amount');
         const inputService = document.getElementById('inv-service');
-        const inputDesc = document.getElementById('inv-desc');
+        const inputPeriod = document.getElementById('inv-period');
+        const inputNarration = document.getElementById('inv-narration');
         const btnClear = document.getElementById('btn-clear-form');
         const btnGenerate = document.getElementById('btn-generate');
         const clientsListDatalist = document.getElementById('clients-list');
@@ -407,7 +430,8 @@
         // Output DOM
         const placeholder = document.getElementById('output-placeholder');
         const container = document.getElementById('output-container');
-        const btnDownload = document.getElementById('btn-download');
+        const btnDownloadJpg = document.getElementById('btn-download-jpg');
+        const btnDownloadPdf = document.getElementById('btn-download-pdf');
         const btnWhatsapp = document.getElementById('btn-send-wa');
         
         // Render Targets (Inside the Invoice)
@@ -415,8 +439,10 @@
         const renderDate = document.getElementById('render-date');
         const renderClientName = document.getElementById('render-client-name');
         const renderClientMobile = document.getElementById('render-client-mobile');
+        const renderClientIdDisplay = document.getElementById('render-client-id-display');
         const renderService = document.getElementById('render-service');
-        const renderDesc = document.getElementById('render-desc');
+        const renderPeriod = document.getElementById('render-period');
+        const renderNarration = document.getElementById('render-narration');
         const renderAmountRow = document.getElementById('render-amount-row');
         const renderAmountTotal = document.getElementById('render-amount-total');
         const renderQr = document.getElementById('render-qr');
@@ -432,7 +458,9 @@
         const btnSaveStatus = document.getElementById('btn-save-status');
 
         let clientsData = [];
-        let currentInvNo = "";
+        let currentInvNoDisplay = ""; // PI/DDMMYY/XXXXX
+        let currentDocId = ""; // PI-DDMMYY-XXXXX (Firebase safe)
+        let invoicesDataStore = {}; // Stores fetched invoices for instant viewing
 
         // ==========================================
         // AUTHENTICATION
@@ -478,10 +506,10 @@
         // ==========================================
         function loadClients() {
             onSnapshot(collection(db, 'clients'), (snapshot) => {
-                clientsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                clientsData = snapshot.docs.map(doc => ({ firebaseId: doc.id, ...doc.data() }));
                 clientsListDatalist.innerHTML = ''; 
                 clientsData.forEach(client => {
-                    const nameStr = client.ClientName || client.clientName || client.name || ''; 
+                    const nameStr = client.clientName || client.ClientName || client.name || ''; 
                     if(nameStr) {
                         const option = document.createElement('option');
                         option.value = nameStr;
@@ -493,97 +521,141 @@
 
         inputName.addEventListener('input', (e) => {
             const val = e.target.value.trim().toLowerCase();
+            inputClientId.value = ''; // Reset
+            
             const matchedClient = clientsData.find(c => {
-                const dbName = (c.ClientName || c.clientName || c.name || '').toLowerCase();
+                const dbName = (c.clientName || c.ClientName || c.name || '').toLowerCase();
                 return dbName === val;
             });
             if (matchedClient) {
-                inputMobile.value = matchedClient.Mobile || matchedClient.mobile || matchedClient.phone || '';
+                inputMobile.value = matchedClient.mobile || matchedClient.Mobile || matchedClient.phone || '';
+                // Check camelCase or PascalCase for Client ID from database
+                inputClientId.value = matchedClient.clientId || matchedClient.ClientId || matchedClient.firebaseId || '';
             }
         });
 
         btnClear.addEventListener('click', () => {
             invoiceForm.reset();
+            inputClientId.value = '';
             placeholder.classList.remove('hidden');
             container.classList.add('hidden');
         });
 
         // ==========================================
-        // INVOICE GENERATION (PIYYMMDD/RANDOM5)
+        // INVOICE GENERATION ENGINE
         // ==========================================
         function generateRandom5() {
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             let res = "";
             for(let i=0; i<5; i++) res += chars.charAt(Math.floor(Math.random() * chars.length));
             return res;
         }
+
+        // Render Invoice to Screen function (Reusable)
+        function renderInvoiceToScreen(invData) {
+            renderInvNo.textContent = invData.invoiceNo;
+            
+            // Format Date
+            const dateObj = new Date(invData.createdAt);
+            renderDate.textContent = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth()+1).padStart(2, '0')}/${dateObj.getFullYear()}`;
+            
+            renderClientName.textContent = invData.clientName;
+            renderClientMobile.textContent = "+91 " + invData.mobile;
+            
+            if(invData.clientId) {
+                renderClientIdDisplay.classList.remove('hidden');
+                renderClientIdDisplay.querySelector('span').textContent = invData.clientId;
+            } else {
+                renderClientIdDisplay.classList.add('hidden');
+            }
+
+            renderService.textContent = invData.serviceDescription;
+            
+            if(invData.period) {
+                renderPeriod.classList.remove('hidden');
+                renderPeriod.querySelector('.val').textContent = invData.period;
+            } else {
+                renderPeriod.classList.add('hidden');
+            }
+
+            if(invData.narration) {
+                renderNarration.classList.remove('hidden');
+                renderNarration.querySelector('.val').textContent = invData.narration;
+            } else {
+                renderNarration.classList.add('hidden');
+            }
+
+            renderAmountRow.textContent = invData.amount;
+            renderAmountTotal.textContent = invData.amount;
+
+            // Generate QR mapping to the correct display invoice number
+            const upiId = "cmfilings@upi";
+            const payeeName = encodeURIComponent("CM FILINGS");
+            const transactionNote = encodeURIComponent(`Inv: ${invData.invoiceNo}`);
+            const upiString = `upi://pay?pa=${upiId}&pn=${payeeName}&am=${invData.amount}&tr=${invData.invoiceNo}&cu=INR&tn=${transactionNote}`;
+            renderQr.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiString)}&margin=10`;
+
+            // WhatsApp Link
+            const clientUrl = `https://pay.cmfilings.com/client?ref=${encodeURIComponent(invData.invoiceNo)}&am=${invData.amount}&nm=${encodeURIComponent(invData.clientName)}&mb=${invData.mobile}`;
+            const waText = `Dear ${invData.clientName},%0A%0AHere is your Proforma Invoice for ${invData.serviceDescription}.%0A%0A*Invoice No:* ${invData.invoiceNo}%0A*Amount Due:* Rs ${invData.amount}%0A%0A*Pay Here:*%0A${clientUrl}%0A%0ARegards,%0ACM FILINGS Team`;
+            btnWhatsapp.href = `https://wa.me/91${invData.mobile}?text=${waText}`;
+
+            // Reveal
+            placeholder.classList.add('hidden');
+            container.classList.remove('hidden');
+            if(window.innerWidth < 1024) container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
 
         invoiceForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const name = inputName.value.trim();
             const mobile = inputMobile.value.trim();
+            const clientId = inputClientId.value.trim();
             const amount = parseFloat(inputAmount.value).toFixed(2);
-            const service = inputService.value;
-            const desc = inputDesc.value.trim() || service;
+            const service = inputService.value.trim();
+            const period = inputPeriod.value.trim();
+            const narration = inputNarration.value.trim();
 
-            // Generate Invoice No: PI + YYMMDD + / + RANDOM5
+            // Structure: PI/DDMMYY/XXXXX
             const date = new Date();
-            const yy = String(date.getFullYear()).slice(-2);
-            const mm = String(date.getMonth() + 1).padStart(2, '0');
             const dd = String(date.getDate()).padStart(2, '0');
+            const mm = String(date.getMonth() + 1).padStart(2, '0');
+            const yy = String(date.getFullYear()).slice(-2);
             const random5 = generateRandom5();
-            currentInvNo = `PI${yy}${mm}${dd}/${random5}`;
             
-            const displayDate = `${dd}/${mm}/20${yy}`;
-
-            // Build QR URL
-            const upiId = "cmfilings@upi";
-            const payeeName = encodeURIComponent("CM FILINGS");
-            const transactionNote = encodeURIComponent(`Inv: ${currentInvNo}`);
-            const upiString = `upi://pay?pa=${upiId}&pn=${payeeName}&am=${amount}&tr=${currentInvNo}&cu=INR&tn=${transactionNote}`;
-            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiString)}&margin=10`;
+            // Display No: PI/DDMMYY/XXXXX  | Firestore Doc ID: PI-DDMMYY-XXXXX (Firebase forbids slashes in doc IDs)
+            currentInvNoDisplay = `PI/${dd}${mm}${yy}/${random5}`;
+            currentDocId = `PI-${dd}${mm}${yy}-${random5}`;
 
             const originalBtnHtml = btnGenerate.innerHTML;
             btnGenerate.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Generating...`;
             btnGenerate.disabled = true;
             lucide.createIcons();
 
+            const newInvoiceData = {
+                invoiceNo: currentInvNoDisplay,
+                clientName: name,
+                clientId: clientId,
+                mobile: mobile,
+                amount: Number(amount),
+                serviceDescription: service,
+                period: period,
+                narration: narration,
+                status: 'Unpaid',
+                clientUrl: `https://pay.cmfilings.com/client?ref=${encodeURIComponent(currentInvNoDisplay)}&am=${amount}&nm=${encodeURIComponent(name)}&mb=${mobile}`,
+                createdAt: date.toISOString() 
+            };
+
             try {
-                // Save to Firestore 'invoices' collection
-                await addDoc(collection(db, 'invoices'), {
-                    InvoiceNo: currentInvNo,
-                    ClientName: name,
-                    Mobile: mobile,
-                    Amount: Number(amount),
-                    Service: service,
-                    Desc: desc,
-                    Status: 'Unpaid',
-                    CreatedAt: date.toISOString() 
-                });
+                // Save to Firestore 'proformaInvoice' collection using precise Document ID
+                await setDoc(doc(db, 'proformaInvoice', currentDocId), newInvoiceData);
 
-                // Render Data into Invoice View
-                renderInvNo.textContent = currentInvNo;
-                renderDate.textContent = displayDate;
-                renderClientName.textContent = name;
-                renderClientMobile.textContent = "+91 " + mobile;
-                renderService.textContent = service;
-                renderDesc.textContent = desc;
-                renderAmountRow.textContent = amount;
-                renderAmountTotal.textContent = amount;
-                renderQr.src = qrUrl;
-
-                // Build WhatsApp Link (Payment Link logic to client portal)
-                const clientUrl = `https://pay.cmfilings.com/client?ref=${encodeURIComponent(currentInvNo)}&am=${amount}&nm=${encodeURIComponent(name)}&mb=${mobile}&desc=${encodeURIComponent(desc)}`;
-                const waText = `Dear ${name},%0A%0AHere is the billing detail for ${service}.%0A%0A*Invoice No:* ${currentInvNo}%0A*Amount Due:* Rs ${amount}%0A%0A*Payment Link:*%0A${clientUrl}%0A%0A_A copy of the digital invoice can be requested if needed._%0A%0ARegards,%0ACM FILINGS Team`;
-                btnWhatsapp.href = `https://wa.me/91${mobile}?text=${waText}`;
-
-                // Show UI
-                placeholder.classList.add('hidden');
-                container.classList.remove('hidden');
-                if(window.innerWidth < 1024) container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
+                // Render Data locally to screen instantly
+                renderInvoiceToScreen(newInvoiceData);
                 invoiceForm.reset();
+                inputClientId.value = '';
 
             } catch (error) {
                 console.error("Error saving invoice: ", error);
@@ -596,48 +668,77 @@
         });
 
         // ==========================================
-        // DOWNLOAD INVOICE AS IMAGE (html2canvas)
+        // DOWNLOAD INVOICE (JPEG & PDF via html2canvas/jsPDF)
         // ==========================================
-        btnDownload.addEventListener('click', () => {
-            const originalHtml = btnDownload.innerHTML;
-            btnDownload.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Rendering...`;
+        
+        async function getCanvas() {
+            // Helper to get crisp canvas rendering
+            return await html2canvas(invoiceRenderTarget, {
+                scale: 2, 
+                useCORS: true,
+                backgroundColor: "#ffffff"
+            });
+        }
+
+        btnDownloadJpg.addEventListener('click', async () => {
+            const originalHtml = btnDownloadJpg.innerHTML;
+            btnDownloadJpg.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>`;
             lucide.createIcons();
 
-            // Wait a split second to ensure fonts/images are fully loaded
-            setTimeout(() => {
-                html2canvas(invoiceRenderTarget, {
-                    scale: 2, // High resolution
-                    useCORS: true,
-                    backgroundColor: "#ffffff"
-                }).then(canvas => {
-                    const link = document.createElement('a');
-                    link.download = `${currentInvNo.replace(/\//g, '_')}.png`;
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-                    
-                    btnDownload.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i> Downloaded`;
-                    lucide.createIcons();
-                    setTimeout(() => {
-                        btnDownload.innerHTML = originalHtml;
-                        lucide.createIcons();
-                    }, 2000);
-                }).catch(err => {
-                    console.error("Render Error:", err);
-                    alert("Failed to render image. Ensure your browser allows canvas reading.");
-                    btnDownload.innerHTML = originalHtml;
-                    lucide.createIcons();
-                });
-            }, 300);
+            try {
+                const canvas = await getCanvas();
+                const link = document.createElement('a');
+                link.download = `${renderInvNo.textContent.replace(/\//g, '_')}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (err) {
+                console.error("Render Error:", err);
+                alert("Failed to render image.");
+            } finally {
+                btnDownloadJpg.innerHTML = originalHtml;
+                lucide.createIcons();
+            }
+        });
+
+        btnDownloadPdf.addEventListener('click', async () => {
+            const originalHtml = btnDownloadPdf.innerHTML;
+            btnDownloadPdf.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>`;
+            lucide.createIcons();
+
+            try {
+                const canvas = await getCanvas();
+                const imgData = canvas.toDataURL('image/png');
+                
+                // Calculate dimensions for A4
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                // Padding of 10mm on each side
+                const paddedWidth = pdfWidth - 20; 
+                const imgProps = pdf.getImageProperties(imgData);
+                const pdfHeight = (imgProps.height * paddedWidth) / imgProps.width;
+
+                pdf.addImage(imgData, 'PNG', 10, 10, paddedWidth, pdfHeight);
+                pdf.save(`${renderInvNo.textContent.replace(/\//g, '_')}.pdf`);
+                
+            } catch (err) {
+                console.error("PDF Generation Error:", err);
+                alert("Failed to generate PDF.");
+            } finally {
+                btnDownloadPdf.innerHTML = originalHtml;
+                lucide.createIcons();
+            }
         });
 
         // ==========================================
-        // FIRESTORE: TRACKER TABLE
+        // FIRESTORE: TRACKER TABLE & VIEW ACTION
         // ==========================================
         function loadInvoices() {
-            const q = query(collection(db, 'invoices'), orderBy('CreatedAt', 'desc'));
+            const q = query(collection(db, 'proformaInvoice'), orderBy('createdAt', 'desc'));
             
             onSnapshot(q, (snapshot) => {
                 trackerBody.innerHTML = '';
+                invoicesDataStore = {}; // reset store
+
                 if(snapshot.empty) {
                     trackerBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-slate-400">No invoices generated yet.</td></tr>`;
                     return;
@@ -646,27 +747,33 @@
                 snapshot.forEach(docSnap => {
                     const data = docSnap.data();
                     const id = docSnap.id;
-                    const dateObj = new Date(data.CreatedAt);
-                    const formattedDate = `${dateObj.getDate()}/${dateObj.getMonth()+1}/${dateObj.getFullYear()}`;
+                    invoicesDataStore[id] = data; // Cache data for instant viewing
+
+                    const dateObj = new Date(data.createdAt);
+                    const formattedDate = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth()+1).padStart(2, '0')}/${dateObj.getFullYear()}`;
                     
                     let statusBadge = '';
-                    if(data.Status === 'Paid') statusBadge = `<span class="bg-emerald-50 text-emerald-600 border border-emerald-200 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider"><i data-lucide="check-circle-2" class="w-3 h-3 inline pb-0.5"></i> Paid</span>`;
-                    else if(data.Status === 'Cancelled') statusBadge = `<span class="bg-slate-100 text-slate-500 border border-slate-200 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Cancelled</span>`;
+                    if(data.status === 'Paid') statusBadge = `<span class="bg-emerald-50 text-emerald-600 border border-emerald-200 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider"><i data-lucide="check-circle-2" class="w-3 h-3 inline pb-0.5"></i> Paid</span>`;
+                    else if(data.status === 'Cancelled') statusBadge = `<span class="bg-slate-100 text-slate-500 border border-slate-200 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Cancelled</span>`;
                     else statusBadge = `<span class="bg-amber-50 text-amber-600 border border-amber-200 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider"><i data-lucide="clock" class="w-3 h-3 inline pb-0.5"></i> Unpaid</span>`;
 
                     const tr = document.createElement('tr');
                     tr.className = "hover:bg-slate-50 transition-colors group";
                     tr.innerHTML = `
                         <td class="px-4 py-3 font-mono text-xs text-slate-400">${formattedDate}</td>
-                        <td class="px-4 py-3 font-mono text-xs font-bold text-brand-red">${data.InvoiceNo}</td>
-                        <td class="px-4 py-3 font-bold text-brand-navy truncate max-w-[150px]">${data.ClientName}</td>
-                        <td class="px-4 py-3 font-bold text-slate-700">₹${data.Amount}</td>
+                        <td class="px-4 py-3 font-mono text-xs font-bold text-brand-red">${data.invoiceNo}</td>
+                        <td class="px-4 py-3 font-bold text-brand-navy truncate max-w-[150px]">${data.clientName}</td>
+                        <td class="px-4 py-3 font-bold text-slate-700">₹${data.amount}</td>
                         <td class="px-4 py-3">${statusBadge}</td>
                         <td class="px-4 py-3 text-right">
-                            <button class="btn-edit-status p-1.5 text-slate-400 hover:text-brand-red bg-white border border-slate-200 rounded shadow-sm hover:shadow transition-all opacity-0 group-hover:opacity-100" 
-                                data-id="${id}" data-ref="${data.InvoiceNo}" data-status="${data.Status}">
-                                <i data-lucide="edit-2" class="w-3.5 h-3.5 pointer-events-none"></i>
-                            </button>
+                            <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="btn-view-inv p-1.5 text-slate-400 hover:text-brand-navy bg-white border border-slate-200 rounded shadow-sm transition-all" data-id="${id}" title="View Invoice">
+                                    <i data-lucide="eye" class="w-3.5 h-3.5 pointer-events-none"></i>
+                                </button>
+                                <button class="btn-edit-status p-1.5 text-slate-400 hover:text-brand-red bg-white border border-slate-200 rounded shadow-sm transition-all" data-id="${id}" data-ref="${data.invoiceNo}" data-status="${data.status}" title="Update Status">
+                                    <i data-lucide="edit-2" class="w-3.5 h-3.5 pointer-events-none"></i>
+                                </button>
+                            </div>
                         </td>
                     `;
                     trackerBody.appendChild(tr);
@@ -675,12 +782,24 @@
             });
         }
 
+        // Handle Table Actions
         trackerBody.addEventListener('click', (e) => {
-            const btn = e.target.closest('.btn-edit-status');
-            if(btn) {
-                editDocId.value = btn.getAttribute('data-id');
-                editRef.textContent = btn.getAttribute('data-ref');
-                editStatus.value = btn.getAttribute('data-status');
+            // View Action
+            const btnView = e.target.closest('.btn-view-inv');
+            if(btnView) {
+                const docId = btnView.getAttribute('data-id');
+                const invData = invoicesDataStore[docId];
+                if(invData) {
+                    renderInvoiceToScreen(invData);
+                }
+            }
+
+            // Edit Action
+            const btnEdit = e.target.closest('.btn-edit-status');
+            if(btnEdit) {
+                editDocId.value = btnEdit.getAttribute('data-id');
+                editRef.textContent = btnEdit.getAttribute('data-ref');
+                editStatus.value = btnEdit.getAttribute('data-status');
                 editModal.classList.remove('hidden');
             }
         });
@@ -696,8 +815,8 @@
             lucide.createIcons();
 
             try {
-                const docRef = doc(db, 'invoices', id);
-                await updateDoc(docRef, { Status: newStatus });
+                const docRef = doc(db, 'proformaInvoice', id);
+                await updateDoc(docRef, { status: newStatus });
                 editModal.classList.add('hidden');
             } catch (error) {
                 console.error("Error updating:", error);
