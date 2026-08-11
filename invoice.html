@@ -60,6 +60,7 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         
+        /* Specific print/render styles for the invoice card */
         .invoice-paper {
             background: #ffffff;
             box-shadow: 0 10px 40px rgba(0,0,0,0.05);
@@ -577,7 +578,8 @@
         function renderInvoiceToScreen(invData) {
             renderInvNo.textContent = invData.invoiceNo;
             const dateObj = new Date(invData.createdAt);
-            renderDate.textContent = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth()+1).padStart(2, '0')}/${dateObj.getFullYear()}`;
+            const displayDate = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth()+1).padStart(2, '0')}/${dateObj.getFullYear()}`;
+            renderDate.textContent = displayDate;
             
             renderClientName.textContent = invData.clientName;
             renderClientMobile.textContent = "+91 " + invData.mobile;
@@ -614,8 +616,8 @@
             const upiString = `upi://pay?pa=${upiId}&pn=${payeeName}&am=${invData.amount}&tr=${invData.invoiceNo}&cu=INR&tn=${transactionNote}`;
             renderQr.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiString)}&margin=10`;
 
-            const clientUrl = invData.clientUrl || `https://pay.cmfilings.com/client?ref=${encodeURIComponent(invData.invoiceNo)}&am=${invData.amount}&nm=${encodeURIComponent(invData.clientName)}&mb=${invData.mobile}`;
-            const waText = `Dear ${invData.clientName},%0A%0AHere is your Proforma Invoice for ${invData.serviceDescription}.%0A%0A*Invoice No:* ${invData.invoiceNo}%0A*Amount Due:* Rs ${invData.amount}%0A%0A*Pay Here:*%0A${clientUrl}%0A%0ARegards,%0ACM FILINGS Team`;
+            const clientUrl = invData.clientUrl;
+            const waText = `*Amount Reminder*%0A%0ADear. ${invData.clientName}%0AGreetings From CM Filings%0A%0A*Proforma Invoice Details*%0ADate: ${displayDate}%0AAmount: Rs ${invData.amount}%0ADescription: ${invData.serviceDescription}%0A%0A*Total Due: Rs ${invData.amount}*%0A%0A*View & Pay*%0AClick here: ${clientUrl}`;
             btnWhatsapp.href = `https://wa.me/91${invData.mobile}?text=${waText}`;
 
             placeholder.classList.add('hidden');
@@ -658,7 +660,7 @@
                 period: period,
                 narration: narration,
                 status: 'Unpaid',
-                clientUrl: `https://pay.cmfilings.com/client?ref=${encodeURIComponent(currentInvNoDisplay)}&am=${amount}&nm=${encodeURIComponent(name)}&mb=${mobile}`,
+                clientUrl: `https://client.cmfilings.com/invoice/index.html?id=${currentDocId}`,
                 createdAt: date.toISOString() 
             };
 
