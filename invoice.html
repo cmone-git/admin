@@ -146,7 +146,7 @@
                     <p class="text-slate-500 font-medium mt-2">Manage outstanding payments and create professional proforma invoices automatically.</p>
                 </div>
 
-                <!-- PREMIUM KPI CARDS (MOVED TO TOP) -->
+                <!-- PREMIUM KPI CARDS -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                     <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex items-center gap-6 relative overflow-hidden group">
                         <div class="absolute -right-6 -top-6 w-32 h-32 bg-amber-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
@@ -677,6 +677,7 @@
 
             const clientUrl = invData.clientUrl;
             
+            // EXACT WHATSAPP FORMAT APPLIED HERE
             const waText = `*Amount Reminder*%0A%0ADear. ${invData.clientName}%0AGreetings From CM Filings%0A%0A*Proforma Invoice Details*%0ADate: ${displayDate}%0AAmount: Rs ${invData.amount}%0ADescription: ${invData.serviceDescription}%0A%0A*Total Due: Rs ${invData.amount}*%0A%0A*View & Pay*%0AClick here: ${clientUrl}`;
             btnWhatsapp.href = `https://wa.me/91${invData.mobile}?text=${waText}`;
 
@@ -705,6 +706,7 @@
             
             const safeClientId = clientIdRaw ? clientIdRaw.toUpperCase().replace(/[^A-Z0-9]/g, '') : generateRandom5();
 
+            // Firebase doesn't allow slashes in Document ID, so we use hyphens for the docId
             currentInvNoDisplay = `PI/${dd}${mm}${yy}/${hh}${mins}/${safeClientId}`;
             currentDocId = `PI-${dd}${mm}${yy}-${hh}${mins}-${safeClientId}`;
 
@@ -724,7 +726,9 @@
                 narration: narration,
                 status: 'Unpaid',
                 clientUrl: `https://client.cmfilings.com/invoice/index.html?id=${currentDocId}`,
-                createdAt: date.toISOString() 
+                createdAt: date.toISOString(),
+                updatedAt: date.toISOString(),
+                createdBy: auth.currentUser ? auth.currentUser.email : 'Admin'
             };
 
             try {
@@ -932,7 +936,10 @@
 
             try {
                 const docRef = doc(db, 'proformaInvoice', id);
-                await updateDoc(docRef, { status: newStatus });
+                await updateDoc(docRef, { 
+                    status: newStatus,
+                    updatedAt: new Date().toISOString()
+                });
                 editModal.classList.add('hidden');
             } catch (error) {
                 console.error("Error updating:", error);
