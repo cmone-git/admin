@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In - CM FILINGS Admin</title>
+    <title>Corporate Dashboard - CM FILINGS</title>
     
     <!-- PWA & Favicon Assets -->
     <link rel="icon" type="image/png" href="logo.png">
@@ -52,85 +52,300 @@
             background-image: radial-gradient(rgba(7, 29, 73, 0.05) 1px, transparent 1px);
             background-size: 28px 28px;
         }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        
+        /* Smooth module view transition */
+        .module-frame {
+            animation: fadeIn 0.25s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
-<body class="font-sans text-slate-700 bg-brand-light antialiased selection:bg-brand-redlight selection:text-brand-red flex flex-col min-h-screen">
+<body class="font-sans text-slate-700 bg-brand-light antialiased selection:bg-brand-redlight selection:text-brand-red flex flex-col h-screen overflow-hidden">
 
-    <!-- MAIN LOGIN CONTAINER -->
-    <div class="flex-1 hero-pattern flex flex-col items-center justify-center p-4 min-h-screen">
-        <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-slate-200 w-full max-w-md">
-            
-            <div class="flex flex-col items-center mb-8 text-center">
-                <div class="w-14 h-14 bg-brand-navy rounded-2xl flex items-center justify-center text-white shadow-sm mb-4">
-                    <i data-lucide="shield-check" class="w-7 h-7"></i>
+    <!-- APP LOADER -->
+    <div id="app-loader" class="fixed inset-0 bg-brand-light z-[200] flex flex-col items-center justify-center">
+        <i data-lucide="loader-2" class="w-10 h-10 text-brand-navy animate-spin mb-4"></i>
+        <p class="text-sm font-bold text-slate-500 tracking-widest uppercase">Loading Corporate Workspace...</p>
+    </div>
+
+    <!-- MAIN APP WRAPPER -->
+    <div id="main-app" class="hidden flex h-screen w-screen overflow-hidden">
+        
+        <!-- SIDEBAR (Desktop View) -->
+        <aside class="hidden lg:flex flex-col w-64 bg-brand-navy border-r border-slate-800 text-white shrink-0 z-40">
+            <!-- Brand Header -->
+            <div class="h-20 flex items-center px-6 gap-3 border-b border-slate-800/80">
+                <div class="w-10 h-10 bg-brand-red rounded-xl flex items-center justify-center text-white shadow-md">
+                    <i data-lucide="shield-check" class="w-5 h-5"></i>
                 </div>
-                <h1 class="text-2xl font-extrabold text-brand-navy tracking-tight">CM FILINGS</h1>
-                <p class="text-[10px] font-bold text-brand-red uppercase tracking-widest mt-1">Secure Portal Sign In</p>
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-lg tracking-tight leading-none text-white">CM FILINGS</span>
+                    <span class="text-[9px] font-bold text-brand-red uppercase tracking-widest leading-none mt-1">Enterprise Suite</span>
+                </div>
             </div>
 
-            <!-- Error Notification Banner -->
-            <div id="auth-error" class="hidden bg-brand-redlight text-brand-red text-xs font-bold p-3 rounded-xl border border-brand-red/20 mb-5 text-center"></div>
-            
-            <!-- Success Notification Banner -->
-            <div id="auth-success" class="hidden bg-emerald-50 text-emerald-600 text-xs font-bold p-3 rounded-xl border border-emerald-200 mb-5 text-center"></div>
-
-            <!-- SIGN IN FORM -->
-            <form id="signin-form" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Admin Email</label>
-                    <input type="email" id="signin-email" required class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-slate-50 font-medium text-slate-800 text-sm" placeholder="admin@cmfilings.com">
-                </div>
+            <!-- Navigation Links -->
+            <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-1.5">
+                <p class="px-3 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-3">Main Dashboard</p>
                 
-                <div>
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Password</label>
-                        <button type="button" id="btn-forgot-trigger" class="text-xs font-bold text-brand-red hover:underline">Forgot password?</button>
-                    </div>
-                    <!-- Password Input Container with View Icon Toggle -->
-                    <div class="relative">
-                        <input type="password" id="signin-password" required class="w-full px-4 py-3.5 pr-12 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-slate-50 font-medium text-slate-800 text-sm" placeholder="••••••••">
-                        <button type="button" id="btn-toggle-password" class="absolute right-3.5 top-3.5 text-slate-400 hover:text-slate-600 transition-colors" title="Toggle Password Visibility">
-                            <i data-lucide="eye" id="eye-icon" class="w-5 h-5"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <button type="submit" id="btn-submit" class="w-full py-4 bg-brand-red text-white font-bold rounded-xl shadow-[0_8px_20px_rgb(177,0,0,0.2)] hover:bg-brand-redhover transition-colors flex items-center justify-center gap-2 mt-2 text-sm">
-                    <i data-lucide="log-in" class="w-5 h-5"></i> Sign In to Dashboard
+                <button onclick="switchModule('home', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl font-bold text-xs bg-brand-red text-white shadow-sm transition-all">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Overview & Widgets
                 </button>
-            </form>
-        </div>
 
-        <div class="mt-8 text-center text-xs font-medium text-slate-400">
-            &copy; 2026 CM Filings. All rights reserved.
-        </div>
-    </div>
+                <p class="px-3 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mt-6 mb-3">Entity & Masters</p>
+                <button onclick="switchModule('company.html', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+                    <i data-lucide="building" class="w-4 h-4 text-brand-red"></i> Company Master
+                </button>
+                <button onclick="switchModule('branch.html', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+                    <i data-lucide="git-branch" class="w-4 h-4 text-brand-red"></i> Branch Master
+                </button>
+                <button onclick="switchModule('bank.html', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+                    <i data-lucide="landmark" class="w-4 h-4 text-brand-red"></i> Bank Master
+                </button>
 
-    <!-- FORGOT PASSWORD MODAL -->
-    <div id="forgot-modal" class="hidden fixed inset-0 bg-brand-navy/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-bold text-brand-navy">Reset Password</h3>
-                <button id="btn-close-modal" class="text-slate-400 hover:text-brand-red"><i data-lucide="x" class="w-5 h-5"></i></button>
+                <p class="px-3 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mt-6 mb-3">Operations & Vault</p>
+                <button onclick="switchModule('clients.html', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+                    <i data-lucide="users" class="w-4 h-4 text-brand-red"></i> Clients Directory
+                </button>
+                <button onclick="switchModule('credentials.html', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+                    <i data-lucide="key-round" class="w-4 h-4 text-brand-red"></i> Credentials Vault
+                </button>
+                <button onclick="switchModule('compliance.html', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+                    <i data-lucide="shield-alert" class="w-4 h-4 text-brand-red"></i> Compliance Engine
+                </button>
+
+                <p class="px-3 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mt-6 mb-3">Finance & Billing</p>
+                <button onclick="switchModule('transactions.html', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+                    <i data-lucide="receipt" class="w-4 h-4 text-brand-red"></i> Transactions
+                </button>
+                <button onclick="switchModule('invoice.html', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+                    <i data-lucide="file-text" class="w-4 h-4 text-brand-red"></i> Invoice Generator
+                </button>
+                <button onclick="switchModule('qr.html', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+                    <i data-lucide="qr-code" class="w-4 h-4 text-brand-red"></i> UPI QR Center
+                </button>
+
+                <p class="px-3 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mt-6 mb-3">System & Tools</p>
+                <button onclick="switchModule('user.html', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+                    <i data-lucide="user-cog" class="w-4 h-4 text-brand-red"></i> User Management
+                </button>
+                <button onclick="switchModule('report.html', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+                    <i data-lucide="bar-chart-3" class="w-4 h-4 text-brand-red"></i> Reports Vault
+                </button>
+                <button onclick="switchModule('data.html', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+                    <i data-lucide="database" class="w-4 h-4 text-brand-red"></i> Data Importer
+                </button>
+            </nav>
+
+            <!-- Auth Quick Link / Signin / Signup access -->
+            <div class="p-4 border-t border-slate-800/80 space-y-2">
+                <button onclick="switchModule('signin.html', this)" class="w-full py-2 bg-white/10 text-white rounded-lg font-bold text-[11px] hover:bg-white/20 transition-all">
+                    Sign In / Auth View (`index.html`)
+                </button>
+                <button onclick="switchModule('signup.html', this)" class="w-full py-2 bg-brand-red/20 text-brand-red rounded-lg font-bold text-[11px] hover:bg-brand-red/30 transition-all">
+                    Register User (`signup.html`)
+                </button>
             </div>
-            <p class="text-xs text-slate-500 mb-5 leading-relaxed">Enter your registered admin email address below, and we will send you a secure password reset link.</p>
+        </aside>
+
+        <!-- CONTENT AREA CONTAINER -->
+        <div class="flex-1 flex flex-col h-screen overflow-hidden">
             
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Email Address</label>
-                    <input type="email" id="reset-email" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs outline-none bg-slate-50 font-medium" placeholder="name@cmfilings.com">
+            <!-- FIXED TOP HEADER -->
+            <header class="h-20 bg-white/90 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-6 shrink-0 z-30">
+                <div class="flex items-center gap-4">
+                    <div class="lg:hidden w-10 h-10 bg-brand-navy rounded-xl flex items-center justify-center text-white">
+                        <i data-lucide="shield-check" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 id="header-module-title" class="text-base sm:text-lg font-extrabold text-brand-navy tracking-tight">Executive Dashboard</h2>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest hidden sm:block">CM Filings Enterprise Workspace</p>
+                    </div>
                 </div>
-                <button type="button" id="btn-send-reset" class="w-full py-3.5 bg-brand-navy text-white font-bold rounded-xl shadow-md hover:bg-brand-navyhover transition-colors flex items-center justify-center gap-2 text-xs">
-                    Send Reset Link
+
+                <div class="flex items-center gap-4">
+                    <div class="hidden sm:flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-600">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> 
+                        <span id="admin-user-email">Admin Online</span>
+                    </div>
+                    <button onclick="handleLogout()" class="p-2.5 text-slate-400 hover:text-brand-red bg-slate-50 hover:bg-brand-redlight border border-slate-200 rounded-xl transition-all" title="Sign Out">
+                        <i data-lucide="log-out" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- DYNAMIC MODULE VIEWPORT (Where modules render without moving pages) -->
+            <main id="viewport-container" class="flex-1 overflow-y-auto hero-pattern p-4 sm:p-6 lg:p-8">
+                
+                <!-- DEFAULT DASHBOARD OVERVIEW VIEWLET -->
+                <div id="default-home-view" class="module-frame space-y-8 max-w-7xl mx-auto pb-12">
+                    
+                    <!-- KPI Analytics Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4 relative overflow-hidden">
+                            <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 shrink-0">
+                                <i data-lucide="clock" class="w-7 h-7"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1">Pending Compliance</p>
+                                <h3 class="text-3xl font-black text-brand-navy leading-none" id="kpi-pending-comp">14</h3>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4 relative overflow-hidden">
+                            <div class="w-14 h-14 bg-brand-redlight rounded-2xl flex items-center justify-center text-brand-red shrink-0">
+                                <i data-lucide="indian-rupee" class="w-7 h-7"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1">Total Outstanding Dues</p>
+                                <h3 class="text-3xl font-black text-brand-red leading-none" id="kpi-total-dues">₹48,500</h3>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4 relative overflow-hidden">
+                            <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shrink-0">
+                                <i data-lucide="alert-triangle" class="w-7 h-7"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1">Priority Tasks Due</p>
+                                <h3 class="text-3xl font-black text-brand-navy leading-none" id="kpi-priority-tasks">3</h3>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4 relative overflow-hidden">
+                            <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shrink-0">
+                                <i data-lucide="users" class="w-7 h-7"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1">Active Clients</p>
+                                <h3 class="text-3xl font-black text-brand-navy leading-none" id="kpi-active-clients">341</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Priority Tasks & Calendar Grid -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                        
+                        <!-- Priority Pending Task Compliance Table -->
+                        <div class="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-base font-extrabold text-brand-navy flex items-center gap-2">
+                                    <i data-lucide="alert-octagon" class="w-5 h-5 text-brand-red"></i> Priority Pending Task Compliance
+                                </h3>
+                                <button onclick="switchModule('compliance.html')" class="text-xs font-bold text-brand-red hover:underline">View All</button>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs text-slate-600 whitespace-nowrap">
+                                    <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[9px] tracking-wider border-b border-slate-200">
+                                        <tr>
+                                            <th class="py-3 px-3 rounded-tl-lg">Task / Filing</th>
+                                            <th class="py-3 px-3">Client Name</th>
+                                            <th class="py-3 px-3">Due Date</th>
+                                            <th class="py-3 px-3 rounded-tr-lg">Priority Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 font-medium">
+                                        <tr>
+                                            <td class="py-3 px-3 font-bold text-brand-navy">GSTR-3B Return</td>
+                                            <td class="py-3 px-3">A-FOUR ENTERPRISES</td>
+                                            <td class="py-3 px-3 font-mono text-brand-red font-bold">20/08/2026</td>
+                                            <td class="py-3 px-3"><span class="bg-brand-redlight text-brand-red px-2 py-0.5 rounded text-[10px] font-bold">Urgent</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3 px-3 font-bold text-brand-navy">TDS Q1 Return</td>
+                                            <td class="py-3 px-3">AARON SOFAS</td>
+                                            <td class="py-3 px-3 font-mono text-amber-600 font-bold">25/08/2026</td>
+                                            <td class="py-3 px-3"><span class="bg-amber-50 text-amber-600 px-2 py-0.5 rounded text-[10px] font-bold">High</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3 px-3 font-bold text-brand-navy">Income Tax Audit</td>
+                                            <td class="py-3 px-3">ABDUL KAREEM</td>
+                                            <td class="py-3 px-3 font-mono text-slate-600 font-bold">30/08/2026</td>
+                                            <td class="py-3 px-3"><span class="bg-blue-50 text-blue-600 px-2 py-0.5 rounded text-[10px] font-bold">Normal</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Calendar-wise Schedule Widget -->
+                        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                            <h3 class="text-base font-extrabold text-brand-navy mb-4 flex items-center gap-2">
+                                <i data-lucide="calendar" class="w-5 h-5 text-brand-navy"></i> Calendar Schedule
+                            </h3>
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center mb-4">
+                                <p class="text-xs font-extrabold text-brand-navy uppercase tracking-wider" id="calendar-month-year">August 2026</p>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 rounded-xl border border-slate-100 bg-brand-red/5">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-brand-red text-white flex items-center justify-center font-bold text-xs">20</div>
+                                        <div>
+                                            <p class="text-xs font-bold text-brand-navy">GST Return Deadlines</p>
+                                            <p class="text-[10px] text-slate-400">8 Filings Scheduled</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-brand-red">Due Soon</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 rounded-xl border border-slate-100 bg-slate-50">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-brand-navy text-white flex items-center justify-center font-bold text-xs">25</div>
+                                        <div>
+                                            <p class="text-xs font-bold text-brand-navy">TDS Submissions</p>
+                                            <p class="text-[10px] text-slate-400">4 Filings Scheduled</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-slate-500">Upcoming</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- DYNAMIC EMBEDDED MODULE CONTAINER -->
+                <div id="dynamic-module-slot" class="hidden module-frame w-full h-full"></div>
+
+            </main>
+
+            <!-- BOTTOM MOBILE NAVIGATION BAR -->
+            <nav class="lg:hidden h-16 bg-white border-t border-slate-200 flex items-center justify-around px-2 shrink-0 z-30">
+                <button onclick="switchModule('home', this)" class="mobile-nav-btn flex flex-col items-center justify-center text-brand-red">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span class="text-[9px] font-bold mt-1">Home</span>
                 </button>
-            </div>
+                <button onclick="switchModule('clients.html', this)" class="mobile-nav-btn flex flex-col items-center justify-center text-slate-400 hover:text-brand-navy">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span class="text-[9px] font-bold mt-1">Clients</span>
+                </button>
+                <button onclick="switchModule('compliance.html', this)" class="mobile-nav-btn flex flex-col items-center justify-center text-slate-400 hover:text-brand-navy">
+                    <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                    <span class="text-[9px] font-bold mt-1">Compliance</span>
+                </button>
+                <button onclick="switchModule('invoice.html', this)" class="mobile-nav-btn flex flex-col items-center justify-center text-slate-400 hover:text-brand-navy">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                    <span class="text-[9px] font-bold mt-1">Invoices</span>
+                </button>
+                <button onclick="switchModule('credentials.html', this)" class="mobile-nav-btn flex flex-col items-center justify-center text-slate-400 hover:text-brand-navy">
+                    <i data-lucide="key-round" class="w-5 h-5"></i>
+                    <span class="text-[9px] font-bold mt-1">Vault</span>
+                </button>
+            </nav>
+
         </div>
     </div>
 
-    <!-- FIREBASE & AUTH LOGIC -->
+    <!-- CORE DASHBOARD SCRIPT: Single-Page Dynamic Module Injector & Firebase Auth -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
@@ -144,100 +359,87 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        lucide.createIcons();
+        const appLoader = document.getElementById('app-loader');
+        const mainApp = document.getElementById('main-app');
+        const adminUserEmail = document.getElementById('admin-user-email');
+        
+        const homeView = document.getElementById('default-home-view');
+        const dynamicSlot = document.getElementById('dynamic-module-slot');
+        const headerTitle = document.getElementById('header-module-title');
 
-        const signinForm = document.getElementById('signin-form');
-        const inputEmail = document.getElementById('signin-email');
-        const inputPassword = document.getElementById('signin-password');
-        const btnSubmit = document.getElementById('btn-submit');
-        const authError = document.getElementById('auth-error');
-        const authSuccess = document.getElementById('auth-success');
-
-        const btnTogglePassword = document.getElementById('btn-toggle-password');
-        const eyeIcon = document.getElementById('eye-icon');
-
-        const forgotModal = document.getElementById('forgot-modal');
-        const btnForgotTrigger = document.getElementById('btn-forgot-trigger');
-        const btnCloseModal = document.getElementById('btn-close-modal');
-        const resetEmail = document.getElementById('reset-email');
-        const btnSendReset = document.getElementById('btn-send-reset');
-
-        // Check if already signed in, auto-redirect to home/generator
+        // Check authentication state
         onAuthStateChanged(auth, (user) => {
+            appLoader.classList.add('hidden');
+            mainApp.classList.remove('hidden');
             if (user) {
-                window.location.href = "index.html";
-            }
-        });
-
-        // Toggle Password Visibility (View Icon)
-        btnTogglePassword.addEventListener('click', () => {
-            if (inputPassword.type === 'password') {
-                inputPassword.type = 'text';
-                btnTogglePassword.innerHTML = `<i data-lucide="eye-off" class="w-5 h-5"></i>`;
+                adminUserEmail.textContent = user.email;
             } else {
-                inputPassword.type = 'password';
-                btnTogglePassword.innerHTML = `<i data-lucide="eye" class="w-5 h-5"></i>`;
-            }
-            lucide.createIcons();
-        });
-
-        // Sign In Form Submission
-        signinForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = inputEmail.value.trim();
-            const password = inputPassword.value;
-
-            const originalText = btnSubmit.innerHTML;
-            btnSubmit.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Authenticating...`;
-            authError.classList.add('hidden');
-            authSuccess.classList.add('hidden');
-            lucide.createIcons();
-
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                // Successful auth triggers onAuthStateChanged redirect
-            } catch (err) {
-                console.error("Auth error:", err);
-                authError.textContent = "Access Denied: Invalid email or password.";
-                authError.classList.remove('hidden');
-                btnSubmit.innerHTML = originalText;
-                lucide.createIcons();
+                adminUserEmail.textContent = "Offline Session";
             }
         });
 
-        // Forgot Password Modal Triggers
-        btnForgotTrigger.addEventListener('click', () => {
-            resetEmail.value = inputEmail.value; // prefill if typed
-            forgotModal.classList.remove('hidden');
-        });
+        // Global Logout Handler
+        window.handleLogout = async function() {
+            if(confirm("Are you sure you want to sign out?")) {
+                try {
+                    await signOut(auth);
+                    window.location.href = "signin.html";
+                } catch(e) {
+                    window.location.href = "signin.html";
+                }
+            }
+        };
 
-        btnCloseModal.addEventListener('click', () => forgotModal.classList.add('hidden'));
+        // Module Switcher Engine (Loads external HTML modules into slot without changing pages)
+        window.switchModule = async function(moduleName, btnElement) {
+            // Update active states on sidebar buttons
+            document.querySelectorAll('.nav-btn').forEach(b => {
+                b.classList.remove('bg-brand-red', 'text-white', 'shadow-sm');
+                b.classList.add('text-slate-300', 'hover:bg-white/5', 'hover:text-white');
+            });
+            if(btnElement) {
+                btnElement.classList.remove('text-slate-300', 'hover:bg-white/5', 'hover:text-white');
+                btnElement.classList.add('bg-brand-red', 'text-white', 'shadow-sm');
+            }
 
-        // Send Password Reset Email Handler
-        btnSendReset.addEventListener('click', async () => {
-            const email = resetEmail.value.trim();
-            if(!email) {
-                alert("Please enter your email address.");
+            if (moduleName === 'home') {
+                headerTitle.textContent = "Executive Dashboard";
+                dynamicSlot.classList.add('hidden');
+                homeView.classList.remove('hidden');
                 return;
             }
 
-            const originalText = btnSendReset.innerHTML;
-            btnSendReset.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin inline"></i> Sending...`;
+            headerTitle.textContent = moduleName.replace('.html', '').toUpperCase();
+            homeView.classList.add('hidden');
+            dynamicSlot.classList.remove('hidden');
+            dynamicSlot.innerHTML = `<div class="flex items-center justify-center h-full"><i data-lucide="loader-2" class="w-8 h-8 text-brand-navy animate-spin"></i></div>`;
             lucide.createIcons();
 
             try {
-                await sendPasswordResetEmail(auth, email);
-                forgotModal.classList.add('hidden');
-                authSuccess.textContent = "Password reset link sent! Check your inbox.";
-                authSuccess.classList.remove('hidden');
+                const response = await fetch(moduleName);
+                if (!response.ok) throw new Error("Module not found.");
+                const htmlText = await response.text();
+                
+                // Extract body content from fetched html to avoid nested full documents
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+                const mainBodyContent = doc.querySelector('main') ? doc.querySelector('main').innerHTML : doc.body.innerHTML;
+
+                dynamicSlot.innerHTML = `<div class="module-frame py-4">${mainBodyContent}</div>`;
+                lucide.createIcons();
             } catch (err) {
-                console.error("Reset error:", err);
-                alert("Failed to send reset email. Verify the email address.");
-            } finally {
-                btnSendReset.innerHTML = originalText;
+                dynamicSlot.innerHTML = `
+                    <div class="bg-white rounded-3xl p-12 text-center border border-slate-200 max-w-lg mx-auto mt-12 shadow-sm">
+                        <i data-lucide="alert-circle" class="w-12 h-12 text-brand-red mx-auto mb-3"></i>
+                        <h3 class="text-lg font-bold text-brand-navy mb-1">Module View Ready</h3>
+                        <p class="text-xs text-slate-500 mb-4">Ensure <strong>${moduleName}</strong> is uploaded in your root directory to view it live.</p>
+                        <span class="font-mono text-[10px] bg-slate-100 p-2 rounded text-slate-600 block">Target File: ${moduleName}</span>
+                    </div>`;
                 lucide.createIcons();
             }
-        });
+        };
+
+        lucide.createIcons();
     </script>
 </body>
 </html>
