@@ -60,7 +60,6 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         
-        /* Specific print/render styles for the invoice card */
         .invoice-paper {
             background: #ffffff;
             box-shadow: 0 10px 40px rgba(0,0,0,0.05);
@@ -119,7 +118,6 @@
                                 <span class="text-[9px] font-bold text-brand-red uppercase tracking-widest leading-none mt-1">Invoice Admin</span>
                             </div>
                         </a>
-                        <!-- Back to Home Action -->
                         <a href="index.html" class="hidden sm:flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-brand-navy transition-colors">
                             <i data-lucide="home" class="w-4 h-4"></i> Home Dashboard
                         </a>
@@ -163,14 +161,22 @@
                             </div>
 
                             <form id="invoice-form" class="space-y-5">
-                                <!-- Hidden Client ID -->
-                                <input type="hidden" id="inv-client-id">
                                 
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Client Name (Search) *</label>
-                                    <input list="clients-list" type="text" id="inv-name" required class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-white font-medium text-slate-800" placeholder="Type name to search...">
-                                    <datalist id="clients-list"></datalist>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                    <!-- Searchable Client ID -->
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Client ID (Search) *</label>
+                                        <input list="client-id-list" type="text" id="inv-client-id" required class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-white font-medium text-slate-800" placeholder="Type ID...">
+                                        <datalist id="client-id-list"></datalist>
+                                    </div>
+                                    <!-- Searchable Client Name -->
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Client Name (Search) *</label>
+                                        <input list="clients-list" type="text" id="inv-name" required class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-white font-medium text-slate-800" placeholder="Type name...">
+                                        <datalist id="clients-list"></datalist>
+                                    </div>
                                 </div>
+
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <div>
                                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Mobile Number *</label>
@@ -235,7 +241,7 @@
                                 </a>
                             </div>
 
-                            <!-- THE ACTUAL INVOICE CARD (This is what gets downloaded) -->
+                            <!-- THE ACTUAL INVOICE CARD -->
                             <div id="invoice-render-target" class="invoice-paper rounded-2xl border border-slate-200 p-8 md:p-10 relative overflow-hidden bg-white">
                                 <!-- Top Red Accent Bar -->
                                 <div class="absolute top-0 left-0 w-full h-2 bg-brand-red"></div>
@@ -309,7 +315,6 @@
                                 </div>
 
                             </div>
-                            <!-- End Invoice Card -->
 
                         </div>
                     </div>
@@ -381,7 +386,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, setDoc, onSnapshot, query, orderBy, doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, setDoc, onSnapshot, query, orderBy, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // ==========================================
         // ADD YOUR FIREBASE CONFIG HERE
@@ -399,9 +404,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Required to initialize jsPDF
         const { jsPDF } = window.jspdf;
-
         lucide.createIcons();
 
         // UI DOM Elements
@@ -426,6 +429,7 @@
         const btnClear = document.getElementById('btn-clear-form');
         const btnGenerate = document.getElementById('btn-generate');
         const clientsListDatalist = document.getElementById('clients-list');
+        const clientIdDatalist = document.getElementById('client-id-list');
         
         // Output DOM
         const placeholder = document.getElementById('output-placeholder');
@@ -458,9 +462,9 @@
         const btnSaveStatus = document.getElementById('btn-save-status');
 
         let clientsData = [];
-        let currentInvNoDisplay = ""; // PI/DDMMYY/XXXXX
-        let currentDocId = ""; // PI-DDMMYY-XXXXX (Firebase safe)
-        let invoicesDataStore = {}; // Stores fetched invoices for instant viewing
+        let currentInvNoDisplay = "";
+        let currentDocId = ""; 
+        let invoicesDataStore = {};
 
         // ==========================================
         // AUTHENTICATION
@@ -502,41 +506,60 @@
         btnLogout.addEventListener('click', () => signOut(auth));
 
         // ==========================================
-        // CLIENT DATA & AUTO-FILL
+        // CLIENT DATA & 2-WAY AUTO-FILL
         // ==========================================
         function loadClients() {
             onSnapshot(collection(db, 'clients'), (snapshot) => {
                 clientsData = snapshot.docs.map(doc => ({ firebaseId: doc.id, ...doc.data() }));
                 clientsListDatalist.innerHTML = ''; 
+                clientIdDatalist.innerHTML = '';
+                
                 clientsData.forEach(client => {
                     const nameStr = client.clientName || client.ClientName || client.name || ''; 
+                    const idStr = client.clientId || client.ClientId || client.firebaseId || ''; 
+                    
                     if(nameStr) {
                         const option = document.createElement('option');
                         option.value = nameStr;
                         clientsListDatalist.appendChild(option);
                     }
+                    if(idStr) {
+                        const optionId = document.createElement('option');
+                        optionId.value = idStr;
+                        clientIdDatalist.appendChild(optionId);
+                    }
                 });
             });
         }
 
+        // Auto-fill triggered by Client Name
         inputName.addEventListener('input', (e) => {
             const val = e.target.value.trim().toLowerCase();
-            inputClientId.value = ''; // Reset
-            
             const matchedClient = clientsData.find(c => {
                 const dbName = (c.clientName || c.ClientName || c.name || '').toLowerCase();
                 return dbName === val;
             });
             if (matchedClient) {
                 inputMobile.value = matchedClient.mobile || matchedClient.Mobile || matchedClient.phone || '';
-                // Check camelCase or PascalCase for Client ID from database
                 inputClientId.value = matchedClient.clientId || matchedClient.ClientId || matchedClient.firebaseId || '';
+            }
+        });
+
+        // Auto-fill triggered by Client ID
+        inputClientId.addEventListener('input', (e) => {
+            const val = e.target.value.trim().toLowerCase();
+            const matchedClient = clientsData.find(c => {
+                const dbId = (c.clientId || c.ClientId || c.firebaseId || '').toLowerCase();
+                return dbId === val;
+            });
+            if (matchedClient) {
+                inputMobile.value = matchedClient.mobile || matchedClient.Mobile || matchedClient.phone || '';
+                inputName.value = matchedClient.clientName || matchedClient.ClientName || matchedClient.name || '';
             }
         });
 
         btnClear.addEventListener('click', () => {
             invoiceForm.reset();
-            inputClientId.value = '';
             placeholder.classList.remove('hidden');
             container.classList.add('hidden');
         });
@@ -551,11 +574,8 @@
             return res;
         }
 
-        // Render Invoice to Screen function (Reusable)
         function renderInvoiceToScreen(invData) {
             renderInvNo.textContent = invData.invoiceNo;
-            
-            // Format Date
             const dateObj = new Date(invData.createdAt);
             renderDate.textContent = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth()+1).padStart(2, '0')}/${dateObj.getFullYear()}`;
             
@@ -588,24 +608,20 @@
             renderAmountRow.textContent = invData.amount;
             renderAmountTotal.textContent = invData.amount;
 
-            // Generate QR mapping to the correct display invoice number
             const upiId = "cmfilings@upi";
             const payeeName = encodeURIComponent("CM FILINGS");
             const transactionNote = encodeURIComponent(`Inv: ${invData.invoiceNo}`);
             const upiString = `upi://pay?pa=${upiId}&pn=${payeeName}&am=${invData.amount}&tr=${invData.invoiceNo}&cu=INR&tn=${transactionNote}`;
             renderQr.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiString)}&margin=10`;
 
-            // WhatsApp Link
-            const clientUrl = `https://pay.cmfilings.com/client?ref=${encodeURIComponent(invData.invoiceNo)}&am=${invData.amount}&nm=${encodeURIComponent(invData.clientName)}&mb=${invData.mobile}`;
+            const clientUrl = invData.clientUrl || `https://pay.cmfilings.com/client?ref=${encodeURIComponent(invData.invoiceNo)}&am=${invData.amount}&nm=${encodeURIComponent(invData.clientName)}&mb=${invData.mobile}`;
             const waText = `Dear ${invData.clientName},%0A%0AHere is your Proforma Invoice for ${invData.serviceDescription}.%0A%0A*Invoice No:* ${invData.invoiceNo}%0A*Amount Due:* Rs ${invData.amount}%0A%0A*Pay Here:*%0A${clientUrl}%0A%0ARegards,%0ACM FILINGS Team`;
             btnWhatsapp.href = `https://wa.me/91${invData.mobile}?text=${waText}`;
 
-            // Reveal
             placeholder.classList.add('hidden');
             container.classList.remove('hidden');
             if(window.innerWidth < 1024) container.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-
 
         invoiceForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -618,14 +634,12 @@
             const period = inputPeriod.value.trim();
             const narration = inputNarration.value.trim();
 
-            // Structure: PI/DDMMYY/XXXXX
             const date = new Date();
             const dd = String(date.getDate()).padStart(2, '0');
             const mm = String(date.getMonth() + 1).padStart(2, '0');
             const yy = String(date.getFullYear()).slice(-2);
             const random5 = generateRandom5();
             
-            // Display No: PI/DDMMYY/XXXXX  | Firestore Doc ID: PI-DDMMYY-XXXXX (Firebase forbids slashes in doc IDs)
             currentInvNoDisplay = `PI/${dd}${mm}${yy}/${random5}`;
             currentDocId = `PI-${dd}${mm}${yy}-${random5}`;
 
@@ -649,14 +663,9 @@
             };
 
             try {
-                // Save to Firestore 'proformaInvoice' collection using precise Document ID
                 await setDoc(doc(db, 'proformaInvoice', currentDocId), newInvoiceData);
-
-                // Render Data locally to screen instantly
                 renderInvoiceToScreen(newInvoiceData);
                 invoiceForm.reset();
-                inputClientId.value = '';
-
             } catch (error) {
                 console.error("Error saving invoice: ", error);
                 alert("Failed to generate invoice.");
@@ -668,11 +677,9 @@
         });
 
         // ==========================================
-        // DOWNLOAD INVOICE (JPEG & PDF via html2canvas/jsPDF)
+        // DOWNLOAD INVOICE (JPEG & PDF)
         // ==========================================
-        
         async function getCanvas() {
-            // Helper to get crisp canvas rendering
             return await html2canvas(invoiceRenderTarget, {
                 scale: 2, 
                 useCORS: true,
@@ -709,10 +716,8 @@
                 const canvas = await getCanvas();
                 const imgData = canvas.toDataURL('image/png');
                 
-                // Calculate dimensions for A4
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 const pdfWidth = pdf.internal.pageSize.getWidth();
-                // Padding of 10mm on each side
                 const paddedWidth = pdfWidth - 20; 
                 const imgProps = pdf.getImageProperties(imgData);
                 const pdfHeight = (imgProps.height * paddedWidth) / imgProps.width;
@@ -737,7 +742,7 @@
             
             onSnapshot(q, (snapshot) => {
                 trackerBody.innerHTML = '';
-                invoicesDataStore = {}; // reset store
+                invoicesDataStore = {}; 
 
                 if(snapshot.empty) {
                     trackerBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-slate-400">No invoices generated yet.</td></tr>`;
@@ -747,7 +752,7 @@
                 snapshot.forEach(docSnap => {
                     const data = docSnap.data();
                     const id = docSnap.id;
-                    invoicesDataStore[id] = data; // Cache data for instant viewing
+                    invoicesDataStore[id] = data; 
 
                     const dateObj = new Date(data.createdAt);
                     const formattedDate = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth()+1).padStart(2, '0')}/${dateObj.getFullYear()}`;
@@ -782,9 +787,7 @@
             });
         }
 
-        // Handle Table Actions
         trackerBody.addEventListener('click', (e) => {
-            // View Action
             const btnView = e.target.closest('.btn-view-inv');
             if(btnView) {
                 const docId = btnView.getAttribute('data-id');
@@ -794,7 +797,6 @@
                 }
             }
 
-            // Edit Action
             const btnEdit = e.target.closest('.btn-edit-status');
             if(btnEdit) {
                 editDocId.value = btnEdit.getAttribute('data-id');
