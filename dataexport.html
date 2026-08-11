@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Importer - CM FILINGS</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- PapaParse for safe CSV reading -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#B10000', navy: '#071D49', light: '#F4F5F7'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-700 bg-brand-light antialiased flex flex-col items-center justify-center min-h-screen p-4">
+
+    <div class="bg-white rounded-3xl p-8 max-w-xl w-full shadow-xl border border-slate-200">
+        <div class="flex items-center gap-4 border-b border-slate-100 pb-6 mb-6">
+            <div class="w-12 h-12 bg-brand-navy rounded-xl flex items-center justify-center text-white shadow-sm">
+                <i data-lucide="database" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h1 class="text-2xl font-extrabold text-brand-navy leading-none">CSV to Firestore</h1>
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">Client Database Import</p>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Upload CSV File</label>
+                <input type="file" id="csv-file" accept=".csv" class="w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-brand-navy file:text-white hover:file:bg-slate-800 transition-all cursor-pointer">
+            </div>
+
+            <button id="btn-upload" class="w-full py-4 bg-brand-red text-white font-bold rounded-xl shadow-md hover:bg-[#8A0000] transition-colors flex items-center justify-center gap-2">
+                <i data-lucide="upload-cloud" class="w-5 h-5"></i> Start Import Process
+            </button>
+
+            <!-- Progress Tracker -->
+            <div id="progress-container" class="hidden text-center mt-4">
+                <p class="text-sm font-bold text-brand-navy mb-2" id="status-text">Processing: 0 / 0</p>
+                <div class="w-full bg-slate-100 rounded-full h-2 mb-4 overflow-hidden">
+                    <div id="progress-bar" class="bg-emerald-500 h-2 rounded-full transition-all" style="width: 0%"></div>
+                </div>
+                <p id="error-log" class="text-xs font-mono text-brand-red text-left max-h-32 overflow-y-auto"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIREBASE IMPORT SCRIPT -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // ==========================================
+        // ADD YOUR FIREBASE CONFIG HERE
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
+            authDomain: "cmfilings-6a37c.firebaseapp.com",
+            projectId: "cmfilings-6a37c",
+            storageBucket: "cmfilings-6a37c.firebasestorage.app",
+            messagingSenderId: "138705123778",
+            appId: "1:138705123778:web:9561bff9f0f5d89bb6fe5b"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        lucide.createIcons();
+
+        const btnUpload = document.getElementById('btn-upload');
+        const csvFileInput = document.getElementById('csv-file');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const statusText = document.getElementById('status-text');
+        const errorLog = document.getElementById('error-log');
+
+        btnUpload.addEventListener('click', () => {
+            const file = csvFileInput.files[0];
+            if (!file) {
+                alert("Please select a CSV file first.");
+                return;
+            }
+
+            btnUpload.disabled = true;
+            btnUpload.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Parsing CSV...`;
+            lucide.createIcons();
+            progressContainer.classList.remove('hidden');
+
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                complete: async function(results) {
+                    const data = results.data;
+                    const total = data.length;
+                    let successCount = 0;
+                    
+                    btnUpload.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Uploading to Firestore...`;
+                    lucide.createIcons();
+
+                    for (let i = 0; i < total; i++) {
+                        const row = data[i];
+                        
+                        // Clean up field names and handle missing values securely
+                        const clientData = {
+                            ClientId: row.ClientId || '',
+                            ClientName: row.ClientName || '',
+                            Mobile: row.Mobile || '',
+                            Email: row.Email || '',
+                            LegalName: row.LegalName || '',
+                            Constitution: row.Constitution || '',
+                            Status: row.Status || 'Active',
+                            Pan: row.Pan || '',
+                            Gstin: row.Gstin || '',
+                            Adhar: row.Adhar || '',
+                            Address: row.Address || '',
+                            BranchId: row.BranchId || '',
+                            Notes: row.Notes || '',
+                            ClientFolderUrl: row.ClientFolderUrl || '',
+                            CreatedAt: row.CreatedAt || new Date().toISOString(),
+                            UpdatedAt: row.UpdatedAt || new Date().toISOString()
+                        };
+
+                        try {
+                            // Using setDoc with ClientId ensures we don't create duplicates if run twice
+                            // If ClientId is empty, we create a generic random ID
+                            const docId = row.ClientId ? row.ClientId : 'CLI_' + Math.random().toString(36).substring(2, 10).toUpperCase();
+                            
+                            await setDoc(doc(db, "clients", docId), clientData);
+                            successCount++;
+
+                            // Update Progress UI
+                            const percentage = Math.round((successCount / total) * 100);
+                            progressBar.style.width = `${percentage}%`;
+                            statusText.textContent = `Processing: ${successCount} / ${total}`;
+
+                        } catch (error) {
+                            console.error(`Error uploading row ${i + 1}:`, error);
+                            errorLog.innerHTML += `Row ${i + 1} (${row.ClientName}): ${error.message}<br/>`;
+                        }
+                    }
+
+                    btnUpload.innerHTML = `<i data-lucide="check" class="w-5 h-5"></i> Import Complete`;
+                    btnUpload.classList.replace('bg-brand-red', 'bg-emerald-600');
+                    lucide.createIcons();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
