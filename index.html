@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
@@ -48,15 +49,20 @@ body{
 ========================================================= */
 
 #app{
+
     width:100%;
+
     min-height:100dvh;
     min-height:100vh;
 
     display:flex;
+
     flex-direction:column;
 
     background:#F4F5F7;
+
 }
+
 
 /* =========================================================
    HEADER
@@ -78,7 +84,9 @@ body{
     border-bottom:1px solid #E2E8F0;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
     padding:0 16px;
@@ -86,17 +94,22 @@ body{
     z-index:9000;
 
     backdrop-filter:blur(14px);
+
 }
+
 
 .header-brand{
 
     display:flex;
+
     align-items:center;
 
     gap:10px;
 
     min-width:0;
+
 }
+
 
 .header-logo{
 
@@ -106,17 +119,22 @@ body{
     object-fit:contain;
 
     flex-shrink:0;
+
 }
+
 
 .header-name{
 
     height:27px;
+
     width:auto;
 
     max-width:155px;
 
     object-fit:contain;
+
 }
+
 
 .logo-fallback{
 
@@ -132,8 +150,11 @@ body{
     color:#fff;
 
     align-items:center;
+
     justify-content:center;
+
 }
+
 
 .name-fallback{
 
@@ -146,7 +167,9 @@ body{
     font-size:18px;
 
     letter-spacing:-.5px;
+
 }
+
 
 .header-actions{
 
@@ -155,7 +178,9 @@ body{
     align-items:center;
 
     gap:7px;
+
 }
+
 
 .header-action{
 
@@ -169,21 +194,27 @@ body{
     border-radius:12px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     color:#64748B;
 
     cursor:pointer;
+
 }
+
 
 .header-action:active{
 
     transform:scale(.95);
+
 }
 
+
 /* =========================================================
-   CONTENT AREA
+   CONTENT
 ========================================================= */
 
 #module-container{
@@ -201,7 +232,9 @@ body{
     overflow:auto;
 
     position:relative;
+
 }
+
 
 /* =========================================================
    DASHBOARD
@@ -224,15 +257,20 @@ body{
     background-size:28px 28px;
 
     padding:24px 16px 40px;
+
 }
+
 
 .dashboard-inner{
 
     width:100%;
+
     max-width:1100px;
 
     margin:0 auto;
+
 }
+
 
 /* =========================================================
    DASHBOARD TITLE
@@ -260,7 +298,9 @@ body{
         0 2px 8px rgba(15,23,42,.04);
 
     margin-bottom:18px;
+
 }
+
 
 .dashboard-heading-left{
 
@@ -271,7 +311,9 @@ body{
     gap:12px;
 
     min-width:0;
+
 }
+
 
 .dashboard-icon{
 
@@ -291,7 +333,9 @@ body{
     align-items:center;
 
     justify-content:center;
+
 }
+
 
 .dashboard-title{
 
@@ -302,7 +346,9 @@ body{
     color:#071D49;
 
     line-height:1.15;
+
 }
+
 
 .dashboard-subtitle{
 
@@ -317,7 +363,9 @@ body{
     text-transform:uppercase;
 
     letter-spacing:.12em;
+
 }
+
 
 /* =========================================================
    DASHBOARD CARDS
@@ -332,7 +380,9 @@ body{
     gap:14px;
 
     margin-bottom:22px;
+
 }
+
 
 .dashboard-card{
 
@@ -354,7 +404,9 @@ body{
 
     box-shadow:
         0 2px 8px rgba(15,23,42,.04);
+
 }
+
 
 .dashboard-card-icon{
 
@@ -366,34 +418,49 @@ body{
     display:flex;
 
     align-items:center;
+
     justify-content:center;
 
     flex-shrink:0;
+
 }
+
 
 .icon-warning{
 
     background:#FFF9E8;
+
     color:#D48319;
+
 }
+
 
 .icon-money{
 
     background:#FDF2F2;
+
     color:#B10000;
+
 }
+
 
 .icon-priority{
 
     background:#EFF6FF;
+
     color:#2563EB;
+
 }
+
 
 .icon-client{
 
     background:#ECFDF5;
+
     color:#159570;
+
 }
+
 
 .dashboard-card-label{
 
@@ -406,7 +473,9 @@ body{
     text-transform:uppercase;
 
     letter-spacing:.08em;
+
 }
+
 
 .dashboard-card-value{
 
@@ -419,14 +488,18 @@ body{
     font-weight:950;
 
     color:#071D49;
+
 }
+
 
 .dashboard-card-value.money{
 
     color:#B10000;
 
     font-size:32px;
+
 }
+
 
 /* =========================================================
    DASHBOARD SECTION
@@ -446,7 +519,9 @@ body{
 
     box-shadow:
         0 2px 8px rgba(15,23,42,.04);
+
 }
+
 
 .section-heading{
 
@@ -459,7 +534,9 @@ body{
     gap:12px;
 
     margin-bottom:16px;
+
 }
+
 
 .section-heading-left{
 
@@ -468,12 +545,16 @@ body{
     align-items:center;
 
     gap:10px;
+
 }
+
 
 .section-heading-left i{
 
     color:#B10000;
+
 }
+
 
 .section-title{
 
@@ -482,7 +563,9 @@ body{
     font-weight:900;
 
     color:#071D49;
+
 }
+
 
 .section-link{
 
@@ -497,7 +580,9 @@ body{
     font-weight:900;
 
     cursor:pointer;
+
 }
+
 
 /* =========================================================
    PENDING TABLE
@@ -510,7 +595,9 @@ body{
     overflow-x:auto;
 
     -webkit-overflow-scrolling:touch;
+
 }
+
 
 .pending-table table{
 
@@ -519,7 +606,9 @@ body{
     min-width:560px;
 
     border-collapse:collapse;
+
 }
+
 
 .pending-table th{
 
@@ -540,7 +629,9 @@ body{
     letter-spacing:.06em;
 
     border-bottom:1px solid #E2E8F0;
+
 }
+
 
 .pending-table td{
 
@@ -551,12 +642,16 @@ body{
     font-weight:700;
 
     border-bottom:1px solid #F1F5F9;
+
 }
+
 
 .pending-table tr:last-child td{
 
     border-bottom:0;
+
 }
+
 
 .priority-urgent{
 
@@ -573,7 +668,9 @@ body{
     font-size:10px;
 
     font-weight:900;
+
 }
+
 
 .priority-high{
 
@@ -590,7 +687,9 @@ body{
     font-size:10px;
 
     font-weight:900;
+
 }
+
 
 .priority-normal{
 
@@ -607,7 +706,9 @@ body{
     font-size:10px;
 
     font-weight:900;
+
 }
+
 
 /* =========================================================
    CALENDAR
@@ -632,7 +733,9 @@ body{
     font-weight:900;
 
     margin-bottom:12px;
+
 }
+
 
 .calendar-item{
 
@@ -651,7 +754,9 @@ body{
     padding:12px;
 
     margin-bottom:10px;
+
 }
+
 
 .calendar-date{
 
@@ -663,6 +768,7 @@ body{
     display:flex;
 
     align-items:center;
+
     justify-content:center;
 
     background:#071D49;
@@ -674,17 +780,23 @@ body{
     font-weight:900;
 
     flex-shrink:0;
+
 }
+
 
 .calendar-date.urgent{
 
     background:#B10000;
+
 }
+
 
 .calendar-info{
 
     min-width:0;
+
 }
+
 
 .calendar-title{
 
@@ -693,7 +805,9 @@ body{
     font-weight:900;
 
     color:#071D49;
+
 }
+
 
 .calendar-sub{
 
@@ -704,7 +818,9 @@ body{
     color:#94A3B8;
 
     font-weight:700;
+
 }
+
 
 .calendar-status{
 
@@ -717,10 +833,12 @@ body{
     color:#B10000;
 
     white-space:nowrap;
+
 }
 
+
 /* =========================================================
-   IFRAME MODULE
+   IFRAME
 ========================================================= */
 
 #module-frame{
@@ -736,7 +854,9 @@ body{
     border:0;
 
     background:#F4F5F7;
+
 }
+
 
 /* =========================================================
    SEARCH
@@ -760,12 +880,16 @@ body{
     z-index:8800;
 
     display:none;
+
 }
+
 
 #global-search.show{
 
     display:block;
+
 }
+
 
 .global-search-box{
 
@@ -782,7 +906,9 @@ body{
     border-radius:12px;
 
     padding:0 11px;
+
 }
+
 
 .global-search-box input{
 
@@ -799,7 +925,9 @@ body{
     font-size:13px;
 
     font-weight:600;
+
 }
+
 
 .global-search-box button{
 
@@ -810,7 +938,9 @@ body{
     color:#64748B;
 
     cursor:pointer;
+
 }
+
 
 /* =========================================================
    PROFILE
@@ -840,12 +970,16 @@ body{
     z-index:9500;
 
     display:none;
+
 }
+
 
 #profile-menu.show{
 
     display:block;
+
 }
+
 
 .profile-signout{
 
@@ -874,7 +1008,9 @@ body{
     gap:8px;
 
     cursor:pointer;
+
 }
+
 
 /* =========================================================
    MORE MENU
@@ -907,12 +1043,16 @@ body{
     max-height:70vh;
 
     overflow:auto;
+
 }
+
 
 #more-menu.show{
 
     display:block;
+
 }
+
 
 .more-item{
 
@@ -941,7 +1081,9 @@ body{
     text-align:left;
 
     cursor:pointer;
+
 }
+
 
 .more-item svg{
 
@@ -949,12 +1091,16 @@ body{
     height:18px;
 
     color:#071D49;
+
 }
+
 
 .more-item:active{
 
     background:#F8FAFC;
+
 }
+
 
 /* =========================================================
    BOTTOM NAV
@@ -986,7 +1132,9 @@ body{
 
     box-shadow:
         0 -5px 20px rgba(15,23,42,.05);
+
 }
+
 
 .nav-item{
 
@@ -1013,28 +1161,38 @@ body{
     cursor:pointer;
 
     -webkit-tap-highlight-color:transparent;
+
 }
+
 
 .nav-item svg{
 
     width:22px;
     height:22px;
+
 }
+
 
 .nav-item.active{
 
     color:#B10000;
+
 }
+
 
 .nav-item.active svg{
 
     stroke-width:2.7;
+
 }
+
 
 .nav-item:active{
 
     transform:scale(.96);
+
 }
+
 
 /* =========================================================
    LOADER
@@ -1057,7 +1215,9 @@ body{
     justify-content:center;
 
     flex-direction:column;
+
 }
+
 
 .loader-icon{
 
@@ -1073,10 +1233,13 @@ body{
     display:flex;
 
     align-items:center;
+
     justify-content:center;
 
     margin-bottom:14px;
+
 }
+
 
 /* =========================================================
    DESKTOP
@@ -1087,18 +1250,24 @@ body{
     #app-header{
 
         padding:0 28px;
+
     }
+
 
     #dashboard-view{
 
         padding:30px 28px 50px;
+
     }
+
 
     .dashboard-cards{
 
         grid-template-columns:
             repeat(2,1fr);
+
     }
+
 
     #bottom-nav{
 
@@ -1119,7 +1288,9 @@ body{
 
         border-radius:
             18px 18px 0 0;
+
     }
+
 
     #more-menu{
 
@@ -1128,8 +1299,11 @@ body{
         right:20px;
 
         width:360px;
+
     }
+
 }
+
 
 /* =========================================================
    LARGE DESKTOP
@@ -1141,7 +1315,9 @@ body{
 
         grid-template-columns:
             repeat(4,1fr);
+
     }
+
 
     .dashboard-card{
 
@@ -1152,15 +1328,20 @@ body{
         align-items:flex-start;
 
         justify-content:center;
+
     }
+
 
     .dashboard-card-value{
 
         font-size:32px;
+
     }
+
 }
 
 </style>
+
 </head>
 
 
@@ -1168,13 +1349,16 @@ body{
 
 <div id="app">
 
+
 <!-- =====================================================
      GLOBAL HEADER
 ====================================================== -->
 
 <header id="app-header">
 
+
     <div class="header-brand">
+
 
         <img
             src="assets/logo.png"
@@ -1186,12 +1370,16 @@ body{
             "
         >
 
+
         <div
             id="logo-fallback"
             class="logo-fallback"
         >
+
             <i data-lucide="shield-check"></i>
+
         </div>
+
 
         <img
             src="assets/name.svg"
@@ -1203,17 +1391,22 @@ body{
             "
         >
 
+
         <div
             id="name-fallback"
             class="name-fallback"
         >
+
             CM FILINGS
+
         </div>
+
 
     </div>
 
 
     <div class="header-actions">
+
 
         <!-- SEARCH -->
 
@@ -1248,6 +1441,7 @@ body{
 
         </button>
 
+
     </div>
 
 </header>
@@ -1259,12 +1453,15 @@ body{
 
 <div id="global-search">
 
+
     <div class="global-search-box">
+
 
         <i
             data-lucide="search"
             class="w-4 h-4 text-slate-400"
         ></i>
+
 
         <input
             id="global-search-input"
@@ -1272,6 +1469,7 @@ body{
             placeholder="Search current module..."
             autocomplete="off"
         >
+
 
         <button
             id="close-global-search"
@@ -1285,6 +1483,7 @@ body{
             ></i>
 
         </button>
+
 
     </div>
 
@@ -1304,6 +1503,7 @@ body{
 
 <section id="dashboard-view">
 
+
 <div class="dashboard-inner">
 
 
@@ -1311,7 +1511,9 @@ body{
 
     <div class="dashboard-heading">
 
+
         <div class="dashboard-heading-left">
+
 
             <div class="dashboard-icon">
 
@@ -1322,19 +1524,27 @@ body{
 
             </div>
 
+
             <div>
 
                 <div class="dashboard-title">
+
                     Executive Dashboard
+
                 </div>
 
+
                 <div class="dashboard-subtitle">
+
                     CM Filings Administration
+
                 </div>
 
             </div>
 
+
         </div>
+
 
     </div>
 
@@ -1350,6 +1560,7 @@ body{
 
         <div class="dashboard-card">
 
+
             <div class="dashboard-card-icon icon-warning">
 
                 <i
@@ -1359,20 +1570,27 @@ body{
 
             </div>
 
+
             <div>
 
                 <div class="dashboard-card-label">
+
                     Pending Compliance
+
                 </div>
+
 
                 <div
                     id="dashboard-pending"
                     class="dashboard-card-value"
                 >
+
                     0
+
                 </div>
 
             </div>
+
 
         </div>
 
@@ -1380,6 +1598,7 @@ body{
         <!-- OUTSTANDING -->
 
         <div class="dashboard-card">
+
 
             <div class="dashboard-card-icon icon-money">
 
@@ -1390,20 +1609,27 @@ body{
 
             </div>
 
+
             <div>
 
                 <div class="dashboard-card-label">
+
                     Total Outstanding Dues
+
                 </div>
+
 
                 <div
                     id="dashboard-dues"
                     class="dashboard-card-value money"
                 >
+
                     ₹0
+
                 </div>
 
             </div>
+
 
         </div>
 
@@ -1411,6 +1637,7 @@ body{
         <!-- PRIORITY -->
 
         <div class="dashboard-card">
+
 
             <div class="dashboard-card-icon icon-priority">
 
@@ -1421,20 +1648,27 @@ body{
 
             </div>
 
+
             <div>
 
                 <div class="dashboard-card-label">
+
                     Priority Tasks Due
+
                 </div>
+
 
                 <div
                     id="dashboard-priority"
                     class="dashboard-card-value"
                 >
+
                     0
+
                 </div>
 
             </div>
+
 
         </div>
 
@@ -1442,6 +1676,7 @@ body{
         <!-- CLIENTS -->
 
         <div class="dashboard-card">
+
 
             <div class="dashboard-card-icon icon-client">
 
@@ -1452,22 +1687,30 @@ body{
 
             </div>
 
+
             <div>
 
                 <div class="dashboard-card-label">
+
                     Active Clients
+
                 </div>
+
 
                 <div
                     id="dashboard-clients"
                     class="dashboard-card-value"
                 >
+
                     0
+
                 </div>
 
             </div>
 
+
         </div>
+
 
     </div>
 
@@ -1478,35 +1721,48 @@ body{
 
     <section class="dashboard-section">
 
+
         <div class="section-heading">
 
+
             <div class="section-heading-left">
+
 
                 <i
                     data-lucide="octagon-alert"
                     class="w-5 h-5"
                 ></i>
 
+
                 <div class="section-title">
+
                     Priority Pending Compliance
+
                 </div>
 
+
             </div>
+
 
             <button
                 type="button"
                 class="section-link"
                 data-open-module="compliance.html"
             >
+
                 View All
+
             </button>
+
 
         </div>
 
 
         <div class="pending-table">
 
+
             <table>
+
 
                 <thead>
 
@@ -1528,7 +1784,9 @@ body{
 
                 </thead>
 
+
                 <tbody id="priority-table-body">
+
 
                     <tr>
 
@@ -1540,16 +1798,22 @@ body{
                                 padding:25px;
                             "
                         >
+
                             Loading compliance...
+
                         </td>
 
                     </tr>
 
+
                 </tbody>
+
 
             </table>
 
+
         </div>
+
 
     </section>
 
@@ -1560,28 +1824,39 @@ body{
 
     <section class="dashboard-section">
 
+
         <div class="section-heading">
 
+
             <div class="section-heading-left">
+
 
                 <i
                     data-lucide="calendar-days"
                     class="w-5 h-5 text-[#071D49]"
                 ></i>
 
+
                 <div class="section-title">
+
                     Calendar Schedule
+
                 </div>
 
+
             </div>
+
 
             <button
                 type="button"
                 class="section-link"
                 data-open-module="calender.html"
             >
+
                 View Calendar
+
             </button>
+
 
         </div>
 
@@ -1590,33 +1865,50 @@ body{
             id="current-month"
             class="calendar-month"
         >
+
             Loading...
+
         </div>
 
 
         <div id="calendar-list">
 
+
             <div class="calendar-item">
 
+
                 <div class="calendar-date urgent">
+
                     —
+
                 </div>
+
 
                 <div class="calendar-info">
 
+
                     <div class="calendar-title">
+
                         Loading schedule...
+
                     </div>
 
+
                     <div class="calendar-sub">
+
                         Please wait
+
                     </div>
+
 
                 </div>
 
+
             </div>
 
+
         </div>
+
 
     </section>
 
@@ -1647,7 +1939,9 @@ body{
 
 <div id="profile-menu">
 
+
     <div class="px-2 py-2 border-b border-slate-100">
+
 
         <p
             class="text-[10px]
@@ -1656,8 +1950,11 @@ body{
                    tracking-widest
                    text-slate-400"
         >
+
             Signed in as
+
         </p>
+
 
         <p
             id="profile-email"
@@ -1667,8 +1964,11 @@ body{
                    mt-1
                    break-all"
         >
+
             Administrator
+
         </p>
+
 
         <p
             class="text-[10px]
@@ -1691,6 +1991,7 @@ body{
 
         </p>
 
+
     </div>
 
 
@@ -1709,6 +2010,7 @@ body{
 
     </button>
 
+
 </div>
 
 
@@ -1722,6 +2024,7 @@ body{
     <button
         class="more-item"
         data-page="company.html"
+        type="button"
     >
 
         <i data-lucide="building-2"></i>
@@ -1734,6 +2037,7 @@ body{
     <button
         class="more-item"
         data-page="calender.html"
+        type="button"
     >
 
         <i data-lucide="calendar-days"></i>
@@ -1746,6 +2050,7 @@ body{
     <button
         class="more-item"
         data-page="contacts.html"
+        type="button"
     >
 
         <i data-lucide="contact"></i>
@@ -1757,12 +2062,13 @@ body{
 
     <button
         class="more-item"
-        data-page="data.html"
+        data-page="data-import.html"
+        type="button"
     >
 
         <i data-lucide="database-zap"></i>
 
-        <span>Data</span>
+        <span>Data Import</span>
 
     </button>
 
@@ -1770,6 +2076,7 @@ body{
     <button
         class="more-item"
         data-page="invoice.html"
+        type="button"
     >
 
         <i data-lucide="file-text"></i>
@@ -1779,14 +2086,17 @@ body{
     </button>
 
 
+    <!-- QR GENERATOR -->
+
     <button
         class="more-item"
-        data-page="pay.html"
+        data-page="qr-gen.html"
+        type="button"
     >
 
-        <i data-lucide="credit-card"></i>
+        <i data-lucide="qr-code"></i>
 
-        <span>Payments</span>
+        <span>QR Generator</span>
 
     </button>
 
@@ -1794,6 +2104,7 @@ body{
     <button
         class="more-item"
         data-page="transactions.html"
+        type="button"
     >
 
         <i data-lucide="receipt"></i>
@@ -1801,6 +2112,7 @@ body{
         <span>Transactions</span>
 
     </button>
+
 
 </div>
 
@@ -1886,6 +2198,7 @@ body{
 
 <div id="app-loader">
 
+
     <div class="loader-icon">
 
         <i
@@ -1895,6 +2208,7 @@ body{
 
     </div>
 
+
     <i
         data-lucide="loader-2"
         class="w-7 h-7
@@ -1903,6 +2217,7 @@ body{
                mb-3"
     ></i>
 
+
     <p
         class="text-xs
                font-black
@@ -1910,8 +2225,11 @@ body{
                uppercase
                text-slate-500"
     >
+
         Verifying Administrator
+
     </p>
+
 
 </div>
 
@@ -1922,21 +2240,53 @@ body{
 
 <script type="module">
 
+
+/* =========================================================
+   FIREBASE CONFIG
+========================================================= */
+
 import {
+
     auth,
+
     db
+
 } from "./firebase-config.js";
 
-import {
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+/* =========================================================
+   FIREBASE AUTH
+========================================================= */
 
 import {
+
+    onAuthStateChanged,
+
+    signOut
+
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+
+/* =========================================================
+   FIRESTORE
+========================================================= */
+
+import {
+
     collection,
+
     onSnapshot,
+
     doc,
-    getDoc
+
+    getDoc,
+
+    query,
+
+    where,
+
+    getDocs
+
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 
@@ -1945,64 +2295,123 @@ import {
 ========================================================= */
 
 const appLoader =
-    document.getElementById("app-loader");
+    document.getElementById(
+        "app-loader"
+    );
+
 
 const dashboardView =
-    document.getElementById("dashboard-view");
+    document.getElementById(
+        "dashboard-view"
+    );
+
 
 const moduleFrame =
-    document.getElementById("module-frame");
+    document.getElementById(
+        "module-frame"
+    );
+
 
 const profileBtn =
-    document.getElementById("profile-btn");
+    document.getElementById(
+        "profile-btn"
+    );
+
 
 const profileMenu =
-    document.getElementById("profile-menu");
+    document.getElementById(
+        "profile-menu"
+    );
+
 
 const profileEmail =
-    document.getElementById("profile-email");
+    document.getElementById(
+        "profile-email"
+    );
+
 
 const profileSignout =
-    document.getElementById("profile-signout");
+    document.getElementById(
+        "profile-signout"
+    );
+
 
 const moreBtn =
-    document.getElementById("more-btn");
+    document.getElementById(
+        "more-btn"
+    );
+
 
 const moreMenu =
-    document.getElementById("more-menu");
+    document.getElementById(
+        "more-menu"
+    );
+
 
 const globalSearchBtn =
-    document.getElementById("global-search-btn");
+    document.getElementById(
+        "global-search-btn"
+    );
+
 
 const globalSearch =
-    document.getElementById("global-search");
+    document.getElementById(
+        "global-search"
+    );
+
 
 const globalSearchInput =
-    document.getElementById("global-search-input");
+    document.getElementById(
+        "global-search-input"
+    );
+
 
 const closeGlobalSearch =
-    document.getElementById("close-global-search");
+    document.getElementById(
+        "close-global-search"
+    );
+
 
 const pendingValue =
-    document.getElementById("dashboard-pending");
+    document.getElementById(
+        "dashboard-pending"
+    );
+
 
 const duesValue =
-    document.getElementById("dashboard-dues");
+    document.getElementById(
+        "dashboard-dues"
+    );
+
 
 const priorityValue =
-    document.getElementById("dashboard-priority");
+    document.getElementById(
+        "dashboard-priority"
+    );
+
 
 const clientsValue =
-    document.getElementById("dashboard-clients");
+    document.getElementById(
+        "dashboard-clients"
+    );
+
 
 const priorityTableBody =
-    document.getElementById("priority-table-body");
+    document.getElementById(
+        "priority-table-body"
+    );
+
 
 const currentMonth =
-    document.getElementById("current-month");
+    document.getElementById(
+        "current-month"
+    );
+
 
 const calendarList =
-    document.getElementById("calendar-list");
+    document.getElementById(
+        "calendar-list"
+    );
 
 
 /* =========================================================
@@ -2012,12 +2421,17 @@ const calendarList =
 let currentPage =
     "index.html";
 
+
 let currentUser =
     null;
 
-let clientsData = [];
 
-let complianceData = [];
+let clientsData =
+    [];
+
+
+let complianceData =
+    [];
 
 
 /* =========================================================
@@ -2044,7 +2458,7 @@ const allowedModules = [
 
     "invoice.html",
 
-    "pay.html",
+    "qr-gen.html",
 
     "transactions.html"
 
@@ -2087,8 +2501,8 @@ const pageTitles = {
     "invoice.html":
         "Invoice",
 
-    "pay.html":
-        "Payments",
+    "qr-gen.html":
+        "QR Generator",
 
     "transactions.html":
         "Transactions"
@@ -2106,14 +2520,20 @@ function updateActiveNav(page){
         .querySelectorAll(
             ".nav-item[data-page]"
         )
-        .forEach(item => {
+        .forEach(
+            item => {
 
-            item.classList.toggle(
-                "active",
-                item.dataset.page === page
-            );
+                item.classList.toggle(
 
-        });
+                    "active",
+
+                    item.dataset.page ===
+                    page
+
+                );
+
+            }
+        );
 
 }
 
@@ -2122,15 +2542,19 @@ function updateActiveNav(page){
    LOAD MODULE
 ========================================================= */
 
-function loadModule(page, pushHistory = true){
+function loadModule(
+    page,
+    pushHistory = true
+){
 
     /*
-     * Old dashboard.html references are
-     * automatically converted to index.html.
+     * index.html is the dashboard.
+     *
+     * dashboard.html is intentionally
+     * NOT used anymore.
      */
 
     if(
-        page === "dashboard.html" ||
         page === "" ||
         page === "index.html"
     ){
@@ -2138,53 +2562,73 @@ function loadModule(page, pushHistory = true){
         currentPage =
             "index.html";
 
+
         dashboardView.style.display =
             "block";
+
 
         moduleFrame.style.display =
             "none";
 
+
         moduleFrame.src =
             "about:blank";
+
 
         updateActiveNav(
             "index.html"
         );
 
+
         globalSearch.classList.remove(
             "show"
         );
+
 
         moreMenu.classList.remove(
             "show"
         );
 
+
         profileMenu.classList.remove(
             "show"
         );
 
+
         if(pushHistory){
 
             history.pushState(
+
                 {
-                    page:"index.html"
+                    page:
+                        "index.html"
                 },
+
                 "",
+
                 "index.html"
+
             );
 
         }
 
+
         return;
+
     }
 
 
     /*
-     * Security: only known modules.
+     * Security:
+     *
+     * Only known application
+     * modules can be loaded.
      */
 
     if(
-        !allowedModules.includes(page)
+        !allowedModules.includes(
+            page
+        )
     ){
 
         console.warn(
@@ -2193,6 +2637,7 @@ function loadModule(page, pushHistory = true){
         );
 
         return;
+
     }
 
 
@@ -2203,13 +2648,14 @@ function loadModule(page, pushHistory = true){
     dashboardView.style.display =
         "none";
 
+
     moduleFrame.style.display =
         "block";
 
 
     /*
-     * Load the module inside
-     * the permanent application shell.
+     * Load module inside
+     * application shell.
      */
 
     moduleFrame.src =
@@ -2225,9 +2671,11 @@ function loadModule(page, pushHistory = true){
         "show"
     );
 
+
     moreMenu.classList.remove(
         "show"
     );
+
 
     profileMenu.classList.remove(
         "show"
@@ -2237,12 +2685,19 @@ function loadModule(page, pushHistory = true){
     if(pushHistory){
 
         history.pushState(
+
             {
-                page:page
+                page:
+                    page
             },
+
             "",
+
             "?module=" +
-            encodeURIComponent(page)
+            encodeURIComponent(
+                page
+            )
+
         );
 
     }
@@ -2262,6 +2717,7 @@ window.addEventListener(
             event.state?.page ||
             "index.html";
 
+
         loadModule(
             page,
             false
@@ -2279,20 +2735,22 @@ document
     .querySelectorAll(
         ".nav-item[data-page]"
     )
-    .forEach(item => {
+    .forEach(
+        item => {
 
-        item.addEventListener(
-            "click",
-            () => {
+            item.addEventListener(
+                "click",
+                () => {
 
-                loadModule(
-                    item.dataset.page
-                );
+                    loadModule(
+                        item.dataset.page
+                    );
 
-            }
-        );
+                }
+            );
 
-    });
+        }
+    );
 
 
 /* =========================================================
@@ -2303,20 +2761,22 @@ document
     .querySelectorAll(
         ".more-item[data-page]"
     )
-    .forEach(item => {
+    .forEach(
+        item => {
 
-        item.addEventListener(
-            "click",
-            () => {
+            item.addEventListener(
+                "click",
+                () => {
 
-                loadModule(
-                    item.dataset.page
-                );
+                    loadModule(
+                        item.dataset.page
+                    );
 
-            }
-        );
+                }
+            );
 
-    });
+        }
+    );
 
 
 /* =========================================================
@@ -2329,9 +2789,11 @@ moreBtn.addEventListener(
 
         event.stopPropagation();
 
+
         moreMenu.classList.toggle(
             "show"
         );
+
 
         profileMenu.classList.remove(
             "show"
@@ -2351,9 +2813,11 @@ profileBtn.addEventListener(
 
         event.stopPropagation();
 
+
         profileMenu.classList.toggle(
             "show"
         );
+
 
         moreMenu.classList.remove(
             "show"
@@ -2372,10 +2836,16 @@ document.addEventListener(
     event => {
 
         if(
+
             !moreMenu.contains(
                 event.target
-            ) &&
-            event.target !== moreBtn
+            )
+
+            &&
+
+            event.target !==
+            moreBtn
+
         ){
 
             moreMenu.classList.remove(
@@ -2386,10 +2856,16 @@ document.addEventListener(
 
 
         if(
+
             !profileMenu.contains(
                 event.target
-            ) &&
-            event.target !== profileBtn
+            )
+
+            &&
+
+            event.target !==
+            profileBtn
+
         ){
 
             profileMenu.classList.remove(
@@ -2414,6 +2890,7 @@ globalSearchBtn.addEventListener(
             "show"
         );
 
+
         globalSearchInput.focus();
 
     }
@@ -2428,29 +2905,41 @@ closeGlobalSearch.addEventListener(
             "show"
         );
 
+
         globalSearchInput.value =
             "";
 
-        sendSearchToModule("");
+
+        sendSearchToModule(
+            ""
+        );
 
     }
 );
 
 
-function sendSearchToModule(value){
+function sendSearchToModule(
+    value
+){
 
     try{
 
-        moduleFrame.contentWindow
+        moduleFrame
+            .contentWindow
             ?.postMessage(
+
                 {
+
                     type:
                         "GLOBAL_SEARCH",
 
                     value:
                         value
+
                 },
+
                 "*"
+
             );
 
     }
@@ -2502,6 +2991,7 @@ profileSignout.addEventListener(
 
         }
 
+
         window.location.replace(
             "auth.html"
         );
@@ -2514,21 +3004,23 @@ profileSignout.addEventListener(
    FIREBASE ADMIN ROLE
 ========================================================= */
 
-async function verifyAdminRole(user){
+/*
+ * IMPORTANT
+ *
+ * This function is deliberately
+ * compatible with auth.html.
+ *
+ * 1. Check users/{Firebase UID}
+ * 2. If not found, search by email
+ *
+ * This prevents the authentication
+ * redirect loop caused by the two
+ * pages using different role checks.
+ */
 
-    /*
-     * IMPORTANT:
-     *
-     * We DO NOT use email here.
-     *
-     * We use:
-     *
-     * users/{Firebase UID}
-     *
-     * and check:
-     *
-     * role = admin
-     */
+async function verifyAdminRole(
+    user
+){
 
     if(!user){
 
@@ -2539,12 +3031,20 @@ async function verifyAdminRole(user){
 
     try{
 
+        /*
+         * =================================================
+         * STEP 1
+         * Check users/{Firebase UID}
+         * =================================================
+         */
+
         const userRef =
             doc(
                 db,
                 "users",
                 user.uid
             );
+
 
         const userSnap =
             await getDoc(
@@ -2553,45 +3053,155 @@ async function verifyAdminRole(user){
 
 
         if(
-            !userSnap.exists()
+            userSnap.exists()
         ){
 
-            console.warn(
-                "No Firestore user document found."
+            const userData =
+                userSnap.data();
+
+
+            console.log(
+                "Admin UID:",
+                user.uid
             );
+
+
+            console.log(
+                "Admin role:",
+                userData.role
+            );
+
+
+            return (
+
+                String(
+                    userData.role ||
+                    ""
+                ).toLowerCase()
+
+                ===
+
+                "admin"
+
+            );
+
+        }
+
+
+        /*
+         * =================================================
+         * STEP 2
+         * Fallback: search by email
+         * =================================================
+         */
+
+        if(!user.email){
 
             return false;
 
         }
 
 
-        const userData =
-            userSnap.data();
+        const usersRef =
+            collection(
+                db,
+                "users"
+            );
 
 
-        console.log(
-            "Admin user:",
-            user.email
-        );
+        const emailQuery =
+            query(
 
-        console.log(
-            "Role:",
-            userData.role
-        );
+                usersRef,
+
+                where(
+                    "email",
+                    "==",
+                    user.email
+                )
+
+            );
 
 
-        return (
-            userData.role ===
-            "admin"
-        );
+        const result =
+            await getDocs(
+                emailQuery
+            );
+
+
+        if(
+            result.empty
+        ){
+
+            console.warn(
+                "No Firestore user found for:",
+                user.email
+            );
+
+
+            return false;
+
+        }
+
+
+        /*
+         * Check all matching
+         * documents.
+         */
+
+        for(
+            const userDoc
+            of
+            result.docs
+        ){
+
+            const userData =
+                userDoc.data();
+
+
+            console.log(
+                "Email user document:",
+                userDoc.id
+            );
+
+
+            console.log(
+                "Email user role:",
+                userData.role
+            );
+
+
+            if(
+
+                String(
+                    userData.role ||
+                    ""
+                ).toLowerCase()
+
+                ===
+
+                "admin"
+
+            ){
+
+                return true;
+
+            }
+
+        }
+
+
+        return false;
 
     }
+
     catch(error){
 
         console.error(
             "Role verification error:",
             error
         );
+
 
         return false;
 
@@ -2605,8 +3215,17 @@ async function verifyAdminRole(user){
 ========================================================= */
 
 onAuthStateChanged(
+
     auth,
+
     async user => {
+
+
+        /*
+         * =================================================
+         * NO USER
+         * =================================================
+         */
 
         if(!user){
 
@@ -2623,11 +3242,23 @@ onAuthStateChanged(
             user;
 
 
+        /*
+         * =================================================
+         * VERIFY ADMIN
+         * =================================================
+         */
+
         const isAdmin =
             await verifyAdminRole(
                 user
             );
 
+
+        /*
+         * =================================================
+         * NOT ADMIN
+         * =================================================
+         */
 
         if(!isAdmin){
 
@@ -2641,6 +3272,7 @@ onAuthStateChanged(
             catch(error){
 
                 console.error(
+                    "Sign out:",
                     error
                 );
 
@@ -2651,13 +3283,16 @@ onAuthStateChanged(
                 "auth.html?error=admin_required"
             );
 
+
             return;
 
         }
 
 
         /*
-         * Administrator verified.
+         * =================================================
+         * ADMIN VERIFIED
+         * =================================================
          */
 
         profileEmail.textContent =
@@ -2670,7 +3305,9 @@ onAuthStateChanged(
 
 
         /*
-         * Dashboard is the default.
+         * =================================================
+         * DEFAULT DASHBOARD
+         * =================================================
          */
 
         const params =
@@ -2678,15 +3315,23 @@ onAuthStateChanged(
                 window.location.search
             );
 
+
         const requestedModule =
-            params.get("module");
+            params.get(
+                "module"
+            );
 
 
         if(
-            requestedModule &&
+
+            requestedModule
+
+            &&
+
             allowedModules.includes(
                 requestedModule
             )
+
         ){
 
             loadModule(
@@ -2705,6 +3350,7 @@ onAuthStateChanged(
         }
 
     }
+
 );
 
 
@@ -2723,15 +3369,18 @@ function loadClientDashboardData(){
 
         snapshot => {
 
+
             clientsData =
                 [];
+
 
             snapshot.forEach(
                 item => {
 
                     clientsData.push({
 
-                        id:item.id,
+                        id:
+                            item.id,
 
                         ...item.data()
 
@@ -2742,7 +3391,7 @@ function loadClientDashboardData(){
 
 
             /*
-             * Active clients.
+             * Active clients
              */
 
             const activeClients =
@@ -2751,16 +3400,26 @@ function loadClientDashboardData(){
 
                         const status =
                             String(
+
                                 client.status ||
+
                                 client.Status ||
+
                                 "Active"
+
                             ).toLowerCase();
 
+
                         return (
+
                             status ===
-                            "active" ||
+                            "active"
+
+                            ||
+
                             status ===
                             "regular"
+
                         );
 
                     }
@@ -2769,7 +3428,6 @@ function loadClientDashboardData(){
 
             clientsValue.textContent =
                 activeClients.length;
-
 
         },
 
@@ -2802,15 +3460,18 @@ function loadComplianceDashboardData(){
 
         snapshot => {
 
+
             complianceData =
                 [];
+
 
             snapshot.forEach(
                 item => {
 
                     complianceData.push({
 
-                        id:item.id,
+                        id:
+                            item.id,
 
                         ...item.data()
 
@@ -2822,7 +3483,11 @@ function loadComplianceDashboardData(){
 
             calculateCompliance();
 
+
             renderPriorityTable();
+
+
+            renderCurrentMonth();
 
         },
 
@@ -2849,16 +3514,22 @@ function calculateCompliance(){
     const today =
         new Date();
 
+
     today.setHours(
-        0,0,0,0
+        0,
+        0,
+        0,
+        0
     );
 
 
     let pending =
         0;
 
+
     let priority =
         0;
+
 
     let dues =
         0;
@@ -2867,23 +3538,43 @@ function calculateCompliance(){
     complianceData.forEach(
         item => {
 
+
             const status =
                 String(
+
                     item.status ||
+
                     item.Status ||
+
                     "Pending"
+
                 ).toLowerCase();
 
 
             /*
-             * Pending.
+             * Pending
              */
 
             if(
-                status !== "completed" &&
-                status !== "complete" &&
-                status !== "done" &&
-                status !== "filed"
+
+                status !==
+                "completed"
+
+                &&
+
+                status !==
+                "complete"
+
+                &&
+
+                status !==
+                "done"
+
+                &&
+
+                status !==
+                "filed"
+
             ){
 
                 pending++;
@@ -2892,20 +3583,31 @@ function calculateCompliance(){
 
 
             /*
-             * Priority.
+             * Priority
              */
 
             const priorityText =
                 String(
+
                     item.priority ||
+
                     item.Priority ||
+
                     ""
+
                 ).toLowerCase();
 
 
             if(
-                priorityText === "urgent" ||
-                priorityText === "high"
+
+                priorityText ===
+                "urgent"
+
+                ||
+
+                priorityText ===
+                "high"
+
             ){
 
                 priority++;
@@ -2914,17 +3616,24 @@ function calculateCompliance(){
 
 
             /*
-             * Outstanding amount.
+             * Outstanding amount
              */
 
             const amount =
                 Number(
+
                     item.amount ||
+
                     item.dueAmount ||
+
                     item.outstanding ||
+
                     item.outstandingAmount ||
+
                     item.pendingAmount ||
+
                     0
+
                 );
 
 
@@ -2961,15 +3670,27 @@ function calculateCompliance(){
    CURRENCY
 ========================================================= */
 
-function formatCurrency(amount){
+function formatCurrency(
+    amount
+){
 
     return new Intl.NumberFormat(
+
         "en-IN",
+
         {
-            style:"currency",
-            currency:"INR",
-            maximumFractionDigits:0
+
+            style:
+                "currency",
+
+            currency:
+                "INR",
+
+            maximumFractionDigits:
+                0
+
         }
+
     ).format(
         amount || 0
     );
@@ -2989,50 +3710,79 @@ function renderPriorityTable(){
 
     const rows =
         complianceData
+
             .filter(
                 item => {
 
                     const status =
                         String(
+
                             item.status ||
+
                             item.Status ||
+
                             "Pending"
+
                         ).toLowerCase();
 
+
                     return (
+
                         status !==
-                        "completed" &&
+                        "completed"
+
+                        &&
+
                         status !==
-                        "complete" &&
+                        "complete"
+
+                        &&
+
                         status !==
-                        "done" &&
+                        "done"
+
+                        &&
+
                         status !==
                         "filed"
+
                     );
 
                 }
             )
+
             .sort(
                 (a,b) => {
 
                     const da =
                         new Date(
+
                             a.dueDate ||
+
                             a.DueDate ||
+
                             0
+
                         );
+
 
                     const db =
                         new Date(
+
                             b.dueDate ||
+
                             b.DueDate ||
+
                             0
+
                         );
+
 
                     return da - db;
 
                 }
             )
+
             .slice(
                 0,
                 5
@@ -3055,12 +3805,15 @@ function renderPriorityTable(){
                         padding:25px;
                     "
                 >
+
                     No pending compliance records.
+
                 </td>
 
             </tr>
 
         `;
+
 
         return;
 
@@ -3070,25 +3823,39 @@ function renderPriorityTable(){
     rows.forEach(
         item => {
 
+
             const clientName =
+
                 item.clientName ||
+
                 item.ClientName ||
+
                 item.name ||
+
                 item.client ||
+
                 "Client";
 
 
             const dueDate =
+
                 item.dueDate ||
+
                 item.DueDate ||
+
                 "";
 
 
             const priority =
+
                 String(
+
                     item.priority ||
+
                     item.Priority ||
+
                     "Normal"
+
                 );
 
 
@@ -3109,6 +3876,7 @@ function renderPriorityTable(){
                     "priority-urgent";
 
             }
+
             else if(
                 priorityLower ===
                 "high"
@@ -3129,8 +3897,13 @@ function renderPriorityTable(){
             tr.innerHTML = `
 
                 <td>
-                    ${escapeHtml(clientName)}
+
+                    ${escapeHtml(
+                        clientName
+                    )}
+
                 </td>
+
 
                 <td
                     style="
@@ -3138,19 +3911,28 @@ function renderPriorityTable(){
                         font-weight:900;
                     "
                 >
+
                     ${escapeHtml(
+
                         formatDate(
                             dueDate
                         )
+
                     )}
+
                 </td>
+
 
                 <td>
 
                     <span
                         class="${badge}"
                     >
-                        ${escapeHtml(priority)}
+
+                        ${escapeHtml(
+                            priority
+                        )}
+
                     </span>
 
                 </td>
@@ -3172,7 +3954,9 @@ function renderPriorityTable(){
    DATE
 ========================================================= */
 
-function formatDate(value){
+function formatDate(
+    value
+){
 
     if(!value){
 
@@ -3201,12 +3985,22 @@ function formatDate(value){
 
 
     return date.toLocaleDateString(
+
         "en-IN",
+
         {
-            day:"2-digit",
-            month:"2-digit",
-            year:"numeric"
+
+            day:
+                "2-digit",
+
+            month:
+                "2-digit",
+
+            year:
+                "numeric"
+
         }
+
     );
 
 }
@@ -3216,27 +4010,34 @@ function formatDate(value){
    HTML ESCAPE
 ========================================================= */
 
-function escapeHtml(value){
+function escapeHtml(
+    value
+){
 
     return String(
         value ?? ""
     )
+
     .replace(
         /&/g,
         "&amp;"
     )
+
     .replace(
         /</g,
         "&lt;"
     )
+
     .replace(
         />/g,
         "&gt;"
     )
+
     .replace(
         /"/g,
         "&quot;"
     )
+
     .replace(
         /'/g,
         "&#039;"
@@ -3257,11 +4058,19 @@ function renderCurrentMonth(){
 
     currentMonth.textContent =
         now.toLocaleDateString(
+
             "en-IN",
+
             {
-                month:"long",
-                year:"numeric"
+
+                month:
+                    "long",
+
+                year:
+                    "numeric"
+
             }
+
         ).toUpperCase();
 
 
@@ -3270,12 +4079,12 @@ function renderCurrentMonth(){
 
 
     /*
-     * Show compliance items
-     * belonging to current month.
+     * Current month
      */
 
     const currentMonthNumber =
         now.getMonth();
+
 
     const currentYear =
         now.getFullYear();
@@ -3283,12 +4092,17 @@ function renderCurrentMonth(){
 
     const currentItems =
         complianceData
+
             .filter(
                 item => {
 
+
                     const value =
+
                         item.dueDate ||
+
                         item.DueDate;
+
 
                     if(!value){
 
@@ -3304,31 +4118,54 @@ function renderCurrentMonth(){
 
 
                     return (
+
                         !isNaN(
                             date.getTime()
-                        ) &&
+                        )
+
+                        &&
+
                         date.getMonth() ===
-                            currentMonthNumber &&
+                        currentMonthNumber
+
+                        &&
+
                         date.getFullYear() ===
-                            currentYear
+                        currentYear
+
                     );
 
                 }
             )
+
             .sort(
                 (a,b) => {
 
-                    return new Date(
-                        a.dueDate ||
-                        a.DueDate
-                    ) -
-                    new Date(
-                        b.dueDate ||
-                        b.DueDate
+                    return (
+
+                        new Date(
+
+                            a.dueDate ||
+
+                            a.DueDate
+
+                        )
+
+                        -
+
+                        new Date(
+
+                            b.dueDate ||
+
+                            b.DueDate
+
+                        )
+
                     );
 
                 }
             )
+
             .slice(
                 0,
                 6
@@ -3348,8 +4185,11 @@ function renderCurrentMonth(){
                 <div
                     class="calendar-date"
                 >
+
                     —
+
                 </div>
+
 
                 <div
                     class="calendar-info"
@@ -3358,13 +4198,18 @@ function renderCurrentMonth(){
                     <div
                         class="calendar-title"
                     >
+
                         No current-month schedule
+
                     </div>
+
 
                     <div
                         class="calendar-sub"
                     >
+
                         No compliance due dates found.
+
                     </div>
 
                 </div>
@@ -3372,6 +4217,7 @@ function renderCurrentMonth(){
             </div>
 
         `;
+
 
         return;
 
@@ -3381,30 +4227,45 @@ function renderCurrentMonth(){
     currentItems.forEach(
         item => {
 
+
             const date =
                 new Date(
+
                     item.dueDate ||
+
                     item.DueDate
+
                 );
 
 
             const title =
+
                 item.title ||
+
                 item.complianceName ||
+
                 item.name ||
+
                 item.ComplianceName ||
+
                 "Compliance";
 
 
             const count =
+
                 item.description ||
+
                 item.clientName ||
+
                 item.ClientName ||
+
                 "Scheduled filing";
 
 
             const status =
+
                 item.status ||
+
                 "Due Soon";
 
 
@@ -3418,23 +4279,30 @@ function renderCurrentMonth(){
                 "calendar-item";
 
 
+            const difference =
+                date.getTime() -
+                new Date().getTime();
+
+
+            const urgent =
+                difference <
+                (
+                    7 *
+                    24 *
+                    60 *
+                    60 *
+                    1000
+                );
+
+
             div.innerHTML = `
 
                 <div
                     class="calendar-date
                     ${
-                        date.getTime() -
-                        new Date().getTime()
-                        <
-                        7 *
-                        24 *
-                        60 *
-                        60 *
-                        1000
-                        ?
-                        "urgent"
-                        :
-                        ""
+                        urgent
+                        ? "urgent"
+                        : ""
                     }"
                 >
 
@@ -3450,13 +4318,22 @@ function renderCurrentMonth(){
                     <div
                         class="calendar-title"
                     >
-                        ${escapeHtml(title)}
+
+                        ${escapeHtml(
+                            title
+                        )}
+
                     </div>
+
 
                     <div
                         class="calendar-sub"
                     >
-                        ${escapeHtml(count)}
+
+                        ${escapeHtml(
+                            count
+                        )}
+
                     </div>
 
                 </div>
@@ -3465,7 +4342,11 @@ function renderCurrentMonth(){
                 <div
                     class="calendar-status"
                 >
-                    ${escapeHtml(status)}
+
+                    ${escapeHtml(
+                        status
+                    )}
+
                 </div>
 
             `;
@@ -3479,14 +4360,6 @@ function renderCurrentMonth(){
     );
 
 }
-
-
-/* =========================================================
-   REFRESH CALENDAR AFTER COMPLIANCE LOAD
-========================================================= */
-
-const originalCalculateCompliance =
-    calculateCompliance;
 
 
 /* =========================================================
@@ -3523,6 +4396,7 @@ moduleFrame.addEventListener(
     "load",
     () => {
 
+
         if(
             currentPage ===
             "index.html"
@@ -3535,8 +4409,10 @@ moduleFrame.addEventListener(
 
         try{
 
+
             const moduleWindow =
                 moduleFrame.contentWindow;
+
 
             if(!moduleWindow){
 
@@ -3546,12 +4422,14 @@ moduleFrame.addEventListener(
 
 
             /*
-             * Send current authentication
-             * information to the module.
+             * Send authentication
+             * information to module.
              */
 
             moduleWindow.postMessage(
+
                 {
+
                     type:
                         "CM_ADMIN_AUTH",
 
@@ -3565,25 +4443,33 @@ moduleFrame.addEventListener(
 
                     role:
                         "admin"
+
                 },
+
                 "*"
+
             );
 
 
             /*
-             * Inform module that it
-             * lives inside index shell.
+             * Tell module it is
+             * running inside shell.
              */
 
             moduleWindow.postMessage(
+
                 {
+
                     type:
                         "CM_EMBEDDED_SHELL",
 
                     page:
                         currentPage
+
                 },
+
                 "*"
+
             );
 
 
@@ -3609,6 +4495,7 @@ window.addEventListener(
     "message",
     event => {
 
+
         if(!event.data){
 
             return;
@@ -3617,31 +4504,19 @@ window.addEventListener(
 
 
         /*
-         * Module requests another module.
+         * Module requests another
+         * module.
          */
 
         if(
+
             event.data.type ===
             "CM_LOAD_MODULE"
+
         ){
 
-            let page =
+            const page =
                 event.data.page;
-
-
-            /*
-             * Convert old dashboard reference.
-             */
-
-            if(
-                page ===
-                "dashboard.html"
-            ){
-
-                page =
-                    "index.html";
-
-            }
 
 
             if(
@@ -3659,9 +4534,11 @@ window.addEventListener(
 
 
             if(
+
                 allowedModules.includes(
                     page
                 )
+
             ){
 
                 loadModule(
@@ -3678,8 +4555,10 @@ window.addEventListener(
          */
 
         if(
+
             event.data.type ===
             "GLOBAL_SEARCH"
+
         ){
 
             globalSearchInput.value =
@@ -3698,24 +4577,20 @@ window.addEventListener(
 
 loadClientDashboardData();
 
+
 loadComplianceDashboardData();
 
 
 /* =========================================================
-   CALENDAR
+   CALENDAR REFRESH
 ========================================================= */
 
-renderCurrentMonth();
-
-
-/*
- * Re-render calendar whenever
- * compliance data changes.
- */
-
 setInterval(
+
     renderCurrentMonth,
+
     30000
+
 );
 
 
@@ -3725,7 +4600,9 @@ setInterval(
 
 lucide.createIcons();
 
+
 </script>
 
 </body>
+
 </html>
