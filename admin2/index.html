@@ -1,271 +1,3743 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
 <title>CM FILINGS Admin</title>
-<link rel="icon" type="image/png" href="assets/logo.png">
-<link rel="apple-touch-icon" href="assets/logo.png">
-<meta name="theme-color" content="#FFFFFF">
+
+<link rel="icon"
+      type="image/png"
+      href="assets/logo.png">
+
+<link rel="apple-touch-icon"
+      href="assets/logo.png">
+
+<meta name="theme-color"
+      content="#FFFFFF">
+
 <script src="https://cdn.tailwindcss.com"></script>
+
 <script src="https://unpkg.com/lucide@latest"></script>
+
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;font-family:Inter,Arial,sans-serif;background:#F4F5F7}
-#app{width:100%;height:100dvh;min-height:100vh;display:flex;flex-direction:column}
-#app-header{height:70px;min-height:70px;flex-shrink:0;background:rgba(255,255,255,.98);border-bottom:1px solid #E2E8F0;display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1000}
-.header-brand{display:flex;align-items:center;gap:10px;min-width:0}
-.header-logo{width:42px;height:42px;object-fit:contain;flex-shrink:0}
-.header-name{height:27px;width:auto;max-width:155px;object-fit:contain}
-.logo-fallback{display:none;width:42px;height:42px;border-radius:12px;background:#071D49;color:#fff;align-items:center;justify-content:center}
-.name-fallback{display:none;font-weight:900;color:#071D49;font-size:18px;letter-spacing:-.5px}
-.header-actions{display:flex;align-items:center;gap:7px}
-.header-action{width:42px;height:42px;border:1px solid #E2E8F0;background:#F8FAFC;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#64748B}
-.header-action:active{transform:scale(.95)}
-#module-container{flex:1;min-height:0;position:relative;overflow:hidden;background:#F4F5F7}
-#module-frame{width:100%;height:100%;border:0;display:block;background:#F4F5F7}
-#bottom-nav{height:78px;min-height:78px;flex-shrink:0;background:#fff;border-top:1px solid #E2E8F0;display:grid;grid-template-columns:repeat(5,1fr);z-index:1000;padding-bottom:env(safe-area-inset-bottom)}
-.nav-item{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#94A3B8;font-size:10px;font-weight:800;cursor:pointer}
-.nav-item svg{width:22px;height:22px}
-.nav-item.active{color:#B10000}
-.nav-item.active svg{stroke-width:2.6}
-#global-search{position:fixed;top:70px;left:0;right:0;background:#fff;border-bottom:1px solid #E2E8F0;padding:10px 14px;z-index:1800;display:none}
-#global-search.show{display:block}
-.global-search-box{display:flex;align-items:center;gap:8px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:0 11px}
-.global-search-box input{width:100%;border:0;outline:0;background:transparent;padding:11px 0;font-size:13px;font-weight:600}
-.global-search-box button{border:0;background:transparent;color:#64748B}
-#more-menu{position:fixed;left:12px;right:12px;bottom:88px;background:#fff;border:1px solid #E2E8F0;border-radius:18px;padding:8px;box-shadow:0 18px 45px rgba(0,0,0,.16);z-index:2000;display:none;max-height:70vh;overflow:auto}
-#more-menu.show{display:block}
-.more-item{width:100%;display:flex;align-items:center;gap:12px;padding:12px;background:transparent;border:0;border-radius:11px;color:#334155;font-size:13px;font-weight:750;text-align:left}
-.more-item:active{background:#F8FAFC}
-#profile-menu{position:fixed;right:12px;top:60px;width:min(300px,calc(100vw - 24px));background:#fff;border:1px solid #E2E8F0;border-radius:16px;padding:12px;box-shadow:0 18px 45px rgba(0,0,0,.16);z-index:2100;display:none}
-#profile-menu.show{display:block}
-@media(min-width:768px){
- #app-header{padding:0 28px}
- #bottom-nav{max-width:760px;margin:0 auto;width:100%;border:1px solid #E2E8F0;border-bottom:0;border-radius:18px 18px 0 0}
- #more-menu{left:auto;width:360px}
+
+*{
+    box-sizing:border-box;
 }
+
+html,
+body{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    font-family:Inter,Arial,sans-serif;
+    background:#F4F5F7;
+    color:#334155;
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+#app{
+    width:100%;
+    min-height:100dvh;
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    background:#F4F5F7;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+#app-header{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+    right:0;
+
+    height:70px;
+    min-height:70px;
+
+    background:rgba(255,255,255,.98);
+
+    border-bottom:1px solid #E2E8F0;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 16px;
+
+    z-index:9000;
+
+    backdrop-filter:blur(14px);
+}
+
+.header-brand{
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    min-width:0;
+}
+
+.header-logo{
+
+    width:42px;
+    height:42px;
+
+    object-fit:contain;
+
+    flex-shrink:0;
+}
+
+.header-name{
+
+    height:27px;
+    width:auto;
+
+    max-width:155px;
+
+    object-fit:contain;
+}
+
+.logo-fallback{
+
+    display:none;
+
+    width:42px;
+    height:42px;
+
+    border-radius:12px;
+
+    background:#071D49;
+
+    color:#fff;
+
+    align-items:center;
+    justify-content:center;
+}
+
+.name-fallback{
+
+    display:none;
+
+    font-weight:900;
+
+    color:#071D49;
+
+    font-size:18px;
+
+    letter-spacing:-.5px;
+}
+
+.header-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+}
+
+.header-action{
+
+    width:42px;
+    height:42px;
+
+    border:1px solid #E2E8F0;
+
+    background:#F8FAFC;
+
+    border-radius:12px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#64748B;
+
+    cursor:pointer;
+}
+
+.header-action:active{
+
+    transform:scale(.95);
+}
+
+/* =========================================================
+   CONTENT AREA
+========================================================= */
+
+#module-container{
+
+    width:100%;
+
+    padding-top:70px;
+
+    padding-bottom:92px;
+
+    min-height:100dvh;
+
+    background:#F4F5F7;
+
+    overflow:auto;
+
+    position:relative;
+}
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+#dashboard-view{
+
+    width:100%;
+
+    min-height:calc(100dvh - 162px);
+
+    background:#F4F5F7;
+
+    background-image:
+        radial-gradient(
+            rgba(7,29,73,.045) 1px,
+            transparent 1px
+        );
+
+    background-size:28px 28px;
+
+    padding:24px 16px 40px;
+}
+
+.dashboard-inner{
+
+    width:100%;
+    max-width:1100px;
+
+    margin:0 auto;
+}
+
+/* =========================================================
+   DASHBOARD TITLE
+========================================================= */
+
+.dashboard-heading{
+
+    background:#fff;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:22px;
+
+    padding:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:14px;
+
+    box-shadow:
+        0 2px 8px rgba(15,23,42,.04);
+
+    margin-bottom:18px;
+}
+
+.dashboard-heading-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    min-width:0;
+}
+
+.dashboard-icon{
+
+    width:48px;
+    height:48px;
+
+    flex-shrink:0;
+
+    background:#071D49;
+
+    color:#fff;
+
+    border-radius:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+.dashboard-title{
+
+    font-size:20px;
+
+    font-weight:900;
+
+    color:#071D49;
+
+    line-height:1.15;
+}
+
+.dashboard-subtitle{
+
+    margin-top:4px;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    color:#94A3B8;
+
+    text-transform:uppercase;
+
+    letter-spacing:.12em;
+}
+
+/* =========================================================
+   DASHBOARD CARDS
+========================================================= */
+
+.dashboard-cards{
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:14px;
+
+    margin-bottom:22px;
+}
+
+.dashboard-card{
+
+    background:#fff;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:22px;
+
+    padding:20px;
+
+    min-height:130px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    box-shadow:
+        0 2px 8px rgba(15,23,42,.04);
+}
+
+.dashboard-card-icon{
+
+    width:62px;
+    height:62px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+}
+
+.icon-warning{
+
+    background:#FFF9E8;
+    color:#D48319;
+}
+
+.icon-money{
+
+    background:#FDF2F2;
+    color:#B10000;
+}
+
+.icon-priority{
+
+    background:#EFF6FF;
+    color:#2563EB;
+}
+
+.icon-client{
+
+    background:#ECFDF5;
+    color:#159570;
+}
+
+.dashboard-card-label{
+
+    font-size:11px;
+
+    font-weight:900;
+
+    color:#94A3B8;
+
+    text-transform:uppercase;
+
+    letter-spacing:.08em;
+}
+
+.dashboard-card-value{
+
+    margin-top:5px;
+
+    font-size:34px;
+
+    line-height:1;
+
+    font-weight:950;
+
+    color:#071D49;
+}
+
+.dashboard-card-value.money{
+
+    color:#B10000;
+
+    font-size:32px;
+}
+
+/* =========================================================
+   DASHBOARD SECTION
+========================================================= */
+
+.dashboard-section{
+
+    background:#fff;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:22px;
+
+    padding:20px;
+
+    margin-bottom:18px;
+
+    box-shadow:
+        0 2px 8px rgba(15,23,42,.04);
+}
+
+.section-heading{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    margin-bottom:16px;
+}
+
+.section-heading-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.section-heading-left i{
+
+    color:#B10000;
+}
+
+.section-title{
+
+    font-size:18px;
+
+    font-weight:900;
+
+    color:#071D49;
+}
+
+.section-link{
+
+    border:0;
+
+    background:transparent;
+
+    color:#B10000;
+
+    font-size:12px;
+
+    font-weight:900;
+
+    cursor:pointer;
+}
+
+/* =========================================================
+   PENDING TABLE
+========================================================= */
+
+.pending-table{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    -webkit-overflow-scrolling:touch;
+}
+
+.pending-table table{
+
+    width:100%;
+
+    min-width:560px;
+
+    border-collapse:collapse;
+}
+
+.pending-table th{
+
+    text-align:left;
+
+    padding:11px;
+
+    background:#F8FAFC;
+
+    color:#94A3B8;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    text-transform:uppercase;
+
+    letter-spacing:.06em;
+
+    border-bottom:1px solid #E2E8F0;
+}
+
+.pending-table td{
+
+    padding:14px 11px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    border-bottom:1px solid #F1F5F9;
+}
+
+.pending-table tr:last-child td{
+
+    border-bottom:0;
+}
+
+.priority-urgent{
+
+    display:inline-flex;
+
+    padding:5px 9px;
+
+    border-radius:8px;
+
+    background:#FDF2F2;
+
+    color:#B10000;
+
+    font-size:10px;
+
+    font-weight:900;
+}
+
+.priority-high{
+
+    display:inline-flex;
+
+    padding:5px 9px;
+
+    border-radius:8px;
+
+    background:#FFF8E8;
+
+    color:#C17A00;
+
+    font-size:10px;
+
+    font-weight:900;
+}
+
+.priority-normal{
+
+    display:inline-flex;
+
+    padding:5px 9px;
+
+    border-radius:8px;
+
+    background:#EFF6FF;
+
+    color:#2563EB;
+
+    font-size:10px;
+
+    font-weight:900;
+}
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+.calendar-month{
+
+    background:#F8FAFC;
+
+    border:1px solid #EEF2F7;
+
+    border-radius:16px;
+
+    padding:17px;
+
+    text-align:center;
+
+    color:#071D49;
+
+    font-size:15px;
+
+    font-weight:900;
+
+    margin-bottom:12px;
+}
+
+.calendar-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    background:#F8FAFC;
+
+    border:1px solid #EEF2F7;
+
+    border-radius:16px;
+
+    padding:12px;
+
+    margin-bottom:10px;
+}
+
+.calendar-date{
+
+    width:50px;
+    height:50px;
+
+    border-radius:13px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:#071D49;
+
+    color:#fff;
+
+    font-size:17px;
+
+    font-weight:900;
+
+    flex-shrink:0;
+}
+
+.calendar-date.urgent{
+
+    background:#B10000;
+}
+
+.calendar-info{
+
+    min-width:0;
+}
+
+.calendar-title{
+
+    font-size:13px;
+
+    font-weight:900;
+
+    color:#071D49;
+}
+
+.calendar-sub{
+
+    margin-top:3px;
+
+    font-size:10px;
+
+    color:#94A3B8;
+
+    font-weight:700;
+}
+
+.calendar-status{
+
+    margin-left:auto;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    color:#B10000;
+
+    white-space:nowrap;
+}
+
+/* =========================================================
+   IFRAME MODULE
+========================================================= */
+
+#module-frame{
+
+    display:none;
+
+    width:100%;
+
+    height:calc(100dvh - 162px);
+
+    min-height:calc(100vh - 162px);
+
+    border:0;
+
+    background:#F4F5F7;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+#global-search{
+
+    position:fixed;
+
+    top:70px;
+
+    left:0;
+    right:0;
+
+    background:#fff;
+
+    border-bottom:1px solid #E2E8F0;
+
+    padding:10px 14px;
+
+    z-index:8800;
+
+    display:none;
+}
+
+#global-search.show{
+
+    display:block;
+}
+
+.global-search-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:#F8FAFC;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:12px;
+
+    padding:0 11px;
+}
+
+.global-search-box input{
+
+    width:100%;
+
+    border:0;
+
+    outline:0;
+
+    background:transparent;
+
+    padding:11px 0;
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+.global-search-box button{
+
+    border:0;
+
+    background:transparent;
+
+    color:#64748B;
+
+    cursor:pointer;
+}
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+#profile-menu{
+
+    position:fixed;
+
+    right:12px;
+
+    top:60px;
+
+    width:min(310px,calc(100vw - 24px));
+
+    background:#fff;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:18px;
+
+    padding:12px;
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.16);
+
+    z-index:9500;
+
+    display:none;
+}
+
+#profile-menu.show{
+
+    display:block;
+}
+
+.profile-signout{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:13px;
+
+    border:0;
+
+    border-radius:13px;
+
+    background:#FDF2F2;
+
+    color:#B10000;
+
+    font-weight:900;
+
+    font-size:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    cursor:pointer;
+}
+
+/* =========================================================
+   MORE MENU
+========================================================= */
+
+#more-menu{
+
+    position:fixed;
+
+    left:12px;
+    right:12px;
+
+    bottom:90px;
+
+    background:#fff;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:18px;
+
+    padding:8px;
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.16);
+
+    z-index:9400;
+
+    display:none;
+
+    max-height:70vh;
+
+    overflow:auto;
+}
+
+#more-menu.show{
+
+    display:block;
+}
+
+.more-item{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px;
+
+    background:transparent;
+
+    border:0;
+
+    border-radius:11px;
+
+    color:#334155;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    text-align:left;
+
+    cursor:pointer;
+}
+
+.more-item svg{
+
+    width:18px;
+    height:18px;
+
+    color:#071D49;
+}
+
+.more-item:active{
+
+    background:#F8FAFC;
+}
+
+/* =========================================================
+   BOTTOM NAV
+========================================================= */
+
+#bottom-nav{
+
+    position:fixed;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:78px;
+
+    min-height:78px;
+
+    padding-bottom:env(safe-area-inset-bottom);
+
+    background:#fff;
+
+    border-top:1px solid #E2E8F0;
+
+    display:grid;
+
+    grid-template-columns:repeat(5,1fr);
+
+    z-index:9999;
+
+    box-shadow:
+        0 -5px 20px rgba(15,23,42,.05);
+}
+
+.nav-item{
+
+    border:0;
+
+    background:transparent;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:4px;
+
+    color:#94A3B8;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    -webkit-tap-highlight-color:transparent;
+}
+
+.nav-item svg{
+
+    width:22px;
+    height:22px;
+}
+
+.nav-item.active{
+
+    color:#B10000;
+}
+
+.nav-item.active svg{
+
+    stroke-width:2.7;
+}
+
+.nav-item:active{
+
+    transform:scale(.96);
+}
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+#app-loader{
+
+    position:fixed;
+
+    inset:0;
+
+    background:#F4F5F7;
+
+    z-index:99999;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+}
+
+.loader-icon{
+
+    width:52px;
+    height:52px;
+
+    background:#071D49;
+
+    color:#fff;
+
+    border-radius:15px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    margin-bottom:14px;
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media(min-width:768px){
+
+    #app-header{
+
+        padding:0 28px;
+    }
+
+    #dashboard-view{
+
+        padding:30px 28px 50px;
+    }
+
+    .dashboard-cards{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    #bottom-nav{
+
+        max-width:760px;
+
+        left:50%;
+
+        right:auto;
+
+        transform:translateX(-50%);
+
+        width:100%;
+
+        border:
+            1px solid #E2E8F0;
+
+        border-bottom:0;
+
+        border-radius:
+            18px 18px 0 0;
+    }
+
+    #more-menu{
+
+        left:auto;
+
+        right:20px;
+
+        width:360px;
+    }
+}
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media(min-width:1100px){
+
+    .dashboard-cards{
+
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+    .dashboard-card{
+
+        min-height:155px;
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        justify-content:center;
+    }
+
+    .dashboard-card-value{
+
+        font-size:32px;
+    }
+}
+
 </style>
 </head>
+
+
 <body>
+
 <div id="app">
+
+<!-- =====================================================
+     GLOBAL HEADER
+====================================================== -->
+
 <header id="app-header">
-<div class="header-brand">
-<img src="assets/logo.png" class="header-logo" alt="CM Filings logo"
-     onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='flex'">
-<div id="logo-fallback" class="logo-fallback"><i data-lucide="shield-check"></i></div>
-<img src="assets/name.png" class="header-name" alt="CM Filings"
-     onerror="this.style.display='none';document.getElementById('name-fallback').style.display='block'">
-<div id="name-fallback" class="name-fallback">CM FILINGS</div>
-</div>
-<div class="header-actions">
-<button id="global-search-btn" class="header-action" title="Search"><i data-lucide="search" class="w-5 h-5"></i></button>
-<button id="profile-btn" class="header-action" title="Profile"><i data-lucide="user-circle" class="w-5 h-5"></i></button>
-</div>
+
+    <div class="header-brand">
+
+        <img
+            src="assets/logo.png"
+            class="header-logo"
+            alt="CM Filings Logo"
+            onerror="
+                this.style.display='none';
+                document.getElementById('logo-fallback').style.display='flex';
+            "
+        >
+
+        <div
+            id="logo-fallback"
+            class="logo-fallback"
+        >
+            <i data-lucide="shield-check"></i>
+        </div>
+
+        <img
+            src="assets/name.png"
+            class="header-name"
+            alt="CM Filings"
+            onerror="
+                this.style.display='none';
+                document.getElementById('name-fallback').style.display='block';
+            "
+        >
+
+        <div
+            id="name-fallback"
+            class="name-fallback"
+        >
+            CM FILINGS
+        </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+        <!-- SEARCH -->
+
+        <button
+            id="global-search-btn"
+            class="header-action"
+            title="Search"
+            type="button"
+        >
+
+            <i
+                data-lucide="search"
+                class="w-5 h-5"
+            ></i>
+
+        </button>
+
+
+        <!-- PROFILE -->
+
+        <button
+            id="profile-btn"
+            class="header-action"
+            title="Profile"
+            type="button"
+        >
+
+            <i
+                data-lucide="user-circle"
+                class="w-5 h-5"
+            ></i>
+
+        </button>
+
+    </div>
+
 </header>
 
+
+<!-- =====================================================
+     GLOBAL SEARCH
+====================================================== -->
+
 <div id="global-search">
-<div class="global-search-box">
-<i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
-<input id="global-search-input" type="search" placeholder="Search current module...">
-<button id="close-global-search"><i data-lucide="x" class="w-4 h-4"></i></button>
+
+    <div class="global-search-box">
+
+        <i
+            data-lucide="search"
+            class="w-4 h-4 text-slate-400"
+        ></i>
+
+        <input
+            id="global-search-input"
+            type="search"
+            placeholder="Search current module..."
+            autocomplete="off"
+        >
+
+        <button
+            id="close-global-search"
+            type="button"
+            title="Close"
+        >
+
+            <i
+                data-lucide="x"
+                class="w-4 h-4"
+            ></i>
+
+        </button>
+
+    </div>
+
 </div>
-</div>
+
+
+<!-- =====================================================
+     MAIN MODULE AREA
+====================================================== -->
 
 <main id="module-container">
-<iframe id="module-frame" src="dashboard.html" title="CM Filings Admin Module"></iframe>
+
+
+<!-- =====================================================
+     DASHBOARD
+====================================================== -->
+
+<section id="dashboard-view">
+
+<div class="dashboard-inner">
+
+
+    <!-- DASHBOARD HEADER -->
+
+    <div class="dashboard-heading">
+
+        <div class="dashboard-heading-left">
+
+            <div class="dashboard-icon">
+
+                <i
+                    data-lucide="layout-dashboard"
+                    class="w-6 h-6"
+                ></i>
+
+            </div>
+
+            <div>
+
+                <div class="dashboard-title">
+                    Executive Dashboard
+                </div>
+
+                <div class="dashboard-subtitle">
+                    CM Filings Administration
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         KPI CARDS
+    ================================================== -->
+
+    <div class="dashboard-cards">
+
+
+        <!-- PENDING -->
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-card-icon icon-warning">
+
+                <i
+                    data-lucide="clock-3"
+                    class="w-8 h-8"
+                ></i>
+
+            </div>
+
+            <div>
+
+                <div class="dashboard-card-label">
+                    Pending Compliance
+                </div>
+
+                <div
+                    id="dashboard-pending"
+                    class="dashboard-card-value"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- OUTSTANDING -->
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-card-icon icon-money">
+
+                <i
+                    data-lucide="indian-rupee"
+                    class="w-8 h-8"
+                ></i>
+
+            </div>
+
+            <div>
+
+                <div class="dashboard-card-label">
+                    Total Outstanding Dues
+                </div>
+
+                <div
+                    id="dashboard-dues"
+                    class="dashboard-card-value money"
+                >
+                    ₹0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRIORITY -->
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-card-icon icon-priority">
+
+                <i
+                    data-lucide="triangle-alert"
+                    class="w-8 h-8"
+                ></i>
+
+            </div>
+
+            <div>
+
+                <div class="dashboard-card-label">
+                    Priority Tasks Due
+                </div>
+
+                <div
+                    id="dashboard-priority"
+                    class="dashboard-card-value"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CLIENTS -->
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-card-icon icon-client">
+
+                <i
+                    data-lucide="users"
+                    class="w-8 h-8"
+                ></i>
+
+            </div>
+
+            <div>
+
+                <div class="dashboard-card-label">
+                    Active Clients
+                </div>
+
+                <div
+                    id="dashboard-clients"
+                    class="dashboard-card-value"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         PRIORITY COMPLIANCE
+    ================================================== -->
+
+    <section class="dashboard-section">
+
+        <div class="section-heading">
+
+            <div class="section-heading-left">
+
+                <i
+                    data-lucide="octagon-alert"
+                    class="w-5 h-5"
+                ></i>
+
+                <div class="section-title">
+                    Priority Pending Compliance
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                class="section-link"
+                data-open-module="compliance.html"
+            >
+                View All
+            </button>
+
+        </div>
+
+
+        <div class="pending-table">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Client Name
+                        </th>
+
+                        <th>
+                            Due Date
+                        </th>
+
+                        <th>
+                            Priority
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="priority-table-body">
+
+                    <tr>
+
+                        <td
+                            colspan="3"
+                            style="
+                                text-align:center;
+                                color:#94A3B8;
+                                padding:25px;
+                            "
+                        >
+                            Loading compliance...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         CURRENT MONTH CALENDAR
+    ================================================== -->
+
+    <section class="dashboard-section">
+
+        <div class="section-heading">
+
+            <div class="section-heading-left">
+
+                <i
+                    data-lucide="calendar-days"
+                    class="w-5 h-5 text-[#071D49]"
+                ></i>
+
+                <div class="section-title">
+                    Calendar Schedule
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                class="section-link"
+                data-open-module="calender.html"
+            >
+                View Calendar
+            </button>
+
+        </div>
+
+
+        <div
+            id="current-month"
+            class="calendar-month"
+        >
+            Loading...
+        </div>
+
+
+        <div id="calendar-list">
+
+            <div class="calendar-item">
+
+                <div class="calendar-date urgent">
+                    —
+                </div>
+
+                <div class="calendar-info">
+
+                    <div class="calendar-title">
+                        Loading schedule...
+                    </div>
+
+                    <div class="calendar-sub">
+                        Please wait
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     OTHER MODULES
+====================================================== -->
+
+<iframe
+    id="module-frame"
+    title="CM Filings Admin Module"
+    src="about:blank"
+    loading="eager"
+></iframe>
+
+
 </main>
 
+
+<!-- =====================================================
+     PROFILE MENU
+====================================================== -->
+
 <div id="profile-menu">
-<div class="px-2 py-2 border-b border-slate-100">
-<p class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Signed in as</p>
-<p id="profile-email" class="text-sm font-bold text-slate-700 mt-1 break-all">Admin</p>
-<p class="text-[10px] text-emerald-600 font-bold mt-1 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> Administrator</p>
+
+    <div class="px-2 py-2 border-b border-slate-100">
+
+        <p
+            class="text-[10px]
+                   font-extrabold
+                   uppercase
+                   tracking-widest
+                   text-slate-400"
+        >
+            Signed in as
+        </p>
+
+        <p
+            id="profile-email"
+            class="text-sm
+                   font-bold
+                   text-slate-700
+                   mt-1
+                   break-all"
+        >
+            Administrator
+        </p>
+
+        <p
+            class="text-[10px]
+                   text-emerald-600
+                   font-bold
+                   mt-1
+                   flex
+                   items-center
+                   gap-1"
+        >
+
+            <span
+                class="w-1.5
+                       h-1.5
+                       bg-emerald-500
+                       rounded-full"
+            ></span>
+
+            Administrator
+
+        </p>
+
+    </div>
+
+
+    <button
+        id="profile-signout"
+        class="profile-signout"
+        type="button"
+    >
+
+        <i
+            data-lucide="log-out"
+            class="w-4 h-4"
+        ></i>
+
+        Sign Out
+
+    </button>
+
 </div>
-<button id="profile-signout" class="w-full mt-2 px-3 py-2.5 rounded-xl bg-red-50 text-[#B10000] font-bold text-xs flex items-center gap-2">
-<i data-lucide="log-out" class="w-4 h-4"></i> Sign Out
-</button>
-</div>
+
+
+<!-- =====================================================
+     MORE MENU
+====================================================== -->
 
 <div id="more-menu">
-<button class="more-item" data-page="company.html" data-title="Company"><i data-lucide="building-2"></i><span>Company</span></button>
-<button class="more-item" data-page="calender.html" data-title="Compliance Calendar"><i data-lucide="calendar-days"></i><span>Compliance Calendar</span></button>
-<button class="more-item" data-page="contacts.html" data-title="Contacts"><i data-lucide="contact"></i><span>Contacts</span></button>
-<button class="more-item" data-page="contact.html" data-title="Contact"><i data-lucide="message-square"></i><span>Contact</span></button>
-<button class="more-item" data-page="data-import.html" data-title="Data Import"><i data-lucide="database-zap"></i><span>Data Import</span></button>
-<button class="more-item" data-page="invoice.html" data-title="Invoice"><i data-lucide="file-text"></i><span>Invoice</span></button>
-<button class="more-item" data-page="pay.html" data-title="Payments"><i data-lucide="credit-card"></i><span>Payments</span></button>
-<button class="more-item" data-page="transactions.html" data-title="Transactions"><i data-lucide="receipt"></i><span>Transactions</span></button>
+
+
+    <button
+        class="more-item"
+        data-page="company.html"
+    >
+
+        <i data-lucide="building-2"></i>
+
+        <span>Company</span>
+
+    </button>
+
+
+    <button
+        class="more-item"
+        data-page="calender.html"
+    >
+
+        <i data-lucide="calendar-days"></i>
+
+        <span>Compliance Calendar</span>
+
+    </button>
+
+
+    <button
+        class="more-item"
+        data-page="contacts.html"
+    >
+
+        <i data-lucide="contact"></i>
+
+        <span>Contacts</span>
+
+    </button>
+
+
+    <button
+        class="more-item"
+        data-page="contact.html"
+    >
+
+        <i data-lucide="message-square"></i>
+
+        <span>Contact</span>
+
+    </button>
+
+
+    <button
+        class="more-item"
+        data-page="data-import.html"
+    >
+
+        <i data-lucide="database-zap"></i>
+
+        <span>Data Import</span>
+
+    </button>
+
+
+    <button
+        class="more-item"
+        data-page="invoice.html"
+    >
+
+        <i data-lucide="file-text"></i>
+
+        <span>Invoice</span>
+
+    </button>
+
+
+    <button
+        class="more-item"
+        data-page="pay.html"
+    >
+
+        <i data-lucide="credit-card"></i>
+
+        <span>Payments</span>
+
+    </button>
+
+
+    <button
+        class="more-item"
+        data-page="transactions.html"
+    >
+
+        <i data-lucide="receipt"></i>
+
+        <span>Transactions</span>
+
+    </button>
+
 </div>
+
+
+<!-- =====================================================
+     PERMANENT BOTTOM NAV
+====================================================== -->
 
 <nav id="bottom-nav">
-<button class="nav-item active" data-page="dashboard.html" data-title="Dashboard"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></button>
-<button class="nav-item" data-page="clients.html" data-title="Clients"><i data-lucide="users"></i><span>Clients</span></button>
-<button class="nav-item" data-page="compliance.html" data-title="Compliance"><i data-lucide="clipboard-check"></i><span>Compliance</span></button>
-<button class="nav-item" data-page="credentials.html" data-title="Credentials"><i data-lucide="key-round"></i><span>Credentials</span></button>
-<button class="nav-item" id="more-btn"><i data-lucide="menu"></i><span>Menu</span></button>
+
+
+    <button
+        class="nav-item active"
+        data-page="index.html"
+        type="button"
+    >
+
+        <i data-lucide="layout-dashboard"></i>
+
+        <span>Dashboard</span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-page="clients.html"
+        type="button"
+    >
+
+        <i data-lucide="users"></i>
+
+        <span>Clients</span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-page="compliance.html"
+        type="button"
+    >
+
+        <i data-lucide="clipboard-check"></i>
+
+        <span>Compliance</span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-page="credentials.html"
+        type="button"
+    >
+
+        <i data-lucide="key-round"></i>
+
+        <span>Credentials</span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        id="more-btn"
+        type="button"
+    >
+
+        <i data-lucide="menu"></i>
+
+        <span>Menu</span>
+
+    </button>
+
+
 </nav>
+
+
+<!-- =====================================================
+     APP LOADER
+====================================================== -->
+
+<div id="app-loader">
+
+    <div class="loader-icon">
+
+        <i
+            data-lucide="shield-check"
+            class="w-7 h-7"
+        ></i>
+
+    </div>
+
+    <i
+        data-lucide="loader-2"
+        class="w-7 h-7
+               text-[#B10000]
+               animate-spin
+               mb-3"
+    ></i>
+
+    <p
+        class="text-xs
+               font-black
+               tracking-widest
+               uppercase
+               text-slate-500"
+    >
+        Verifying Administrator
+    </p>
+
 </div>
 
+
+<!-- =====================================================
+     FIREBASE + APPLICATION
+====================================================== -->
+
 <script type="module">
-import { auth, db } from "./firebase-config.js";
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const frame=document.getElementById("module-frame");
-const moreBtn=document.getElementById("more-btn");
-const moreMenu=document.getElementById("more-menu");
-const profileBtn=document.getElementById("profile-btn");
-const profileMenu=document.getElementById("profile-menu");
-const profileEmail=document.getElementById("profile-email");
-const profileSignout=document.getElementById("profile-signout");
-const globalSearchBtn=document.getElementById("global-search-btn");
-const globalSearch=document.getElementById("global-search");
-const closeGlobalSearch=document.getElementById("close-global-search");
-const globalSearchInput=document.getElementById("global-search-input");
+import {
+    auth,
+    db
+} from "./firebase-config.js";
 
-let currentPage="dashboard.html";
-let currentUser=null;
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-function pageTitle(page){
- return ({
-  "dashboard.html":"Dashboard","clients.html":"Clients","compliance.html":"Compliance",
-  "credentials.html":"Credentials","company.html":"Company","calender.html":"Compliance Calendar",
-  "contacts.html":"Contacts","contact.html":"Contact","data-import.html":"Data Import",
-  "invoice.html":"Invoice","pay.html":"Payments","transactions.html":"Transactions"
- }[page] || page.replace(".html",""));
+import {
+    collection,
+    onSnapshot,
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const appLoader =
+    document.getElementById("app-loader");
+
+const dashboardView =
+    document.getElementById("dashboard-view");
+
+const moduleFrame =
+    document.getElementById("module-frame");
+
+const profileBtn =
+    document.getElementById("profile-btn");
+
+const profileMenu =
+    document.getElementById("profile-menu");
+
+const profileEmail =
+    document.getElementById("profile-email");
+
+const profileSignout =
+    document.getElementById("profile-signout");
+
+const moreBtn =
+    document.getElementById("more-btn");
+
+const moreMenu =
+    document.getElementById("more-menu");
+
+const globalSearchBtn =
+    document.getElementById("global-search-btn");
+
+const globalSearch =
+    document.getElementById("global-search");
+
+const globalSearchInput =
+    document.getElementById("global-search-input");
+
+const closeGlobalSearch =
+    document.getElementById("close-global-search");
+
+const pendingValue =
+    document.getElementById("dashboard-pending");
+
+const duesValue =
+    document.getElementById("dashboard-dues");
+
+const priorityValue =
+    document.getElementById("dashboard-priority");
+
+const clientsValue =
+    document.getElementById("dashboard-clients");
+
+const priorityTableBody =
+    document.getElementById("priority-table-body");
+
+const currentMonth =
+    document.getElementById("current-month");
+
+const calendarList =
+    document.getElementById("calendar-list");
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentPage =
+    "index.html";
+
+let currentUser =
+    null;
+
+let clientsData = [];
+
+let complianceData = [];
+
+
+/* =========================================================
+   ALLOWED MODULES
+========================================================= */
+
+const allowedModules = [
+
+    "clients.html",
+
+    "compliance.html",
+
+    "credentials.html",
+
+    "company.html",
+
+    "calender.html",
+
+    "contacts.html",
+
+    "contact.html",
+
+    "data-import.html",
+
+    "invoice.html",
+
+    "pay.html",
+
+    "transactions.html"
+
+];
+
+
+/* =========================================================
+   PAGE TITLES
+========================================================= */
+
+const pageTitles = {
+
+    "index.html":
+        "Dashboard",
+
+    "clients.html":
+        "Clients",
+
+    "compliance.html":
+        "Compliance",
+
+    "credentials.html":
+        "Credentials",
+
+    "company.html":
+        "Company",
+
+    "calender.html":
+        "Compliance Calendar",
+
+    "contacts.html":
+        "Contacts",
+
+    "contact.html":
+        "Contact",
+
+    "data-import.html":
+        "Data Import",
+
+    "invoice.html":
+        "Invoice",
+
+    "pay.html":
+        "Payments",
+
+    "transactions.html":
+        "Transactions"
+
+};
+
+
+/* =========================================================
+   UPDATE NAV ACTIVE STATE
+========================================================= */
+
+function updateActiveNav(page){
+
+    document
+        .querySelectorAll(
+            ".nav-item[data-page]"
+        )
+        .forEach(item => {
+
+            item.classList.toggle(
+                "active",
+                item.dataset.page === page
+            );
+
+        });
+
 }
 
-function updateActive(page){
- document.querySelectorAll(".nav-item[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===page));
-}
 
-function loadModule(page){
- currentPage=page;
- moreMenu.classList.remove("show");
- profileMenu.classList.remove("show");
- globalSearch.classList.remove("show");
- globalSearchInput.value="";
- updateActive(page);
- frame.src=page;
-}
+/* =========================================================
+   LOAD MODULE
+========================================================= */
 
-function deny(){
- window.location.replace("signin.html?error=admin_required");
-}
+function loadModule(page, pushHistory = true){
 
-onAuthStateChanged(auth, async user=>{
- if(!user){ window.location.replace("signin.html?error=login_required"); return; }
- currentUser=user;
- profileEmail.textContent=user.email || "Administrator";
- try{
-   const snap=await getDoc(doc(db,"users",user.uid));
-   const data=snap.exists()?snap.data():{};
-   if(data.role!=="admin") { await signOut(auth); deny(); return; }
- }catch(e){
-   console.error("Admin role verification failed:",e);
-   await signOut(auth);
-   deny();
- }
-});
+    /*
+     * Old dashboard.html references are
+     * automatically converted to index.html.
+     */
 
-document.querySelectorAll(".nav-item[data-page]").forEach(item=>item.addEventListener("click",()=>loadModule(item.dataset.page)));
-document.querySelectorAll(".more-item").forEach(item=>item.addEventListener("click",()=>loadModule(item.dataset.page)));
+    if(
+        page === "dashboard.html" ||
+        page === "" ||
+        page === "index.html"
+    ){
 
-moreBtn.addEventListener("click",e=>{e.stopPropagation();moreMenu.classList.toggle("show");profileMenu.classList.remove("show")});
-profileBtn.addEventListener("click",e=>{e.stopPropagation();profileMenu.classList.toggle("show");moreMenu.classList.remove("show")});
-document.addEventListener("click",e=>{
- if(!moreMenu.contains(e.target) && e.target!==moreBtn) moreMenu.classList.remove("show");
- if(!profileMenu.contains(e.target) && e.target!==profileBtn) profileMenu.classList.remove("show");
-});
+        currentPage =
+            "index.html";
 
-profileSignout.addEventListener("click",async()=>{
- await signOut(auth);
- window.location.replace("signin.html");
-});
+        dashboardView.style.display =
+            "block";
 
-globalSearchBtn.addEventListener("click",()=>{globalSearch.classList.add("show");globalSearchInput.focus()});
-closeGlobalSearch.addEventListener("click",()=>{globalSearch.classList.remove("show");globalSearchInput.value=""});
-globalSearchInput.addEventListener("input",()=>frame.contentWindow?.postMessage({type:"GLOBAL_SEARCH",value:globalSearchInput.value},"*"));
+        moduleFrame.style.display =
+            "none";
 
-function bridgeIframe(){
- const w=frame.contentWindow;
- if(!w) return;
- try{
-   /* Remove duplicate shell elements from the old standalone modules. */
-   const style=w.document.createElement("style");
-   style.id="cm-shell-embedded-style";
-   style.textContent=`
-     html,body{height:auto!important;min-height:100%!important;overflow:auto!important}
-     body{padding-bottom:92px!important}
-     body>header, body>footer, body>nav, #main-app>header, #main-app>nav, #main-app>aside,
-     #main-app>footer, aside, .lg\\\\:hidden{display:none!important}
-     #main-app{height:auto!important;min-height:100%!important;display:block!important;overflow:visible!important}
-     #viewport-container{height:auto!important;min-height:100%!important;overflow:visible!important}
-     #module-frame{height:auto!important;min-height:100%!important}
-   `;
-   w.document.head.appendChild(style);
+        moduleFrame.src =
+            "about:blank";
 
-   /* Keep module actions, but remove their duplicate CM FILINGS branding. */
-   w.document.querySelectorAll("header").forEach(h=>{
-      h.style.position="relative";
-      h.style.top="auto";
-      h.style.zIndex="10";
-      const firstLink=h.querySelector("a");
-      if(firstLink && /CM FILINGS/i.test(firstLink.textContent||"")) firstLink.style.display="none";
-      const titleFromPage=pageTitle(currentPage);
-      if(!h.querySelector(".cm-shell-module-title")){
-        const wrap=h.querySelector(".max-w-7xl > div") || h.firstElementChild;
-        if(wrap){
-          const title=document.createElement("div");
-          title.className="cm-shell-module-title";
-          title.innerHTML='<div style="display:flex;align-items:center;gap:10px"><div style="width:38px;height:38px;border-radius:10px;background:#071D49;color:white;display:flex;align-items:center;justify-content:center"><i data-lucide="panel-top"></i></div><div><div style="font-size:18px;font-weight:900;color:#071D49">'+titleFromPage+'</div><div style="font-size:9px;font-weight:800;color:#B10000;letter-spacing:.12em;text-transform:uppercase">CM FILINGS ADMIN</div></div></div>';
-          wrap.insertBefore(title,wrap.firstChild);
+        updateActiveNav(
+            "index.html"
+        );
+
+        globalSearch.classList.remove(
+            "show"
+        );
+
+        moreMenu.classList.remove(
+            "show"
+        );
+
+        profileMenu.classList.remove(
+            "show"
+        );
+
+        if(pushHistory){
+
+            history.pushState(
+                {
+                    page:"index.html"
+                },
+                "",
+                "index.html"
+            );
+
         }
-      }
-   });
 
-   /* Dashboard has its own switchModule engine. Redirect its buttons to the permanent shell. */
-   if(typeof w.switchModule==="function"){
-     w.switchModule=(name)=>{
-       if(name==="home") parent.postMessage({type:"CM_LOAD_MODULE",page:"dashboard.html"},"*");
-       else parent.postMessage({type:"CM_LOAD_MODULE",page:name},"*");
-     };
-   }
+        return;
+    }
 
-   /* Existing module links should stay inside the permanent shell. */
-   w.document.addEventListener("click",ev=>{
-     const a=ev.target.closest && ev.target.closest("a");
-     if(!a) return;
-     const href=a.getAttribute("href")||"";
-     const target=href.split("#")[0].split("?")[0];
-     if(target.endsWith(".html")){
-       ev.preventDefault();
-       parent.postMessage({type:"CM_LOAD_MODULE",page:target},"*");
-     }
-   },true);
 
-   /* Fire any icon replacements after injected title. */
-   if(w.lucide) w.lucide.createIcons();
- }catch(e){console.warn("Embedded module bridge:",e)}
+    /*
+     * Security: only known modules.
+     */
+
+    if(
+        !allowedModules.includes(page)
+    ){
+
+        console.warn(
+            "Blocked module:",
+            page
+        );
+
+        return;
+    }
+
+
+    currentPage =
+        page;
+
+
+    dashboardView.style.display =
+        "none";
+
+    moduleFrame.style.display =
+        "block";
+
+
+    /*
+     * Load the module inside
+     * the permanent application shell.
+     */
+
+    moduleFrame.src =
+        page;
+
+
+    updateActiveNav(
+        page
+    );
+
+
+    globalSearch.classList.remove(
+        "show"
+    );
+
+    moreMenu.classList.remove(
+        "show"
+    );
+
+    profileMenu.classList.remove(
+        "show"
+    );
+
+
+    if(pushHistory){
+
+        history.pushState(
+            {
+                page:page
+            },
+            "",
+            "?module=" +
+            encodeURIComponent(page)
+        );
+
+    }
+
 }
 
-frame.addEventListener("load",()=>{
- setTimeout(bridgeIframe,120);
-});
 
-window.addEventListener("message",e=>{
- if(!e.data) return;
- if(e.data.type==="CM_LOAD_MODULE" && typeof e.data.page==="string"){
-   const allowed=["dashboard.html","clients.html","compliance.html","credentials.html","company.html","calender.html","contacts.html","contact.html","data-import.html","invoice.html","pay.html","transactions.html"];
-   if(allowed.includes(e.data.page)) loadModule(e.data.page);
- }
- if(e.data.type==="GLOBAL_SEARCH"){
-   globalSearchInput.value=e.data.value||"";
- }
-});
+/* =========================================================
+   BROWSER BACK / FORWARD
+========================================================= */
+
+window.addEventListener(
+    "popstate",
+    event => {
+
+        const page =
+            event.state?.page ||
+            "index.html";
+
+        loadModule(
+            page,
+            false
+        );
+
+    }
+);
+
+
+/* =========================================================
+   BOTTOM NAV
+========================================================= */
+
+document
+    .querySelectorAll(
+        ".nav-item[data-page]"
+    )
+    .forEach(item => {
+
+        item.addEventListener(
+            "click",
+            () => {
+
+                loadModule(
+                    item.dataset.page
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   MORE MENU MODULES
+========================================================= */
+
+document
+    .querySelectorAll(
+        ".more-item[data-page]"
+    )
+    .forEach(item => {
+
+        item.addEventListener(
+            "click",
+            () => {
+
+                loadModule(
+                    item.dataset.page
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   MORE BUTTON
+========================================================= */
+
+moreBtn.addEventListener(
+    "click",
+    event => {
+
+        event.stopPropagation();
+
+        moreMenu.classList.toggle(
+            "show"
+        );
+
+        profileMenu.classList.remove(
+            "show"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   PROFILE BUTTON
+========================================================= */
+
+profileBtn.addEventListener(
+    "click",
+    event => {
+
+        event.stopPropagation();
+
+        profileMenu.classList.toggle(
+            "show"
+        );
+
+        moreMenu.classList.remove(
+            "show"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   OUTSIDE CLICK
+========================================================= */
+
+document.addEventListener(
+    "click",
+    event => {
+
+        if(
+            !moreMenu.contains(
+                event.target
+            ) &&
+            event.target !== moreBtn
+        ){
+
+            moreMenu.classList.remove(
+                "show"
+            );
+
+        }
+
+
+        if(
+            !profileMenu.contains(
+                event.target
+            ) &&
+            event.target !== profileBtn
+        ){
+
+            profileMenu.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+globalSearchBtn.addEventListener(
+    "click",
+    () => {
+
+        globalSearch.classList.add(
+            "show"
+        );
+
+        globalSearchInput.focus();
+
+    }
+);
+
+
+closeGlobalSearch.addEventListener(
+    "click",
+    () => {
+
+        globalSearch.classList.remove(
+            "show"
+        );
+
+        globalSearchInput.value =
+            "";
+
+        sendSearchToModule("");
+
+    }
+);
+
+
+function sendSearchToModule(value){
+
+    try{
+
+        moduleFrame.contentWindow
+            ?.postMessage(
+                {
+                    type:
+                        "GLOBAL_SEARCH",
+
+                    value:
+                        value
+                },
+                "*"
+            );
+
+    }
+    catch(error){
+
+        console.warn(
+            "Search bridge:",
+            error
+        );
+
+    }
+
+}
+
+
+globalSearchInput.addEventListener(
+    "input",
+    () => {
+
+        sendSearchToModule(
+            globalSearchInput.value
+        );
+
+    }
+);
+
+
+/* =========================================================
+   PROFILE SIGN OUT
+========================================================= */
+
+profileSignout.addEventListener(
+    "click",
+    async () => {
+
+        try{
+
+            await signOut(
+                auth
+            );
+
+        }
+        catch(error){
+
+            console.error(
+                "Sign out:",
+                error
+            );
+
+        }
+
+        window.location.replace(
+            "signin.html"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   FIREBASE ADMIN ROLE
+========================================================= */
+
+async function verifyAdminRole(user){
+
+    /*
+     * IMPORTANT:
+     *
+     * We DO NOT use email here.
+     *
+     * We use:
+     *
+     * users/{Firebase UID}
+     *
+     * and check:
+     *
+     * role = admin
+     */
+
+    if(!user){
+
+        return false;
+
+    }
+
+
+    try{
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                user.uid
+            );
+
+        const userSnap =
+            await getDoc(
+                userRef
+            );
+
+
+        if(
+            !userSnap.exists()
+        ){
+
+            console.warn(
+                "No Firestore user document found."
+            );
+
+            return false;
+
+        }
+
+
+        const userData =
+            userSnap.data();
+
+
+        console.log(
+            "Admin user:",
+            user.email
+        );
+
+        console.log(
+            "Role:",
+            userData.role
+        );
+
+
+        return (
+            userData.role ===
+            "admin"
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Role verification error:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+onAuthStateChanged(
+    auth,
+    async user => {
+
+        if(!user){
+
+            window.location.replace(
+                "signin.html?error=login_required"
+            );
+
+            return;
+
+        }
+
+
+        currentUser =
+            user;
+
+
+        const isAdmin =
+            await verifyAdminRole(
+                user
+            );
+
+
+        if(!isAdmin){
+
+            try{
+
+                await signOut(
+                    auth
+                );
+
+            }
+            catch(error){
+
+                console.error(
+                    error
+                );
+
+            }
+
+
+            window.location.replace(
+                "signin.html?error=admin_required"
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Administrator verified.
+         */
+
+        profileEmail.textContent =
+            user.email ||
+            "Administrator";
+
+
+        appLoader.style.display =
+            "none";
+
+
+        /*
+         * Dashboard is the default.
+         */
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const requestedModule =
+            params.get("module");
+
+
+        if(
+            requestedModule &&
+            allowedModules.includes(
+                requestedModule
+            )
+        ){
+
+            loadModule(
+                requestedModule,
+                false
+            );
+
+        }
+        else{
+
+            loadModule(
+                "index.html",
+                false
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CLIENT DATA
+========================================================= */
+
+function loadClientDashboardData(){
+
+    onSnapshot(
+
+        collection(
+            db,
+            "clients"
+        ),
+
+        snapshot => {
+
+            clientsData =
+                [];
+
+            snapshot.forEach(
+                item => {
+
+                    clientsData.push({
+
+                        id:item.id,
+
+                        ...item.data()
+
+                    });
+
+                }
+            );
+
+
+            /*
+             * Active clients.
+             */
+
+            const activeClients =
+                clientsData.filter(
+                    client => {
+
+                        const status =
+                            String(
+                                client.status ||
+                                client.Status ||
+                                "Active"
+                            ).toLowerCase();
+
+                        return (
+                            status ===
+                            "active" ||
+                            status ===
+                            "regular"
+                        );
+
+                    }
+                );
+
+
+            clientsValue.textContent =
+                activeClients.length;
+
+
+        },
+
+        error => {
+
+            console.error(
+                "Clients dashboard:",
+                error
+            );
+
+        }
+
+    );
+
+}
+
+
+/* =========================================================
+   COMPLIANCE DATA
+========================================================= */
+
+function loadComplianceDashboardData(){
+
+    onSnapshot(
+
+        collection(
+            db,
+            "compliance"
+        ),
+
+        snapshot => {
+
+            complianceData =
+                [];
+
+            snapshot.forEach(
+                item => {
+
+                    complianceData.push({
+
+                        id:item.id,
+
+                        ...item.data()
+
+                    });
+
+                }
+            );
+
+
+            calculateCompliance();
+
+            renderPriorityTable();
+
+        },
+
+        error => {
+
+            console.error(
+                "Compliance dashboard:",
+                error
+            );
+
+        }
+
+    );
+
+}
+
+
+/* =========================================================
+   COMPLIANCE CALCULATIONS
+========================================================= */
+
+function calculateCompliance(){
+
+    const today =
+        new Date();
+
+    today.setHours(
+        0,0,0,0
+    );
+
+
+    let pending =
+        0;
+
+    let priority =
+        0;
+
+    let dues =
+        0;
+
+
+    complianceData.forEach(
+        item => {
+
+            const status =
+                String(
+                    item.status ||
+                    item.Status ||
+                    "Pending"
+                ).toLowerCase();
+
+
+            /*
+             * Pending.
+             */
+
+            if(
+                status !== "completed" &&
+                status !== "complete" &&
+                status !== "done" &&
+                status !== "filed"
+            ){
+
+                pending++;
+
+            }
+
+
+            /*
+             * Priority.
+             */
+
+            const priorityText =
+                String(
+                    item.priority ||
+                    item.Priority ||
+                    ""
+                ).toLowerCase();
+
+
+            if(
+                priorityText === "urgent" ||
+                priorityText === "high"
+            ){
+
+                priority++;
+
+            }
+
+
+            /*
+             * Outstanding amount.
+             */
+
+            const amount =
+                Number(
+                    item.amount ||
+                    item.dueAmount ||
+                    item.outstanding ||
+                    item.outstandingAmount ||
+                    item.pendingAmount ||
+                    0
+                );
+
+
+            if(
+                !isNaN(amount)
+            ){
+
+                dues +=
+                    amount;
+
+            }
+
+        }
+    );
+
+
+    pendingValue.textContent =
+        pending;
+
+
+    priorityValue.textContent =
+        priority;
+
+
+    duesValue.textContent =
+        formatCurrency(
+            dues
+        );
+
+}
+
+
+/* =========================================================
+   CURRENCY
+========================================================= */
+
+function formatCurrency(amount){
+
+    return new Intl.NumberFormat(
+        "en-IN",
+        {
+            style:"currency",
+            currency:"INR",
+            maximumFractionDigits:0
+        }
+    ).format(
+        amount || 0
+    );
+
+}
+
+
+/* =========================================================
+   PRIORITY TABLE
+========================================================= */
+
+function renderPriorityTable(){
+
+    priorityTableBody.innerHTML =
+        "";
+
+
+    const rows =
+        complianceData
+            .filter(
+                item => {
+
+                    const status =
+                        String(
+                            item.status ||
+                            item.Status ||
+                            "Pending"
+                        ).toLowerCase();
+
+                    return (
+                        status !==
+                        "completed" &&
+                        status !==
+                        "complete" &&
+                        status !==
+                        "done" &&
+                        status !==
+                        "filed"
+                    );
+
+                }
+            )
+            .sort(
+                (a,b) => {
+
+                    const da =
+                        new Date(
+                            a.dueDate ||
+                            a.DueDate ||
+                            0
+                        );
+
+                    const db =
+                        new Date(
+                            b.dueDate ||
+                            b.DueDate ||
+                            0
+                        );
+
+                    return da - db;
+
+                }
+            )
+            .slice(
+                0,
+                5
+            );
+
+
+    if(
+        rows.length === 0
+    ){
+
+        priorityTableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="3"
+                    style="
+                        text-align:center;
+                        color:#94A3B8;
+                        padding:25px;
+                    "
+                >
+                    No pending compliance records.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    rows.forEach(
+        item => {
+
+            const clientName =
+                item.clientName ||
+                item.ClientName ||
+                item.name ||
+                item.client ||
+                "Client";
+
+
+            const dueDate =
+                item.dueDate ||
+                item.DueDate ||
+                "";
+
+
+            const priority =
+                String(
+                    item.priority ||
+                    item.Priority ||
+                    "Normal"
+                );
+
+
+            const priorityLower =
+                priority.toLowerCase();
+
+
+            let badge =
+                "priority-normal";
+
+
+            if(
+                priorityLower ===
+                "urgent"
+            ){
+
+                badge =
+                    "priority-urgent";
+
+            }
+            else if(
+                priorityLower ===
+                "high"
+            ){
+
+                badge =
+                    "priority-high";
+
+            }
+
+
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+
+            tr.innerHTML = `
+
+                <td>
+                    ${escapeHtml(clientName)}
+                </td>
+
+                <td
+                    style="
+                        color:#B10000;
+                        font-weight:900;
+                    "
+                >
+                    ${escapeHtml(
+                        formatDate(
+                            dueDate
+                        )
+                    )}
+                </td>
+
+                <td>
+
+                    <span
+                        class="${badge}"
+                    >
+                        ${escapeHtml(priority)}
+                    </span>
+
+                </td>
+
+            `;
+
+
+            priorityTableBody.appendChild(
+                tr
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function formatDate(value){
+
+    if(!value){
+
+        return "—";
+
+    }
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return String(
+            value
+        );
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"2-digit",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   CURRENT MONTH
+========================================================= */
+
+function renderCurrentMonth(){
+
+    const now =
+        new Date();
+
+
+    currentMonth.textContent =
+        now.toLocaleDateString(
+            "en-IN",
+            {
+                month:"long",
+                year:"numeric"
+            }
+        ).toUpperCase();
+
+
+    calendarList.innerHTML =
+        "";
+
+
+    /*
+     * Show compliance items
+     * belonging to current month.
+     */
+
+    const currentMonthNumber =
+        now.getMonth();
+
+    const currentYear =
+        now.getFullYear();
+
+
+    const currentItems =
+        complianceData
+            .filter(
+                item => {
+
+                    const value =
+                        item.dueDate ||
+                        item.DueDate;
+
+                    if(!value){
+
+                        return false;
+
+                    }
+
+
+                    const date =
+                        new Date(
+                            value
+                        );
+
+
+                    return (
+                        !isNaN(
+                            date.getTime()
+                        ) &&
+                        date.getMonth() ===
+                            currentMonthNumber &&
+                        date.getFullYear() ===
+                            currentYear
+                    );
+
+                }
+            )
+            .sort(
+                (a,b) => {
+
+                    return new Date(
+                        a.dueDate ||
+                        a.DueDate
+                    ) -
+                    new Date(
+                        b.dueDate ||
+                        b.DueDate
+                    );
+
+                }
+            )
+            .slice(
+                0,
+                6
+            );
+
+
+    if(
+        currentItems.length === 0
+    ){
+
+        calendarList.innerHTML = `
+
+            <div
+                class="calendar-item"
+            >
+
+                <div
+                    class="calendar-date"
+                >
+                    —
+                </div>
+
+                <div
+                    class="calendar-info"
+                >
+
+                    <div
+                        class="calendar-title"
+                    >
+                        No current-month schedule
+                    </div>
+
+                    <div
+                        class="calendar-sub"
+                    >
+                        No compliance due dates found.
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    currentItems.forEach(
+        item => {
+
+            const date =
+                new Date(
+                    item.dueDate ||
+                    item.DueDate
+                );
+
+
+            const title =
+                item.title ||
+                item.complianceName ||
+                item.name ||
+                item.ComplianceName ||
+                "Compliance";
+
+
+            const count =
+                item.description ||
+                item.clientName ||
+                item.ClientName ||
+                "Scheduled filing";
+
+
+            const status =
+                item.status ||
+                "Due Soon";
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "calendar-item";
+
+
+            div.innerHTML = `
+
+                <div
+                    class="calendar-date
+                    ${
+                        date.getTime() -
+                        new Date().getTime()
+                        <
+                        7 *
+                        24 *
+                        60 *
+                        60 *
+                        1000
+                        ?
+                        "urgent"
+                        :
+                        ""
+                    }"
+                >
+
+                    ${date.getDate()}
+
+                </div>
+
+
+                <div
+                    class="calendar-info"
+                >
+
+                    <div
+                        class="calendar-title"
+                    >
+                        ${escapeHtml(title)}
+                    </div>
+
+                    <div
+                        class="calendar-sub"
+                    >
+                        ${escapeHtml(count)}
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="calendar-status"
+                >
+                    ${escapeHtml(status)}
+                </div>
+
+            `;
+
+
+            calendarList.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   REFRESH CALENDAR AFTER COMPLIANCE LOAD
+========================================================= */
+
+const originalCalculateCompliance =
+    calculateCompliance;
+
+
+/* =========================================================
+   DASHBOARD OPEN MODULE BUTTONS
+========================================================= */
+
+document
+    .querySelectorAll(
+        "[data-open-module]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    loadModule(
+                        button.dataset.openModule
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   IFRAME MODULE BRIDGE
+========================================================= */
+
+moduleFrame.addEventListener(
+    "load",
+    () => {
+
+        if(
+            currentPage ===
+            "index.html"
+        ){
+
+            return;
+
+        }
+
+
+        try{
+
+            const moduleWindow =
+                moduleFrame.contentWindow;
+
+            if(!moduleWindow){
+
+                return;
+
+            }
+
+
+            /*
+             * Send current authentication
+             * information to the module.
+             */
+
+            moduleWindow.postMessage(
+                {
+                    type:
+                        "CM_ADMIN_AUTH",
+
+                    uid:
+                        currentUser?.uid ||
+                        null,
+
+                    email:
+                        currentUser?.email ||
+                        null,
+
+                    role:
+                        "admin"
+                },
+                "*"
+            );
+
+
+            /*
+             * Inform module that it
+             * lives inside index shell.
+             */
+
+            moduleWindow.postMessage(
+                {
+                    type:
+                        "CM_EMBEDDED_SHELL",
+
+                    page:
+                        currentPage
+                },
+                "*"
+            );
+
+
+        }
+        catch(error){
+
+            console.warn(
+                "Module bridge:",
+                error
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   MODULE → INDEX MESSAGE BRIDGE
+========================================================= */
+
+window.addEventListener(
+    "message",
+    event => {
+
+        if(!event.data){
+
+            return;
+
+        }
+
+
+        /*
+         * Module requests another module.
+         */
+
+        if(
+            event.data.type ===
+            "CM_LOAD_MODULE"
+        ){
+
+            let page =
+                event.data.page;
+
+
+            /*
+             * Convert old dashboard reference.
+             */
+
+            if(
+                page ===
+                "dashboard.html"
+            ){
+
+                page =
+                    "index.html";
+
+            }
+
+
+            if(
+                page ===
+                "index.html"
+            ){
+
+                loadModule(
+                    "index.html"
+                );
+
+                return;
+
+            }
+
+
+            if(
+                allowedModules.includes(
+                    page
+                )
+            ){
+
+                loadModule(
+                    page
+                );
+
+            }
+
+        }
+
+
+        /*
+         * Module sends search result.
+         */
+
+        if(
+            event.data.type ===
+            "GLOBAL_SEARCH"
+        ){
+
+            globalSearchInput.value =
+                event.data.value ||
+                "";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE DASHBOARD DATA
+========================================================= */
+
+loadClientDashboardData();
+
+loadComplianceDashboardData();
+
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+renderCurrentMonth();
+
+
+/*
+ * Re-render calendar whenever
+ * compliance data changes.
+ */
+
+setInterval(
+    renderCurrentMonth,
+    30000
+);
+
+
+/* =========================================================
+   LUCIDE
+========================================================= */
 
 lucide.createIcons();
+
 </script>
+
 </body>
 </html>
