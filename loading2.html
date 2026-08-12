@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navy Blue & White Preloader</title>
+  <style>
+    /* --------------------------------------------------
+       1. Base Setup & Colors
+    -------------------------------------------------- */
+    :root {
+      --navy-primary: #0A192F;
+      --navy-light: #1E3A8A;
+      --navy-subtle: #475569;
+      --bg-white: #FFFFFF;
+      --track-bg: #E2E8F0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #F8FAFC;
+      color: var(--navy-primary);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* --------------------------------------------------
+       2. Preloader Wrapper (White Base)
+    -------------------------------------------------- */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #F1F5F9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.6s ease, visibility 0.6s;
+    }
+
+    /* Main Preloader Card (Primary: White BG) */
+    .loader-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 2.5rem;
+      background: var(--bg-white);
+      border: 1px solid #E2E8F0;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px -15px rgba(10, 25, 47, 0.08);
+      width: 90%;
+      max-width: 360px;
+      text-align: center;
+    }
+
+    /* --------------------------------------------------
+       3. Logo / Icon (Navy Blue)
+    -------------------------------------------------- */
+    .logo-wrapper {
+      margin-bottom: 2rem;
+    }
+
+    .brand-icon {
+      width: 64px;
+      height: 64px;
+      animation: float 2.5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* --------------------------------------------------
+       4. Progress Bar & Text (Navy Blue)
+    -------------------------------------------------- */
+    .loading-status {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 6px;
+      background: var(--track-bg);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--navy-primary) 0%, var(--navy-light) 100%);
+      border-radius: 10px;
+      transition: width 0.1s linear;
+    }
+
+    .status-text {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--navy-primary);
+      text-transform: uppercase;
+    }
+
+    .sub-text {
+      font-size: 0.75rem;
+      color: var(--navy-subtle);
+      margin-top: -4px;
+    }
+
+    /* --------------------------------------------------
+       5. MATCHING VARIANT (Navy Background Card)
+       Add class "variant-navy" to .loader-card to switch
+    -------------------------------------------------- */
+    .loader-card.variant-navy {
+      background: var(--navy-primary);
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 40px -10px rgba(10, 25, 47, 0.25);
+    }
+
+    .loader-card.variant-navy .brand-icon path {
+      fill: #FFFFFF !important; /* Forces icon fill to white */
+      stroke: #FFFFFF !important;
+    }
+
+    .loader-card.variant-navy .status-text {
+      color: #FFFFFF;
+    }
+
+    .loader-card.variant-navy .sub-text {
+      color: #94A3B8;
+    }
+
+    .loader-card.variant-navy .progress-bar-track {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .loader-card.variant-navy .progress-bar-fill {
+      background: #FFFFFF;
+    }
+
+    /* Utility */
+    .fade-out {
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+
+    /* Mobile tweaking */
+    @media (max-width: 480px) {
+      .loader-card {
+        padding: 2rem 1.5rem;
+      }
+      .brand-icon {
+        width: 52px;
+        height: 52px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= PRELOADER START ================= -->
+  <div id="preloader" aria-busy="true" aria-live="polite">
+    
+    <!-- Primary Variant (White BG + Navy Text/Icon) -->
+    <!-- TIP: To use the matching navy variant, change class below to: "loader-card variant-navy" -->
+    <div class="loader-card">
+      
+      <!-- Top Component: Navy Icon / Logo -->
+      <div class="logo-wrapper">
+        <svg class="brand-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Outer Ring -->
+          <circle cx="32" cy="32" r="28" stroke="#0A192F" stroke-width="4" stroke-dasharray="120 40" stroke-linecap="round"/>
+          <!-- Inner Symbol -->
+          <path d="M22 38L32 20L42 38H22Z" fill="#0A192F"/>
+        </svg>
+      </div>
+
+      <!-- Bottom Component: Loading Bar & Text -->
+      <div class="loading-status">
+        <div class="progress-bar-track">
+          <div id="progress-fill" class="progress-bar-fill"></div>
+        </div>
+        <div class="status-text">
+          <span>Loading</span>
+          <span id="progress-text">0%</span>
+        </div>
+        <div class="sub-text">Preparing your workspace</div>
+      </div>
+
+    </div>
+  </div>
+  <!-- ================= PRELOADER END ================= -->
+
+  <!-- Main Website Content -->
+  <main style="padding: 4rem 2rem; text-align: center;">
+    <h1 style="color: #0A192F;">Website Content Loaded</h1>
+    <p style="color: #475569; margin-top: 0.5rem;">Your application is ready to use.</p>
+  </main>
+
+  <!-- ================= SCRIPT ================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const progressFill = document.getElementById("progress-fill");
+      const progressText = document.getElementById("progress-text");
+      const preloader = document.getElementById("preloader");
+
+      let progress = 0;
+
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 10) + 3;
+
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+
+          setTimeout(() => {
+            preloader.classList.add("fade-out");
+            document.body.style.overflow = "auto";
+          }, 300);
+        }
+
+        progressFill.style.width = `${progress}%`;
+        progressText.textContent = `${progress}%`;
+      }, 60);
+    });
+  </script>
+</body>
+</html>
