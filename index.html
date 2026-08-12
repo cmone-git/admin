@@ -59,7 +59,7 @@
 </head>
 <body class="font-sans text-slate-700 bg-brand-light antialiased flex flex-col h-screen w-screen overflow-hidden">
 
-    <!-- APP LOADER (Initial Page Verification) -->
+    <!-- APP LOADER -->
     <div id="app-loader" class="fixed inset-0 bg-brand-light z-[200] flex flex-col items-center justify-center">
         <i data-lucide="loader-2" class="w-10 h-10 text-brand-navy animate-spin mb-4"></i>
         <p class="text-sm font-bold text-slate-500 tracking-widest uppercase">Verifying Admin Access...</p>
@@ -71,39 +71,52 @@
         <!-- 1. FIXED TOP HEADER -->
         <header class="h-16 bg-white/95 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40">
             <div class="flex items-center gap-3">
-                <img src="assets/logo.png" alt="Logo" class="w-9 h-9 object-contain rounded-xl shadow-sm bg-brand-navy p-1">
-                <img src="assets/name.svg" alt="CM Filings" class="h-6 object-contain hidden sm:block">
-                <span class="font-extrabold text-base tracking-tight text-brand-navy sm:hidden">CM FILINGS</span>
+                <img src="assets/logo.png" alt="Logo" class="w-8 h-8 object-contain">
+                <img src="assets/name.svg" alt="CM Filings" class="h-6 object-contain">
             </div>
 
-            <!-- Header Tools: Global Search & Profile -->
-            <div class="flex items-center gap-3">
+            <!-- Header Tools & Profile Dropdown -->
+            <div class="flex items-center gap-3 relative">
                 <div class="relative hidden md:block">
                     <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
                     <input type="text" placeholder="Global search records..." class="text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2 outline-none focus:border-brand-navy w-64">
                 </div>
 
-                <div class="flex items-center gap-2 pl-2 border-l border-slate-200">
-                    <div class="w-9 h-9 bg-brand-redlight text-brand-red font-extrabold rounded-xl flex items-center justify-center text-xs shadow-sm" id="admin-avatar">AD</div>
-                    <button onclick="handleLogout()" class="p-2 text-slate-400 hover:text-brand-red rounded-xl hover:bg-red-50 transition-colors" title="Sign Out">
-                        <i data-lucide="log-out" class="w-4 h-4"></i>
+                <!-- Menu Drawer Trigger -->
+                <button onclick="openMenuDrawer()" class="p-2 text-slate-600 hover:text-brand-navy rounded-xl hover:bg-slate-100 transition-colors" title="Modules Menu">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+
+                <!-- Profile Dropdown Button -->
+                <div class="relative">
+                    <button onclick="toggleProfileDropdown()" class="w-9 h-9 bg-brand-redlight text-brand-red font-extrabold rounded-xl flex items-center justify-center text-xs shadow-sm cursor-pointer hover:opacity-90 transition-opacity" id="admin-avatar">
+                        AD
                     </button>
+
+                    <!-- Profile Popup Box -->
+                    <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 p-4 z-50 animate-in fade-in zoom-in-95 duration-150">
+                        <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1">Signed in as</p>
+                        <p id="profile-email-text" class="text-xs font-bold text-brand-navy truncate mb-3 pb-3 border-b border-slate-100">admin@cmfilings.com</p>
+                        <button onclick="handleLogout()" class="w-full py-2.5 bg-red-50 text-brand-red font-bold rounded-xl hover:bg-red-100 transition-colors flex items-center justify-center gap-2 text-xs border border-brand-red/20">
+                            <i data-lucide="log-out" class="w-4 h-4"></i> Sign Out
+                        </button>
+                    </div>
                 </div>
             </div>
         </header>
 
-        <!-- 2. WORKSPACE VIEWPORT (Home Dashboard Analytics or Dynamic Module Iframe Modal) -->
+        <!-- 2. WORKSPACE VIEWPORT -->
         <div class="flex-1 relative overflow-hidden bg-brand-light">
             
-            <!-- DEFAULT HOME DASHBOARD VIEWLET (Donut/Bar Cards, Pending Compliance, Calendar) -->
+            <!-- DEFAULT HOME DASHBOARD VIEWLET (Linked Cards, Donut Bar, Calendar) -->
             <div id="home-dashboard-view" class="absolute inset-0 overflow-y-auto hero-pattern p-4 sm:p-6 lg:p-8 space-y-6">
                 
-                <div class="max-w-7xl mx-auto space-y-6 pb-20">
+                <div class="max-w-7xl mx-auto space-y-6 pb-12">
                     
-                    <!-- KPI Analytics Cards (Donut/Bar Style representation) -->
+                    <!-- KPI Analytics Cards (Fully Linked to Respective Modules) -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4">
-                            <div class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 shrink-0">
+                        <div onclick="loadModule('compliance.html', 'Compliance Engine')" class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-brand-navy hover:shadow-md transition-all group">
+                            <div class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 shrink-0 group-hover:scale-105 transition-transform">
                                 <i data-lucide="clock" class="w-6 h-6"></i>
                             </div>
                             <div>
@@ -112,8 +125,8 @@
                             </div>
                         </div>
 
-                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4">
-                            <div class="w-12 h-12 bg-brand-redlight rounded-2xl flex items-center justify-center text-brand-red shrink-0">
+                        <div onclick="loadModule('transactions.html', 'Transactions Register')" class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-brand-navy hover:shadow-md transition-all group">
+                            <div class="w-12 h-12 bg-brand-redlight rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-105 transition-transform">
                                 <i data-lucide="indian-rupee" class="w-6 h-6"></i>
                             </div>
                             <div>
@@ -122,8 +135,8 @@
                             </div>
                         </div>
 
-                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4">
-                            <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shrink-0">
+                        <div onclick="loadModule('compliance.html', 'Compliance Engine')" class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-brand-navy hover:shadow-md transition-all group">
+                            <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shrink-0 group-hover:scale-105 transition-transform">
                                 <i data-lucide="alert-triangle" class="w-6 h-6"></i>
                             </div>
                             <div>
@@ -132,8 +145,8 @@
                             </div>
                         </div>
 
-                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4">
-                            <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shrink-0">
+                        <div onclick="loadModule('clients.html', 'Clients Directory')" class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-brand-navy hover:shadow-md transition-all group">
+                            <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shrink-0 group-hover:scale-105 transition-transform">
                                 <i data-lucide="users" class="w-6 h-6"></i>
                             </div>
                             <div>
@@ -143,13 +156,16 @@
                         </div>
                     </div>
 
-                    <!-- Priority Pending Task Compliance & Analytics Grid -->
+                    <!-- Priority Pending Task Compliance & Donut/Bar Breakdown Grid -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
                         
                         <div class="lg:col-span-2 bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
-                            <h3 class="text-sm font-extrabold text-brand-navy flex items-center gap-2 mb-4">
-                                <i data-lucide="alert-octagon" class="w-4 h-4 text-brand-red"></i> Priority Pending Task Compliance
-                            </h3>
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-sm font-extrabold text-brand-navy flex items-center gap-2">
+                                    <i data-lucide="alert-octagon" class="w-4 h-4 text-brand-red"></i> Priority Pending Task Compliance
+                                </h3>
+                                <button onclick="loadModule('compliance.html', 'Compliance Engine')" class="text-xs font-bold text-brand-red hover:underline">View All</button>
+                            </div>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left text-xs text-slate-600 whitespace-nowrap">
                                     <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[9px] tracking-wider border-b border-slate-200">
@@ -178,10 +194,11 @@
                             </div>
                         </div>
 
-                        <!-- Mini Donut / Status Summary Card -->
-                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
-                            <h3 class="text-sm font-extrabold text-brand-navy mb-4 flex items-center gap-2">
-                                <i data-lucide="pie-chart" class="w-4 h-4 text-brand-navy"></i> Compliance Breakdown
+                        <!-- Interactive Donut / Status Summary Card -->
+                        <div onclick="loadModule('calendar.html', 'Compliance Calendar')" class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm cursor-pointer hover:border-brand-navy transition-all group">
+                            <h3 class="text-sm font-extrabold text-brand-navy mb-4 flex items-center justify-between">
+                                <span class="flex items-center gap-2"><i data-lucide="pie-chart" class="w-4 h-4 text-brand-navy"></i> Compliance Breakdown</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform"></i>
                             </h3>
                             <div class="space-y-3">
                                 <div>
@@ -204,7 +221,7 @@
                 </div>
             </div>
 
-            <!-- MODULE IFRAME MODAL VIEWPORT (Loads modules seamlessly with processing.html preloader) -->
+            <!-- MODULE IFRAME VIEWPORT (Loads modules seamlessly via processing.html) -->
             <div id="module-modal-container" class="hidden absolute inset-0 z-30 bg-white flex flex-col">
                 <div class="h-12 bg-slate-900 text-white flex items-center justify-between px-4 shrink-0">
                     <span id="modal-module-title" class="text-xs font-extrabold uppercase tracking-widest text-brand-red">Module View</span>
@@ -216,30 +233,6 @@
             </div>
 
         </div>
-
-        <!-- 3. FIXED BOTTOM MOBILE NAVIGATION BAR -->
-        <nav class="h-16 bg-white border-t border-slate-200 flex items-center justify-around px-2 shrink-0 z-40">
-            <button onclick="openHomeDashboard()" class="flex flex-col items-center justify-center text-brand-red font-bold">
-                <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
-                <span class="text-[9px] mt-1">Dashboard</span>
-            </button>
-            <button onclick="loadModule('clients.html', 'Clients Directory')" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-navy">
-                <i data-lucide="users" class="w-5 h-5"></i>
-                <span class="text-[9px] font-bold mt-1">Clients</span>
-            </button>
-            <button onclick="loadModule('compliance.html', 'Compliance Engine')" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-navy">
-                <i data-lucide="shield-alert" class="w-5 h-5"></i>
-                <span class="text-[9px] font-bold mt-1">Compliance</span>
-            </button>
-            <button onclick="loadModule('credentials.html', 'Credentials Vault')" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-navy">
-                <i data-lucide="key-round" class="w-5 h-5"></i>
-                <span class="text-[9px] font-bold mt-1">Credentials</span>
-            </button>
-            <button onclick="openMenuDrawer()" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-navy">
-                <i data-lucide="menu" class="w-5 h-5"></i>
-                <span class="text-[9px] font-bold mt-1">Menu</span>
-            </button>
-        </nav>
 
     </div>
 
@@ -324,6 +317,8 @@
         const appLoader = document.getElementById('app-loader');
         const mainApp = document.getElementById('main-app');
         const adminAvatar = document.getElementById('admin-avatar');
+        const profileEmailText = document.getElementById('profile-email-text');
+        const profileDropdown = document.getElementById('profile-dropdown');
         
         const homeView = document.getElementById('home-dashboard-view');
         const moduleModalContainer = document.getElementById('module-modal-container');
@@ -335,7 +330,7 @@
         // Verify Admin Role in Firestore 'users' collection
         onAuthStateChanged(auth, async (user) => {
             if (!user) {
-                window.location.href = "auth.html"; // Redirect to login if not signed in
+                window.location.href = "auth.html";
                 return;
             }
 
@@ -344,11 +339,11 @@
                 const userDocSnap = await getDoc(userDocRef);
 
                 if (userDocSnap.exists() && userDocSnap.data().role === 'admin') {
-                    // Authorized Admin
                     appLoader.classList.add('hidden');
                     mainApp.classList.remove('hidden');
                     const name = userDocSnap.data().name || user.email;
                     adminAvatar.textContent = name.substring(0, 2).toUpperCase();
+                    profileEmailText.textContent = user.email;
                 } else {
                     alert("Access Denied: Administrator privileges required.");
                     await signOut(auth);
@@ -358,6 +353,17 @@
                 console.error("Role verification error:", err);
                 appLoader.classList.add('hidden');
                 mainApp.classList.remove('hidden');
+            }
+        });
+
+        window.toggleProfileDropdown = function() {
+            profileDropdown.classList.toggle('hidden');
+        };
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (e) => {
+            if (!adminAvatar.contains(e.target) && !profileDropdown.contains(e.target)) {
+                profileDropdown.classList.add('hidden');
             }
         });
 
@@ -384,12 +390,6 @@
         };
 
         window.closeModuleModal = function() {
-            moduleIframe.src = "";
-            moduleModalContainer.classList.add('hidden');
-            homeView.classList.remove('hidden');
-        };
-
-        window.openHomeDashboard = function() {
             moduleIframe.src = "";
             moduleModalContainer.classList.add('hidden');
             homeView.classList.remove('hidden');
