@@ -1,99 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width,
-                   initial-scale=1.0,
-                   maximum-scale=1.0,
-                   user-scalable=no">
+<meta charset="UTF-8">
 
-    <title>CM FILINGS - Secure Admin Portal</title>
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
 
-    <!-- PWA -->
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
-    <meta name="theme-color" content="#071D49">
+<title>CM FILINGS - Secure Admin Portal</title>
 
-    <!-- Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+<link rel="icon"
+      type="image/png"
+      href="assets/logo.png">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
+<link rel="apple-touch-icon"
+      href="assets/logo.png">
 
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta name="theme-color"
+      content="#071D49">
 
-    <!-- Lucide -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            red: '#B10000',
-                            redhover: '#8A0000',
-                            redlight: '#FDF2F2',
-                            navy: '#071D49',
-                            navyhover: '#102A5C',
-                            light: '#F4F5F7',
-                            white: '#FFFFFF'
-                        }
-                    },
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
 
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif']
-                    }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+
+tailwind.config = {
+
+    theme: {
+
+        extend: {
+
+            colors: {
+
+                brand: {
+
+                    red: '#B10000',
+
+                    redhover: '#8A0000',
+
+                    redlight: '#FDF2F2',
+
+                    navy: '#071D49',
+
+                    navyhover: '#102A5C',
+
+                    light: '#F4F5F7',
+
+                    white: '#FFFFFF'
+
                 }
+
+            },
+
+            fontFamily: {
+
+                sans: ['Inter', 'sans-serif']
+
             }
-        }
-    </script>
 
-    <style>
-
-        html {
-            scroll-behavior: smooth;
         }
 
-        body {
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
-        }
+    }
 
-        .hero-pattern {
-            background-color: #F4F5F7;
+};
 
-            background-image:
-                radial-gradient(
-                    rgba(7, 29, 73, 0.05) 1px,
-                    transparent 1px
-                );
+</script>
 
-            background-size: 28px 28px;
-        }
+<style>
 
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
+*{
+    box-sizing:border-box;
+}
 
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
+html{
+    scroll-behavior:smooth;
+}
 
-        .auth-frame {
-            box-shadow:
-                0 25px 60px rgba(7,29,73,.12),
-                0 4px 16px rgba(7,29,73,.06);
-        }
+body{
+    margin:0;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+}
 
-    </style>
+.hero-pattern{
+
+    background-color:#F4F5F7;
+
+    background-image:
+        radial-gradient(
+            rgba(7,29,73,.05) 1px,
+            transparent 1px
+        );
+
+    background-size:28px 28px;
+}
+
+.auth-frame{
+
+    box-shadow:
+        0 25px 60px rgba(7,29,73,.12),
+        0 4px 16px rgba(7,29,73,.06);
+}
+
+input:focus{
+
+    outline:none;
+
+}
+
+button:disabled{
+
+    opacity:.65;
+
+    cursor:not-allowed;
+
+}
+
+::-webkit-scrollbar{
+
+    width:5px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#CBD5E1;
+
+    border-radius:10px;
+
+}
+
+</style>
 
 </head>
 
@@ -186,7 +238,7 @@
 
 
         <!-- =================================================
-             BRAND HEADER
+             BRAND
         ================================================== -->
 
         <div class="px-8
@@ -215,7 +267,8 @@
                 <div class="w-8 h-8
                             bg-brand-navy
                             rounded-lg
-                            flex items-center
+                            flex
+                            items-center
                             justify-center
                             text-white">
 
@@ -246,9 +299,9 @@
         <div class="p-8 md:p-9">
 
 
-            <!-- =============================================
+            <!-- =================================================
                  ERROR
-            ============================================== -->
+            ================================================== -->
 
             <div id="auth-error"
                  class="hidden
@@ -265,9 +318,9 @@
             </div>
 
 
-            <!-- =============================================
+            <!-- =================================================
                  SUCCESS
-            ============================================== -->
+            ================================================== -->
 
             <div id="auth-success"
                  class="hidden
@@ -284,9 +337,9 @@
             </div>
 
 
-            <!-- =============================================
-                 SIGN IN PANEL
-            ============================================== -->
+            <!-- =================================================
+                 SIGN IN
+            ================================================== -->
 
             <section id="signin-panel">
 
@@ -313,8 +366,6 @@
                 </div>
 
 
-                <!-- SIGN IN FORM -->
-
                 <form id="signin-form"
                       class="space-y-4">
 
@@ -323,13 +374,14 @@
 
                     <div>
 
-                        <label class="block
-                                      text-xs
-                                      font-bold
-                                      text-slate-500
-                                      uppercase
-                                      tracking-wider
-                                      mb-2">
+                        <label
+                            class="block
+                                   text-xs
+                                   font-bold
+                                   text-slate-500
+                                   uppercase
+                                   tracking-wider
+                                   mb-2">
 
                             Admin Email
 
@@ -349,7 +401,6 @@
                                    focus:border-brand-navy
                                    focus:ring-2
                                    focus:ring-brand-navy/10
-                                   outline-none
                                    bg-slate-50
                                    font-medium
                                    text-slate-800
@@ -368,11 +419,12 @@
                                     items-center
                                     mb-2">
 
-                            <label class="text-xs
-                                          font-bold
-                                          text-slate-500
-                                          uppercase
-                                          tracking-wider">
+                            <label
+                                class="text-xs
+                                       font-bold
+                                       text-slate-500
+                                       uppercase
+                                       tracking-wider">
 
                                 Password
 
@@ -410,7 +462,6 @@
                                        focus:border-brand-navy
                                        focus:ring-2
                                        focus:ring-brand-navy/10
-                                       outline-none
                                        bg-slate-50
                                        font-medium
                                        text-slate-800
@@ -424,7 +475,8 @@
                                 class="absolute
                                        right-3.5
                                        top-3.5
-                                       text-slate-400">
+                                       text-slate-400
+                                       hover:text-brand-navy">
 
                                 <i data-lucide="eye"
                                    class="w-5 h-5"></i>
@@ -436,7 +488,40 @@
                     </div>
 
 
-                    <!-- SUBMIT -->
+                    <!-- REMEMBER ME -->
+
+                    <div class="flex
+                                items-center
+                                justify-between
+                                pt-1">
+
+                        <label class="flex
+                                      items-center
+                                      gap-2
+                                      cursor-pointer">
+
+                            <input
+                                type="checkbox"
+                                id="remember-me"
+                                class="w-4
+                                       h-4
+                                       accent-[#B10000]
+                                       cursor-pointer">
+
+                            <span class="text-xs
+                                         font-semibold
+                                         text-slate-500">
+
+                                Remember me
+
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- SIGN IN BUTTON -->
 
                     <button
                         type="submit"
@@ -466,7 +551,7 @@
                 </form>
 
 
-                <!-- SWITCH TO SIGNUP -->
+                <!-- CREATE ACCOUNT -->
 
                 <div class="mt-7
                             pt-6
@@ -488,13 +573,14 @@
                                text-xs
                                font-extrabold
                                text-brand-navy
-                               hover:text-brand-red
-                               transition">
+                               hover:text-brand-red">
 
                         Create Account
 
                         <i data-lucide="arrow-right"
-                           class="w-3.5 h-3.5 inline ml-1"></i>
+                           class="w-3.5 h-3.5
+                                  inline
+                                  ml-1"></i>
 
                     </button>
 
@@ -504,7 +590,7 @@
 
 
             <!-- =================================================
-                 SIGN UP PANEL
+                 SIGN UP
             ================================================== -->
 
             <section id="signup-panel"
@@ -533,8 +619,6 @@
                 </div>
 
 
-                <!-- SIGNUP FORM -->
-
                 <form id="signup-form"
                       class="space-y-4">
 
@@ -543,13 +627,14 @@
 
                     <div>
 
-                        <label class="block
-                                      text-xs
-                                      font-bold
-                                      text-slate-500
-                                      uppercase
-                                      tracking-wider
-                                      mb-1.5">
+                        <label
+                            class="block
+                                   text-xs
+                                   font-bold
+                                   text-slate-500
+                                   uppercase
+                                   tracking-wider
+                                   mb-1.5">
 
                             Full Name *
 
@@ -559,6 +644,7 @@
                             type="text"
                             id="signup-name"
                             required
+                            autocomplete="name"
                             class="w-full
                                    px-4
                                    py-3
@@ -566,7 +652,8 @@
                                    border
                                    border-slate-300
                                    focus:border-brand-navy
-                                   outline-none
+                                   focus:ring-2
+                                   focus:ring-brand-navy/10
                                    bg-slate-50
                                    font-medium
                                    text-slate-800
@@ -580,13 +667,14 @@
 
                     <div>
 
-                        <label class="block
-                                      text-xs
-                                      font-bold
-                                      text-slate-500
-                                      uppercase
-                                      tracking-wider
-                                      mb-1.5">
+                        <label
+                            class="block
+                                   text-xs
+                                   font-bold
+                                   text-slate-500
+                                   uppercase
+                                   tracking-wider
+                                   mb-1.5">
 
                             Mobile Number *
 
@@ -598,6 +686,8 @@
                             required
                             pattern="[0-9]{10}"
                             maxlength="10"
+                            inputmode="numeric"
+                            autocomplete="tel"
                             class="w-full
                                    px-4
                                    py-3
@@ -605,12 +695,12 @@
                                    border
                                    border-slate-300
                                    focus:border-brand-navy
-                                   outline-none
+                                   focus:ring-2
+                                   focus:ring-brand-navy/10
                                    bg-slate-50
                                    font-medium
                                    text-slate-800
-                                   text-xs
-                                   font-mono"
+                                   text-xs"
                             placeholder="9876543210">
 
                     </div>
@@ -620,13 +710,14 @@
 
                     <div>
 
-                        <label class="block
-                                      text-xs
-                                      font-bold
-                                      text-slate-500
-                                      uppercase
-                                      tracking-wider
-                                      mb-1.5">
+                        <label
+                            class="block
+                                   text-xs
+                                   font-bold
+                                   text-slate-500
+                                   uppercase
+                                   tracking-wider
+                                   mb-1.5">
 
                             Email ID *
 
@@ -636,6 +727,7 @@
                             type="email"
                             id="signup-email"
                             required
+                            autocomplete="email"
                             class="w-full
                                    px-4
                                    py-3
@@ -643,7 +735,8 @@
                                    border
                                    border-slate-300
                                    focus:border-brand-navy
-                                   outline-none
+                                   focus:ring-2
+                                   focus:ring-brand-navy/10
                                    bg-slate-50
                                    font-medium
                                    text-slate-800
@@ -657,13 +750,14 @@
 
                     <div>
 
-                        <label class="block
-                                      text-xs
-                                      font-bold
-                                      text-slate-500
-                                      uppercase
-                                      tracking-wider
-                                      mb-1.5">
+                        <label
+                            class="block
+                                   text-xs
+                                   font-bold
+                                   text-slate-500
+                                   uppercase
+                                   tracking-wider
+                                   mb-1.5">
 
                             Password *
 
@@ -676,6 +770,7 @@
                                 id="signup-password"
                                 required
                                 minlength="6"
+                                autocomplete="new-password"
                                 class="w-full
                                        px-4
                                        py-3
@@ -684,12 +779,14 @@
                                        border
                                        border-slate-300
                                        focus:border-brand-navy
-                                       outline-none
+                                       focus:ring-2
+                                       focus:ring-brand-navy/10
                                        bg-slate-50
                                        font-medium
                                        text-slate-800
                                        text-xs"
                                 placeholder="Minimum 6 characters">
+
 
                             <button
                                 type="button"
@@ -697,7 +794,8 @@
                                 class="absolute
                                        right-3
                                        top-3
-                                       text-slate-400">
+                                       text-slate-400
+                                       hover:text-brand-navy">
 
                                 <i data-lucide="eye"
                                    class="w-4 h-4"></i>
@@ -713,15 +811,17 @@
 
                     <div>
 
-                        <label class="block
-                                      text-xs
-                                      font-bold
-                                      text-slate-500
-                                      uppercase
-                                      tracking-wider
-                                      mb-1.5">
+                        <label
+                            class="block
+                                   text-xs
+                                   font-bold
+                                   text-slate-500
+                                   uppercase
+                                   tracking-wider
+                                   mb-1.5">
 
                             Profile Picture
+
                             <span class="text-slate-300">
                                 (Optional)
                             </span>
@@ -755,7 +855,7 @@
                     </div>
 
 
-                    <!-- SIGNUP BUTTON -->
+                    <!-- CREATE ACCOUNT -->
 
                     <button
                         type="submit"
@@ -785,7 +885,7 @@
                 </form>
 
 
-                <!-- SWITCH TO LOGIN -->
+                <!-- SIGN IN -->
 
                 <div class="mt-6
                             pt-5
@@ -812,7 +912,9 @@
                         Sign In
 
                         <i data-lucide="arrow-right"
-                           class="w-3.5 h-3.5 inline ml-1"></i>
+                           class="w-3.5 h-3.5
+                                  inline
+                                  ml-1"></i>
 
                     </button>
 
@@ -822,7 +924,7 @@
 
 
             <!-- =================================================
-                 SECURITY FOOTER
+                 SECURITY
             ================================================== -->
 
             <div class="mt-7
@@ -904,6 +1006,7 @@
 
             </h3>
 
+
             <button
                 id="btn-close-modal"
                 type="button"
@@ -931,6 +1034,7 @@
         <input
             type="email"
             id="reset-email"
+            autocomplete="email"
             class="w-full
                    px-4
                    py-3
@@ -970,65 +1074,87 @@
 
 
 <!-- =========================================================
-     FIREBASE
+     FIREBASE + AUTH APPLICATION
 ========================================================= -->
 
 <script type="module">
-
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-
-import {
-    getAuth,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    sendPasswordResetEmail,
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-
-import {
-    getFirestore,
-    doc,
-    getDoc,
-    setDoc,
-    collection,
-    query,
-    where,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-import {
-    getStorage,
-    ref,
-    uploadBytes,
-    getDownloadURL
-} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
-
 
 /* =========================================================
    FIREBASE CONFIG
 ========================================================= */
 
-<script type="module">
-
 import {
+
     auth,
-    db
+
+    db,
+
+    storage
+
 } from "./firebase-config.js";
 
-import {
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+/* =========================================================
+   FIREBASE AUTH
+========================================================= */
 
 import {
-    collection,
-    onSnapshot,
+
+    setPersistence,
+
+    browserLocalPersistence,
+
+    browserSessionPersistence,
+
+    signInWithEmailAndPassword,
+
+    createUserWithEmailAndPassword,
+
+    sendPasswordResetEmail,
+
+    onAuthStateChanged,
+
+    signOut
+
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+
+/* =========================================================
+   FIRESTORE
+========================================================= */
+
+import {
+
     doc,
-    getDoc
+
+    getDoc,
+
+    setDoc,
+
+    collection,
+
+    query,
+
+    where,
+
+    getDocs
+
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+import {
+
+    ref,
+
+    uploadBytes,
+
+    getDownloadURL
+
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
 
 /* =========================================================
@@ -1036,153 +1162,220 @@ import {
 ========================================================= */
 
 const authPage =
-    document.getElementById("auth-page");
+    document.getElementById(
+        "auth-page"
+    );
 
 const authLoader =
-    document.getElementById("auth-loader");
+    document.getElementById(
+        "auth-loader"
+    );
 
 const signinPanel =
-    document.getElementById("signin-panel");
+    document.getElementById(
+        "signin-panel"
+    );
 
 const signupPanel =
-    document.getElementById("signup-panel");
+    document.getElementById(
+        "signup-panel"
+    );
 
 const signinForm =
-    document.getElementById("signin-form");
+    document.getElementById(
+        "signin-form"
+    );
 
 const signupForm =
-    document.getElementById("signup-form");
+    document.getElementById(
+        "signup-form"
+    );
 
 const inputEmail =
-    document.getElementById("signin-email");
+    document.getElementById(
+        "signin-email"
+    );
 
 const inputPassword =
-    document.getElementById("signin-password");
+    document.getElementById(
+        "signin-password"
+    );
 
 const signupName =
-    document.getElementById("signup-name");
+    document.getElementById(
+        "signup-name"
+    );
 
 const signupMobile =
-    document.getElementById("signup-mobile");
+    document.getElementById(
+        "signup-mobile"
+    );
 
 const signupEmail =
-    document.getElementById("signup-email");
+    document.getElementById(
+        "signup-email"
+    );
 
 const signupPassword =
-    document.getElementById("signup-password");
+    document.getElementById(
+        "signup-password"
+    );
 
 const signupProfilePic =
-    document.getElementById("signup-profile-pic");
+    document.getElementById(
+        "signup-profile-pic"
+    );
 
 const btnSubmit =
-    document.getElementById("btn-submit");
+    document.getElementById(
+        "btn-submit"
+    );
 
 const btnSignupSubmit =
-    document.getElementById("btn-signup-submit");
+    document.getElementById(
+        "btn-signup-submit"
+    );
+
+const rememberMe =
+    document.getElementById(
+        "remember-me"
+    );
 
 const authError =
-    document.getElementById("auth-error");
+    document.getElementById(
+        "auth-error"
+    );
 
 const authSuccess =
-    document.getElementById("auth-success");
+    document.getElementById(
+        "auth-success"
+    );
 
 const btnShowSignup =
-    document.getElementById("btn-show-signup");
+    document.getElementById(
+        "btn-show-signup"
+    );
 
 const btnShowSignin =
-    document.getElementById("btn-show-signin");
+    document.getElementById(
+        "btn-show-signin"
+    );
 
 const btnTogglePassword =
-    document.getElementById("btn-toggle-password");
+    document.getElementById(
+        "btn-toggle-password"
+    );
 
 const btnToggleSignupPassword =
-    document.getElementById("btn-toggle-signup-password");
+    document.getElementById(
+        "btn-toggle-signup-password"
+    );
 
 const forgotModal =
-    document.getElementById("forgot-modal");
+    document.getElementById(
+        "forgot-modal"
+    );
 
 const btnForgotTrigger =
-    document.getElementById("btn-forgot-trigger");
+    document.getElementById(
+        "btn-forgot-trigger"
+    );
 
 const btnCloseModal =
-    document.getElementById("btn-close-modal");
+    document.getElementById(
+        "btn-close-modal"
+    );
 
 const resetEmail =
-    document.getElementById("reset-email");
+    document.getElementById(
+        "reset-email"
+    );
 
 const btnSendReset =
-    document.getElementById("btn-send-reset");
+    document.getElementById(
+        "btn-send-reset"
+    );
 
 
 /* =========================================================
-   MESSAGE HELPERS
+   MESSAGES
 ========================================================= */
 
-function showError(message) {
+function showError(message){
 
-    authSuccess.classList.add("hidden");
+    authSuccess.classList.add(
+        "hidden"
+    );
 
     authError.textContent =
         message;
 
-    authError.classList.remove("hidden");
+    authError.classList.remove(
+        "hidden"
+    );
 
 }
 
 
-function showSuccess(message) {
+function showSuccess(message){
 
-    authError.classList.add("hidden");
+    authError.classList.add(
+        "hidden"
+    );
 
     authSuccess.textContent =
         message;
 
-    authSuccess.classList.remove("hidden");
+    authSuccess.classList.remove(
+        "hidden"
+    );
 
 }
 
 
-function clearMessages() {
+function clearMessages(){
 
-    authError.classList.add("hidden");
+    authError.classList.add(
+        "hidden"
+    );
 
-    authSuccess.classList.add("hidden");
+    authSuccess.classList.add(
+        "hidden"
+    );
 
 }
 
 
 /* =========================================================
-   SWITCH AUTH MODE
+   SWITCH SIGN IN / SIGN UP
 ========================================================= */
 
-function showSignin() {
+function showSignin(){
 
     clearMessages();
 
-    signupPanel.classList.add("hidden");
+    signupPanel.classList.add(
+        "hidden"
+    );
 
-    signinPanel.classList.remove("hidden");
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    signinPanel.classList.remove(
+        "hidden"
+    );
 
 }
 
 
-function showSignup() {
+function showSignup(){
 
     clearMessages();
 
-    signinPanel.classList.add("hidden");
+    signinPanel.classList.add(
+        "hidden"
+    );
 
-    signupPanel.classList.remove("hidden");
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    signupPanel.classList.remove(
+        "hidden"
+    );
 
 }
 
@@ -1200,12 +1393,90 @@ btnShowSignin.addEventListener(
 
 
 /* =========================================================
+   PASSWORD VISIBILITY
+========================================================= */
+
+btnTogglePassword.addEventListener(
+    "click",
+    () => {
+
+        const visible =
+            inputPassword.type ===
+            "text";
+
+
+        inputPassword.type =
+            visible
+            ? "password"
+            : "text";
+
+
+        btnTogglePassword.innerHTML =
+            visible
+
+            ? `
+                <i data-lucide="eye"
+                   class="w-5 h-5">
+                </i>
+              `
+
+            : `
+                <i data-lucide="eye-off"
+                   class="w-5 h-5">
+                </i>
+              `;
+
+
+        lucide.createIcons();
+
+    }
+);
+
+
+btnToggleSignupPassword.addEventListener(
+    "click",
+    () => {
+
+        const visible =
+            signupPassword.type ===
+            "text";
+
+
+        signupPassword.type =
+            visible
+            ? "password"
+            : "text";
+
+
+        btnToggleSignupPassword.innerHTML =
+            visible
+
+            ? `
+                <i data-lucide="eye"
+                   class="w-4 h-4">
+                </i>
+              `
+
+            : `
+                <i data-lucide="eye-off"
+                   class="w-4 h-4">
+                </i>
+              `;
+
+
+        lucide.createIcons();
+
+    }
+);
+
+
+/* =========================================================
    GET USER ROLE
 ========================================================= */
 
-async function getUserRole(user) {
+async function getUserRole(user){
 
-    try {
+    try{
 
         const uidRef =
             doc(
@@ -1214,25 +1485,38 @@ async function getUserRole(user) {
                 user.uid
             );
 
+
         const uidSnap =
-            await getDoc(uidRef);
+            await getDoc(
+                uidRef
+            );
 
 
-        if (uidSnap.exists()) {
+        if(
+            uidSnap.exists()
+        ){
 
             const data =
                 uidSnap.data();
 
-            return data.role || null;
+            return data.role ||
+                   null;
 
         }
 
+
+        /*
+         * Fallback for older users
+         * whose document ID may not
+         * be their Firebase UID.
+         */
 
         const usersRef =
             collection(
                 db,
                 "users"
             );
+
 
         const emailQuery =
             query(
@@ -1244,18 +1528,22 @@ async function getUserRole(user) {
                 )
             );
 
+
         const result =
             await getDocs(
                 emailQuery
             );
 
 
-        if (!result.empty) {
+        if(
+            !result.empty
+        ){
 
             const data =
                 result.docs[0].data();
 
-            return data.role || null;
+            return data.role ||
+                   null;
 
         }
 
@@ -1264,7 +1552,7 @@ async function getUserRole(user) {
 
     }
 
-    catch (error) {
+    catch(error){
 
         console.error(
             "Role lookup error:",
@@ -1282,20 +1570,25 @@ async function getUserRole(user) {
    ADMIN CHECK
 ========================================================= */
 
-async function checkAdmin(user) {
+async function checkAdmin(user){
 
     const role =
-        await getUserRole(user);
+        await getUserRole(
+            user
+        );
+
 
     console.log(
         "User:",
         user.email
     );
 
+
     console.log(
         "Role:",
         role
     );
+
 
     return role === "admin";
 
@@ -1308,9 +1601,9 @@ async function checkAdmin(user) {
 
 onAuthStateChanged(
     auth,
-    async (user) => {
+    async user => {
 
-        if (!user) {
+        if(!user){
 
             authLoader.classList.add(
                 "hidden"
@@ -1325,6 +1618,10 @@ onAuthStateChanged(
         }
 
 
+        /*
+         * Existing authenticated user.
+         */
+
         authPage.classList.add(
             "hidden"
         );
@@ -1335,10 +1632,12 @@ onAuthStateChanged(
 
 
         const admin =
-            await checkAdmin(user);
+            await checkAdmin(
+                user
+            );
 
 
-        if (admin) {
+        if(admin){
 
             window.location.replace(
                 "index.html"
@@ -1349,7 +1648,13 @@ onAuthStateChanged(
         }
 
 
-        await signOut(auth);
+        /*
+         * Authenticated but not admin.
+         */
+
+        await signOut(
+            auth
+        );
 
 
         authLoader.classList.add(
@@ -1370,72 +1675,12 @@ onAuthStateChanged(
 
 
 /* =========================================================
-   PASSWORD TOGGLE
-========================================================= */
-
-btnTogglePassword.addEventListener(
-    "click",
-    () => {
-
-        const visible =
-            inputPassword.type === "text";
-
-
-        inputPassword.type =
-            visible
-            ? "password"
-            : "text";
-
-
-        btnTogglePassword.innerHTML =
-            visible
-            ? `<i data-lucide="eye"
-                  class="w-5 h-5"></i>`
-            : `<i data-lucide="eye-off"
-                  class="w-5 h-5"></i>`;
-
-
-        lucide.createIcons();
-
-    }
-);
-
-
-btnToggleSignupPassword.addEventListener(
-    "click",
-    () => {
-
-        const visible =
-            signupPassword.type === "text";
-
-
-        signupPassword.type =
-            visible
-            ? "password"
-            : "text";
-
-
-        btnToggleSignupPassword.innerHTML =
-            visible
-            ? `<i data-lucide="eye"
-                  class="w-4 h-4"></i>`
-            : `<i data-lucide="eye-off"
-                  class="w-4 h-4"></i>`;
-
-
-        lucide.createIcons();
-
-    }
-);
-
-
-/* =========================================================
    SIGN IN
 ========================================================= */
 
 signinForm.addEventListener(
     "submit",
-    async (event) => {
+    async event => {
 
         event.preventDefault();
 
@@ -1449,7 +1694,10 @@ signinForm.addEventListener(
             inputPassword.value;
 
 
-        if (!email || !password) {
+        if(
+            !email ||
+            !password
+        ){
 
             showError(
                 "Please enter your email and password."
@@ -1479,7 +1727,25 @@ signinForm.addEventListener(
         lucide.createIcons();
 
 
-        try {
+        try{
+
+            /*
+             * Remember Me
+             *
+             * Checked:
+             * browserLocalPersistence
+             *
+             * Unchecked:
+             * browserSessionPersistence
+             */
+
+            await setPersistence(
+                auth,
+                rememberMe.checked
+                ? browserLocalPersistence
+                : browserSessionPersistence
+            );
+
 
             const credential =
                 await signInWithEmailAndPassword(
@@ -1489,15 +1755,22 @@ signinForm.addEventListener(
                 );
 
 
+            const user =
+                credential.user;
+
+
             const admin =
                 await checkAdmin(
-                    credential.user
+                    user
                 );
 
 
-            if (!admin) {
+            if(!admin){
 
-                await signOut(auth);
+                await signOut(
+                    auth
+                );
+
 
                 showError(
                     "Login successful, but this account is not authorized for the CM FILINGS Administrator Portal."
@@ -1526,7 +1799,8 @@ signinForm.addEventListener(
 
             btnSubmit.innerHTML = `
                 <i data-lucide="check"
-                   class="w-5 h-5"></i>
+                   class="w-5 h-5">
+                </i>
                 Access Granted
             `;
 
@@ -1540,7 +1814,7 @@ signinForm.addEventListener(
 
         }
 
-        catch (error) {
+        catch(error){
 
             console.error(
                 "Sign-in error:",
@@ -1552,46 +1826,68 @@ signinForm.addEventListener(
                 "Invalid email or password.";
 
 
-            switch (
+            switch(
                 error.code
-            ) {
+            ){
 
                 case "auth/invalid-credential":
+
                     message =
                         "Invalid email or password.";
+
                     break;
+
 
                 case "auth/user-not-found":
+
                     message =
                         "No account was found with this email.";
+
                     break;
+
 
                 case "auth/wrong-password":
+
                     message =
                         "Incorrect password.";
+
                     break;
+
 
                 case "auth/invalid-email":
+
                     message =
                         "Please enter a valid email address.";
+
                     break;
+
 
                 case "auth/user-disabled":
+
                     message =
                         "This account has been disabled.";
+
                     break;
+
 
                 case "auth/too-many-requests":
+
                     message =
                         "Too many attempts. Please try again later.";
+
                     break;
+
 
                 case "auth/network-request-failed":
+
                     message =
                         "Network error. Please check your connection.";
+
                     break;
 
+
                 default:
+
                     message =
                         error.message ||
                         "Unable to sign in.";
@@ -1599,7 +1895,9 @@ signinForm.addEventListener(
             }
 
 
-            showError(message);
+            showError(
+                message
+            );
 
 
             btnSubmit.disabled =
@@ -1624,7 +1922,7 @@ signinForm.addEventListener(
 
 signupForm.addEventListener(
     "submit",
-    async (event) => {
+    async event => {
 
         event.preventDefault();
 
@@ -1647,7 +1945,9 @@ signupForm.addEventListener(
             signupProfilePic.files[0];
 
 
-        if (mobile.length !== 10) {
+        if(
+            mobile.length !== 10
+        ){
 
             showError(
                 "Please enter a valid 10-digit mobile number."
@@ -1658,7 +1958,9 @@ signupForm.addEventListener(
         }
 
 
-        if (password.length < 6) {
+        if(
+            password.length < 6
+        ){
 
             showError(
                 "Password must contain at least 6 characters."
@@ -1679,7 +1981,8 @@ signupForm.addEventListener(
 
         btnSignupSubmit.innerHTML = `
             <i data-lucide="loader-2"
-               class="w-4 h-4 animate-spin"></i>
+               class="w-4 h-4 animate-spin">
+            </i>
             Creating Account...
         `;
 
@@ -1687,10 +1990,10 @@ signupForm.addEventListener(
         lucide.createIcons();
 
 
-        try {
+        try{
 
             /*
-             * CREATE FIREBASE AUTH ACCOUNT
+             * CREATE AUTH ACCOUNT
              */
 
             const credential =
@@ -1714,10 +2017,10 @@ signupForm.addEventListener(
 
 
             /*
-             * OPTIONAL PROFILE IMAGE
+             * OPTIONAL PROFILE PICTURE
              */
 
-            if (file) {
+            if(file){
 
                 const storageRef =
                     ref(
@@ -1742,48 +2045,79 @@ signupForm.addEventListener(
 
 
             /*
-             * IMPORTANT
+             * IMPORTANT:
              *
-             * New accounts are NOT given admin
-             * privileges automatically.
+             * New registrations receive
+             * "user" role.
+             *
+             * They do NOT automatically
+             * become administrators.
              */
 
             const userData = {
 
-                uid: uid,
+                uid:
 
-                name: name,
+                    uid,
 
-                mobile: mobile,
+                name:
 
-                email: email,
+                    name,
+
+                mobile:
+
+                    mobile,
+
+                email:
+
+                    email,
 
                 profilePicUrl:
+
                     profilePicUrl,
 
-                role: "user",
+                role:
+
+                    "user",
 
                 createdAt:
-                    new Date().toISOString()
+
+                    new Date()
+                        .toISOString()
 
             };
 
 
             await setDoc(
+
                 doc(
                     db,
                     "users",
                     uid
                 ),
+
                 userData
+
             );
 
 
             /*
-             * Sign out immediately.
+             * Sign out after registration.
              */
 
-            await signOut(auth);
+            await signOut(
+                auth
+            );
+
+
+            signupForm.reset();
+
+
+            showSignin();
+
+
+            inputEmail.value =
+                email;
 
 
             showSuccess(
@@ -1791,24 +2125,19 @@ signupForm.addEventListener(
             );
 
 
-            signupForm.reset();
+            btnSignupSubmit.disabled =
+                false;
 
 
-            setTimeout(
-                () => {
+            btnSignupSubmit.innerHTML =
+                original;
 
-                    showSignin();
 
-                    inputEmail.value =
-                        email;
-
-                },
-                1200
-            );
+            lucide.createIcons();
 
         }
 
-        catch (error) {
+        catch(error){
 
             console.error(
                 "Signup error:",
@@ -1820,31 +2149,44 @@ signupForm.addEventListener(
                 "Failed to create account.";
 
 
-            switch (
+            switch(
                 error.code
-            ) {
+            ){
 
                 case "auth/email-already-in-use":
+
                     message =
                         "An account already exists with this email.";
+
                     break;
+
 
                 case "auth/invalid-email":
+
                     message =
                         "Please enter a valid email address.";
+
                     break;
+
 
                 case "auth/weak-password":
+
                     message =
                         "Password is too weak.";
+
                     break;
+
 
                 case "auth/network-request-failed":
+
                     message =
                         "Network error. Please check your connection.";
+
                     break;
 
+
                 default:
+
                     message =
                         error.message ||
                         message;
@@ -1852,7 +2194,9 @@ signupForm.addEventListener(
             }
 
 
-            showError(message);
+            showError(
+                message
+            );
 
 
             btnSignupSubmit.disabled =
@@ -1880,15 +2224,30 @@ btnForgotTrigger.addEventListener(
     () => {
 
         resetEmail.value =
-            inputEmail.value;
+            inputEmail.value.trim();
+
 
         forgotModal.classList.remove(
             "hidden"
         );
 
+
+        setTimeout(
+            () => {
+
+                resetEmail.focus();
+
+            },
+            100
+        );
+
     }
 );
 
+
+/* =========================================================
+   CLOSE FORGOT MODAL
+========================================================= */
 
 btnCloseModal.addEventListener(
     "click",
@@ -1904,12 +2263,12 @@ btnCloseModal.addEventListener(
 
 forgotModal.addEventListener(
     "click",
-    (event) => {
+    event => {
 
-        if (
+        if(
             event.target ===
             forgotModal
-        ) {
+        ){
 
             forgotModal.classList.add(
                 "hidden"
@@ -1922,7 +2281,7 @@ forgotModal.addEventListener(
 
 
 /* =========================================================
-   PASSWORD RESET
+   SEND PASSWORD RESET
 ========================================================= */
 
 btnSendReset.addEventListener(
@@ -1933,10 +2292,14 @@ btnSendReset.addEventListener(
             resetEmail.value.trim();
 
 
-        if (!email) {
+        if(!email){
 
-            alert(
+            showError(
                 "Please enter your email address."
+            );
+
+            forgotModal.classList.add(
+                "hidden"
             );
 
             return;
@@ -1954,7 +2317,8 @@ btnSendReset.addEventListener(
 
         btnSendReset.innerHTML = `
             <i data-lucide="loader-2"
-               class="w-4 h-4 animate-spin"></i>
+               class="w-4 h-4 animate-spin">
+            </i>
             Sending...
         `;
 
@@ -1962,7 +2326,7 @@ btnSendReset.addEventListener(
         lucide.createIcons();
 
 
-        try {
+        try{
 
             await sendPasswordResetEmail(
                 auth,
@@ -1981,7 +2345,7 @@ btnSendReset.addEventListener(
 
         }
 
-        catch (error) {
+        catch(error){
 
             console.error(
                 "Password reset error:",
@@ -1989,13 +2353,52 @@ btnSendReset.addEventListener(
             );
 
 
+            let message =
+                "Unable to send password reset email.";
+
+
+            switch(
+                error.code
+            ){
+
+                case "auth/invalid-email":
+
+                    message =
+                        "Please enter a valid email address.";
+
+                    break;
+
+
+                case "auth/user-not-found":
+
+                    message =
+                        "No account was found with this email.";
+
+                    break;
+
+
+                case "auth/network-request-failed":
+
+                    message =
+                        "Network error. Please check your connection.";
+
+                    break;
+
+            }
+
+
+            forgotModal.classList.add(
+                "hidden"
+            );
+
+
             showError(
-                "Unable to send password reset email."
+                message
             );
 
         }
 
-        finally {
+        finally{
 
             btnSendReset.disabled =
                 false;
@@ -2022,4 +2425,5 @@ lucide.createIcons();
 </script>
 
 </body>
+
 </html>
