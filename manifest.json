@@ -1,8 +1,8 @@
 {
-  "name": "CM Filings Enterprise Workspace",
+  "name": "CM Filings Admin Workspace",
   "short_name": "CM Filings",
   "description": "Enterprise Tax, Compliance, and Invoicing Management Suite",
-  "start_url": "/dashboard.html",
+  "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#071D49",
