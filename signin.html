@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0,
-                   maximum-scale=1.0, user-scalable=no">
+          content="width=device-width,
+                   initial-scale=1.0,
+                   maximum-scale=1.0,
+                   user-scalable=no">
 
     <title>Sign In - CM FILINGS Admin</title>
 
@@ -43,6 +46,7 @@
                             white: '#FFFFFF'
                         }
                     },
+
                     fontFamily: {
                         sans: ['Inter', 'sans-serif']
                     }
@@ -99,7 +103,7 @@
 
 
     <!-- =====================================================
-         AUTH CHECK LOADER
+         AUTH LOADER
     ====================================================== -->
 
     <div id="auth-loader"
@@ -122,13 +126,16 @@
 
         </div>
 
+
         <i data-lucide="loader-2"
            class="w-7 h-7
                   text-brand-red
                   animate-spin
                   mb-4"></i>
 
-        <p class="text-sm font-bold
+
+        <p class="text-sm
+                  font-bold
                   text-brand-navy
                   tracking-widest
                   uppercase">
@@ -137,27 +144,31 @@
 
         </p>
 
+
         <p class="text-[10px]
                   text-slate-400
                   mt-2">
 
-            Checking administrator permissions...
+            Checking administrator role...
 
         </p>
 
     </div>
 
 
+
     <!-- =====================================================
-         MAIN LOGIN CONTAINER
+         LOGIN PAGE
     ====================================================== -->
 
     <div id="login-page"
-         class="flex-1 hero-pattern
+         class="flex-1
+                hero-pattern
                 flex flex-col
                 items-center
                 justify-center
-                p-4 min-h-screen">
+                p-4
+                min-h-screen">
 
 
         <!-- LOGIN CARD -->
@@ -167,7 +178,8 @@
                     rounded-3xl
                     shadow-xl
                     border border-slate-200
-                    w-full max-w-md">
+                    w-full
+                    max-w-md">
 
 
             <!-- BRAND -->
@@ -176,6 +188,7 @@
                         items-center
                         mb-8
                         text-center">
+
 
                 <div class="w-14 h-14
                             bg-brand-navy
@@ -191,6 +204,7 @@
 
                 </div>
 
+
                 <h1 class="text-2xl
                            font-extrabold
                            text-brand-navy
@@ -199,6 +213,7 @@
                     CM FILINGS
 
                 </h1>
+
 
                 <p class="text-[10px]
                           font-bold
@@ -214,9 +229,8 @@
             </div>
 
 
-            <!-- =================================================
-                 ERROR
-            ================================================== -->
+
+            <!-- ERROR -->
 
             <div id="auth-error"
                  class="hidden
@@ -233,9 +247,8 @@
             </div>
 
 
-            <!-- =================================================
-                 SUCCESS
-            ================================================== -->
+
+            <!-- SUCCESS -->
 
             <div id="auth-success"
                  class="hidden
@@ -252,9 +265,8 @@
             </div>
 
 
-            <!-- =================================================
-                 SIGN IN FORM
-            ================================================== -->
+
+            <!-- SIGN IN FORM -->
 
             <form id="signin-form"
                   class="space-y-4">
@@ -277,6 +289,7 @@
 
                     </label>
 
+
                     <input
                         type="email"
                         id="signin-email"
@@ -295,9 +308,11 @@
                                font-medium
                                text-slate-800
                                text-sm"
-                        placeholder="admin@cmfilings.com">
+                        placeholder="Enter your email">
+
 
                 </div>
+
 
 
                 <!-- PASSWORD -->
@@ -308,6 +323,7 @@
                                 justify-between
                                 items-center
                                 mb-2">
+
 
                         <label
                             class="block
@@ -320,6 +336,7 @@
                             Password
 
                         </label>
+
 
                         <button
                             type="button"
@@ -336,9 +353,9 @@
                     </div>
 
 
-                    <!-- PASSWORD CONTAINER -->
 
                     <div class="relative">
+
 
                         <input
                             type="password"
@@ -369,12 +386,10 @@
                                    right-3.5
                                    top-3.5
                                    text-slate-400
-                                   hover:text-slate-600
-                                   transition-colors"
-                            title="Toggle Password Visibility">
+                                   hover:text-slate-600"
+                            title="Show/Hide Password">
 
                             <i data-lucide="eye"
-                               id="eye-icon"
                                class="w-5 h-5"></i>
 
                         </button>
@@ -384,9 +399,8 @@
                 </div>
 
 
-                <!-- =================================================
-                     SUBMIT
-                ================================================== -->
+
+                <!-- SIGN IN BUTTON -->
 
                 <button
                     type="submit"
@@ -416,7 +430,8 @@
             </form>
 
 
-            <!-- SECURITY NOTICE -->
+
+            <!-- SECURITY -->
 
             <div class="mt-6
                         pt-5
@@ -444,6 +459,7 @@
             </div>
 
         </div>
+
 
 
         <!-- FOOTER -->
@@ -492,6 +508,7 @@
                         items-center
                         mb-4">
 
+
                 <h3 class="text-lg
                            font-bold
                            text-brand-navy">
@@ -520,9 +537,9 @@
                       mb-5
                       leading-relaxed">
 
-                Enter your registered administrator
-                email address below and we will send
-                you a secure password reset link.
+                Enter your registered email address
+                and we will send you a secure password
+                reset link.
 
             </p>
 
@@ -545,6 +562,7 @@
 
                     </label>
 
+
                     <input
                         type="email"
                         id="reset-email"
@@ -556,7 +574,7 @@
                                outline-none
                                bg-slate-50
                                font-medium"
-                        placeholder="admin@cmfilings.com">
+                        placeholder="Enter your email">
 
                 </div>
 
@@ -613,9 +631,9 @@
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
 
-        /* =================================================
-           FIREBASE CONFIG
-        ================================================= */
+        // =================================================
+        // FIREBASE CONFIG
+        // =================================================
 
         const firebaseConfig = {
 
@@ -640,9 +658,9 @@
         };
 
 
-        /* =================================================
-           INITIALIZE FIREBASE
-        ================================================= */
+        // =================================================
+        // INITIALIZE
+        // =================================================
 
         const app =
             initializeApp(firebaseConfig);
@@ -651,9 +669,9 @@
             getAuth(app);
 
 
-        /* =================================================
-           ELEMENTS
-        ================================================= */
+        // =================================================
+        // ELEMENTS
+        // =================================================
 
         const loginPage =
             document.getElementById("login-page");
@@ -710,16 +728,112 @@
             );
 
 
-        /* =================================================
-           ICONS
-        ================================================= */
+        // =================================================
+        // ICONS
+        // =================================================
 
         lucide.createIcons();
 
 
-        /* =================================================
-           URL ERROR MESSAGE
-        ================================================= */
+        // =================================================
+        // ERROR MESSAGE
+        // =================================================
+
+        function showError(message) {
+
+            authSuccess.classList.add("hidden");
+
+            authError.textContent =
+                message;
+
+            authError.classList.remove("hidden");
+
+        }
+
+
+        // =================================================
+        // SUCCESS MESSAGE
+        // =================================================
+
+        function showSuccess(message) {
+
+            authError.classList.add("hidden");
+
+            authSuccess.textContent =
+                message;
+
+            authSuccess.classList.remove("hidden");
+
+        }
+
+
+        // =================================================
+        // FIREBASE ROLE CHECK
+        //
+        // REQUIRED CUSTOM CLAIM:
+        //
+        // {
+        //     "role": "admin"
+        // }
+        //
+        // NO EMAIL CHECK HERE.
+        // =================================================
+
+        async function isAdmin(user) {
+
+            if (!user) {
+                return false;
+            }
+
+
+            try {
+
+                /*
+                 * Force refresh ID token so a newly
+                 * assigned role is immediately available.
+                 */
+
+                const tokenResult =
+                    await user.getIdTokenResult(true);
+
+
+                const claims =
+                    tokenResult.claims || {};
+
+
+                console.log(
+                    "Firebase user:",
+                    user.email
+                );
+
+
+                console.log(
+                    "Firebase claims:",
+                    claims
+                );
+
+
+                return claims.role === "admin";
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Role verification failed:",
+                    error
+                );
+
+                return false;
+
+            }
+
+        }
+
+
+        // =================================================
+        // URL ERROR
+        // =================================================
 
         const urlParams =
             new URLSearchParams(
@@ -733,14 +847,22 @@
         if (urlError === "admin_required") {
 
             showError(
-                "Access denied. Your account is not authorized as an administrator."
+                "Access denied. This account does not have administrator privileges."
             );
 
         }
 
-        else if (
-            urlError === "authentication_error"
-        ) {
+
+        if (urlError === "login_required") {
+
+            showError(
+                "Please sign in to access the Admin Portal."
+            );
+
+        }
+
+
+        if (urlError === "authentication_error") {
 
             showError(
                 "Authentication failed. Please sign in again."
@@ -748,142 +870,17 @@
 
         }
 
-        else if (
-            urlError === "login_required"
-        ) {
 
-            showError(
-                "Please sign in to access the administrator dashboard."
-            );
-
-        }
-
-
-        /* =================================================
-           ERROR HELPER
-        ================================================= */
-
-        function showError(message) {
-
-            authSuccess.classList.add(
-                "hidden"
-            );
-
-            authError.textContent =
-                message;
-
-            authError.classList.remove(
-                "hidden"
-            );
-
-        }
-
-
-        /* =================================================
-           SUCCESS HELPER
-        ================================================= */
-
-        function showSuccess(message) {
-
-            authError.classList.add(
-                "hidden"
-            );
-
-            authSuccess.textContent =
-                message;
-
-            authSuccess.classList.remove(
-                "hidden"
-            );
-
-        }
-
-
-        /* =================================================
-           ADMIN CLAIM CHECK
-           
-           REQUIRED CLAIM:
-
-           {
-               admin: true
-           }
-
-           This must be assigned from
-           Firebase Admin SDK / trusted server.
-        ================================================= */
-
-        async function checkAdminAccess(user) {
-
-            try {
-
-                /*
-                 * Force refresh the Firebase ID token.
-                 * This is important after a Custom Claim
-                 * has been assigned to an existing user.
-                 */
-
-                const tokenResult =
-                    await user.getIdTokenResult(true);
-
-
-                const claims =
-                    tokenResult.claims || {};
-
-
-                console.log(
-                    "Signed-in user:",
-                    user.email
-                );
-
-                console.log(
-                    "Firebase Custom Claims:",
-                    claims
-                );
-
-
-                /*
-                 * ADMIN ACCESS
-                 */
-
-                if (
-                    claims.admin === true
-                ) {
-
-                    return true;
-
-                }
-
-
-                return false;
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "Admin claim check failed:",
-                    error
-                );
-
-                return false;
-
-            }
-
-        }
-
-
-        /* =================================================
-           AUTH STATE CHECK
-        ================================================== */
+        // =================================================
+        // EXISTING AUTH SESSION
+        // =================================================
 
         onAuthStateChanged(
             auth,
             async (user) => {
 
                 /*
-                 * No user:
-                 *
-                 * Stay on signin page.
+                 * No logged-in user.
                  */
 
                 if (!user) {
@@ -902,11 +899,8 @@
 
 
                 /*
-                 * A Firebase user is already logged in.
-                 *
-                 * Do NOT automatically redirect.
-                 *
-                 * First check admin claim.
+                 * User exists.
+                 * Verify role before redirect.
                  */
 
                 loginPage.classList.add(
@@ -918,17 +912,11 @@
                 );
 
 
-                const isAdmin =
-                    await checkAdminAccess(
-                        user
-                    );
+                const admin =
+                    await isAdmin(user);
 
 
-                /*
-                 * ADMIN
-                 */
-
-                if (isAdmin) {
+                if (admin) {
 
                     window.location.replace(
                         "index.html"
@@ -940,13 +928,8 @@
 
 
                 /*
-                 * NOT ADMIN
+                 * Logged in but not admin.
                  */
-
-                console.warn(
-                    "Authenticated user is not an administrator."
-                );
-
 
                 try {
 
@@ -981,9 +964,9 @@
         );
 
 
-        /* =================================================
-           PASSWORD VISIBILITY
-        ================================================== */
+        // =================================================
+        // PASSWORD VISIBILITY
+        // =================================================
 
         btnTogglePassword.addEventListener(
             "click",
@@ -997,9 +980,10 @@
                     inputPassword.type =
                         "text";
 
-                    btnTogglePassword.innerHTML =
-                        `<i data-lucide="eye-off"
-                            class="w-5 h-5"></i>`;
+                    btnTogglePassword.innerHTML = `
+                        <i data-lucide="eye-off"
+                           class="w-5 h-5"></i>
+                    `;
 
                 }
 
@@ -1008,9 +992,10 @@
                     inputPassword.type =
                         "password";
 
-                    btnTogglePassword.innerHTML =
-                        `<i data-lucide="eye"
-                            class="w-5 h-5"></i>`;
+                    btnTogglePassword.innerHTML = `
+                        <i data-lucide="eye"
+                           class="w-5 h-5"></i>
+                    `;
 
                 }
 
@@ -1021,15 +1006,15 @@
         );
 
 
-        /* =================================================
-           SIGN IN
-        ================================================== */
+        // =================================================
+        // SIGN IN
+        // =================================================
 
         signinForm.addEventListener(
             "submit",
-            async (e) => {
+            async (event) => {
 
-                e.preventDefault();
+                event.preventDefault();
 
 
                 const email =
@@ -1086,7 +1071,7 @@
                 try {
 
                     /*
-                     * Authenticate Firebase user.
+                     * Firebase authentication.
                      */
 
                     const credential =
@@ -1097,27 +1082,29 @@
                         );
 
 
+                    const user =
+                        credential.user;
+
+
                     /*
-                     * Immediately verify ADMIN claim.
+                     * Verify Firebase role.
                      */
 
-                    const isAdmin =
-                        await checkAdminAccess(
-                            credential.user
-                        );
+                    const admin =
+                        await isAdmin(user);
 
 
-                    if (!isAdmin) {
+                    /*
+                     * NOT ADMIN
+                     */
 
-                        /*
-                         * User exists but is NOT admin.
-                         */
+                    if (!admin) {
 
                         await signOut(auth);
 
 
                         showError(
-                            "Login successful, but this account is not authorized for the CM FILINGS Administrator Portal."
+                            "Login successful, but this account does not have the required administrator role."
                         );
 
 
@@ -1150,18 +1137,13 @@
 
                     btnSubmit.innerHTML = `
                         <i data-lucide="check"
-                           class="w-5 h-5">
-                        </i>
+                           class="w-5 h-5"></i>
                         Access Granted
                     `;
 
 
                     lucide.createIcons();
 
-
-                    /*
-                     * Redirect.
-                     */
 
                     window.location.replace(
                         "index.html"
@@ -1170,26 +1152,21 @@
                 }
 
 
-                catch (err) {
+                catch (error) {
 
                     console.error(
                         "Firebase sign-in error:",
-                        err
+                        error
                     );
 
 
                     let message =
-                        "Access denied. Invalid email or password.";
+                        "Invalid email or password.";
 
 
-                    /*
-                     * Firebase error messages.
-                     */
+                    switch (error.code) {
 
-                    switch (err.code) {
-
-                        case
-                            "auth/invalid-credential":
+                        case "auth/invalid-credential":
 
                             message =
                                 "Invalid email or password.";
@@ -1197,17 +1174,15 @@
                             break;
 
 
-                        case
-                            "auth/user-not-found":
+                        case "auth/user-not-found":
 
                             message =
-                                "No account was found with this email.";
+                                "No Firebase account was found with this email.";
 
                             break;
 
 
-                        case
-                            "auth/wrong-password":
+                        case "auth/wrong-password":
 
                             message =
                                 "Incorrect password.";
@@ -1215,8 +1190,7 @@
                             break;
 
 
-                        case
-                            "auth/invalid-email":
+                        case "auth/invalid-email":
 
                             message =
                                 "Please enter a valid email address.";
@@ -1224,26 +1198,23 @@
                             break;
 
 
-                        case
-                            "auth/user-disabled":
+                        case "auth/user-disabled":
 
                             message =
-                                "This account has been disabled.";
+                                "This Firebase account has been disabled.";
 
                             break;
 
 
-                        case
-                            "auth/too-many-requests":
+                        case "auth/too-many-requests":
 
                             message =
-                                "Too many attempts. Please try again later.";
+                                "Too many login attempts. Please try again later.";
 
                             break;
 
 
-                        case
-                            "auth/network-request-failed":
+                        case "auth/network-request-failed":
 
                             message =
                                 "Network error. Please check your internet connection.";
@@ -1275,9 +1246,9 @@
         );
 
 
-        /* =================================================
-           FORGOT PASSWORD
-        ================================================== */
+        // =================================================
+        // FORGOT PASSWORD
+        // =================================================
 
         btnForgotTrigger.addEventListener(
             "click",
@@ -1294,9 +1265,9 @@
         );
 
 
-        /* =================================================
-           CLOSE MODAL
-        ================================================== */
+        // =================================================
+        // CLOSE MODAL
+        // =================================================
 
         btnCloseModal.addEventListener(
             "click",
@@ -1310,9 +1281,9 @@
         );
 
 
-        /* =================================================
-           CLOSE MODAL WHEN CLICKING OUTSIDE
-        ================================================== */
+        // =================================================
+        // CLOSE OUTSIDE
+        // =================================================
 
         forgotModal.addEventListener(
             "click",
@@ -1333,9 +1304,9 @@
         );
 
 
-        /* =================================================
-           SEND PASSWORD RESET
-        ================================================== */
+        // =================================================
+        // PASSWORD RESET
+        // =================================================
 
         btnSendReset.addEventListener(
             "click",
@@ -1363,10 +1334,10 @@
                 btnSendReset.disabled =
                     true;
 
+
                 btnSendReset.innerHTML = `
                     <i data-lucide="loader-2"
-                       class="w-4 h-4 animate-spin">
-                    </i>
+                       class="w-4 h-4 animate-spin"></i>
                     Sending...
                 `;
 
@@ -1394,11 +1365,11 @@
                 }
 
 
-                catch (err) {
+                catch (error) {
 
                     console.error(
                         "Password reset error:",
-                        err
+                        error
                     );
 
 
@@ -1406,10 +1377,9 @@
                         "Unable to send password reset email.";
 
 
-                    switch (err.code) {
+                    switch (error.code) {
 
-                        case
-                            "auth/invalid-email":
+                        case "auth/invalid-email":
 
                             message =
                                 "Please enter a valid email address.";
@@ -1417,17 +1387,15 @@
                             break;
 
 
-                        case
-                            "auth/user-not-found":
+                        case "auth/user-not-found":
 
                             message =
-                                "No account was found with this email.";
+                                "No Firebase account was found with this email.";
 
                             break;
 
 
-                        case
-                            "auth/too-many-requests":
+                        case "auth/too-many-requests":
 
                             message =
                                 "Too many requests. Please try again later.";
@@ -1456,7 +1424,6 @@
 
             }
         );
-
 
     </script>
 
