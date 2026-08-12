@@ -61,43 +61,38 @@
 
     <!-- APP LOADER -->
     <div id="app-loader" class="fixed inset-0 bg-brand-light z-[200] flex flex-col items-center justify-center">
-        <i data-lucide="loader-2" class="w-10 h-10 text-brand-navy animate-spin mb-4"></i>
+        <i data-lucide="loader-2" class="w-12 h-12 text-brand-navy animate-spin mb-4"></i>
         <p class="text-sm font-bold text-slate-500 tracking-widest uppercase">Verifying Admin Access...</p>
     </div>
 
     <!-- MAIN APP WRAPPER -->
     <div id="main-app" class="hidden flex flex-col h-full w-full overflow-hidden">
         
-        <!-- 1. FIXED TOP HEADER -->
-        <header class="h-16 bg-white/95 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40">
-            <div class="flex items-center gap-3">
-                <img src="assets/logo.png" alt="Logo" class="w-8 h-8 object-contain">
-                <img src="assets/name.svg" alt="CM Filings" class="h-6 object-contain">
+        <!-- 1. FIXED TOP HEADER (Enlarged Logo & Name, Clean Profile) -->
+        <header class="h-20 bg-white/95 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-4 sm:px-8 shrink-0 z-40">
+            <div class="flex items-center gap-3.5">
+                <img src="assets/logo.png" alt="Logo" class="w-11 h-11 object-contain">
+                <img src="assets/name.svg" alt="CM Filings" class="h-8 object-contain">
             </div>
 
             <!-- Header Tools & Profile Dropdown -->
-            <div class="flex items-center gap-3 relative">
+            <div class="flex items-center gap-4 relative">
                 <div class="relative hidden md:block">
-                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-                    <input type="text" placeholder="Global search records..." class="text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2 outline-none focus:border-brand-navy w-64">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
+                    <input type="text" placeholder="Global search records..." class="text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 outline-none focus:border-brand-navy w-64">
                 </div>
-
-                <!-- Menu Drawer Trigger -->
-                <button onclick="openMenuDrawer()" class="p-2 text-slate-600 hover:text-brand-navy rounded-xl hover:bg-slate-100 transition-colors" title="Modules Menu">
-                    <i data-lucide="menu" class="w-5 h-5"></i>
-                </button>
 
                 <!-- Profile Dropdown Button -->
                 <div class="relative">
-                    <button onclick="toggleProfileDropdown()" class="w-9 h-9 bg-brand-redlight text-brand-red font-extrabold rounded-xl flex items-center justify-center text-xs shadow-sm cursor-pointer hover:opacity-90 transition-opacity" id="admin-avatar">
+                    <button onclick="toggleProfileDropdown()" class="w-11 h-11 bg-brand-redlight text-brand-red font-extrabold rounded-2xl flex items-center justify-center text-sm shadow-sm cursor-pointer hover:opacity-90 transition-opacity" id="admin-avatar">
                         AD
                     </button>
 
                     <!-- Profile Popup Box -->
-                    <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 p-4 z-50 animate-in fade-in zoom-in-95 duration-150">
+                    <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200 p-5 z-50 animate-in fade-in zoom-in-95 duration-150">
                         <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1">Signed in as</p>
-                        <p id="profile-email-text" class="text-xs font-bold text-brand-navy truncate mb-3 pb-3 border-b border-slate-100">admin@cmfilings.com</p>
-                        <button onclick="handleLogout()" class="w-full py-2.5 bg-red-50 text-brand-red font-bold rounded-xl hover:bg-red-100 transition-colors flex items-center justify-center gap-2 text-xs border border-brand-red/20">
+                        <p id="profile-email-text" class="text-xs font-bold text-brand-navy truncate mb-4 pb-3 border-b border-slate-100">admin@cmfilings.com</p>
+                        <button onclick="handleLogout()" class="w-full py-3 bg-red-50 text-brand-red font-bold rounded-xl hover:bg-red-100 transition-colors flex items-center justify-center gap-2 text-xs border border-brand-red/20">
                             <i data-lucide="log-out" class="w-4 h-4"></i> Sign Out
                         </button>
                     </div>
@@ -106,18 +101,18 @@
         </header>
 
         <!-- 2. WORKSPACE VIEWPORT -->
-        <div class="flex-1 relative overflow-hidden bg-brand-light">
+        <div class="flex-1 relative overflow-hidden bg-brand-light flex flex-col">
             
             <!-- DEFAULT HOME DASHBOARD VIEWLET (Linked Cards, Donut Bar, Calendar) -->
             <div id="home-dashboard-view" class="absolute inset-0 overflow-y-auto hero-pattern p-4 sm:p-6 lg:p-8 space-y-6">
                 
-                <div class="max-w-7xl mx-auto space-y-6 pb-12">
+                <div class="max-w-7xl mx-auto space-y-6 pb-24">
                     
                     <!-- KPI Analytics Cards (Fully Linked to Respective Modules) -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div onclick="loadModule('compliance.html', 'Compliance Engine')" class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-brand-navy hover:shadow-md transition-all group">
-                            <div class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 shrink-0 group-hover:scale-105 transition-transform">
-                                <i data-lucide="clock" class="w-6 h-6"></i>
+                            <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 shrink-0 group-hover:scale-105 transition-transform">
+                                <i data-lucide="clock" class="w-7 h-7"></i>
                             </div>
                             <div>
                                 <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1">Pending Compliance</p>
@@ -126,8 +121,8 @@
                         </div>
 
                         <div onclick="loadModule('transactions.html', 'Transactions Register')" class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-brand-navy hover:shadow-md transition-all group">
-                            <div class="w-12 h-12 bg-brand-redlight rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-105 transition-transform">
-                                <i data-lucide="indian-rupee" class="w-6 h-6"></i>
+                            <div class="w-14 h-14 bg-brand-redlight rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-105 transition-transform">
+                                <i data-lucide="indian-rupee" class="w-7 h-7"></i>
                             </div>
                             <div>
                                 <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1">Total Due Amount</p>
@@ -137,7 +132,7 @@
 
                         <div onclick="loadModule('compliance.html', 'Compliance Engine')" class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-brand-navy hover:shadow-md transition-all group">
                             <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shrink-0 group-hover:scale-105 transition-transform">
-                                <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                                <i data-lucide="alert-triangle" class="w-7 h-7"></i>
                             </div>
                             <div>
                                 <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1">Priority Pending Tasks</p>
@@ -147,7 +142,7 @@
 
                         <div onclick="loadModule('clients.html', 'Clients Directory')" class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-brand-navy hover:shadow-md transition-all group">
                             <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shrink-0 group-hover:scale-105 transition-transform">
-                                <i data-lucide="users" class="w-6 h-6"></i>
+                                <i data-lucide="users" class="w-7 h-7"></i>
                             </div>
                             <div>
                                 <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1">Total Clients</p>
@@ -159,35 +154,35 @@
                     <!-- Priority Pending Task Compliance & Donut/Bar Breakdown Grid -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
                         
-                        <div class="lg:col-span-2 bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
-                            <div class="flex justify-between items-center mb-4">
+                        <div class="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                            <div class="flex justify-between items-center mb-6">
                                 <h3 class="text-sm font-extrabold text-brand-navy flex items-center gap-2">
-                                    <i data-lucide="alert-octagon" class="w-4 h-4 text-brand-red"></i> Priority Pending Task Compliance
+                                    <i data-lucide="alert-octagon" class="w-5 h-5 text-brand-red"></i> Priority Pending Task Compliance
                                 </h3>
                                 <button onclick="loadModule('compliance.html', 'Compliance Engine')" class="text-xs font-bold text-brand-red hover:underline">View All</button>
                             </div>
                             <div class="overflow-x-auto">
-                                <table class="w-full text-left text-xs text-slate-600 whitespace-nowrap">
-                                    <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[9px] tracking-wider border-b border-slate-200">
+                                <table class="w-full text-left text-xs sm:text-sm text-slate-600 whitespace-nowrap">
+                                    <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-200">
                                         <tr>
-                                            <th class="py-2.5 px-3 rounded-tl-lg">Task / Filing</th>
-                                            <th class="py-2.5 px-3">Client Name</th>
-                                            <th class="py-2.5 px-3">Due Date</th>
-                                            <th class="py-2.5 px-3 rounded-tr-lg">Priority</th>
+                                            <th class="py-3 px-4 rounded-tl-lg">Task / Filing</th>
+                                            <th class="py-3 px-4">Client Name</th>
+                                            <th class="py-3 px-4">Due Date</th>
+                                            <th class="py-3 px-4 rounded-tr-lg">Priority</th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-slate-100 font-medium">
                                         <tr>
-                                            <td class="py-3 px-3 font-bold text-brand-navy">GSTR-3B Return</td>
-                                            <td class="py-3 px-3">A-FOUR ENTERPRISES</td>
-                                            <td class="py-3 px-3 font-mono text-brand-red font-bold">20/08/2026</td>
-                                            <td class="py-3 px-3"><span class="bg-brand-redlight text-brand-red px-2 py-0.5 rounded text-[10px] font-bold">Urgent</span></td>
+                                            <td class="py-3.5 px-4 font-bold text-brand-navy">GSTR-3B Return</td>
+                                            <td class="py-3.5 px-4">A-FOUR ENTERPRISES</td>
+                                            <td class="py-3.5 px-4 font-mono text-brand-red font-bold">20/08/2026</td>
+                                            <td class="py-3.5 px-4"><span class="bg-brand-redlight text-brand-red px-2.5 py-1 rounded text-[10px] font-bold">Urgent</span></td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3 px-3 font-bold text-brand-navy">TDS Q1 Return</td>
-                                            <td class="py-3 px-3">AARON SOFAS</td>
-                                            <td class="py-3 px-3 font-mono text-amber-600 font-bold">25/08/2026</td>
-                                            <td class="py-3 px-3"><span class="bg-amber-50 text-amber-600 px-2 py-0.5 rounded text-[10px] font-bold">High</span></td>
+                                            <td class="py-3.5 px-4 font-bold text-brand-navy">TDS Q1 Return</td>
+                                            <td class="py-3.5 px-4">AARON SOFAS</td>
+                                            <td class="py-3.5 px-4 font-mono text-amber-600 font-bold">25/08/2026</td>
+                                            <td class="py-3.5 px-4"><span class="bg-amber-50 text-amber-600 px-2.5 py-1 rounded text-[10px] font-bold">High</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -195,23 +190,23 @@
                         </div>
 
                         <!-- Interactive Donut / Status Summary Card -->
-                        <div onclick="loadModule('calendar.html', 'Compliance Calendar')" class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm cursor-pointer hover:border-brand-navy transition-all group">
-                            <h3 class="text-sm font-extrabold text-brand-navy mb-4 flex items-center justify-between">
-                                <span class="flex items-center gap-2"><i data-lucide="pie-chart" class="w-4 h-4 text-brand-navy"></i> Compliance Breakdown</span>
+                        <div onclick="loadModule('calendar.html', 'Compliance Calendar')" class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm cursor-pointer hover:border-brand-navy transition-all group">
+                            <h3 class="text-sm font-extrabold text-brand-navy mb-6 flex items-center justify-between">
+                                <span class="flex items-center gap-2"><i data-lucide="pie-chart" class="w-5 h-5 text-brand-navy"></i> Compliance Breakdown</span>
                                 <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform"></i>
                             </h3>
-                            <div class="space-y-3">
+                            <div class="space-y-4">
                                 <div>
-                                    <div class="flex justify-between text-xs font-bold mb-1"><span>Completed</span> <span class="text-emerald-600">75%</span></div>
-                                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width: 75%"></div></div>
+                                    <div class="flex justify-between text-xs font-bold mb-1.5"><span>Completed</span> <span class="text-emerald-600">75%</span></div>
+                                    <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width: 75%"></div></div>
                                 </div>
                                 <div>
-                                    <div class="flex justify-between text-xs font-bold mb-1"><span>In Progress</span> <span class="text-blue-600">15%</span></div>
-                                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width: 15%"></div></div>
+                                    <div class="flex justify-between text-xs font-bold mb-1.5"><span>In Progress</span> <span class="text-blue-600">15%</span></div>
+                                    <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width: 15%"></div></div>
                                 </div>
                                 <div>
-                                    <div class="flex justify-between text-xs font-bold mb-1"><span>Overdue / Pending</span> <span class="text-brand-red">10%</span></div>
-                                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-brand-red h-full rounded-full" style="width: 10%"></div></div>
+                                    <div class="flex justify-between text-xs font-bold mb-1.5"><span>Overdue / Pending</span> <span class="text-brand-red">10%</span></div>
+                                    <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden"><div class="bg-brand-red h-full rounded-full" style="width: 10%"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -223,9 +218,9 @@
 
             <!-- MODULE IFRAME VIEWPORT (Loads modules seamlessly via processing.html) -->
             <div id="module-modal-container" class="hidden absolute inset-0 z-30 bg-white flex flex-col">
-                <div class="h-12 bg-slate-900 text-white flex items-center justify-between px-4 shrink-0">
-                    <span id="modal-module-title" class="text-xs font-extrabold uppercase tracking-widest text-brand-red">Module View</span>
-                    <button onclick="closeModuleModal()" class="px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-bold transition-colors">
+                <div class="h-14 bg-slate-900 text-white flex items-center justify-between px-6 shrink-0">
+                    <span id="modal-module-title" class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-brand-red">Module View</span>
+                    <button onclick="closeModuleModal()" class="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold transition-colors">
                         ✕ Close Module
                     </button>
                 </div>
@@ -234,62 +229,86 @@
 
         </div>
 
+        <!-- 3. FIXED BOTTOM MOBILE NAVIGATION BAR (Contains Menu & Core Shortcuts) -->
+        <nav class="h-20 bg-white border-t border-slate-200 flex items-center justify-around px-2 shrink-0 z-40">
+            <button onclick="openHomeDashboard()" class="flex flex-col items-center justify-center text-brand-red font-bold p-2">
+                <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
+                <span class="text-[10px] mt-1 font-extrabold tracking-wider">Dashboard</span>
+            </button>
+            <button onclick="loadModule('clients.html', 'Clients Directory')" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-navy p-2">
+                <i data-lucide="users" class="w-6 h-6"></i>
+                <span class="text-[10px] mt-1 font-bold tracking-wider">Clients</span>
+            </button>
+            <button onclick="loadModule('compliance.html', 'Compliance Engine')" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-navy p-2">
+                <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                <span class="text-[10px] mt-1 font-bold tracking-wider">Compliance</span>
+            </button>
+            <button onclick="loadModule('credentials.html', 'Credentials Vault')" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-navy p-2">
+                <i data-lucide="key-round" class="w-6 h-6"></i>
+                <span class="text-[10px] mt-1 font-bold tracking-wider">Credentials</span>
+            </button>
+            <button onclick="openMenuDrawer()" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-navy p-2">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+                <span class="text-[10px] mt-1 font-bold tracking-wider">Menu</span>
+            </button>
+        </nav>
+
     </div>
 
-    <!-- FULL MODULE DRAWER (Opened via Menu Icon) -->
+    <!-- FULL MODULE DRAWER (Opened via Bottom Menu Icon) -->
     <div id="menu-drawer" class="hidden fixed inset-0 z-50 bg-brand-navy/60 backdrop-blur-sm flex justify-end">
         <div class="bg-white w-full max-w-sm h-full shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
-            <div class="h-16 px-6 bg-brand-navy text-white flex items-center justify-between">
-                <span class="font-extrabold text-sm tracking-wide">Enterprise Modules</span>
-                <button onclick="closeMenuDrawer()" class="text-slate-300 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <div class="h-20 px-6 bg-brand-navy text-white flex items-center justify-between">
+                <span class="font-extrabold text-base tracking-wide">Enterprise Modules</span>
+                <button onclick="closeMenuDrawer()" class="text-slate-300 hover:text-white p-2"><i data-lucide="x" class="w-6 h-6"></i></button>
             </div>
             
-            <div class="flex-1 overflow-y-auto p-4 space-y-2 text-xs font-bold text-slate-700">
-                <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest px-2 mb-1">Entity & Masters</p>
-                <button onclick="loadModule('company.html', 'Company Profile'); closeMenuDrawer();" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                    <i data-lucide="building" class="w-4 h-4 text-brand-red"></i> Company Profile
+            <div class="flex-1 overflow-y-auto p-5 space-y-3 text-sm font-bold text-slate-700">
+                <p class="text-[11px] font-extrabold text-slate-400 uppercase tracking-widest px-2 mb-1">Entity & Masters</p>
+                <button onclick="loadModule('company.html', 'Company Profile'); closeMenuDrawer();" class="w-full flex items-center gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <i data-lucide="building" class="w-5 h-5 text-brand-red"></i> Company Profile
                 </button>
-                <button onclick="loadModule('clients.html', 'Clients Directory'); closeMenuDrawer();" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                    <i data-lucide="users" class="w-4 h-4 text-brand-red"></i> Clients Directory
+                <button onclick="loadModule('clients.html', 'Clients Directory'); closeMenuDrawer();" class="w-full flex items-center gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <i data-lucide="users" class="w-5 h-5 text-brand-red"></i> Clients Directory
                 </button>
-                <button onclick="loadModule('contacts.html', 'Quick Contacts'); closeMenuDrawer();" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                    <i data-lucide="phone-call" class="w-4 h-4 text-brand-red"></i> Quick Contacts
-                </button>
-
-                <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest px-2 mt-4 mb-1">Operations & Vault</p>
-                <button onclick="loadModule('credentials.html', 'Credentials Vault'); closeMenuDrawer();" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                    <i data-lucide="key-round" class="w-4 h-4 text-brand-red"></i> Credentials Vault
-                </button>
-                <button onclick="loadModule('compliance.html', 'Compliance Engine'); closeMenuDrawer();" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                    <i data-lucide="shield-alert" class="w-4 h-4 text-brand-red"></i> Compliance Engine
-                </button>
-                <button onclick="loadModule('calendar.html', 'Compliance Calendar'); closeMenuDrawer();" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                    <i data-lucide="calendar" class="w-4 h-4 text-brand-red"></i> Compliance Calendar
+                <button onclick="loadModule('contacts.html', 'Quick Contacts'); closeMenuDrawer();" class="w-full flex items-center gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <i data-lucide="phone-call" class="w-5 h-5 text-brand-red"></i> Quick Contacts
                 </button>
 
-                <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest px-2 mt-4 mb-1">Finance & Billing</p>
-                <button onclick="loadModule('transactions.html', 'Transactions Register'); closeMenuDrawer();" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                    <i data-lucide="receipt" class="w-4 h-4 text-brand-red"></i> Transactions Register
+                <p class="text-[11px] font-extrabold text-slate-400 uppercase tracking-widest px-2 mt-5 mb-1">Operations & Vault</p>
+                <button onclick="loadModule('credentials.html', 'Credentials Vault'); closeMenuDrawer();" class="w-full flex items-center gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <i data-lucide="key-round" class="w-5 h-5 text-brand-red"></i> Credentials Vault
                 </button>
-                <button onclick="loadModule('invoice.html', 'Invoice Generator'); closeMenuDrawer();" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                    <i data-lucide="file-text" class="w-4 h-4 text-brand-red"></i> Invoice Generator
+                <button onclick="loadModule('compliance.html', 'Compliance Engine'); closeMenuDrawer();" class="w-full flex items-center gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <i data-lucide="shield-alert" class="w-5 h-5 text-brand-red"></i> Compliance Engine
                 </button>
-                <button onclick="loadModule('qr.html', 'UPI QR Center'); closeMenuDrawer();" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                    <i data-lucide="qr-code" class="w-4 h-4 text-brand-red"></i> UPI QR Center
+                <button onclick="loadModule('calendar.html', 'Compliance Calendar'); closeMenuDrawer();" class="w-full flex items-center gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <i data-lucide="calendar" class="w-5 h-5 text-brand-red"></i> Compliance Calendar
                 </button>
 
-                <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest px-2 mt-4 mb-1">System & Access</p>
-                <button onclick="loadModule('user.html', 'User Management'); closeMenuDrawer();" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                    <i data-lucide="user-cog" class="w-4 h-4 text-brand-red"></i> User Management
+                <p class="text-[11px] font-extrabold text-slate-400 uppercase tracking-widest px-2 mt-5 mb-1">Finance & Billing</p>
+                <button onclick="loadModule('transactions.html', 'Transactions Register'); closeMenuDrawer();" class="w-full flex items-center gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <i data-lucide="receipt" class="w-5 h-5 text-brand-red"></i> Transactions Register
                 </button>
-                <button onclick="loadModule('report.html', 'Reports Vault'); closeMenuDrawer();" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                    <i data-lucide="bar-chart-3" class="w-4 h-4 text-brand-red"></i> Reports Vault
+                <button onclick="loadModule('invoice.html', 'Invoice Generator'); closeMenuDrawer();" class="w-full flex items-center gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <i data-lucide="file-text" class="w-5 h-5 text-brand-red"></i> Invoice Generator
                 </button>
-                <button onclick="loadModule('data.html', 'Data Importer'); closeMenuDrawer();" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                    <i data-lucide="database" class="w-4 h-4 text-brand-red"></i> Data Importer
+                <button onclick="loadModule('qr.html', 'UPI QR Center'); closeMenuDrawer();" class="w-full flex items-center gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <i data-lucide="qr-code" class="w-5 h-5 text-brand-red"></i> UPI QR Center
                 </button>
-                <button onclick="loadModule('auth.html', 'Authentication Portal'); closeMenuDrawer();" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                    <i data-lucide="lock" class="w-4 h-4 text-brand-red"></i> Auth Portal (`auth.html`)
+
+                <p class="text-[11px] font-extrabold text-slate-400 uppercase tracking-widest px-2 mt-5 mb-1">System & Access</p>
+                <button onclick="loadModule('user.html', 'User Management'); closeMenuDrawer();" class="w-full flex items-center gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <i data-lucide="user-cog" class="w-5 h-5 text-brand-red"></i> User Management
+                </button>
+                <button onclick="loadModule('report.html', 'Reports Vault'); closeMenuDrawer();" class="w-full flex items-center gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <i data-lucide="bar-chart-3" class="w-5 h-5 text-brand-red"></i> Reports Vault
+                </button>
+                <button onclick="loadModule('data.html', 'Data Importer'); closeMenuDrawer();" class="w-full flex items-center gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <i data-lucide="database" class="w-5 h-5 text-brand-red"></i> Data Importer
+                </button>
+                <button onclick="loadModule('auth.html', 'Authentication Portal'); closeMenuDrawer();" class="w-full flex items-center gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <i data-lucide="lock" class="w-5 h-5 text-brand-red"></i> Auth Portal (`auth.html`)
                 </button>
             </div>
         </div>
@@ -390,6 +409,12 @@
         };
 
         window.closeModuleModal = function() {
+            moduleIframe.src = "";
+            moduleModalContainer.classList.add('hidden');
+            homeView.classList.remove('hidden');
+        };
+
+        window.openHomeDashboard = function() {
             moduleIframe.src = "";
             moduleModalContainer.classList.add('hidden');
             homeView.classList.remove('hidden');
