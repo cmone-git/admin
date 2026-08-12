@@ -3,2865 +3,1028 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width,
-                   initial-scale=1.0,
-                   maximum-scale=1.0,
-                   user-scalable=no">
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
 
-    <title>CM FILINGS - Admin Dashboard</title>
+<title>CM FILINGS Admin</title>
 
-    <!-- =====================================================
-         PWA / FAVICON
-    ====================================================== -->
+<link rel="icon"
+      type="image/png"
+      href="assets/logo.png">
 
-    <link rel="icon"
-          type="image/png"
-          href="logo.png">
+<link rel="apple-touch-icon"
+      href="assets/logo.png">
 
-    <link rel="apple-touch-icon"
-          href="logo.png">
+<meta name="theme-color"
+      content="#FFFFFF">
 
-    <meta name="theme-color"
-          content="#071D49">
+<script src="https://cdn.tailwindcss.com"></script>
 
+<script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- =====================================================
-         GOOGLE FONT
-    ====================================================== -->
+<style>
 
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
+* {
+    box-sizing: border-box;
+}
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+html,
+body {
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
+    margin: 0;
+    padding: 0;
 
+    width: 100%;
+    height: 100%;
 
-    <!-- =====================================================
-         TAILWIND
-    ====================================================== -->
+    overflow: hidden;
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
 
+    background: #F4F5F7;
 
-    <!-- =====================================================
-         LUCIDE
-    ====================================================== -->
+}
 
-    <script src="https://unpkg.com/lucide@latest"></script>
 
+/* =====================================================
+   APP
+===================================================== */
 
-    <!-- =====================================================
-         TAILWIND CONFIG
-    ====================================================== -->
+#app {
 
-    <script>
+    width: 100%;
+    height: 100vh;
 
-        tailwind.config = {
+    display: flex;
+    flex-direction: column;
 
-            theme: {
+}
 
-                extend: {
 
-                    colors: {
+/* =====================================================
+   HEADER
+===================================================== */
 
-                        brand: {
+#app-header {
 
-                            red: '#B10000',
+    height: 72px;
 
-                            redhover: '#8A0000',
+    flex-shrink: 0;
 
-                            redlight: '#FDF2F2',
+    background:
+        rgba(255,255,255,.97);
 
-                            navy: '#071D49',
+    border-bottom:
+        1px solid #E2E8F0;
 
-                            navyhover: '#102A5C',
+    display: flex;
 
-                            light: '#F4F5F7',
+    align-items: center;
 
-                            white: '#FFFFFF'
+    justify-content:
+        space-between;
 
-                        }
+    padding:
+        0 16px;
 
-                    },
+    z-index: 1000;
 
-                    fontFamily: {
+}
 
-                        sans: [
-                            'Inter',
-                            'sans-serif'
-                        ]
 
-                    }
+/* LOGO */
 
-                }
+.header-brand {
 
-            }
+    display: flex;
 
-        };
+    align-items: center;
 
-    </script>
+    gap: 10px;
 
+    min-width: 0;
 
-    <!-- =====================================================
-         CUSTOM CSS
-    ====================================================== -->
+}
 
-    <style>
 
-        html {
-            scroll-behavior: smooth;
-        }
+.header-logo {
 
+    width: 42px;
+    height: 42px;
 
-        body {
+    object-fit: contain;
 
-            -webkit-font-smoothing: antialiased;
+    flex-shrink: 0;
 
-            text-rendering: optimizeLegibility;
+}
 
-        }
 
+.header-name {
 
-        .hero-pattern {
+    height: 28px;
 
-            background-color: #F4F5F7;
+    width: auto;
 
-            background-image:
-                radial-gradient(
-                    rgba(7, 29, 73, 0.05) 1px,
-                    transparent 1px
-                );
+    object-fit: contain;
 
-            background-size: 28px 28px;
+    max-width: 150px;
 
-        }
+}
 
 
-        ::-webkit-scrollbar {
+/* HEADER ACTIONS */
 
-            width: 5px;
-            height: 5px;
+.header-actions {
 
-        }
+    display: flex;
 
+    align-items: center;
 
-        ::-webkit-scrollbar-track {
+    gap: 7px;
 
-            background: transparent;
+}
 
-        }
 
+.header-action {
 
-        ::-webkit-scrollbar-thumb {
+    width: 42px;
+    height: 42px;
 
-            background: #cbd5e1;
+    border: 1px solid #E2E8F0;
 
-            border-radius: 10px;
+    background: #F8FAFC;
 
-        }
+    border-radius: 12px;
 
+    display: flex;
 
-        /* ==========================================
-           MODULE ANIMATION
-        ========================================== */
+    align-items: center;
 
-        .module-frame {
+    justify-content: center;
 
-            animation:
-                fadeIn
-                0.25s
-                ease-in-out;
+    color: #64748B;
 
-        }
+    cursor: pointer;
 
+}
 
-        @keyframes fadeIn {
 
-            from {
+.header-action:active {
 
-                opacity: 0;
+    transform: scale(.95);
 
-                transform:
-                    translateY(4px);
+}
 
-            }
 
-            to {
+/* =====================================================
+   MODULE AREA
+===================================================== */
 
-                opacity: 1;
+#module-container {
 
-                transform:
-                    translateY(0);
+    flex: 1;
 
-            }
+    min-height: 0;
 
-        }
+    position: relative;
 
+    overflow: hidden;
 
-        /* ==========================================
-           MOBILE BOTTOM NAV
-        ========================================== */
+    background: #F4F5F7;
 
-        .bottom-nav-item {
+}
 
-            color: #94a3b8;
 
-            position: relative;
+#module-frame {
 
-            transition:
-                color 0.2s ease;
+    width: 100%;
+    height: 100%;
 
-        }
+    border: 0;
 
+    display: block;
 
-        .bottom-nav-item:hover {
+}
 
-            color: #071D49;
 
-        }
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
 
+#bottom-nav {
 
-        .bottom-nav-item.active {
+    height: 76px;
 
-            color: #B10000;
+    flex-shrink: 0;
 
-        }
+    background: #FFFFFF;
 
+    border-top:
+        1px solid #E2E8F0;
 
-        .bottom-nav-item.active::before {
+    display: grid;
 
-            content: "";
+    grid-template-columns:
+        repeat(5, 1fr);
 
-            position: absolute;
+    z-index: 1000;
 
-            top: 0;
+    padding-bottom:
+        env(safe-area-inset-bottom);
 
-            left: 25%;
+}
 
-            right: 25%;
 
-            height: 3px;
+.nav-item {
 
-            background: #B10000;
+    border: 0;
 
-            border-radius:
-                0 0 4px 4px;
+    background: transparent;
 
-        }
+    display: flex;
 
+    flex-direction: column;
 
-        /* ==========================================
-           MOBILE CONTENT SPACE
-        ========================================== */
+    align-items: center;
 
-        @media (max-width: 1023px) {
+    justify-content: center;
 
-            #viewport-container {
+    gap: 4px;
 
-                padding-bottom:
-                    84px;
+    color: #94A3B8;
 
-            }
+    font-size: 10px;
 
-        }
+    font-weight: 700;
 
+    cursor: pointer;
 
-        /* ==========================================
-           AUTH LOADER
-        ========================================== */
+}
 
-        #app-loader {
 
-            transition:
-                opacity 0.2s ease;
+.nav-item svg {
 
-        }
+    width: 22px;
+    height: 22px;
 
-    </style>
+}
+
+
+.nav-item.active {
+
+    color: #B10000;
+
+}
+
+
+.nav-item.active svg {
+
+    stroke-width: 2.5;
+
+}
+
+
+/* =====================================================
+   SEARCH PANEL
+===================================================== */
+
+#global-search {
+
+    position: fixed;
+
+    top: 72px;
+
+    left: 0;
+    right: 0;
+
+    background: white;
+
+    border-bottom:
+        1px solid #E2E8F0;
+
+    padding: 12px 16px;
+
+    z-index: 900;
+
+    display: none;
+
+}
+
+
+#global-search.show {
+
+    display: block;
+
+}
+
+
+.global-search-box {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 12px;
+
+    padding:
+        0 12px;
+
+}
+
+
+.global-search-box input {
+
+    width: 100%;
+
+    border: 0;
+
+    outline: 0;
+
+    background: transparent;
+
+    padding: 12px 0;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+/* =====================================================
+   MORE MENU
+===================================================== */
+
+#more-menu {
+
+    position: fixed;
+
+    left: 12px;
+    right: 12px;
+
+    bottom: 84px;
+
+    background: #FFFFFF;
+
+    border:
+        1px solid #E2E8F0;
+
+    border-radius: 18px;
+
+    padding: 10px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.15);
+
+    z-index: 2000;
+
+    display: none;
+
+}
+
+
+#more-menu.show {
+
+    display: block;
+
+}
+
+
+.more-item {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px;
+
+    background: transparent;
+
+    border: 0;
+
+    border-radius: 11px;
+
+    color: #334155;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-align: left;
+
+}
+
+
+.more-item:active {
+
+    background: #F8FAFC;
+
+}
+
+
+@media (min-width: 768px) {
+
+    #app-header {
+
+        padding:
+            0 28px;
+
+    }
+
+    #bottom-nav {
+
+        max-width: 760px;
+
+        margin: 0 auto;
+
+        width: 100%;
+
+        border:
+            1px solid #E2E8F0;
+
+        border-bottom: 0;
+
+        border-radius:
+            18px 18px 0 0;
+
+    }
+
+}
+
+</style>
 
 </head>
 
 
-<body class="font-sans
-             text-slate-700
-             bg-brand-light
-             antialiased
-             selection:bg-brand-redlight
-             selection:text-brand-red
-             flex
-             flex-col
-             h-screen
-             overflow-hidden">
+<body>
 
 
-    <!-- =====================================================
-         APPLICATION AUTH LOADER
-    ====================================================== -->
-
-    <div id="app-loader"
-         class="fixed
-                inset-0
-                bg-brand-light
-                z-[9999]
-                flex
-                flex-col
-                items-center
-                justify-center">
+<div id="app">
 
 
-        <div class="w-14 h-14
-                    bg-brand-navy
-                    rounded-2xl
-                    flex
-                    items-center
-                    justify-center
-                    text-white
-                    shadow-lg
-                    mb-5">
+    <!-- =================================================
+         PERMANENT HEADER
+    ================================================== -->
 
-            <i data-lucide="shield-check"
-               class="w-7 h-7"></i>
+    <header id="app-header">
+
+
+        <div class="header-brand">
+
+            <img
+                src="assets/logo.png"
+                class="header-logo"
+                alt="CM Filings">
+
+
+            <img
+                src="assets/name.png"
+                class="header-name"
+                alt="CM FILINGS">
 
         </div>
 
 
-        <i data-lucide="loader-2"
-           class="w-8 h-8
-                  text-brand-red
-                  animate-spin
-                  mb-4"></i>
+        <div class="header-actions">
 
 
-        <p class="text-sm
-                  font-bold
-                  text-brand-navy
-                  tracking-widest
-                  uppercase">
+            <!-- GLOBAL SEARCH -->
 
-            Verifying Administrator
+            <button
+                id="global-search-btn"
+                class="header-action"
+                title="Search">
 
-        </p>
+                <i
+                    data-lucide="search"
+                    class="w-5 h-5">
+                </i>
 
+            </button>
 
-        <p class="text-[10px]
-                  text-slate-400
-                  mt-2">
 
-            Checking Firebase authentication and role...
+            <!-- PROFILE -->
 
-        </p>
+            <button
+                id="profile-btn"
+                class="header-action"
+                title="Profile">
 
-    </div>
+                <i
+                    data-lucide="user-circle"
+                    class="w-5 h-5">
+                </i>
 
+            </button>
 
+        </div>
 
-    <!-- =====================================================
-         MAIN APPLICATION
-    ====================================================== -->
+    </header>
 
-    <div id="main-app"
-         class="hidden
-                flex
-                h-screen
-                w-screen
-                overflow-hidden">
 
+    <!-- =================================================
+         GLOBAL SEARCH
+    ================================================== -->
 
-        <!-- =================================================
-             DESKTOP SIDEBAR
-        ================================================== -->
+    <div id="global-search">
 
-        <aside class="hidden
-                      lg:flex
-                      flex-col
-                      w-64
-                      bg-brand-navy
-                      border-r
-                      border-slate-800
-                      text-white
-                      shrink-0
-                      z-40">
+        <div class="global-search-box">
 
+            <i
+                data-lucide="search"
+                class="w-4 h-4 text-slate-400">
+            </i>
 
-            <!-- BRAND HEADER -->
+            <input
+                id="global-search-input"
+                type="search"
+                placeholder="Search this module...">
 
-            <div class="h-20
-                        flex
-                        items-center
-                        px-6
-                        gap-3
-                        border-b
-                        border-slate-800/80">
+            <button
+                id="close-global-search">
 
+                <i
+                    data-lucide="x"
+                    class="w-4 h-4">
+                </i>
 
-                <div class="w-10 h-10
-                            bg-brand-red
-                            rounded-xl
-                            flex
-                            items-center
-                            justify-center
-                            text-white
-                            shadow-md">
-
-                    <i data-lucide="shield-check"
-                       class="w-5 h-5"></i>
-
-                </div>
-
-
-                <div class="flex flex-col">
-
-                    <span class="font-extrabold
-                                 text-lg
-                                 tracking-tight
-                                 leading-none
-                                 text-white">
-
-                        CM FILINGS
-
-                    </span>
-
-
-                    <span class="text-[9px]
-                                 font-bold
-                                 text-brand-red
-                                 uppercase
-                                 tracking-widest
-                                 leading-none
-                                 mt-1">
-
-                        Enterprise Suite
-
-                    </span>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- =================================================
-                 SIDEBAR NAVIGATION
-            ================================================== -->
-
-            <nav class="flex-1
-                        overflow-y-auto
-                        px-4
-                        py-6
-                        space-y-1.5">
-
-
-                <!-- MAIN -->
-
-                <p class="px-3
-                          text-[10px]
-                          font-extrabold
-                          text-slate-400
-                          uppercase
-                          tracking-widest
-                          mb-3">
-
-                    Main Dashboard
-
-                </p>
-
-
-                <button
-                    onclick="switchModule('home', this)"
-                    data-module="home"
-                    class="nav-btn
-                           w-full
-                           flex
-                           items-center
-                           gap-3
-                           px-3.5
-                           py-3
-                           rounded-xl
-                           font-bold
-                           text-xs
-                           bg-brand-red
-                           text-white
-                           shadow-sm
-                           transition-all">
-
-                    <i data-lucide="layout-dashboard"
-                       class="w-4 h-4"></i>
-
-                    Overview & Widgets
-
-                </button>
-
-
-
-                <!-- ENTITY -->
-
-                <p class="px-3
-                          text-[10px]
-                          font-extrabold
-                          text-slate-400
-                          uppercase
-                          tracking-widest
-                          mt-6
-                          mb-3">
-
-                    Entity & Masters
-
-                </p>
-
-
-                <button
-                    onclick="switchModule('company.html', this)"
-                    data-module="company.html"
-                    class="nav-btn
-                           w-full
-                           flex
-                           items-center
-                           gap-3
-                           px-3.5
-                           py-2.5
-                           rounded-xl
-                           font-medium
-                           text-xs
-                           text-slate-300
-                           hover:bg-white/5
-                           hover:text-white
-                           transition-all">
-
-                    <i data-lucide="building"
-                       class="w-4 h-4 text-brand-red"></i>
-
-                    Company Master
-
-                </button>
-
-
-                <button
-                    onclick="switchModule('branch.html', this)"
-                    data-module="branch.html"
-                    class="nav-btn
-                           w-full
-                           flex
-                           items-center
-                           gap-3
-                           px-3.5
-                           py-2.5
-                           rounded-xl
-                           font-medium
-                           text-xs
-                           text-slate-300
-                           hover:bg-white/5
-                           hover:text-white
-                           transition-all">
-
-                    <i data-lucide="git-branch"
-                       class="w-4 h-4 text-brand-red"></i>
-
-                    Branch Master
-
-                </button>
-
-
-                <button
-                    onclick="switchModule('bank.html', this)"
-                    data-module="bank.html"
-                    class="nav-btn
-                           w-full
-                           flex
-                           items-center
-                           gap-3
-                           px-3.5
-                           py-2.5
-                           rounded-xl
-                           font-medium
-                           text-xs
-                           text-slate-300
-                           hover:bg-white/5
-                           hover:text-white
-                           transition-all">
-
-                    <i data-lucide="landmark"
-                       class="w-4 h-4 text-brand-red"></i>
-
-                    Bank Master
-
-                </button>
-
-
-
-                <!-- OPERATIONS -->
-
-                <p class="px-3
-                          text-[10px]
-                          font-extrabold
-                          text-slate-400
-                          uppercase
-                          tracking-widest
-                          mt-6
-                          mb-3">
-
-                    Operations & Vault
-
-                </p>
-
-
-                <button
-                    onclick="switchModule('clients.html', this)"
-                    data-module="clients.html"
-                    class="nav-btn
-                           w-full
-                           flex
-                           items-center
-                           gap-3
-                           px-3.5
-                           py-2.5
-                           rounded-xl
-                           font-medium
-                           text-xs
-                           text-slate-300
-                           hover:bg-white/5
-                           hover:text-white
-                           transition-all">
-
-                    <i data-lucide="users"
-                       class="w-4 h-4 text-brand-red"></i>
-
-                    Clients Directory
-
-                </button>
-
-
-                <button
-                    onclick="switchModule('credentials.html', this)"
-                    data-module="credentials.html"
-                    class="nav-btn
-                           w-full
-                           flex
-                           items-center
-                           gap-3
-                           px-3.5
-                           py-2.5
-                           rounded-xl
-                           font-medium
-                           text-xs
-                           text-slate-300
-                           hover:bg-white/5
-                           hover:text-white
-                           transition-all">
-
-                    <i data-lucide="key-round"
-                       class="w-4 h-4 text-brand-red"></i>
-
-                    Credentials Vault
-
-                </button>
-
-
-                <button
-                    onclick="switchModule('compliance.html', this)"
-                    data-module="compliance.html"
-                    class="nav-btn
-                           w-full
-                           flex
-                           items-center
-                           gap-3
-                           px-3.5
-                           py-2.5
-                           rounded-xl
-                           font-medium
-                           text-xs
-                           text-slate-300
-                           hover:bg-white/5
-                           hover:text-white
-                           transition-all">
-
-                    <i data-lucide="shield-alert"
-                       class="w-4 h-4 text-brand-red"></i>
-
-                    Compliance Engine
-
-                </button>
-
-
-
-                <!-- FINANCE -->
-
-                <p class="px-3
-                          text-[10px]
-                          font-extrabold
-                          text-slate-400
-                          uppercase
-                          tracking-widest
-                          mt-6
-                          mb-3">
-
-                    Finance & Billing
-
-                </p>
-
-
-                <button
-                    onclick="switchModule('transactions.html', this)"
-                    data-module="transactions.html"
-                    class="nav-btn
-                           w-full
-                           flex
-                           items-center
-                           gap-3
-                           px-3.5
-                           py-2.5
-                           rounded-xl
-                           font-medium
-                           text-xs
-                           text-slate-300
-                           hover:bg-white/5
-                           hover:text-white
-                           transition-all">
-
-                    <i data-lucide="receipt"
-                       class="w-4 h-4 text-brand-red"></i>
-
-                    Transactions
-
-                </button>
-
-
-                <button
-                    onclick="switchModule('invoice.html', this)"
-                    data-module="invoice.html"
-                    class="nav-btn
-                           w-full
-                           flex
-                           items-center
-                           gap-3
-                           px-3.5
-                           py-2.5
-                           rounded-xl
-                           font-medium
-                           text-xs
-                           text-slate-300
-                           hover:bg-white/5
-                           hover:text-white
-                           transition-all">
-
-                    <i data-lucide="file-text"
-                       class="w-4 h-4 text-brand-red"></i>
-
-                    Invoice Generator
-
-                </button>
-
-
-                <button
-                    onclick="switchModule('qr.html', this)"
-                    data-module="qr.html"
-                    class="nav-btn
-                           w-full
-                           flex
-                           items-center
-                           gap-3
-                           px-3.5
-                           py-2.5
-                           rounded-xl
-                           font-medium
-                           text-xs
-                           text-slate-300
-                           hover:bg-white/5
-                           hover:text-white
-                           transition-all">
-
-                    <i data-lucide="qr-code"
-                       class="w-4 h-4 text-brand-red"></i>
-
-                    UPI QR Center
-
-                </button>
-
-
-
-                <!-- SYSTEM -->
-
-                <p class="px-3
-                          text-[10px]
-                          font-extrabold
-                          text-slate-400
-                          uppercase
-                          tracking-widest
-                          mt-6
-                          mb-3">
-
-                    System & Tools
-
-                </p>
-
-
-                <button
-                    onclick="switchModule('user.html', this)"
-                    data-module="user.html"
-                    class="nav-btn
-                           w-full
-                           flex
-                           items-center
-                           gap-3
-                           px-3.5
-                           py-2.5
-                           rounded-xl
-                           font-medium
-                           text-xs
-                           text-slate-300
-                           hover:bg-white/5
-                           hover:text-white
-                           transition-all">
-
-                    <i data-lucide="user-cog"
-                       class="w-4 h-4 text-brand-red"></i>
-
-                    User Management
-
-                </button>
-
-
-                <button
-                    onclick="switchModule('report.html', this)"
-                    data-module="report.html"
-                    class="nav-btn
-                           w-full
-                           flex
-                           items-center
-                           gap-3
-                           px-3.5
-                           py-2.5
-                           rounded-xl
-                           font-medium
-                           text-xs
-                           text-slate-300
-                           hover:bg-white/5
-                           hover:text-white
-                           transition-all">
-
-                    <i data-lucide="bar-chart-3"
-                       class="w-4 h-4 text-brand-red"></i>
-
-                    Reports Vault
-
-                </button>
-
-
-                <button
-                    onclick="switchModule('data.html', this)"
-                    data-module="data.html"
-                    class="nav-btn
-                           w-full
-                           flex
-                           items-center
-                           gap-3
-                           px-3.5
-                           py-2.5
-                           rounded-xl
-                           font-medium
-                           text-xs
-                           text-slate-300
-                           hover:bg-white/5
-                           hover:text-white
-                           transition-all">
-
-                    <i data-lucide="database"
-                       class="w-4 h-4 text-brand-red"></i>
-
-                    Data Importer
-
-                </button>
-
-            </nav>
-
-
-
-            <!-- SIDEBAR USER -->
-
-            <div class="p-4
-                        border-t
-                        border-slate-800/80">
-
-
-                <div class="flex
-                            items-center
-                            gap-3
-                            mb-3
-                            px-2">
-
-
-                    <div class="w-9 h-9
-                                rounded-lg
-                                bg-white/10
-                                flex
-                                items-center
-                                justify-center
-                                text-white">
-
-                        <i data-lucide="user-check"
-                           class="w-4 h-4"></i>
-
-                    </div>
-
-
-                    <div class="min-w-0">
-
-                        <p class="text-[10px]
-                                  text-slate-400
-                                  uppercase
-                                  font-bold">
-
-                            Administrator
-
-                        </p>
-
-
-                        <p id="sidebar-user-email"
-                           class="text-xs
-                                  font-bold
-                                  text-white
-                                  truncate">
-
-                            Loading...
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <button
-                    onclick="handleLogout()"
-                    class="w-full
-                           py-2
-                           bg-white/10
-                           text-white
-                           rounded-lg
-                           font-bold
-                           text-[11px]
-                           hover:bg-brand-red
-                           transition-all
-                           flex
-                           items-center
-                           justify-center
-                           gap-2">
-
-                    <i data-lucide="log-out"
-                       class="w-3.5 h-3.5"></i>
-
-                    Sign Out
-
-                </button>
-
-            </div>
-
-        </aside>
-
-
-
-        <!-- =================================================
-             CONTENT AREA
-        ================================================== -->
-
-        <div class="flex-1
-                    flex
-                    flex-col
-                    h-screen
-                    overflow-hidden">
-
-
-            <!-- =================================================
-                 TOP HEADER
-            ================================================== -->
-
-            <header class="h-20
-                           bg-white/90
-                           backdrop-blur-md
-                           border-b
-                           border-slate-200
-                           flex
-                           items-center
-                           justify-between
-                           px-4
-                           sm:px-6
-                           shrink-0
-                           z-30">
-
-
-                <div class="flex
-                            items-center
-                            gap-3">
-
-
-                    <!-- MOBILE BRAND -->
-
-                    <div class="lg:hidden
-                                w-10 h-10
-                                bg-brand-navy
-                                rounded-xl
-                                flex
-                                items-center
-                                justify-center
-                                text-white">
-
-                        <i data-lucide="shield-check"
-                           class="w-5 h-5"></i>
-
-                    </div>
-
-
-                    <div>
-
-                        <h2 id="header-module-title"
-                            class="text-base
-                                   sm:text-lg
-                                   font-extrabold
-                                   text-brand-navy
-                                   tracking-tight">
-
-                            Executive Dashboard
-
-                        </h2>
-
-
-                        <p class="text-[10px]
-                                  font-bold
-                                  text-slate-400
-                                  uppercase
-                                  tracking-widest
-                                  hidden
-                                  sm:block">
-
-                            CM Filings Enterprise Workspace
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- HEADER RIGHT -->
-
-                <div class="flex
-                            items-center
-                            gap-2
-                            sm:gap-4">
-
-
-                    <div class="hidden
-                                sm:flex
-                                items-center
-                                gap-2
-                                px-3.5
-                                py-2
-                                bg-slate-50
-                                border
-                                border-slate-200
-                                rounded-xl
-                                text-xs
-                                font-bold
-                                text-slate-600">
-
-                        <span class="w-2 h-2
-                                     rounded-full
-                                     bg-emerald-500
-                                     animate-pulse"></span>
-
-                        <span id="admin-user-email">
-
-                            Administrator
-
-                        </span>
-
-                    </div>
-
-
-                    <button
-                        onclick="handleLogout()"
-                        class="p-2.5
-                               text-slate-400
-                               hover:text-brand-red
-                               bg-slate-50
-                               hover:bg-brand-redlight
-                               border
-                               border-slate-200
-                               rounded-xl
-                               transition-all"
-                        title="Sign Out">
-
-                        <i data-lucide="log-out"
-                           class="w-4 h-4"></i>
-
-                    </button>
-
-                </div>
-
-            </header>
-
-
-
-            <!-- =================================================
-                 MAIN VIEWPORT
-            ================================================== -->
-
-            <main id="viewport-container"
-                  class="flex-1
-                         overflow-y-auto
-                         hero-pattern
-                         p-4
-                         sm:p-6
-                         lg:p-8">
-
-
-                <!-- =================================================
-                     HOME DASHBOARD
-                ================================================== -->
-
-                <div id="default-home-view"
-                     class="module-frame
-                            space-y-8
-                            max-w-7xl
-                            mx-auto
-                            pb-12">
-
-
-                    <!-- KPI CARDS -->
-
-                    <div class="grid
-                                grid-cols-1
-                                sm:grid-cols-2
-                                lg:grid-cols-4
-                                gap-5">
-
-
-                        <!-- PENDING -->
-
-                        <div class="bg-white
-                                    rounded-3xl
-                                    p-6
-                                    border
-                                    border-slate-200
-                                    shadow-sm
-                                    flex
-                                    items-center
-                                    gap-4">
-
-                            <div class="w-14 h-14
-                                        bg-amber-50
-                                        rounded-2xl
-                                        flex
-                                        items-center
-                                        justify-center
-                                        text-amber-600
-                                        shrink-0">
-
-                                <i data-lucide="clock"
-                                   class="w-7 h-7"></i>
-
-                            </div>
-
-
-                            <div>
-
-                                <p class="text-[10px]
-                                          font-extrabold
-                                          text-slate-400
-                                          uppercase
-                                          tracking-widest
-                                          mb-1">
-
-                                    Pending Compliance
-
-                                </p>
-
-
-                                <h3 id="kpi-pending-comp"
-                                    class="text-3xl
-                                           font-black
-                                           text-brand-navy
-                                           leading-none">
-
-                                    14
-
-                                </h3>
-
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- DUES -->
-
-                        <div class="bg-white
-                                    rounded-3xl
-                                    p-6
-                                    border
-                                    border-slate-200
-                                    shadow-sm
-                                    flex
-                                    items-center
-                                    gap-4">
-
-                            <div class="w-14 h-14
-                                        bg-brand-redlight
-                                        rounded-2xl
-                                        flex
-                                        items-center
-                                        justify-center
-                                        text-brand-red
-                                        shrink-0">
-
-                                <i data-lucide="indian-rupee"
-                                   class="w-7 h-7"></i>
-
-                            </div>
-
-
-                            <div>
-
-                                <p class="text-[10px]
-                                          font-extrabold
-                                          text-slate-400
-                                          uppercase
-                                          tracking-widest
-                                          mb-1">
-
-                                    Total Outstanding Dues
-
-                                </p>
-
-
-                                <h3 id="kpi-total-dues"
-                                    class="text-3xl
-                                           font-black
-                                           text-brand-red
-                                           leading-none">
-
-                                    ₹48,500
-
-                                </h3>
-
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- PRIORITY -->
-
-                        <div class="bg-white
-                                    rounded-3xl
-                                    p-6
-                                    border
-                                    border-slate-200
-                                    shadow-sm
-                                    flex
-                                    items-center
-                                    gap-4">
-
-                            <div class="w-14 h-14
-                                        bg-blue-50
-                                        rounded-2xl
-                                        flex
-                                        items-center
-                                        justify-center
-                                        text-blue-600
-                                        shrink-0">
-
-                                <i data-lucide="alert-triangle"
-                                   class="w-7 h-7"></i>
-
-                            </div>
-
-
-                            <div>
-
-                                <p class="text-[10px]
-                                          font-extrabold
-                                          text-slate-400
-                                          uppercase
-                                          tracking-widest
-                                          mb-1">
-
-                                    Priority Tasks Due
-
-                                </p>
-
-
-                                <h3 id="kpi-priority-tasks"
-                                    class="text-3xl
-                                           font-black
-                                           text-brand-navy
-                                           leading-none">
-
-                                    3
-
-                                </h3>
-
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- CLIENTS -->
-
-                        <div class="bg-white
-                                    rounded-3xl
-                                    p-6
-                                    border
-                                    border-slate-200
-                                    shadow-sm
-                                    flex
-                                    items-center
-                                    gap-4">
-
-                            <div class="w-14 h-14
-                                        bg-emerald-50
-                                        rounded-2xl
-                                        flex
-                                        items-center
-                                        justify-center
-                                        text-emerald-600
-                                        shrink-0">
-
-                                <i data-lucide="users"
-                                   class="w-7 h-7"></i>
-
-                            </div>
-
-
-                            <div>
-
-                                <p class="text-[10px]
-                                          font-extrabold
-                                          text-slate-400
-                                          uppercase
-                                          tracking-widest
-                                          mb-1">
-
-                                    Active Clients
-
-                                </p>
-
-
-                                <h3 id="kpi-active-clients"
-                                    class="text-3xl
-                                           font-black
-                                           text-brand-navy
-                                           leading-none">
-
-                                    341
-
-                                </h3>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- =================================================
-                         TASKS + CALENDAR
-                    ================================================== -->
-
-                    <div class="grid
-                                grid-cols-1
-                                lg:grid-cols-3
-                                gap-8
-                                items-start">
-
-
-                        <!-- TASK TABLE -->
-
-                        <div class="lg:col-span-2
-                                    bg-white
-                                    rounded-3xl
-                                    p-6
-                                    sm:p-8
-                                    border
-                                    border-slate-200
-                                    shadow-sm">
-
-
-                            <div class="flex
-                                        items-center
-                                        justify-between
-                                        mb-6">
-
-
-                                <h3 class="text-base
-                                           font-extrabold
-                                           text-brand-navy
-                                           flex
-                                           items-center
-                                           gap-2">
-
-                                    <i data-lucide="alert-octagon"
-                                       class="w-5 h-5
-                                              text-brand-red"></i>
-
-                                    Priority Pending Task Compliance
-
-                                </h3>
-
-
-                                <button
-                                    onclick="switchModule('compliance.html')"
-                                    class="text-xs
-                                           font-bold
-                                           text-brand-red
-                                           hover:underline">
-
-                                    View All
-
-                                </button>
-
-                            </div>
-
-
-
-                            <div class="overflow-x-auto">
-
-                                <table class="w-full
-                                              text-left
-                                              text-xs
-                                              text-slate-600
-                                              whitespace-nowrap">
-
-
-                                    <thead class="bg-slate-50
-                                                   text-slate-400
-                                                   uppercase
-                                                   font-bold
-                                                   text-[9px]
-                                                   tracking-wider
-                                                   border-b
-                                                   border-slate-200">
-
-                                        <tr>
-
-                                            <th class="py-3 px-3
-                                                       rounded-tl-lg">
-
-                                                Task / Filing
-
-                                            </th>
-
-                                            <th class="py-3 px-3">
-
-                                                Client Name
-
-                                            </th>
-
-                                            <th class="py-3 px-3">
-
-                                                Due Date
-
-                                            </th>
-
-                                            <th class="py-3 px-3
-                                                       rounded-tr-lg">
-
-                                                Priority Status
-
-                                            </th>
-
-                                        </tr>
-
-                                    </thead>
-
-
-                                    <tbody class="divide-y
-                                                  divide-slate-100
-                                                  font-medium">
-
-
-                                        <tr>
-
-                                            <td class="py-3 px-3
-                                                       font-bold
-                                                       text-brand-navy">
-
-                                                GSTR-3B Return
-
-                                            </td>
-
-
-                                            <td class="py-3 px-3">
-
-                                                A-FOUR ENTERPRISES
-
-                                            </td>
-
-
-                                            <td class="py-3 px-3
-                                                       font-mono
-                                                       text-brand-red
-                                                       font-bold">
-
-                                                20/08/2026
-
-                                            </td>
-
-
-                                            <td class="py-3 px-3">
-
-                                                <span class="bg-brand-redlight
-                                                             text-brand-red
-                                                             px-2 py-0.5
-                                                             rounded
-                                                             text-[10px]
-                                                             font-bold">
-
-                                                    Urgent
-
-                                                </span>
-
-                                            </td>
-
-                                        </tr>
-
-
-
-                                        <tr>
-
-                                            <td class="py-3 px-3
-                                                       font-bold
-                                                       text-brand-navy">
-
-                                                TDS Q1 Return
-
-                                            </td>
-
-
-                                            <td class="py-3 px-3">
-
-                                                AARON SOFAS
-
-                                            </td>
-
-
-                                            <td class="py-3 px-3
-                                                       font-mono
-                                                       text-amber-600
-                                                       font-bold">
-
-                                                25/08/2026
-
-                                            </td>
-
-
-                                            <td class="py-3 px-3">
-
-                                                <span class="bg-amber-50
-                                                             text-amber-600
-                                                             px-2 py-0.5
-                                                             rounded
-                                                             text-[10px]
-                                                             font-bold">
-
-                                                    High
-
-                                                </span>
-
-                                            </td>
-
-                                        </tr>
-
-
-
-                                        <tr>
-
-                                            <td class="py-3 px-3
-                                                       font-bold
-                                                       text-brand-navy">
-
-                                                Income Tax Audit
-
-                                            </td>
-
-
-                                            <td class="py-3 px-3">
-
-                                                ABDUL KAREEM
-
-                                            </td>
-
-
-                                            <td class="py-3 px-3
-                                                       font-mono
-                                                       text-slate-600
-                                                       font-bold">
-
-                                                30/08/2026
-
-                                            </td>
-
-
-                                            <td class="py-3 px-3">
-
-                                                <span class="bg-blue-50
-                                                             text-blue-600
-                                                             px-2 py-0.5
-                                                             rounded
-                                                             text-[10px]
-                                                             font-bold">
-
-                                                    Normal
-
-                                                </span>
-
-                                            </td>
-
-                                        </tr>
-
-                                    </tbody>
-
-                                </table>
-
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- CALENDAR -->
-
-                        <div class="bg-white
-                                    rounded-3xl
-                                    p-6
-                                    sm:p-8
-                                    border
-                                    border-slate-200
-                                    shadow-sm">
-
-
-                            <h3 class="text-base
-                                       font-extrabold
-                                       text-brand-navy
-                                       mb-4
-                                       flex
-                                       items-center
-                                       gap-2">
-
-                                <i data-lucide="calendar"
-                                   class="w-5 h-5"></i>
-
-                                Calendar Schedule
-
-                            </h3>
-
-
-                            <div class="bg-slate-50
-                                        p-4
-                                        rounded-2xl
-                                        border
-                                        border-slate-100
-                                        text-center
-                                        mb-4">
-
-                                <p id="calendar-month-year"
-                                   class="text-xs
-                                          font-extrabold
-                                          text-brand-navy
-                                          uppercase
-                                          tracking-wider">
-
-                                    August 2026
-
-                                </p>
-
-                            </div>
-
-
-                            <div class="space-y-3">
-
-
-                                <div class="flex
-                                            items-center
-                                            justify-between
-                                            p-3
-                                            rounded-xl
-                                            border
-                                            border-slate-100
-                                            bg-brand-red/5">
-
-
-                                    <div class="flex
-                                                items-center
-                                                gap-3">
-
-
-                                        <div class="w-8 h-8
-                                                    rounded-lg
-                                                    bg-brand-red
-                                                    text-white
-                                                    flex
-                                                    items-center
-                                                    justify-center
-                                                    font-bold
-                                                    text-xs">
-
-                                            20
-
-                                        </div>
-
-
-                                        <div>
-
-                                            <p class="text-xs
-                                                      font-bold
-                                                      text-brand-navy">
-
-                                                GST Return Deadlines
-
-                                            </p>
-
-
-                                            <p class="text-[10px]
-                                                      text-slate-400">
-
-                                                8 Filings Scheduled
-
-                                            </p>
-
-                                        </div>
-
-                                    </div>
-
-
-                                    <span class="text-[10px]
-                                                 font-bold
-                                                 text-brand-red">
-
-                                        Due Soon
-
-                                    </span>
-
-                                </div>
-
-
-
-                                <div class="flex
-                                            items-center
-                                            justify-between
-                                            p-3
-                                            rounded-xl
-                                            border
-                                            border-slate-100
-                                            bg-slate-50">
-
-
-                                    <div class="flex
-                                                items-center
-                                                gap-3">
-
-
-                                        <div class="w-8 h-8
-                                                    rounded-lg
-                                                    bg-brand-navy
-                                                    text-white
-                                                    flex
-                                                    items-center
-                                                    justify-center
-                                                    font-bold
-                                                    text-xs">
-
-                                            25
-
-                                        </div>
-
-
-                                        <div>
-
-                                            <p class="text-xs
-                                                      font-bold
-                                                      text-brand-navy">
-
-                                                TDS Submissions
-
-                                            </p>
-
-
-                                            <p class="text-[10px]
-                                                      text-slate-400">
-
-                                                4 Filings Scheduled
-
-                                            </p>
-
-                                        </div>
-
-                                    </div>
-
-
-                                    <span class="text-[10px]
-                                                 font-bold
-                                                 text-slate-500">
-
-                                        Upcoming
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- =================================================
-                     DYNAMIC MODULE SLOT
-                ================================================== -->
-
-                <div id="dynamic-module-slot"
-                     class="hidden
-                            module-frame
-                            w-full
-                            min-h-full">
-
-                </div>
-
-            </main>
+            </button>
 
         </div>
 
     </div>
 
 
+    <!-- =================================================
+         MODULE CONTENT
+    ================================================== -->
 
-    <!-- =====================================================
-         MOBILE BOTTOM NAVIGATION
-    ====================================================== -->
+    <main id="module-container">
 
-    <nav id="bottom-nav"
-         class="fixed
-                bottom-0
-                left-0
-                right-0
-                z-[90]
-                bg-white/95
-                backdrop-blur-xl
-                border-t
-                border-slate-200
-                shadow-[0_-4px_20px_rgba(7,29,73,0.08)]
-                lg:hidden">
+        <iframe
+            id="module-frame"
+            src="dashboard.html"
+            title="CM Filings Module">
+        </iframe>
+
+    </main>
 
 
-        <div class="max-w-xl
-                    mx-auto
-                    grid
-                    grid-cols-4
-                    h-[68px]">
+    <!-- =================================================
+         MORE MENU
+    ================================================== -->
+
+    <div id="more-menu">
 
 
-            <!-- DASHBOARD -->
+        <button
+            class="more-item"
+            data-page="invoice.html"
+            data-title="Invoice">
 
-            <button
-                onclick="switchModule('home', this)"
-                data-bottom-nav="dashboard"
-                class="bottom-nav-item
-                       flex
-                       flex-col
-                       items-center
-                       justify-center
-                       gap-1
-                       text-[10px]
-                       font-bold">
+            <i data-lucide="file-text"></i>
 
-                <i data-lucide="layout-dashboard"
-                   class="w-5 h-5"></i>
+            <span>Invoice</span>
 
-                <span>Dashboard</span>
-
-            </button>
+        </button>
 
 
+        <button
+            class="more-item"
+            data-page="transactions.html"
+            data-title="Transactions">
 
-            <!-- CLIENTS -->
+            <i data-lucide="receipt"></i>
 
-            <button
-                onclick="switchModule('clients.html', this)"
-                data-bottom-nav="clients"
-                class="bottom-nav-item
-                       flex
-                       flex-col
-                       items-center
-                       justify-center
-                       gap-1
-                       text-[10px]
-                       font-bold">
+            <span>Transactions</span>
 
-                <i data-lucide="users"
-                   class="w-5 h-5"></i>
-
-                <span>Clients</span>
-
-            </button>
+        </button>
 
 
+        <button
+            class="more-item"
+            data-page="company.html"
+            data-title="Company">
 
-            <!-- COMPLIANCE -->
+            <i data-lucide="building-2"></i>
 
-            <button
-                onclick="switchModule('compliance.html', this)"
-                data-bottom-nav="compliance"
-                class="bottom-nav-item
-                       flex
-                       flex-col
-                       items-center
-                       justify-center
-                       gap-1
-                       text-[10px]
-                       font-bold">
+            <span>Company</span>
 
-                <i data-lucide="clipboard-check"
-                   class="w-5 h-5"></i>
-
-                <span>Compliance</span>
-
-            </button>
+        </button>
 
 
+        <button
+            class="more-item"
+            data-page="branch.html"
+            data-title="Branch">
 
-            <!-- CREDENTIALS -->
+            <i data-lucide="git-branch"></i>
 
-            <button
-                onclick="switchModule('credentials.html', this)"
-                data-bottom-nav="credentials"
-                class="bottom-nav-item
-                       flex
-                       flex-col
-                       items-center
-                       justify-center
-                       gap-1
-                       text-[10px]
-                       font-bold">
+            <span>Branch</span>
 
-                <i data-lucide="key-round"
-                   class="w-5 h-5"></i>
+        </button>
 
-                <span>Credentials</span>
 
-            </button>
+        <button
+            class="more-item"
+            data-page="bank.html"
+            data-title="Bank">
 
-        </div>
+            <i data-lucide="landmark"></i>
+
+            <span>Bank</span>
+
+        </button>
+
+
+        <button
+            class="more-item"
+            data-page="reports.html"
+            data-title="Reports">
+
+            <i data-lucide="bar-chart-3"></i>
+
+            <span>Reports</span>
+
+        </button>
+
+    </div>
+
+
+    <!-- =================================================
+         PERMANENT BOTTOM NAVIGATION
+    ================================================== -->
+
+    <nav id="bottom-nav">
+
+
+        <button
+            class="nav-item active"
+            data-page="dashboard.html"
+            data-title="Dashboard">
+
+            <i data-lucide="layout-dashboard"></i>
+
+            <span>Dashboard</span>
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            data-page="clients.html"
+            data-title="Clients">
+
+            <i data-lucide="users"></i>
+
+            <span>Clients</span>
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            data-page="compliance.html"
+            data-title="Compliance">
+
+            <i data-lucide="clipboard-check"></i>
+
+            <span>Compliance</span>
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            data-page="credentials.html"
+            data-title="Credentials">
+
+            <i data-lucide="key-round"></i>
+
+            <span>Credentials</span>
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            id="more-btn">
+
+            <i data-lucide="menu"></i>
+
+            <span>Menu</span>
+
+        </button>
 
     </nav>
 
+</div>
 
 
-    <!-- =====================================================
-         FIREBASE
-    ====================================================== -->
+<script type="module">
 
-    <script type="module">
+import {
+    auth
+} from "./firebase-config.js";
 
-        import {
-            initializeApp
-        }
-        from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-
-
-        import {
-            getAuth,
-            onAuthStateChanged,
-            signOut
-        }
-        from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
 
-        import {
-            getFirestore,
-            doc,
-            getDoc
-        }
-        from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+const frame =
+    document.getElementById(
+        "module-frame"
+    );
+
+const moreBtn =
+    document.getElementById(
+        "more-btn"
+    );
+
+const moreMenu =
+    document.getElementById(
+        "more-menu"
+    );
+
+const globalSearchBtn =
+    document.getElementById(
+        "global-search-btn"
+    );
+
+const globalSearch =
+    document.getElementById(
+        "global-search"
+    );
+
+const closeGlobalSearch =
+    document.getElementById(
+        "close-global-search"
+    );
+
+const globalSearchInput =
+    document.getElementById(
+        "global-search-input"
+    );
+
+const profileBtn =
+    document.getElementById(
+        "profile-btn"
+    );
 
 
+/* =====================================================
+   AUTHENTICATION
+===================================================== */
 
-        /* =================================================
-           FIREBASE CONFIG
-        ================================================== */
+onAuthStateChanged(
+    auth,
+    (user) => {
 
-        const firebaseConfig = {
+        if (!user) {
 
-            apiKey:
-                "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
-
-            authDomain:
-                "cmfilings-6a37c.firebaseapp.com",
-
-            projectId:
-                "cmfilings-6a37c",
-
-            storageBucket:
-                "cmfilings-6a37c.firebasestorage.app",
-
-            messagingSenderId:
-                "138705123778",
-
-            appId:
-                "1:138705123778:web:9561bff9f0f5d89bb6fe5b"
-
-        };
-
-
-
-        /* =================================================
-           INITIALIZE
-        ================================================== */
-
-        const app =
-            initializeApp(firebaseConfig);
-
-
-        const auth =
-            getAuth(app);
-
-
-        const db =
-            getFirestore(app);
-
-
-
-        /* =================================================
-           ELEMENTS
-        ================================================== */
-
-        const appLoader =
-            document.getElementById(
-                "app-loader"
+            window.location.replace(
+                "signin.html?error=login_required"
             );
-
-
-        const mainApp =
-            document.getElementById(
-                "main-app"
-            );
-
-
-        const adminUserEmail =
-            document.getElementById(
-                "admin-user-email"
-            );
-
-
-        const sidebarUserEmail =
-            document.getElementById(
-                "sidebar-user-email"
-            );
-
-
-        const homeView =
-            document.getElementById(
-                "default-home-view"
-            );
-
-
-        const dynamicSlot =
-            document.getElementById(
-                "dynamic-module-slot"
-            );
-
-
-        const headerTitle =
-            document.getElementById(
-                "header-module-title"
-            );
-
-
-
-        /* =================================================
-           ICONS
-        ================================================== */
-
-        lucide.createIcons();
-
-
-
-        /* =================================================
-           ADMIN ROLE CHECK
-           
-           Firestore structure:
-
-           users
-              └── FIREBASE_AUTH_UID
-                    ├── email: "..."
-                    └── role: "admin"
-
-           IMPORTANT:
-           Document ID must equal Firebase Auth UID.
-        ================================================== */
-
-        async function checkAdminRole(user) {
-
-            if (!user) {
-
-                return false;
-
-            }
-
-
-            try {
-
-                const userRef =
-                    doc(
-                        db,
-                        "users",
-                        user.uid
-                    );
-
-
-                const userSnap =
-                    await getDoc(
-                        userRef
-                    );
-
-
-                if (!userSnap.exists()) {
-
-                    console.warn(
-                        "No user role document found for UID:",
-                        user.uid
-                    );
-
-                    return false;
-
-                }
-
-
-                const userData =
-                    userSnap.data();
-
-
-                const role =
-                    String(
-                        userData.role || ""
-                    )
-                    .trim()
-                    .toLowerCase();
-
-
-                console.log(
-                    "Authenticated Email:",
-                    user.email
-                );
-
-
-                console.log(
-                    "Authenticated UID:",
-                    user.uid
-                );
-
-
-                console.log(
-                    "Firestore Role:",
-                    role
-                );
-
-
-                return role === "admin";
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "Role verification error:",
-                    error
-                );
-
-                return false;
-
-            }
 
         }
 
+    }
+);
 
 
-        /* =================================================
-           AUTHENTICATION GUARD
-        ================================================== */
+/* =====================================================
+   LOAD MODULE
+===================================================== */
 
-        onAuthStateChanged(
-            auth,
-            async (user) => {
+function loadModule(
+    page,
+    title
+) {
 
-                /*
-                 * NO LOGIN
-                 */
+    frame.src = page;
 
-                if (!user) {
+    moreMenu.classList.remove(
+        "show"
+    );
 
-                    window.location.replace(
-                        "signin.html?error=login_required"
-                    );
+    updateActiveNav(page);
 
-                    return;
-
-                }
+}
 
 
-                /*
-                 * Show verification loader
-                 */
+/* =====================================================
+   ACTIVE NAV
+===================================================== */
 
-                appLoader.classList.remove(
-                    "hidden"
+function updateActiveNav(page) {
+
+    document
+        .querySelectorAll(
+            ".nav-item[data-page]"
+        )
+        .forEach(
+            item => {
+
+                item.classList.toggle(
+                    "active",
+                    item.dataset.page === page
                 );
-
-
-                /*
-                 * Check Firestore role
-                 */
-
-                const isAdmin =
-                    await checkAdminRole(
-                        user
-                    );
-
-
-                /*
-                 * NOT ADMIN
-                 */
-
-                if (!isAdmin) {
-
-                    console.warn(
-                        "User authenticated but role is not admin."
-                    );
-
-
-                    try {
-
-                        await signOut(
-                            auth
-                        );
-
-                    }
-
-                    catch (error) {
-
-                        console.error(
-                            "Sign out error:",
-                            error
-                        );
-
-                    }
-
-
-                    window.location.replace(
-                        "signin.html?error=admin_required"
-                    );
-
-                    return;
-
-                }
-
-
-                /*
-                 * ADMIN VERIFIED
-                 */
-
-                adminUserEmail.textContent =
-                    user.email || "Administrator";
-
-
-                sidebarUserEmail.textContent =
-                    user.email || "Administrator";
-
-
-                /*
-                 * Hide loader
-                 */
-
-                appLoader.classList.add(
-                    "hidden"
-                );
-
-
-                /*
-                 * Show application
-                 */
-
-                mainApp.classList.remove(
-                    "hidden"
-                );
-
-
-                /*
-                 * Icons
-                 */
-
-                lucide.createIcons();
 
             }
         );
 
+}
 
 
-        /* =================================================
-           LOGOUT
-        ================================================== */
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
 
-        window.handleLogout =
-            async function () {
+document
+    .querySelectorAll(
+        ".nav-item[data-page]"
+    )
+    .forEach(
+        item => {
 
-                const confirmed =
-                    confirm(
-                        "Are you sure you want to sign out?"
-                    );
+            item.addEventListener(
+                "click",
+                () => {
 
-
-                if (!confirmed) {
-
-                    return;
-
-                }
-
-
-                try {
-
-                    await signOut(
-                        auth
+                    loadModule(
+                        item.dataset.page,
+                        item.dataset.title
                     );
 
                 }
+            );
 
-                catch (error) {
+        }
+    );
 
-                    console.error(
-                        "Logout error:",
-                        error
+
+/* =====================================================
+   MORE
+===================================================== */
+
+moreBtn.addEventListener(
+    "click",
+    () => {
+
+        moreMenu.classList.toggle(
+            "show"
+        );
+
+    }
+);
+
+
+/* =====================================================
+   MORE ITEMS
+===================================================== */
+
+document
+    .querySelectorAll(
+        ".more-item"
+    )
+    .forEach(
+        item => {
+
+            item.addEventListener(
+                "click",
+                () => {
+
+                    loadModule(
+                        item.dataset.page,
+                        item.dataset.title
                     );
 
                 }
+            );
+
+        }
+    );
 
 
-                window.location.replace(
-                    "signin.html"
-                );
+/* =====================================================
+   GLOBAL SEARCH
+===================================================== */
 
-            };
+globalSearchBtn.addEventListener(
+    "click",
+    () => {
 
+        globalSearch.classList.add(
+            "show"
+        );
 
+        globalSearchInput.focus();
 
-        /* =================================================
-           BOTTOM NAV ACTIVE STATE
-        ================================================== */
-
-        function updateBottomNavigation(
-            moduleName
-        ) {
-
-            document
-                .querySelectorAll(
-                    "[data-bottom-nav]"
-                )
-                .forEach(
-                    item => {
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
+    }
+);
 
 
-            let target =
-                "dashboard";
+closeGlobalSearch.addEventListener(
+    "click",
+    () => {
+
+        globalSearch.classList.remove(
+            "show"
+        );
+
+        globalSearchInput.value = "";
+
+    }
+);
 
 
-            if (
-                moduleName ===
-                "clients.html"
-            ) {
+/* =====================================================
+   SEARCH INSIDE CURRENT MODULE
+===================================================== */
 
-                target =
-                    "clients";
+globalSearchInput.addEventListener(
+    "input",
+    () => {
 
-            }
+        const value =
+            globalSearchInput.value;
 
-            else if (
-                moduleName ===
-                "compliance.html"
-            ) {
+        /*
+         * Send search value to the
+         * currently loaded module.
+         */
 
-                target =
-                    "compliance";
+        try {
 
-            }
+            frame.contentWindow.postMessage(
+                {
+                    type:
+                        "GLOBAL_SEARCH",
 
-            else if (
-                moduleName ===
-                "credentials.html"
-            ) {
-
-                target =
-                    "credentials";
-
-            }
-
-
-            const active =
-                document.querySelector(
-                    `[data-bottom-nav="${target}"]`
-                );
-
-
-            if (active) {
-
-                active.classList.add(
-                    "active"
-                );
-
-            }
+                    value:
+                        value
+                },
+                "*"
+            );
 
         }
 
+        catch (error) {
 
-
-        /* =================================================
-           SIDEBAR ACTIVE STATE
-        ================================================== */
-
-        function updateSidebarNavigation(
-            moduleName
-        ) {
-
-            document
-                .querySelectorAll(
-                    ".nav-btn"
-                )
-                .forEach(
-                    button => {
-
-                        button.classList.remove(
-                            "bg-brand-red",
-                            "text-white",
-                            "shadow-sm"
-                        );
-
-
-                        button.classList.add(
-                            "text-slate-300",
-                            "hover:bg-white/5",
-                            "hover:text-white"
-                        );
-
-                    }
-                );
-
-
-            const matchingButton =
-                document.querySelector(
-                    `.nav-btn[data-module="${moduleName}"]`
-                );
-
-
-            if (matchingButton) {
-
-                matchingButton.classList.remove(
-                    "text-slate-300",
-                    "hover:bg-white/5",
-                    "hover:text-white"
-                );
-
-
-                matchingButton.classList.add(
-                    "bg-brand-red",
-                    "text-white",
-                    "shadow-sm"
-                );
-
-            }
+            console.log(
+                "Module search unavailable"
+            );
 
         }
 
+    }
+);
 
 
-        /* =================================================
-           MODULE SWITCHER
-        ================================================== */
+/* =====================================================
+   PROFILE
+===================================================== */
 
-        window.switchModule =
-            async function (
-                moduleName,
-                btnElement
-            ) {
+profileBtn.addEventListener(
+    "click",
+    () => {
 
-
-                /*
-                 * Update desktop sidebar
-                 */
-
-                updateSidebarNavigation(
-                    moduleName
-                );
-
-
-                /*
-                 * Update mobile bottom nav
-                 */
-
-                updateBottomNavigation(
-                    moduleName
-                );
-
-
-                /*
-                 * HOME
-                 */
-
-                if (
-                    moduleName ===
-                    "home"
-                ) {
-
-                    headerTitle.textContent =
-                        "Executive Dashboard";
-
-
-                    dynamicSlot.classList.add(
-                        "hidden"
-                    );
-
-
-                    homeView.classList.remove(
-                        "hidden"
-                    );
-
-
-                    return;
-
-                }
-
-
-
-                /*
-                 * MODULE TITLE
-                 */
-
-                headerTitle.textContent =
-                    moduleName
-                        .replace(
-                            ".html",
-                            ""
-                        )
-                        .replace(
-                            /[-_]/g,
-                            " "
-                        )
-                        .replace(
-                            /\b\w/g,
-                            char =>
-                                char.toUpperCase()
-                        );
-
-
-
-                /*
-                 * Hide home
-                 */
-
-                homeView.classList.add(
-                    "hidden"
-                );
-
-
-                /*
-                 * Show module
-                 */
-
-                dynamicSlot.classList.remove(
-                    "hidden"
-                );
-
-
-                /*
-                 * Loader
-                 */
-
-                dynamicSlot.innerHTML = `
-
-                    <div class="
-                        flex
-                        items-center
-                        justify-center
-                        min-h-[400px]
-                    ">
-
-                        <div class="
-                            flex
-                            flex-col
-                            items-center
-                            gap-3
-                        ">
-
-                            <i
-                                data-lucide="loader-2"
-                                class="
-                                    w-8
-                                    h-8
-                                    text-brand-navy
-                                    animate-spin
-                                ">
-                            </i>
-
-                            <p class="
-                                text-xs
-                                font-bold
-                                text-slate-400
-                            ">
-
-                                Loading module...
-
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-
-                lucide.createIcons();
-
-
-
-                try {
-
-                    const response =
-                        await fetch(
-                            moduleName,
-                            {
-                                cache:
-                                    "no-store"
-                            }
-                        );
-
-
-                    if (
-                        !response.ok
-                    ) {
-
-                        throw new Error(
-                            "Module not found"
-                        );
-
-                    }
-
-
-                    const htmlText =
-                        await response.text();
-
-
-                    const parser =
-                        new DOMParser();
-
-
-                    const doc =
-                        parser.parseFromString(
-                            htmlText,
-                            "text/html"
-                        );
-
-
-                    /*
-                     * Get main content
-                     */
-
-                    const mainBodyContent =
-                        doc.querySelector(
-                            "main"
-                        )
-                        ? doc.querySelector(
-                            "main"
-                        ).innerHTML
-                        : doc.body.innerHTML;
-
-
-
-                    dynamicSlot.innerHTML = `
-
-                        <div class="
-                            module-frame
-                            py-2
-                            sm:py-4
-                        ">
-
-                            ${mainBodyContent}
-
-                        </div>
-
-                    `;
-
-
-                    lucide.createIcons();
-
-
-
-                    /*
-                     * IMPORTANT
-                     *
-                     * External module <script>
-                     * tags do not execute when
-                     * inserted with innerHTML.
-                     *
-                     * If your individual modules
-                     * need Firebase logic, they
-                     * should be protected separately
-                     * or opened as their own page.
-                     */
-
-                }
-
-                catch (error) {
-
-                    console.error(
-                        "Module loading error:",
-                        error
-                    );
-
-
-                    dynamicSlot.innerHTML = `
-
-                        <div class="
-                            bg-white
-                            rounded-3xl
-                            p-8
-                            sm:p-12
-                            text-center
-                            border
-                            border-slate-200
-                            max-w-lg
-                            mx-auto
-                            mt-8
-                            shadow-sm
-                        ">
-
-                            <i
-                                data-lucide="alert-circle"
-                                class="
-                                    w-12
-                                    h-12
-                                    text-brand-red
-                                    mx-auto
-                                    mb-4
-                                ">
-                            </i>
-
-
-                            <h3 class="
-                                text-lg
-                                font-bold
-                                text-brand-navy
-                                mb-2
-                            ">
-
-                                Module Could Not Be Loaded
-
-                            </h3>
-
-
-                            <p class="
-                                text-xs
-                                text-slate-500
-                                mb-5
-                            ">
-
-                                Make sure the following
-                                file exists in your
-                                admin.cmfilings.com
-                                directory:
-
-                            </p>
-
-
-                            <div class="
-                                font-mono
-                                text-[10px]
-                                bg-slate-100
-                                p-3
-                                rounded-xl
-                                text-slate-600
-                                break-all
-                            ">
-
-                                ${moduleName}
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-
-                    lucide.createIcons();
-
-                }
-
-            };
-
-
-
-        /* =================================================
-           INITIAL BOTTOM NAV
-        ================================================== */
-
-        updateBottomNavigation(
-            "home"
+        loadModule(
+            "profile.html",
+            "Profile"
         );
 
+    }
+);
 
 
-        /* =================================================
-           PREVENT BOTTOM NAV FROM COVERING CONTENT
-        ================================================== */
+/* =====================================================
+   ICONS
+===================================================== */
 
-        window.addEventListener(
-            "resize",
-            () => {
+lucide.createIcons();
 
-                /*
-                 * Nothing required.
-                 *
-                 * CSS handles responsive
-                 * navigation automatically.
-                 */
-
-            }
-        );
-
-
-
-        /* =================================================
-           INITIAL ICON CREATION
-        ================================================== */
-
-        lucide.createIcons();
-
-    </script>
+</script>
 
 </body>
 
