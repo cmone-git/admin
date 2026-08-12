@@ -68,7 +68,7 @@
     <!-- MAIN APP WRAPPER -->
     <div id="main-app" class="hidden flex flex-col h-full w-full overflow-hidden">
         
-        <!-- 1. FIXED TOP HEADER (Enlarged Logo & Name, Clean Profile) -->
+        <!-- 1. FIXED TOP HEADER -->
         <header class="h-20 bg-white/95 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-4 sm:px-8 shrink-0 z-40">
             <div class="flex items-center gap-3.5">
                 <img src="assets/logo.png" alt="Logo" class="w-11 h-11 object-contain">
@@ -103,12 +103,12 @@
         <!-- 2. WORKSPACE VIEWPORT -->
         <div class="flex-1 relative overflow-hidden bg-brand-light flex flex-col">
             
-            <!-- DEFAULT HOME DASHBOARD VIEWLET (Linked Cards, Donut Bar, Calendar) -->
+            <!-- DEFAULT HOME DASHBOARD VIEWLET -->
             <div id="home-dashboard-view" class="absolute inset-0 overflow-y-auto hero-pattern p-4 sm:p-6 lg:p-8 space-y-6">
                 
-                <div class="max-w-7xl mx-auto space-y-6 pb-24">
+                <div class="max-w-7xl mx-auto space-y-6 pb-28">
                     
-                    <!-- KPI Analytics Cards (Fully Linked to Respective Modules) -->
+                    <!-- KPI Analytics Cards -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div onclick="loadModule('compliance.html', 'Compliance Engine')" class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-brand-navy hover:shadow-md transition-all group">
                             <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 shrink-0 group-hover:scale-105 transition-transform">
@@ -151,7 +151,7 @@
                         </div>
                     </div>
 
-                    <!-- Priority Pending Task Compliance & Donut/Bar Breakdown Grid -->
+                    <!-- Priority Pending Task Compliance & Breakdown Grid -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
                         
                         <div class="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
@@ -216,7 +216,7 @@
                 </div>
             </div>
 
-            <!-- MODULE IFRAME VIEWPORT (Loads modules seamlessly via processing.html) -->
+            <!-- MODULE IFRAME VIEWPORT -->
             <div id="module-modal-container" class="hidden absolute inset-0 z-30 bg-white flex flex-col">
                 <div class="h-14 bg-slate-900 text-white flex items-center justify-between px-6 shrink-0">
                     <span id="modal-module-title" class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-brand-red">Module View</span>
@@ -229,7 +229,7 @@
 
         </div>
 
-        <!-- 3. FIXED BOTTOM MOBILE NAVIGATION BAR (Contains Menu & Core Shortcuts) -->
+        <!-- 3. FIXED BOTTOM MOBILE NAVIGATION BAR -->
         <nav class="h-20 bg-white border-t border-slate-200 flex items-center justify-around px-2 shrink-0 z-40">
             <button onclick="openHomeDashboard()" class="flex flex-col items-center justify-center text-brand-red font-bold p-2">
                 <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
@@ -255,7 +255,7 @@
 
     </div>
 
-    <!-- FULL MODULE DRAWER (Opened via Bottom Menu Icon) -->
+    <!-- FULL MODULE DRAWER -->
     <div id="menu-drawer" class="hidden fixed inset-0 z-50 bg-brand-navy/60 backdrop-blur-sm flex justify-end">
         <div class="bg-white w-full max-w-sm h-full shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
             <div class="h-20 px-6 bg-brand-navy text-white flex items-center justify-between">
