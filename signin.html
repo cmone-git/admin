@@ -2,26 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,
+                   maximum-scale=1.0, user-scalable=no">
+
     <title>Sign In - CM FILINGS Admin</title>
-    
-    <!-- PWA & Favicon Assets -->
+
+    <!-- PWA & Favicon -->
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
     <meta name="theme-color" content="#071D49">
 
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons -->
+
+    <!-- Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
             theme: {
@@ -32,13 +38,13 @@
                             redhover: '#8A0000',
                             redlight: '#FDF2F2',
                             navy: '#071D49',
-                            navyhover: '#102a5c',
+                            navyhover: '#102A5C',
                             light: '#F4F5F7',
                             white: '#FFFFFF'
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif']
                     }
                 }
             }
@@ -46,198 +52,1413 @@
     </script>
 
     <style>
-        html { scroll-behavior: smooth; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
         .hero-pattern {
             background-color: #F4F5F7;
-            background-image: radial-gradient(rgba(7, 29, 73, 0.05) 1px, transparent 1px);
+
+            background-image:
+                radial-gradient(
+                    rgba(7, 29, 73, 0.05) 1px,
+                    transparent 1px
+                );
+
             background-size: 28px 28px;
         }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
     </style>
 </head>
-<body class="font-sans text-slate-700 bg-brand-light antialiased selection:bg-brand-redlight selection:text-brand-red flex flex-col min-h-screen">
 
-    <!-- MAIN LOGIN CONTAINER -->
-    <div class="flex-1 hero-pattern flex flex-col items-center justify-center p-4 min-h-screen">
-        <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-slate-200 w-full max-w-md">
-            
-            <div class="flex flex-col items-center mb-8 text-center">
-                <div class="w-14 h-14 bg-brand-navy rounded-2xl flex items-center justify-center text-white shadow-sm mb-4">
-                    <i data-lucide="shield-check" class="w-7 h-7"></i>
+
+<body class="font-sans text-slate-700
+             bg-brand-light antialiased
+             selection:bg-brand-redlight
+             selection:text-brand-red
+             flex flex-col min-h-screen">
+
+
+    <!-- =====================================================
+         AUTH CHECK LOADER
+    ====================================================== -->
+
+    <div id="auth-loader"
+         class="hidden fixed inset-0 z-[9999]
+                bg-brand-light
+                flex flex-col
+                items-center justify-center">
+
+        <div class="w-14 h-14
+                    bg-brand-navy
+                    rounded-2xl
+                    flex items-center
+                    justify-center
+                    text-white
+                    shadow-lg
+                    mb-5">
+
+            <i data-lucide="shield-check"
+               class="w-7 h-7"></i>
+
+        </div>
+
+        <i data-lucide="loader-2"
+           class="w-7 h-7
+                  text-brand-red
+                  animate-spin
+                  mb-4"></i>
+
+        <p class="text-sm font-bold
+                  text-brand-navy
+                  tracking-widest
+                  uppercase">
+
+            Verifying Access
+
+        </p>
+
+        <p class="text-[10px]
+                  text-slate-400
+                  mt-2">
+
+            Checking administrator permissions...
+
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN LOGIN CONTAINER
+    ====================================================== -->
+
+    <div id="login-page"
+         class="flex-1 hero-pattern
+                flex flex-col
+                items-center
+                justify-center
+                p-4 min-h-screen">
+
+
+        <!-- LOGIN CARD -->
+
+        <div class="bg-white
+                    p-8 md:p-12
+                    rounded-3xl
+                    shadow-xl
+                    border border-slate-200
+                    w-full max-w-md">
+
+
+            <!-- BRAND -->
+
+            <div class="flex flex-col
+                        items-center
+                        mb-8
+                        text-center">
+
+                <div class="w-14 h-14
+                            bg-brand-navy
+                            rounded-2xl
+                            flex items-center
+                            justify-center
+                            text-white
+                            shadow-sm
+                            mb-4">
+
+                    <i data-lucide="shield-check"
+                       class="w-7 h-7"></i>
+
                 </div>
-                <h1 class="text-2xl font-extrabold text-brand-navy tracking-tight">CM FILINGS</h1>
-                <p class="text-[10px] font-bold text-brand-red uppercase tracking-widest mt-1">Secure Portal Sign In</p>
+
+                <h1 class="text-2xl
+                           font-extrabold
+                           text-brand-navy
+                           tracking-tight">
+
+                    CM FILINGS
+
+                </h1>
+
+                <p class="text-[10px]
+                          font-bold
+                          text-brand-red
+                          uppercase
+                          tracking-widest
+                          mt-1">
+
+                    Secure Admin Portal
+
+                </p>
+
             </div>
 
-            <!-- Error Notification Banner -->
-            <div id="auth-error" class="hidden bg-brand-redlight text-brand-red text-xs font-bold p-3 rounded-xl border border-brand-red/20 mb-5 text-center"></div>
-            
-            <!-- Success Notification Banner -->
-            <div id="auth-success" class="hidden bg-emerald-50 text-emerald-600 text-xs font-bold p-3 rounded-xl border border-emerald-200 mb-5 text-center"></div>
 
-            <!-- SIGN IN FORM -->
-            <form id="signin-form" class="space-y-4">
+            <!-- =================================================
+                 ERROR
+            ================================================== -->
+
+            <div id="auth-error"
+                 class="hidden
+                        bg-brand-redlight
+                        text-brand-red
+                        text-xs
+                        font-bold
+                        p-3
+                        rounded-xl
+                        border border-brand-red/20
+                        mb-5
+                        text-center">
+
+            </div>
+
+
+            <!-- =================================================
+                 SUCCESS
+            ================================================== -->
+
+            <div id="auth-success"
+                 class="hidden
+                        bg-emerald-50
+                        text-emerald-600
+                        text-xs
+                        font-bold
+                        p-3
+                        rounded-xl
+                        border border-emerald-200
+                        mb-5
+                        text-center">
+
+            </div>
+
+
+            <!-- =================================================
+                 SIGN IN FORM
+            ================================================== -->
+
+            <form id="signin-form"
+                  class="space-y-4">
+
+
+                <!-- EMAIL -->
+
                 <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Admin Email</label>
-                    <input type="email" id="signin-email" required class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-slate-50 font-medium text-slate-800 text-sm" placeholder="admin@cmfilings.com">
+
+                    <label
+                        class="block
+                               text-xs
+                               font-bold
+                               text-slate-500
+                               uppercase
+                               tracking-wider
+                               mb-2">
+
+                        Admin Email
+
+                    </label>
+
+                    <input
+                        type="email"
+                        id="signin-email"
+                        required
+                        autocomplete="username"
+                        class="w-full
+                               px-4 py-3.5
+                               rounded-xl
+                               border border-slate-300
+                               focus:border-brand-navy
+                               focus:ring-2
+                               focus:ring-brand-navy/10
+                               outline-none
+                               transition-all
+                               bg-slate-50
+                               font-medium
+                               text-slate-800
+                               text-sm"
+                        placeholder="admin@cmfilings.com">
+
                 </div>
-                
+
+
+                <!-- PASSWORD -->
+
                 <div>
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Password</label>
-                        <button type="button" id="btn-forgot-trigger" class="text-xs font-bold text-brand-red hover:underline">Forgot password?</button>
-                    </div>
-                    <!-- Password Input Container with View Icon Toggle -->
-                    <div class="relative">
-                        <input type="password" id="signin-password" required class="w-full px-4 py-3.5 pr-12 rounded-xl border border-slate-300 focus:border-brand-navy outline-none transition-all bg-slate-50 font-medium text-slate-800 text-sm" placeholder="••••••••">
-                        <button type="button" id="btn-toggle-password" class="absolute right-3.5 top-3.5 text-slate-400 hover:text-slate-600 transition-colors" title="Toggle Password Visibility">
-                            <i data-lucide="eye" id="eye-icon" class="w-5 h-5"></i>
+
+                    <div class="flex
+                                justify-between
+                                items-center
+                                mb-2">
+
+                        <label
+                            class="block
+                                   text-xs
+                                   font-bold
+                                   text-slate-500
+                                   uppercase
+                                   tracking-wider">
+
+                            Password
+
+                        </label>
+
+                        <button
+                            type="button"
+                            id="btn-forgot-trigger"
+                            class="text-xs
+                                   font-bold
+                                   text-brand-red
+                                   hover:underline">
+
+                            Forgot password?
+
                         </button>
+
                     </div>
+
+
+                    <!-- PASSWORD CONTAINER -->
+
+                    <div class="relative">
+
+                        <input
+                            type="password"
+                            id="signin-password"
+                            required
+                            autocomplete="current-password"
+                            class="w-full
+                                   px-4 py-3.5
+                                   pr-12
+                                   rounded-xl
+                                   border border-slate-300
+                                   focus:border-brand-navy
+                                   focus:ring-2
+                                   focus:ring-brand-navy/10
+                                   outline-none
+                                   transition-all
+                                   bg-slate-50
+                                   font-medium
+                                   text-slate-800
+                                   text-sm"
+                            placeholder="••••••••">
+
+
+                        <button
+                            type="button"
+                            id="btn-toggle-password"
+                            class="absolute
+                                   right-3.5
+                                   top-3.5
+                                   text-slate-400
+                                   hover:text-slate-600
+                                   transition-colors"
+                            title="Toggle Password Visibility">
+
+                            <i data-lucide="eye"
+                               id="eye-icon"
+                               class="w-5 h-5"></i>
+
+                        </button>
+
+                    </div>
+
                 </div>
 
-                <button type="submit" id="btn-submit" class="w-full py-4 bg-brand-red text-white font-bold rounded-xl shadow-[0_8px_20px_rgb(177,0,0,0.2)] hover:bg-brand-redhover transition-colors flex items-center justify-center gap-2 mt-2 text-sm">
-                    <i data-lucide="log-in" class="w-5 h-5"></i> Sign In to Dashboard
+
+                <!-- =================================================
+                     SUBMIT
+                ================================================== -->
+
+                <button
+                    type="submit"
+                    id="btn-submit"
+                    class="w-full
+                           py-4
+                           bg-brand-red
+                           text-white
+                           font-bold
+                           rounded-xl
+                           shadow-[0_8px_20px_rgb(177,0,0,0.2)]
+                           hover:bg-brand-redhover
+                           transition-colors
+                           flex items-center
+                           justify-center
+                           gap-2
+                           mt-2
+                           text-sm">
+
+                    <i data-lucide="log-in"
+                       class="w-5 h-5"></i>
+
+                    Sign In to Dashboard
+
                 </button>
+
             </form>
-        </div>
 
-        <div class="mt-8 text-center text-xs font-medium text-slate-400">
-            &copy; 2026 CM Filings. All rights reserved.
-        </div>
-    </div>
 
-    <!-- FORGOT PASSWORD MODAL -->
-    <div id="forgot-modal" class="hidden fixed inset-0 bg-brand-navy/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-bold text-brand-navy">Reset Password</h3>
-                <button id="btn-close-modal" class="text-slate-400 hover:text-brand-red"><i data-lucide="x" class="w-5 h-5"></i></button>
-            </div>
-            <p class="text-xs text-slate-500 mb-5 leading-relaxed">Enter your registered admin email address below, and we will send you a secure password reset link.</p>
-            
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Email Address</label>
-                    <input type="email" id="reset-email" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs outline-none bg-slate-50 font-medium" placeholder="name@cmfilings.com">
+            <!-- SECURITY NOTICE -->
+
+            <div class="mt-6
+                        pt-5
+                        border-t
+                        border-slate-100
+                        text-center">
+
+                <div class="flex
+                            items-center
+                            justify-center
+                            gap-2
+                            text-[10px]
+                            text-slate-400
+                            font-medium">
+
+                    <i data-lucide="shield-check"
+                       class="w-3.5 h-3.5
+                              text-emerald-500"></i>
+
+                    Administrator access protected
+                    by Firebase Authentication
+
                 </div>
-                <button type="button" id="btn-send-reset" class="w-full py-3.5 bg-brand-navy text-white font-bold rounded-xl shadow-md hover:bg-brand-navyhover transition-colors flex items-center justify-center gap-2 text-xs">
-                    Send Reset Link
-                </button>
+
             </div>
+
         </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="mt-8
+                    text-center
+                    text-xs
+                    font-medium
+                    text-slate-400">
+
+            &copy; 2026 CM Filings.
+            All rights reserved.
+
+        </div>
+
     </div>
 
-    <!-- FIREBASE & AUTH LOGIC -->
+
+
+    <!-- =====================================================
+         FORGOT PASSWORD MODAL
+    ====================================================== -->
+
+    <div id="forgot-modal"
+         class="hidden
+                fixed inset-0
+                bg-brand-navy/50
+                backdrop-blur-sm
+                z-[100]
+                flex items-center
+                justify-center
+                p-4">
+
+
+        <div class="bg-white
+                    rounded-3xl
+                    p-8
+                    max-w-sm
+                    w-full
+                    shadow-2xl
+                    border border-slate-200">
+
+
+            <div class="flex
+                        justify-between
+                        items-center
+                        mb-4">
+
+                <h3 class="text-lg
+                           font-bold
+                           text-brand-navy">
+
+                    Reset Password
+
+                </h3>
+
+
+                <button
+                    id="btn-close-modal"
+                    type="button"
+                    class="text-slate-400
+                           hover:text-brand-red">
+
+                    <i data-lucide="x"
+                       class="w-5 h-5"></i>
+
+                </button>
+
+            </div>
+
+
+            <p class="text-xs
+                      text-slate-500
+                      mb-5
+                      leading-relaxed">
+
+                Enter your registered administrator
+                email address below and we will send
+                you a secure password reset link.
+
+            </p>
+
+
+            <div class="space-y-4">
+
+
+                <div>
+
+                    <label
+                        class="block
+                               text-[10px]
+                               font-bold
+                               text-slate-400
+                               uppercase
+                               tracking-wider
+                               mb-1">
+
+                        Email Address
+
+                    </label>
+
+                    <input
+                        type="email"
+                        id="reset-email"
+                        class="w-full
+                               px-4 py-3
+                               rounded-xl
+                               border border-slate-300
+                               text-xs
+                               outline-none
+                               bg-slate-50
+                               font-medium"
+                        placeholder="admin@cmfilings.com">
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="btn-send-reset"
+                    class="w-full
+                           py-3.5
+                           bg-brand-navy
+                           text-white
+                           font-bold
+                           rounded-xl
+                           shadow-md
+                           hover:bg-brand-navyhover
+                           transition-colors
+                           flex items-center
+                           justify-center
+                           gap-2
+                           text-xs">
+
+                    <i data-lucide="mail"
+                       class="w-4 h-4"></i>
+
+                    Send Reset Link
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         FIREBASE AUTH
+    ====================================================== -->
+
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+
+
+        import {
+            getAuth,
+            signInWithEmailAndPassword,
+            sendPasswordResetEmail,
+            onAuthStateChanged,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+
+        /* =================================================
+           FIREBASE CONFIG
+        ================================================= */
 
         const firebaseConfig = {
-            apiKey: "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
-            authDomain: "cmfilings-6a37c.firebaseapp.com",
-            projectId: "cmfilings-6a37c",
-            storageBucket: "cmfilings-6a37c.firebasestorage.app",
-            messagingSenderId: "138705123778",
-            appId: "1:138705123778:web:9561bff9f0f5d89bb6fe5b"
+
+            apiKey:
+                "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
+
+            authDomain:
+                "cmfilings-6a37c.firebaseapp.com",
+
+            projectId:
+                "cmfilings-6a37c",
+
+            storageBucket:
+                "cmfilings-6a37c.firebasestorage.app",
+
+            messagingSenderId:
+                "138705123778",
+
+            appId:
+                "1:138705123778:web:9561bff9f0f5d89bb6fe5b"
+
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+
+        /* =================================================
+           INITIALIZE FIREBASE
+        ================================================= */
+
+        const app =
+            initializeApp(firebaseConfig);
+
+        const auth =
+            getAuth(app);
+
+
+        /* =================================================
+           ELEMENTS
+        ================================================= */
+
+        const loginPage =
+            document.getElementById("login-page");
+
+        const authLoader =
+            document.getElementById("auth-loader");
+
+        const signinForm =
+            document.getElementById("signin-form");
+
+        const inputEmail =
+            document.getElementById("signin-email");
+
+        const inputPassword =
+            document.getElementById("signin-password");
+
+        const btnSubmit =
+            document.getElementById("btn-submit");
+
+        const authError =
+            document.getElementById("auth-error");
+
+        const authSuccess =
+            document.getElementById("auth-success");
+
+        const btnTogglePassword =
+            document.getElementById(
+                "btn-toggle-password"
+            );
+
+        const forgotModal =
+            document.getElementById(
+                "forgot-modal"
+            );
+
+        const btnForgotTrigger =
+            document.getElementById(
+                "btn-forgot-trigger"
+            );
+
+        const btnCloseModal =
+            document.getElementById(
+                "btn-close-modal"
+            );
+
+        const resetEmail =
+            document.getElementById(
+                "reset-email"
+            );
+
+        const btnSendReset =
+            document.getElementById(
+                "btn-send-reset"
+            );
+
+
+        /* =================================================
+           ICONS
+        ================================================= */
 
         lucide.createIcons();
 
-        const signinForm = document.getElementById('signin-form');
-        const inputEmail = document.getElementById('signin-email');
-        const inputPassword = document.getElementById('signin-password');
-        const btnSubmit = document.getElementById('btn-submit');
-        const authError = document.getElementById('auth-error');
-        const authSuccess = document.getElementById('auth-success');
 
-        const btnTogglePassword = document.getElementById('btn-toggle-password');
-        const eyeIcon = document.getElementById('eye-icon');
+        /* =================================================
+           URL ERROR MESSAGE
+        ================================================= */
 
-        const forgotModal = document.getElementById('forgot-modal');
-        const btnForgotTrigger = document.getElementById('btn-forgot-trigger');
-        const btnCloseModal = document.getElementById('btn-close-modal');
-        const resetEmail = document.getElementById('reset-email');
-        const btnSendReset = document.getElementById('btn-send-reset');
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
 
-        // Check if already signed in, auto-redirect to home/generator
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                window.location.href = "index.html";
-            }
-        });
+        const urlError =
+            urlParams.get("error");
 
-        // Toggle Password Visibility (View Icon)
-        btnTogglePassword.addEventListener('click', () => {
-            if (inputPassword.type === 'password') {
-                inputPassword.type = 'text';
-                btnTogglePassword.innerHTML = `<i data-lucide="eye-off" class="w-5 h-5"></i>`;
-            } else {
-                inputPassword.type = 'password';
-                btnTogglePassword.innerHTML = `<i data-lucide="eye" class="w-5 h-5"></i>`;
-            }
-            lucide.createIcons();
-        });
 
-        // Sign In Form Submission
-        signinForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = inputEmail.value.trim();
-            const password = inputPassword.value;
+        if (urlError === "admin_required") {
 
-            const originalText = btnSubmit.innerHTML;
-            btnSubmit.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Authenticating...`;
-            authError.classList.add('hidden');
-            authSuccess.classList.add('hidden');
-            lucide.createIcons();
+            showError(
+                "Access denied. Your account is not authorized as an administrator."
+            );
+
+        }
+
+        else if (
+            urlError === "authentication_error"
+        ) {
+
+            showError(
+                "Authentication failed. Please sign in again."
+            );
+
+        }
+
+        else if (
+            urlError === "login_required"
+        ) {
+
+            showError(
+                "Please sign in to access the administrator dashboard."
+            );
+
+        }
+
+
+        /* =================================================
+           ERROR HELPER
+        ================================================= */
+
+        function showError(message) {
+
+            authSuccess.classList.add(
+                "hidden"
+            );
+
+            authError.textContent =
+                message;
+
+            authError.classList.remove(
+                "hidden"
+            );
+
+        }
+
+
+        /* =================================================
+           SUCCESS HELPER
+        ================================================= */
+
+        function showSuccess(message) {
+
+            authError.classList.add(
+                "hidden"
+            );
+
+            authSuccess.textContent =
+                message;
+
+            authSuccess.classList.remove(
+                "hidden"
+            );
+
+        }
+
+
+        /* =================================================
+           ADMIN CLAIM CHECK
+           
+           REQUIRED CLAIM:
+
+           {
+               admin: true
+           }
+
+           This must be assigned from
+           Firebase Admin SDK / trusted server.
+        ================================================= */
+
+        async function checkAdminAccess(user) {
 
             try {
-                await signInWithEmailAndPassword(auth, email, password);
-                // Successful auth triggers onAuthStateChanged redirect
-            } catch (err) {
-                console.error("Auth error:", err);
-                authError.textContent = "Access Denied: Invalid email or password.";
-                authError.classList.remove('hidden');
-                btnSubmit.innerHTML = originalText;
+
+                /*
+                 * Force refresh the Firebase ID token.
+                 * This is important after a Custom Claim
+                 * has been assigned to an existing user.
+                 */
+
+                const tokenResult =
+                    await user.getIdTokenResult(true);
+
+
+                const claims =
+                    tokenResult.claims || {};
+
+
+                console.log(
+                    "Signed-in user:",
+                    user.email
+                );
+
+                console.log(
+                    "Firebase Custom Claims:",
+                    claims
+                );
+
+
+                /*
+                 * ADMIN ACCESS
+                 */
+
+                if (
+                    claims.admin === true
+                ) {
+
+                    return true;
+
+                }
+
+
+                return false;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Admin claim check failed:",
+                    error
+                );
+
+                return false;
+
+            }
+
+        }
+
+
+        /* =================================================
+           AUTH STATE CHECK
+        ================================================== */
+
+        onAuthStateChanged(
+            auth,
+            async (user) => {
+
+                /*
+                 * No user:
+                 *
+                 * Stay on signin page.
+                 */
+
+                if (!user) {
+
+                    loginPage.classList.remove(
+                        "hidden"
+                    );
+
+                    authLoader.classList.add(
+                        "hidden"
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * A Firebase user is already logged in.
+                 *
+                 * Do NOT automatically redirect.
+                 *
+                 * First check admin claim.
+                 */
+
+                loginPage.classList.add(
+                    "hidden"
+                );
+
+                authLoader.classList.remove(
+                    "hidden"
+                );
+
+
+                const isAdmin =
+                    await checkAdminAccess(
+                        user
+                    );
+
+
+                /*
+                 * ADMIN
+                 */
+
+                if (isAdmin) {
+
+                    window.location.replace(
+                        "index.html"
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * NOT ADMIN
+                 */
+
+                console.warn(
+                    "Authenticated user is not an administrator."
+                );
+
+
+                try {
+
+                    await signOut(auth);
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "Sign out error:",
+                        error
+                    );
+
+                }
+
+
+                authLoader.classList.add(
+                    "hidden"
+                );
+
+                loginPage.classList.remove(
+                    "hidden"
+                );
+
+
+                showError(
+                    "Access denied. This account does not have administrator privileges."
+                );
+
+            }
+        );
+
+
+        /* =================================================
+           PASSWORD VISIBILITY
+        ================================================== */
+
+        btnTogglePassword.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    inputPassword.type ===
+                    "password"
+                ) {
+
+                    inputPassword.type =
+                        "text";
+
+                    btnTogglePassword.innerHTML =
+                        `<i data-lucide="eye-off"
+                            class="w-5 h-5"></i>`;
+
+                }
+
+                else {
+
+                    inputPassword.type =
+                        "password";
+
+                    btnTogglePassword.innerHTML =
+                        `<i data-lucide="eye"
+                            class="w-5 h-5"></i>`;
+
+                }
+
+
                 lucide.createIcons();
+
             }
-        });
+        );
 
-        // Forgot Password Modal Triggers
-        btnForgotTrigger.addEventListener('click', () => {
-            resetEmail.value = inputEmail.value; // prefill if typed
-            forgotModal.classList.remove('hidden');
-        });
 
-        btnCloseModal.addEventListener('click', () => forgotModal.classList.add('hidden'));
+        /* =================================================
+           SIGN IN
+        ================================================== */
 
-        // Send Password Reset Email Handler
-        btnSendReset.addEventListener('click', async () => {
-            const email = resetEmail.value.trim();
-            if(!email) {
-                alert("Please enter your email address.");
-                return;
-            }
+        signinForm.addEventListener(
+            "submit",
+            async (e) => {
 
-            const originalText = btnSendReset.innerHTML;
-            btnSendReset.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin inline"></i> Sending...`;
-            lucide.createIcons();
+                e.preventDefault();
 
-            try {
-                await sendPasswordResetEmail(auth, email);
-                forgotModal.classList.add('hidden');
-                authSuccess.textContent = "Password reset link sent! Check your inbox.";
-                authSuccess.classList.remove('hidden');
-            } catch (err) {
-                console.error("Reset error:", err);
-                alert("Failed to send reset email. Verify the email address.");
-            } finally {
-                btnSendReset.innerHTML = originalText;
+
+                const email =
+                    inputEmail.value.trim();
+
+                const password =
+                    inputPassword.value;
+
+
+                if (!email || !password) {
+
+                    showError(
+                        "Please enter your email and password."
+                    );
+
+                    return;
+
+                }
+
+
+                const originalText =
+                    btnSubmit.innerHTML;
+
+
+                btnSubmit.disabled =
+                    true;
+
+                btnSubmit.classList.add(
+                    "opacity-70",
+                    "cursor-not-allowed"
+                );
+
+
+                btnSubmit.innerHTML = `
+                    <i data-lucide="loader-2"
+                       class="w-5 h-5 animate-spin">
+                    </i>
+                    Authenticating...
+                `;
+
+
+                authError.classList.add(
+                    "hidden"
+                );
+
+                authSuccess.classList.add(
+                    "hidden"
+                );
+
+
                 lucide.createIcons();
+
+
+                try {
+
+                    /*
+                     * Authenticate Firebase user.
+                     */
+
+                    const credential =
+                        await signInWithEmailAndPassword(
+                            auth,
+                            email,
+                            password
+                        );
+
+
+                    /*
+                     * Immediately verify ADMIN claim.
+                     */
+
+                    const isAdmin =
+                        await checkAdminAccess(
+                            credential.user
+                        );
+
+
+                    if (!isAdmin) {
+
+                        /*
+                         * User exists but is NOT admin.
+                         */
+
+                        await signOut(auth);
+
+
+                        showError(
+                            "Login successful, but this account is not authorized for the CM FILINGS Administrator Portal."
+                        );
+
+
+                        btnSubmit.disabled =
+                            false;
+
+                        btnSubmit.classList.remove(
+                            "opacity-70",
+                            "cursor-not-allowed"
+                        );
+
+                        btnSubmit.innerHTML =
+                            originalText;
+
+                        lucide.createIcons();
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * ADMIN VERIFIED
+                     */
+
+                    showSuccess(
+                        "Administrator verified. Opening dashboard..."
+                    );
+
+
+                    btnSubmit.innerHTML = `
+                        <i data-lucide="check"
+                           class="w-5 h-5">
+                        </i>
+                        Access Granted
+                    `;
+
+
+                    lucide.createIcons();
+
+
+                    /*
+                     * Redirect.
+                     */
+
+                    window.location.replace(
+                        "index.html"
+                    );
+
+                }
+
+
+                catch (err) {
+
+                    console.error(
+                        "Firebase sign-in error:",
+                        err
+                    );
+
+
+                    let message =
+                        "Access denied. Invalid email or password.";
+
+
+                    /*
+                     * Firebase error messages.
+                     */
+
+                    switch (err.code) {
+
+                        case
+                            "auth/invalid-credential":
+
+                            message =
+                                "Invalid email or password.";
+
+                            break;
+
+
+                        case
+                            "auth/user-not-found":
+
+                            message =
+                                "No account was found with this email.";
+
+                            break;
+
+
+                        case
+                            "auth/wrong-password":
+
+                            message =
+                                "Incorrect password.";
+
+                            break;
+
+
+                        case
+                            "auth/invalid-email":
+
+                            message =
+                                "Please enter a valid email address.";
+
+                            break;
+
+
+                        case
+                            "auth/user-disabled":
+
+                            message =
+                                "This account has been disabled.";
+
+                            break;
+
+
+                        case
+                            "auth/too-many-requests":
+
+                            message =
+                                "Too many attempts. Please try again later.";
+
+                            break;
+
+
+                        case
+                            "auth/network-request-failed":
+
+                            message =
+                                "Network error. Please check your internet connection.";
+
+                            break;
+
+                    }
+
+
+                    showError(message);
+
+
+                    btnSubmit.disabled =
+                        false;
+
+                    btnSubmit.classList.remove(
+                        "opacity-70",
+                        "cursor-not-allowed"
+                    );
+
+                    btnSubmit.innerHTML =
+                        originalText;
+
+                    lucide.createIcons();
+
+                }
+
             }
-        });
+        );
+
+
+        /* =================================================
+           FORGOT PASSWORD
+        ================================================== */
+
+        btnForgotTrigger.addEventListener(
+            "click",
+            () => {
+
+                resetEmail.value =
+                    inputEmail.value;
+
+                forgotModal.classList.remove(
+                    "hidden"
+                );
+
+            }
+        );
+
+
+        /* =================================================
+           CLOSE MODAL
+        ================================================== */
+
+        btnCloseModal.addEventListener(
+            "click",
+            () => {
+
+                forgotModal.classList.add(
+                    "hidden"
+                );
+
+            }
+        );
+
+
+        /* =================================================
+           CLOSE MODAL WHEN CLICKING OUTSIDE
+        ================================================== */
+
+        forgotModal.addEventListener(
+            "click",
+            (event) => {
+
+                if (
+                    event.target ===
+                    forgotModal
+                ) {
+
+                    forgotModal.classList.add(
+                        "hidden"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =================================================
+           SEND PASSWORD RESET
+        ================================================== */
+
+        btnSendReset.addEventListener(
+            "click",
+            async () => {
+
+                const email =
+                    resetEmail.value.trim();
+
+
+                if (!email) {
+
+                    alert(
+                        "Please enter your email address."
+                    );
+
+                    return;
+
+                }
+
+
+                const originalText =
+                    btnSendReset.innerHTML;
+
+
+                btnSendReset.disabled =
+                    true;
+
+                btnSendReset.innerHTML = `
+                    <i data-lucide="loader-2"
+                       class="w-4 h-4 animate-spin">
+                    </i>
+                    Sending...
+                `;
+
+
+                lucide.createIcons();
+
+
+                try {
+
+                    await sendPasswordResetEmail(
+                        auth,
+                        email
+                    );
+
+
+                    forgotModal.classList.add(
+                        "hidden"
+                    );
+
+
+                    showSuccess(
+                        "Password reset link sent. Please check your inbox."
+                    );
+
+                }
+
+
+                catch (err) {
+
+                    console.error(
+                        "Password reset error:",
+                        err
+                    );
+
+
+                    let message =
+                        "Unable to send password reset email.";
+
+
+                    switch (err.code) {
+
+                        case
+                            "auth/invalid-email":
+
+                            message =
+                                "Please enter a valid email address.";
+
+                            break;
+
+
+                        case
+                            "auth/user-not-found":
+
+                            message =
+                                "No account was found with this email.";
+
+                            break;
+
+
+                        case
+                            "auth/too-many-requests":
+
+                            message =
+                                "Too many requests. Please try again later.";
+
+                            break;
+
+                    }
+
+
+                    showError(message);
+
+                }
+
+
+                finally {
+
+                    btnSendReset.disabled =
+                        false;
+
+                    btnSendReset.innerHTML =
+                        originalText;
+
+                    lucide.createIcons();
+
+                }
+
+            }
+        );
+
+
     </script>
+
 </body>
 </html>
