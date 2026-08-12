@@ -9,12 +9,14 @@
                    maximum-scale=1.0,
                    user-scalable=no">
 
-    <title>Sign In - CM FILINGS Admin</title>
+    <title>CM FILINGS - Secure Admin Portal</title>
 
+    <!-- PWA -->
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
     <meta name="theme-color" content="#071D49">
 
+    <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect"
           href="https://fonts.gstatic.com"
@@ -23,8 +25,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet">
 
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
@@ -52,6 +56,7 @@
     </script>
 
     <style>
+
         html {
             scroll-behavior: smooth;
         }
@@ -81,20 +86,28 @@
             background: #cbd5e1;
             border-radius: 10px;
         }
+
+        .auth-frame {
+            box-shadow:
+                0 25px 60px rgba(7,29,73,.12),
+                0 4px 16px rgba(7,29,73,.06);
+        }
+
     </style>
+
 </head>
 
 
-<body class="font-sans text-slate-700
-             bg-brand-light antialiased
-             selection:bg-brand-redlight
-             selection:text-brand-red
+<body class="font-sans
+             text-slate-700
+             bg-brand-light
+             antialiased
              min-h-screen">
 
 
-<!-- =====================================================
+<!-- =========================================================
      AUTH LOADER
-====================================================== -->
+========================================================= -->
 
 <div id="auth-loader"
      class="hidden fixed inset-0 z-[9999]
@@ -118,18 +131,24 @@
     </div>
 
     <i data-lucide="loader-2"
-       class="w-7 h-7 text-brand-red
-              animate-spin mb-4"></i>
+       class="w-7 h-7
+              text-brand-red
+              animate-spin
+              mb-4"></i>
 
-    <p class="text-sm font-bold
+    <p class="text-sm
+              font-extrabold
               text-brand-navy
-              tracking-widest uppercase">
+              tracking-widest
+              uppercase">
 
         Verifying Access
 
     </p>
 
-    <p class="text-[10px] text-slate-400 mt-2">
+    <p class="text-[10px]
+              text-slate-400
+              mt-2">
 
         Checking administrator role...
 
@@ -138,267 +157,696 @@
 </div>
 
 
-<!-- =====================================================
-     LOGIN PAGE
-====================================================== -->
+<!-- =========================================================
+     MAIN AUTH PAGE
+========================================================= -->
 
-<div id="login-page"
+<div id="auth-page"
      class="hero-pattern
             min-h-screen
-            flex flex-col
+            flex
+            flex-col
             items-center
             justify-center
             p-4">
 
 
-    <div class="bg-white
-                p-8 md:p-12
+    <!-- =====================================================
+         AUTH FRAME
+    ====================================================== -->
+
+    <div class="auth-frame
+                bg-white
+                w-full
+                max-w-md
                 rounded-3xl
-                shadow-xl
-                border border-slate-200
-                w-full max-w-md">
+                border
+                border-slate-200
+                overflow-hidden">
 
 
-        <!-- BRAND -->
+        <!-- =================================================
+             BRAND HEADER
+        ================================================== -->
 
-        <div class="flex flex-col
-                    items-center
-                    mb-8
-                    text-center">
+        <div class="px-8
+                    pt-8
+                    pb-6
+                    text-center
+                    border-b
+                    border-slate-100">
 
-            <div class="w-14 h-14
-                        bg-brand-navy
-                        rounded-2xl
-                        flex items-center
-                        justify-center
-                        text-white
-                        shadow-sm
-                        mb-4">
-
-                <i data-lucide="shield-check"
-                   class="w-7 h-7"></i>
-
-            </div>
-
-            <h1 class="text-2xl
-                       font-extrabold
-                       text-brand-navy
-                       tracking-tight">
-
-                CM FILINGS
-
-            </h1>
-
-            <p class="text-[10px]
-                      font-bold
-                      text-brand-red
-                      uppercase
-                      tracking-widest
-                      mt-1">
-
-                Secure Admin Portal
-
-            </p>
-
-        </div>
-
-
-        <!-- ERROR -->
-
-        <div id="auth-error"
-             class="hidden
-                    bg-brand-redlight
-                    text-brand-red
-                    text-xs
-                    font-bold
-                    p-3
-                    rounded-xl
-                    border border-brand-red/20
-                    mb-5
-                    text-center">
-        </div>
-
-
-        <!-- SUCCESS -->
-
-        <div id="auth-success"
-             class="hidden
-                    bg-emerald-50
-                    text-emerald-600
-                    text-xs
-                    font-bold
-                    p-3
-                    rounded-xl
-                    border border-emerald-200
-                    mb-5
-                    text-center">
-        </div>
-
-
-        <!-- LOGIN FORM -->
-
-        <form id="signin-form"
-              class="space-y-4">
-
-
-            <div>
-
-                <label class="block
-                              text-xs
-                              font-bold
-                              text-slate-500
-                              uppercase
-                              tracking-wider
-                              mb-2">
-
-                    Admin Email
-
-                </label>
-
-                <input
-                    type="email"
-                    id="signin-email"
-                    required
-                    autocomplete="username"
-                    class="w-full
-                           px-4 py-3.5
-                           rounded-xl
-                           border border-slate-300
-                           focus:border-brand-navy
-                           focus:ring-2
-                           focus:ring-brand-navy/10
-                           outline-none
-                           bg-slate-50
-                           font-medium
-                           text-slate-800
-                           text-sm"
-                    placeholder="Enter your email">
-
-            </div>
-
-
-            <div>
-
-                <div class="flex
-                            justify-between
-                            items-center
-                            mb-2">
-
-                    <label class="text-xs
-                                  font-bold
-                                  text-slate-500
-                                  uppercase
-                                  tracking-wider">
-
-                        Password
-
-                    </label>
-
-                    <button
-                        type="button"
-                        id="btn-forgot-trigger"
-                        class="text-xs
-                               font-bold
-                               text-brand-red
-                               hover:underline">
-
-                        Forgot password?
-
-                    </button>
-
-                </div>
-
-
-                <div class="relative">
-
-                    <input
-                        type="password"
-                        id="signin-password"
-                        required
-                        autocomplete="current-password"
-                        class="w-full
-                               px-4 py-3.5
-                               pr-12
-                               rounded-xl
-                               border border-slate-300
-                               focus:border-brand-navy
-                               focus:ring-2
-                               focus:ring-brand-navy/10
-                               outline-none
-                               bg-slate-50
-                               font-medium
-                               text-slate-800
-                               text-sm"
-                        placeholder="••••••••">
-
-
-                    <button
-                        type="button"
-                        id="btn-toggle-password"
-                        class="absolute
-                               right-3.5
-                               top-3.5
-                               text-slate-400">
-
-                        <i data-lucide="eye"
-                           class="w-5 h-5"></i>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <button
-                type="submit"
-                id="btn-submit"
-                class="w-full
-                       py-4
-                       bg-brand-red
-                       text-white
-                       font-bold
-                       rounded-xl
-                       shadow-[0_8px_20px_rgb(177,0,0,0.2)]
-                       hover:bg-brand-redhover
-                       transition-colors
-                       flex items-center
-                       justify-center
-                       gap-2
-                       text-sm">
-
-                <i data-lucide="log-in"
-                   class="w-5 h-5"></i>
-
-                Sign In to Dashboard
-
-            </button>
-
-        </form>
-
-
-        <!-- SECURITY -->
-
-        <div class="mt-6
-                    pt-5
-                    border-t
-                    border-slate-100
-                    text-center">
+            <img
+                src="assets/name.svg"
+                alt="CM FILINGS"
+                class="h-9
+                       w-auto
+                       max-w-[220px]
+                       object-contain
+                       mx-auto
+                       mb-4"
+            >
 
             <div class="flex
                         items-center
                         justify-center
-                        gap-2
-                        text-[10px]
-                        text-slate-400
-                        font-medium">
+                        gap-2">
 
-                <i data-lucide="shield-check"
-                   class="w-3.5 h-3.5
-                          text-emerald-500"></i>
+                <div class="w-8 h-8
+                            bg-brand-navy
+                            rounded-lg
+                            flex items-center
+                            justify-center
+                            text-white">
 
-                Access controlled by
-                Firebase Authentication & Firestore Role
+                    <i data-lucide="shield-check"
+                       class="w-4 h-4"></i>
+
+                </div>
+
+                <span class="text-[10px]
+                             font-extrabold
+                             text-brand-red
+                             uppercase
+                             tracking-[0.18em]">
+
+                    Secure Admin Portal
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             AUTH CONTENT
+        ================================================== -->
+
+        <div class="p-8 md:p-9">
+
+
+            <!-- =============================================
+                 ERROR
+            ============================================== -->
+
+            <div id="auth-error"
+                 class="hidden
+                        bg-brand-redlight
+                        text-brand-red
+                        text-xs
+                        font-bold
+                        p-3
+                        rounded-xl
+                        border
+                        border-brand-red/20
+                        mb-5
+                        text-center">
+            </div>
+
+
+            <!-- =============================================
+                 SUCCESS
+            ============================================== -->
+
+            <div id="auth-success"
+                 class="hidden
+                        bg-emerald-50
+                        text-emerald-600
+                        text-xs
+                        font-bold
+                        p-3
+                        rounded-xl
+                        border
+                        border-emerald-200
+                        mb-5
+                        text-center">
+            </div>
+
+
+            <!-- =============================================
+                 SIGN IN PANEL
+            ============================================== -->
+
+            <section id="signin-panel">
+
+
+                <div class="mb-6">
+
+                    <h1 class="text-2xl
+                               font-extrabold
+                               text-brand-navy
+                               tracking-tight">
+
+                        Sign In
+
+                    </h1>
+
+                    <p class="text-xs
+                              text-slate-500
+                              mt-1">
+
+                        Access the CM FILINGS administrator portal.
+
+                    </p>
+
+                </div>
+
+
+                <!-- SIGN IN FORM -->
+
+                <form id="signin-form"
+                      class="space-y-4">
+
+
+                    <!-- EMAIL -->
+
+                    <div>
+
+                        <label class="block
+                                      text-xs
+                                      font-bold
+                                      text-slate-500
+                                      uppercase
+                                      tracking-wider
+                                      mb-2">
+
+                            Admin Email
+
+                        </label>
+
+                        <input
+                            type="email"
+                            id="signin-email"
+                            required
+                            autocomplete="username"
+                            class="w-full
+                                   px-4
+                                   py-3.5
+                                   rounded-xl
+                                   border
+                                   border-slate-300
+                                   focus:border-brand-navy
+                                   focus:ring-2
+                                   focus:ring-brand-navy/10
+                                   outline-none
+                                   bg-slate-50
+                                   font-medium
+                                   text-slate-800
+                                   text-sm"
+                            placeholder="Enter your email">
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div>
+
+                        <div class="flex
+                                    justify-between
+                                    items-center
+                                    mb-2">
+
+                            <label class="text-xs
+                                          font-bold
+                                          text-slate-500
+                                          uppercase
+                                          tracking-wider">
+
+                                Password
+
+                            </label>
+
+                            <button
+                                type="button"
+                                id="btn-forgot-trigger"
+                                class="text-xs
+                                       font-bold
+                                       text-brand-red
+                                       hover:underline">
+
+                                Forgot password?
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="relative">
+
+                            <input
+                                type="password"
+                                id="signin-password"
+                                required
+                                autocomplete="current-password"
+                                class="w-full
+                                       px-4
+                                       py-3.5
+                                       pr-12
+                                       rounded-xl
+                                       border
+                                       border-slate-300
+                                       focus:border-brand-navy
+                                       focus:ring-2
+                                       focus:ring-brand-navy/10
+                                       outline-none
+                                       bg-slate-50
+                                       font-medium
+                                       text-slate-800
+                                       text-sm"
+                                placeholder="••••••••">
+
+
+                            <button
+                                type="button"
+                                id="btn-toggle-password"
+                                class="absolute
+                                       right-3.5
+                                       top-3.5
+                                       text-slate-400">
+
+                                <i data-lucide="eye"
+                                   class="w-5 h-5"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        id="btn-submit"
+                        class="w-full
+                               py-4
+                               bg-brand-red
+                               text-white
+                               font-bold
+                               rounded-xl
+                               shadow-[0_8px_20px_rgb(177,0,0,0.2)]
+                               hover:bg-brand-redhover
+                               transition
+                               flex
+                               items-center
+                               justify-center
+                               gap-2
+                               text-sm">
+
+                        <i data-lucide="log-in"
+                           class="w-5 h-5"></i>
+
+                        Sign In
+
+                    </button>
+
+                </form>
+
+
+                <!-- SWITCH TO SIGNUP -->
+
+                <div class="mt-7
+                            pt-6
+                            border-t
+                            border-slate-100
+                            text-center">
+
+                    <p class="text-xs
+                              text-slate-500">
+
+                        Don't have an administrator account?
+
+                    </p>
+
+                    <button
+                        type="button"
+                        id="btn-show-signup"
+                        class="mt-2
+                               text-xs
+                               font-extrabold
+                               text-brand-navy
+                               hover:text-brand-red
+                               transition">
+
+                        Create Account
+
+                        <i data-lucide="arrow-right"
+                           class="w-3.5 h-3.5 inline ml-1"></i>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SIGN UP PANEL
+            ================================================== -->
+
+            <section id="signup-panel"
+                     class="hidden">
+
+
+                <div class="mb-6">
+
+                    <h1 class="text-2xl
+                               font-extrabold
+                               text-brand-navy
+                               tracking-tight">
+
+                        Create Account
+
+                    </h1>
+
+                    <p class="text-xs
+                              text-slate-500
+                              mt-1">
+
+                        Register a new user profile.
+
+                    </p>
+
+                </div>
+
+
+                <!-- SIGNUP FORM -->
+
+                <form id="signup-form"
+                      class="space-y-4">
+
+
+                    <!-- NAME -->
+
+                    <div>
+
+                        <label class="block
+                                      text-xs
+                                      font-bold
+                                      text-slate-500
+                                      uppercase
+                                      tracking-wider
+                                      mb-1.5">
+
+                            Full Name *
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="signup-name"
+                            required
+                            class="w-full
+                                   px-4
+                                   py-3
+                                   rounded-xl
+                                   border
+                                   border-slate-300
+                                   focus:border-brand-navy
+                                   outline-none
+                                   bg-slate-50
+                                   font-medium
+                                   text-slate-800
+                                   text-xs"
+                            placeholder="Full name">
+
+                    </div>
+
+
+                    <!-- MOBILE -->
+
+                    <div>
+
+                        <label class="block
+                                      text-xs
+                                      font-bold
+                                      text-slate-500
+                                      uppercase
+                                      tracking-wider
+                                      mb-1.5">
+
+                            Mobile Number *
+
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="signup-mobile"
+                            required
+                            pattern="[0-9]{10}"
+                            maxlength="10"
+                            class="w-full
+                                   px-4
+                                   py-3
+                                   rounded-xl
+                                   border
+                                   border-slate-300
+                                   focus:border-brand-navy
+                                   outline-none
+                                   bg-slate-50
+                                   font-medium
+                                   text-slate-800
+                                   text-xs
+                                   font-mono"
+                            placeholder="9876543210">
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div>
+
+                        <label class="block
+                                      text-xs
+                                      font-bold
+                                      text-slate-500
+                                      uppercase
+                                      tracking-wider
+                                      mb-1.5">
+
+                            Email ID *
+
+                        </label>
+
+                        <input
+                            type="email"
+                            id="signup-email"
+                            required
+                            class="w-full
+                                   px-4
+                                   py-3
+                                   rounded-xl
+                                   border
+                                   border-slate-300
+                                   focus:border-brand-navy
+                                   outline-none
+                                   bg-slate-50
+                                   font-medium
+                                   text-slate-800
+                                   text-xs"
+                            placeholder="name@example.com">
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div>
+
+                        <label class="block
+                                      text-xs
+                                      font-bold
+                                      text-slate-500
+                                      uppercase
+                                      tracking-wider
+                                      mb-1.5">
+
+                            Password *
+
+                        </label>
+
+                        <div class="relative">
+
+                            <input
+                                type="password"
+                                id="signup-password"
+                                required
+                                minlength="6"
+                                class="w-full
+                                       px-4
+                                       py-3
+                                       pr-11
+                                       rounded-xl
+                                       border
+                                       border-slate-300
+                                       focus:border-brand-navy
+                                       outline-none
+                                       bg-slate-50
+                                       font-medium
+                                       text-slate-800
+                                       text-xs"
+                                placeholder="Minimum 6 characters">
+
+                            <button
+                                type="button"
+                                id="btn-toggle-signup-password"
+                                class="absolute
+                                       right-3
+                                       top-3
+                                       text-slate-400">
+
+                                <i data-lucide="eye"
+                                   class="w-4 h-4"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PROFILE PICTURE -->
+
+                    <div>
+
+                        <label class="block
+                                      text-xs
+                                      font-bold
+                                      text-slate-500
+                                      uppercase
+                                      tracking-wider
+                                      mb-1.5">
+
+                            Profile Picture
+                            <span class="text-slate-300">
+                                (Optional)
+                            </span>
+
+                        </label>
+
+                        <input
+                            type="file"
+                            id="signup-profile-pic"
+                            accept="image/*"
+                            class="w-full
+                                   text-xs
+                                   text-slate-500
+                                   file:mr-3
+                                   file:py-2
+                                   file:px-4
+                                   file:rounded-xl
+                                   file:border-0
+                                   file:text-xs
+                                   file:font-bold
+                                   file:bg-slate-100
+                                   file:text-brand-navy
+                                   hover:file:bg-slate-200
+                                   border
+                                   border-slate-300
+                                   rounded-xl
+                                   cursor-pointer
+                                   bg-slate-50
+                                   p-1">
+
+                    </div>
+
+
+                    <!-- SIGNUP BUTTON -->
+
+                    <button
+                        type="submit"
+                        id="btn-signup-submit"
+                        class="w-full
+                               py-3.5
+                               bg-brand-red
+                               text-white
+                               font-bold
+                               rounded-xl
+                               shadow-[0_8px_20px_rgb(177,0,0,0.2)]
+                               hover:bg-brand-redhover
+                               transition
+                               flex
+                               items-center
+                               justify-center
+                               gap-2
+                               text-xs">
+
+                        <i data-lucide="user-check"
+                           class="w-4 h-4"></i>
+
+                        Create Account
+
+                    </button>
+
+                </form>
+
+
+                <!-- SWITCH TO LOGIN -->
+
+                <div class="mt-6
+                            pt-5
+                            border-t
+                            border-slate-100
+                            text-center">
+
+                    <p class="text-xs
+                              text-slate-500">
+
+                        Already have an account?
+
+                    </p>
+
+                    <button
+                        type="button"
+                        id="btn-show-signin"
+                        class="mt-2
+                               text-xs
+                               font-extrabold
+                               text-brand-navy
+                               hover:text-brand-red">
+
+                        Sign In
+
+                        <i data-lucide="arrow-right"
+                           class="w-3.5 h-3.5 inline ml-1"></i>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECURITY FOOTER
+            ================================================== -->
+
+            <div class="mt-7
+                        pt-5
+                        border-t
+                        border-slate-100
+                        text-center">
+
+                <div class="flex
+                            items-center
+                            justify-center
+                            gap-2
+                            text-[10px]
+                            text-slate-400
+                            font-medium">
+
+                    <i data-lucide="shield-check"
+                       class="w-3.5 h-3.5
+                              text-emerald-500"></i>
+
+                    Firebase Authentication
+                    & Firestore Role Security
+
+                </div>
 
             </div>
 
@@ -407,7 +855,9 @@
     </div>
 
 
-    <div class="mt-8
+    <!-- COPYRIGHT -->
+
+    <div class="mt-6
                 text-center
                 text-xs
                 font-medium
@@ -420,9 +870,9 @@
 </div>
 
 
-<!-- =====================================================
-     FORGOT PASSWORD
-====================================================== -->
+<!-- =========================================================
+     FORGOT PASSWORD MODAL
+========================================================= -->
 
 <div id="forgot-modal"
      class="hidden fixed inset-0
@@ -430,7 +880,8 @@
             backdrop-blur-sm
             z-[100]
             flex items-center
-            justify-center p-4">
+            justify-center
+            p-4">
 
     <div class="bg-white
                 rounded-3xl
@@ -442,7 +893,8 @@
 
         <div class="flex
                     justify-between
-                    items-center mb-4">
+                    items-center
+                    mb-4">
 
             <h3 class="text-lg
                        font-bold
@@ -480,9 +932,11 @@
             type="email"
             id="reset-email"
             class="w-full
-                   px-4 py-3
+                   px-4
+                   py-3
                    rounded-xl
-                   border border-slate-300
+                   border
+                   border-slate-300
                    bg-slate-50
                    text-sm
                    mb-4"
@@ -498,7 +952,8 @@
                    text-white
                    font-bold
                    rounded-xl
-                   flex items-center
+                   flex
+                   items-center
                    justify-center
                    gap-2">
 
@@ -514,9 +969,9 @@
 </div>
 
 
-<!-- =====================================================
+<!-- =========================================================
      FIREBASE
-====================================================== -->
+========================================================= -->
 
 <script type="module">
 
@@ -524,30 +979,37 @@ import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 
-
 import {
     getAuth,
     signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
     sendPasswordResetEmail,
     onAuthStateChanged,
     signOut
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-
 import {
     getFirestore,
     doc,
     getDoc,
+    setDoc,
     collection,
     query,
     where,
     getDocs
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+import {
+    getStorage,
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
-/* =====================================================
+
+/* =========================================================
    FIREBASE CONFIG
-====================================================== */
+========================================================= */
 
 const firebaseConfig = {
 
@@ -581,22 +1043,34 @@ const auth =
 const db =
     getFirestore(app);
 
+const storage =
+    getStorage(app);
+
 
 lucide.createIcons();
 
 
-/* =====================================================
+/* =========================================================
    ELEMENTS
-====================================================== */
+========================================================= */
 
-const loginPage =
-    document.getElementById("login-page");
+const authPage =
+    document.getElementById("auth-page");
 
 const authLoader =
     document.getElementById("auth-loader");
 
+const signinPanel =
+    document.getElementById("signin-panel");
+
+const signupPanel =
+    document.getElementById("signup-panel");
+
 const signinForm =
     document.getElementById("signin-form");
+
+const signupForm =
+    document.getElementById("signup-form");
 
 const inputEmail =
     document.getElementById("signin-email");
@@ -604,8 +1078,26 @@ const inputEmail =
 const inputPassword =
     document.getElementById("signin-password");
 
+const signupName =
+    document.getElementById("signup-name");
+
+const signupMobile =
+    document.getElementById("signup-mobile");
+
+const signupEmail =
+    document.getElementById("signup-email");
+
+const signupPassword =
+    document.getElementById("signup-password");
+
+const signupProfilePic =
+    document.getElementById("signup-profile-pic");
+
 const btnSubmit =
     document.getElementById("btn-submit");
+
+const btnSignupSubmit =
+    document.getElementById("btn-signup-submit");
 
 const authError =
     document.getElementById("auth-error");
@@ -613,8 +1105,17 @@ const authError =
 const authSuccess =
     document.getElementById("auth-success");
 
+const btnShowSignup =
+    document.getElementById("btn-show-signup");
+
+const btnShowSignin =
+    document.getElementById("btn-show-signin");
+
 const btnTogglePassword =
     document.getElementById("btn-toggle-password");
+
+const btnToggleSignupPassword =
+    document.getElementById("btn-toggle-signup-password");
 
 const forgotModal =
     document.getElementById("forgot-modal");
@@ -632,51 +1133,105 @@ const btnSendReset =
     document.getElementById("btn-send-reset");
 
 
-/* =====================================================
-   ERROR
-====================================================== */
+/* =========================================================
+   MESSAGE HELPERS
+========================================================= */
 
 function showError(message) {
 
     authSuccess.classList.add("hidden");
 
-    authError.textContent = message;
+    authError.textContent =
+        message;
 
     authError.classList.remove("hidden");
 
 }
 
 
-/* =====================================================
-   SUCCESS
-====================================================== */
-
 function showSuccess(message) {
 
     authError.classList.add("hidden");
 
-    authSuccess.textContent = message;
+    authSuccess.textContent =
+        message;
 
     authSuccess.classList.remove("hidden");
 
 }
 
 
-/* =====================================================
-   GET FIRESTORE USER ROLE
-====================================================== */
+function clearMessages() {
+
+    authError.classList.add("hidden");
+
+    authSuccess.classList.add("hidden");
+
+}
+
+
+/* =========================================================
+   SWITCH AUTH MODE
+========================================================= */
+
+function showSignin() {
+
+    clearMessages();
+
+    signupPanel.classList.add("hidden");
+
+    signinPanel.classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+function showSignup() {
+
+    clearMessages();
+
+    signinPanel.classList.add("hidden");
+
+    signupPanel.classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+btnShowSignup.addEventListener(
+    "click",
+    showSignup
+);
+
+
+btnShowSignin.addEventListener(
+    "click",
+    showSignin
+);
+
+
+/* =========================================================
+   GET USER ROLE
+========================================================= */
 
 async function getUserRole(user) {
 
     try {
 
-        /*
-         * FIRST:
-         * Try document ID = Firebase Authentication UID.
-         */
-
         const uidRef =
-            doc(db, "users", user.uid);
+            doc(
+                db,
+                "users",
+                user.uid
+            );
 
         const uidSnap =
             await getDoc(uidRef);
@@ -692,25 +1247,26 @@ async function getUserRole(user) {
         }
 
 
-        /*
-         * FALLBACK:
-         * Search users collection by email.
-         *
-         * This supports your current database
-         * if your document ID isn't the Firebase UID.
-         */
-
         const usersRef =
-            collection(db, "users");
+            collection(
+                db,
+                "users"
+            );
 
         const emailQuery =
             query(
                 usersRef,
-                where("email", "==", user.email)
+                where(
+                    "email",
+                    "==",
+                    user.email
+                )
             );
 
         const result =
-            await getDocs(emailQuery);
+            await getDocs(
+                emailQuery
+            );
 
 
         if (!result.empty) {
@@ -730,7 +1286,7 @@ async function getUserRole(user) {
     catch (error) {
 
         console.error(
-            "Firestore role lookup failed:",
+            "Role lookup error:",
             error
         );
 
@@ -741,9 +1297,9 @@ async function getUserRole(user) {
 }
 
 
-/* =====================================================
-   CHECK ADMIN
-====================================================== */
+/* =========================================================
+   ADMIN CHECK
+========================================================= */
 
 async function checkAdmin(user) {
 
@@ -751,24 +1307,23 @@ async function checkAdmin(user) {
         await getUserRole(user);
 
     console.log(
-        "Logged-in user:",
+        "User:",
         user.email
     );
 
     console.log(
-        "Firestore role:",
+        "Role:",
         role
     );
-
 
     return role === "admin";
 
 }
 
 
-/* =====================================================
+/* =========================================================
    AUTH STATE
-====================================================== */
+========================================================= */
 
 onAuthStateChanged(
     auth,
@@ -776,18 +1331,26 @@ onAuthStateChanged(
 
         if (!user) {
 
-            authLoader.classList.add("hidden");
+            authLoader.classList.add(
+                "hidden"
+            );
 
-            loginPage.classList.remove("hidden");
+            authPage.classList.remove(
+                "hidden"
+            );
 
             return;
 
         }
 
 
-        loginPage.classList.add("hidden");
+        authPage.classList.add(
+            "hidden"
+        );
 
-        authLoader.classList.remove("hidden");
+        authLoader.classList.remove(
+            "hidden"
+        );
 
 
         const admin =
@@ -808,9 +1371,13 @@ onAuthStateChanged(
         await signOut(auth);
 
 
-        authLoader.classList.add("hidden");
+        authLoader.classList.add(
+            "hidden"
+        );
 
-        loginPage.classList.remove("hidden");
+        authPage.classList.remove(
+            "hidden"
+        );
 
 
         showError(
@@ -821,35 +1388,31 @@ onAuthStateChanged(
 );
 
 
-/* =====================================================
-   PASSWORD VISIBILITY
-====================================================== */
+/* =========================================================
+   PASSWORD TOGGLE
+========================================================= */
 
 btnTogglePassword.addEventListener(
     "click",
     () => {
 
-        if (
-            inputPassword.type === "password"
-        ) {
+        const visible =
+            inputPassword.type === "text";
 
-            inputPassword.type = "text";
 
-            btnTogglePassword.innerHTML =
-                `<i data-lucide="eye-off"
-                    class="w-5 h-5"></i>`;
+        inputPassword.type =
+            visible
+            ? "password"
+            : "text";
 
-        }
 
-        else {
+        btnTogglePassword.innerHTML =
+            visible
+            ? `<i data-lucide="eye"
+                  class="w-5 h-5"></i>`
+            : `<i data-lucide="eye-off"
+                  class="w-5 h-5"></i>`;
 
-            inputPassword.type = "password";
-
-            btnTogglePassword.innerHTML =
-                `<i data-lucide="eye"
-                    class="w-5 h-5"></i>`;
-
-        }
 
         lucide.createIcons();
 
@@ -857,15 +1420,45 @@ btnTogglePassword.addEventListener(
 );
 
 
-/* =====================================================
+btnToggleSignupPassword.addEventListener(
+    "click",
+    () => {
+
+        const visible =
+            signupPassword.type === "text";
+
+
+        signupPassword.type =
+            visible
+            ? "password"
+            : "text";
+
+
+        btnToggleSignupPassword.innerHTML =
+            visible
+            ? `<i data-lucide="eye"
+                  class="w-4 h-4"></i>`
+            : `<i data-lucide="eye-off"
+                  class="w-4 h-4"></i>`;
+
+
+        lucide.createIcons();
+
+    }
+);
+
+
+/* =========================================================
    SIGN IN
-====================================================== */
+========================================================= */
 
 signinForm.addEventListener(
     "submit",
     async (event) => {
 
         event.preventDefault();
+
+        clearMessages();
 
 
         const email =
@@ -890,7 +1483,9 @@ signinForm.addEventListener(
             btnSubmit.innerHTML;
 
 
-        btnSubmit.disabled = true;
+        btnSubmit.disabled =
+            true;
+
 
         btnSubmit.innerHTML = `
             <i data-lucide="loader-2"
@@ -899,16 +1494,11 @@ signinForm.addEventListener(
             Authenticating...
         `;
 
-        authError.classList.add("hidden");
 
         lucide.createIcons();
 
 
         try {
-
-            /*
-             * Firebase Authentication
-             */
 
             const credential =
                 await signInWithEmailAndPassword(
@@ -917,10 +1507,6 @@ signinForm.addEventListener(
                     password
                 );
 
-
-            /*
-             * Firestore role check
-             */
 
             const admin =
                 await checkAdmin(
@@ -936,10 +1522,14 @@ signinForm.addEventListener(
                     "Login successful, but this account is not authorized for the CM FILINGS Administrator Portal."
                 );
 
-                btnSubmit.disabled = false;
+
+                btnSubmit.disabled =
+                    false;
+
 
                 btnSubmit.innerHTML =
                     original;
+
 
                 lucide.createIcons();
 
@@ -948,12 +1538,8 @@ signinForm.addEventListener(
             }
 
 
-            /*
-             * ADMIN VERIFIED
-             */
-
             showSuccess(
-                "Administrator verified. Opening dashboard..."
+                "Administrator verified. Opening portal..."
             );
 
 
@@ -962,6 +1548,7 @@ signinForm.addEventListener(
                    class="w-5 h-5"></i>
                 Access Granted
             `;
+
 
             lucide.createIcons();
 
@@ -984,7 +1571,9 @@ signinForm.addEventListener(
                 "Invalid email or password.";
 
 
-            switch (error.code) {
+            switch (
+                error.code
+            ) {
 
                 case "auth/invalid-credential":
                     message =
@@ -1021,16 +1610,24 @@ signinForm.addEventListener(
                         "Network error. Please check your connection.";
                     break;
 
+                default:
+                    message =
+                        error.message ||
+                        "Unable to sign in.";
+
             }
 
 
             showError(message);
 
 
-            btnSubmit.disabled = false;
+            btnSubmit.disabled =
+                false;
+
 
             btnSubmit.innerHTML =
                 original;
+
 
             lucide.createIcons();
 
@@ -1040,9 +1637,262 @@ signinForm.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================================
+   SIGN UP
+========================================================= */
+
+signupForm.addEventListener(
+    "submit",
+    async (event) => {
+
+        event.preventDefault();
+
+        clearMessages();
+
+
+        const name =
+            signupName.value.trim();
+
+        const mobile =
+            signupMobile.value.trim();
+
+        const email =
+            signupEmail.value.trim();
+
+        const password =
+            signupPassword.value;
+
+        const file =
+            signupProfilePic.files[0];
+
+
+        if (mobile.length !== 10) {
+
+            showError(
+                "Please enter a valid 10-digit mobile number."
+            );
+
+            return;
+
+        }
+
+
+        if (password.length < 6) {
+
+            showError(
+                "Password must contain at least 6 characters."
+            );
+
+            return;
+
+        }
+
+
+        const original =
+            btnSignupSubmit.innerHTML;
+
+
+        btnSignupSubmit.disabled =
+            true;
+
+
+        btnSignupSubmit.innerHTML = `
+            <i data-lucide="loader-2"
+               class="w-4 h-4 animate-spin"></i>
+            Creating Account...
+        `;
+
+
+        lucide.createIcons();
+
+
+        try {
+
+            /*
+             * CREATE FIREBASE AUTH ACCOUNT
+             */
+
+            const credential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+
+            const user =
+                credential.user;
+
+
+            const uid =
+                user.uid;
+
+
+            let profilePicUrl =
+                "";
+
+
+            /*
+             * OPTIONAL PROFILE IMAGE
+             */
+
+            if (file) {
+
+                const storageRef =
+                    ref(
+                        storage,
+                        `profile_pictures/${uid}_${file.name}`
+                    );
+
+
+                const snapshot =
+                    await uploadBytes(
+                        storageRef,
+                        file
+                    );
+
+
+                profilePicUrl =
+                    await getDownloadURL(
+                        snapshot.ref
+                    );
+
+            }
+
+
+            /*
+             * IMPORTANT
+             *
+             * New accounts are NOT given admin
+             * privileges automatically.
+             */
+
+            const userData = {
+
+                uid: uid,
+
+                name: name,
+
+                mobile: mobile,
+
+                email: email,
+
+                profilePicUrl:
+                    profilePicUrl,
+
+                role: "user",
+
+                createdAt:
+                    new Date().toISOString()
+
+            };
+
+
+            await setDoc(
+                doc(
+                    db,
+                    "users",
+                    uid
+                ),
+                userData
+            );
+
+
+            /*
+             * Sign out immediately.
+             */
+
+            await signOut(auth);
+
+
+            showSuccess(
+                "Account created successfully. Please sign in."
+            );
+
+
+            signupForm.reset();
+
+
+            setTimeout(
+                () => {
+
+                    showSignin();
+
+                    inputEmail.value =
+                        email;
+
+                },
+                1200
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Signup error:",
+                error
+            );
+
+
+            let message =
+                "Failed to create account.";
+
+
+            switch (
+                error.code
+            ) {
+
+                case "auth/email-already-in-use":
+                    message =
+                        "An account already exists with this email.";
+                    break;
+
+                case "auth/invalid-email":
+                    message =
+                        "Please enter a valid email address.";
+                    break;
+
+                case "auth/weak-password":
+                    message =
+                        "Password is too weak.";
+                    break;
+
+                case "auth/network-request-failed":
+                    message =
+                        "Network error. Please check your connection.";
+                    break;
+
+                default:
+                    message =
+                        error.message ||
+                        message;
+
+            }
+
+
+            showError(message);
+
+
+            btnSignupSubmit.disabled =
+                false;
+
+
+            btnSignupSubmit.innerHTML =
+                original;
+
+
+            lucide.createIcons();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
    FORGOT PASSWORD
-====================================================== */
+========================================================= */
 
 btnForgotTrigger.addEventListener(
     "click",
@@ -1058,10 +1908,6 @@ btnForgotTrigger.addEventListener(
     }
 );
 
-
-/* =====================================================
-   CLOSE MODAL
-====================================================== */
 
 btnCloseModal.addEventListener(
     "click",
@@ -1080,7 +1926,8 @@ forgotModal.addEventListener(
     (event) => {
 
         if (
-            event.target === forgotModal
+            event.target ===
+            forgotModal
         ) {
 
             forgotModal.classList.add(
@@ -1093,9 +1940,9 @@ forgotModal.addEventListener(
 );
 
 
-/* =====================================================
-   RESET PASSWORD
-====================================================== */
+/* =========================================================
+   PASSWORD RESET
+========================================================= */
 
 btnSendReset.addEventListener(
     "click",
@@ -1120,13 +1967,16 @@ btnSendReset.addEventListener(
             btnSendReset.innerHTML;
 
 
-        btnSendReset.disabled = true;
+        btnSendReset.disabled =
+            true;
+
 
         btnSendReset.innerHTML = `
             <i data-lucide="loader-2"
                class="w-4 h-4 animate-spin"></i>
             Sending...
         `;
+
 
         lucide.createIcons();
 
@@ -1157,6 +2007,7 @@ btnSendReset.addEventListener(
                 error
             );
 
+
             showError(
                 "Unable to send password reset email."
             );
@@ -1165,10 +2016,13 @@ btnSendReset.addEventListener(
 
         finally {
 
-            btnSendReset.disabled = false;
+            btnSendReset.disabled =
+                false;
+
 
             btnSendReset.innerHTML =
                 original;
+
 
             lucide.createIcons();
 
@@ -1176,6 +2030,13 @@ btnSendReset.addEventListener(
 
     }
 );
+
+
+/* =========================================================
+   INITIAL ICONS
+========================================================= */
+
+lucide.createIcons();
 
 </script>
 
