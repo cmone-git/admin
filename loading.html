@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimal Navy Preloader</title>
+  <style>
+    /* --------------------------------------------------
+       1. Variables & Base Setup
+    -------------------------------------------------- */
+    :root {
+      --navy-dark: #0B192C;
+      --navy-mid: #1E3E62;
+      --navy-light: #3B82F6;
+      --bg-clean: #FFFFFF;
+      --track-light: #F1F5F9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-clean);
+      color: var(--navy-dark);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* --------------------------------------------------
+       2. Full-Screen Minimal Container
+    -------------------------------------------------- */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: var(--bg-clean);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.7s;
+    }
+
+    /* Outer Wrapper for Spacing & Alignment */
+    .loader-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 300px;
+      padding: 0 20px;
+    }
+
+    /* --------------------------------------------------
+       3. Top Component: Logo with Spinning Ring Accent
+    -------------------------------------------------- */
+    .logo-container {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Spinning outer ring around logo */
+    .spinner-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 3px solid transparent;
+      border-top-color: var(--navy-dark);
+      border-right-color: var(--navy-mid);
+      border-radius: 50%;
+      animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    }
+
+    /* Subtle static inner track */
+    .spinner-track {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 3px solid var(--track-light);
+      border-radius: 50%;
+    }
+
+    /* Icon in center */
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      z-index: 2;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* --------------------------------------------------
+       4. Bottom Component: Sleek Progress Indicator
+    -------------------------------------------------- */
+    .progress-section {
+      width: 100%;
+      text-align: center;
+    }
+
+    .brand-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--navy-dark);
+      margin-bottom: 1rem;
+    }
+
+    .progress-line-track {
+      width: 100%;
+      height: 3px;
+      background: var(--track-light);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 0.8rem;
+    }
+
+    .progress-line-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--navy-dark);
+      border-radius: 4px;
+      transition: width 0.15s ease-out;
+    }
+
+    .progress-counter {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--navy-mid);
+    }
+
+    /* --------------------------------------------------
+       5. Alternative Inverted Variant (.variant-dark)
+    -------------------------------------------------- */
+    #preloader.variant-dark {
+      background: var(--navy-dark);
+    }
+
+    #preloader.variant-dark .spinner-track {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    #preloader.variant-dark .spinner-ring {
+      border-top-color: #FFFFFF;
+      border-right-color: rgba(255, 255, 255, 0.4);
+    }
+
+    #preloader.variant-dark .brand-logo path {
+      fill: #FFFFFF;
+    }
+
+    #preloader.variant-dark .brand-title,
+    #preloader.variant-dark .progress-counter {
+      color: #FFFFFF;
+    }
+
+    #preloader.variant-dark .progress-line-track {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    #preloader.variant-dark .progress-line-fill {
+      background: #FFFFFF;
+    }
+
+    /* Utility */
+    .fade-out {
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .logo-container {
+        width: 84px;
+        height: 84px;
+      }
+      .brand-logo {
+        width: 36px;
+        height: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= PRELOADER START ================= -->
+  <!-- TIP: Add class "variant-dark" to #preloader for the matching solid Navy BG variant -->
+  <div id="preloader" aria-busy="true" aria-live="polite">
+    <div class="loader-wrapper">
+      
+      <!-- Top Component: Ring Spinner + Logo -->
+      <div class="logo-container">
+        <div class="spinner-track"></div>
+        <div class="spinner-ring"></div>
+        <!-- Replace SVG path with your icon or <img> asset -->
+        <svg class="brand-logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 5L35 32H5L20 5Z" fill="#0B192C"/>
+        </svg>
+      </div>
+
+      <!-- Bottom Component: Minimal Bar & Counter -->
+      <div class="progress-section">
+        <div class="brand-title">Studio</div>
+        <div class="progress-line-track">
+          <div id="progress-fill" class="progress-line-fill"></div>
+        </div>
+        <div class="progress-counter">
+          <span id="progress-text">0</span>%
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- ================= PRELOADER END ================= -->
+
+  <!-- Main Content Sample -->
+  <main style="padding: 4rem 2rem; text-align: center;">
+    <h1 style="color: #0B192C; font-size: 2rem;">Main Content</h1>
+    <p style="color: #1E3E62; margin-top: 0.5rem;">Preloader sequence complete.</p>
+  </main>
+
+  <!-- ================= SCRIPT ================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const progressFill = document.getElementById("progress-fill");
+      const progressText = document.getElementById("progress-text");
+      const preloader = document.getElementById("preloader");
+
+      let progress = 0;
+
+      // Realistic non-linear progress simulation
+      const updateProgress = () => {
+        const increment = Math.floor(Math.random() * 12) + 2;
+        progress = Math.min(progress + increment, 100);
+
+        progressFill.style.width = `${progress}%`;
+        progressText.textContent = progress;
+
+        if (progress < 100) {
+          const delay = Math.floor(Math.random() * 80) + 40;
+          setTimeout(updateProgress, delay);
+        } else {
+          setTimeout(() => {
+            preloader.classList.add("fade-out");
+            document.body.style.overflow = "auto";
+          }, 350);
+        }
+      };
+
+      updateProgress();
+    });
+  </script>
+</body>
+</html>
