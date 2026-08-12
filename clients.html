@@ -1,597 +1,4407 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Directory - CM FILINGS</title>
-    
-    <!-- PWA & Favicon Assets -->
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
-    <meta name="theme-color" content="#071D49">
 
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+<meta charset="UTF-8">
 
-    <!-- Tailwind Configuration -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            red: '#B10000',
-                            redhover: '#8A0000',
-                            redlight: '#FDF2F2',
-                            navy: '#071D49',
-                            navyhover: '#102a5c',
-                            light: '#F4F5F7',
-                            white: '#FFFFFF'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<title>Clients - CM FILINGS</title>
+
+<link rel="icon"
+      type="image/png"
+      href="assets/logo.png">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+
+tailwind.config = {
+
+    theme: {
+
+        extend: {
+
+            colors: {
+
+                brand: {
+
+                    red: '#B10000',
+
+                    redhover: '#8A0000',
+
+                    redlight: '#FDF2F2',
+
+                    navy: '#071D49',
+
+                    navyhover: '#102A5C',
+
+                    light: '#F4F5F7'
+
                 }
+
+            },
+
+            fontFamily: {
+
+                sans: [
+                    'Inter',
+                    'Arial',
+                    'sans-serif'
+                ]
+
             }
-        }
-    </script>
 
-    <style>
-        html { scroll-behavior: smooth; }
-        .hero-pattern {
-            background-color: #F4F5F7;
-            background-image: radial-gradient(rgba(7, 29, 73, 0.05) 1px, transparent 1px);
-            background-size: 28px 28px;
         }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-    </style>
+
+    }
+
+};
+
+</script>
+
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+
+    margin:0;
+
+    padding:0;
+
+    width:100%;
+
+    min-height:100%;
+
+    background:#F4F5F7;
+
+    font-family:Inter,Arial,sans-serif;
+
+    color:#334155;
+
+}
+
+body{
+
+    overflow-x:hidden;
+
+}
+
+.hero-pattern{
+
+    background-color:#F4F5F7;
+
+    background-image:
+        radial-gradient(
+            rgba(7,29,73,.045) 1px,
+            transparent 1px
+        );
+
+    background-size:28px 28px;
+
+}
+
+::-webkit-scrollbar{
+
+    width:5px;
+
+    height:5px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#CBD5E1;
+
+    border-radius:10px;
+
+}
+
+
+/* =========================================================
+   MODULE HEADER
+========================================================= */
+
+.module-title{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    margin-bottom:18px;
+
+}
+
+.module-title-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    min-width:0;
+
+}
+
+.module-icon{
+
+    width:42px;
+
+    height:42px;
+
+    flex-shrink:0;
+
+    border-radius:12px;
+
+    background:#071D49;
+
+    color:#FFFFFF;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.module-kicker{
+
+    font-size:9px;
+
+    font-weight:900;
+
+    letter-spacing:.12em;
+
+    text-transform:uppercase;
+
+    color:#B10000;
+
+    margin-bottom:2px;
+
+}
+
+.module-heading{
+
+    margin:0;
+
+    font-size:21px;
+
+    line-height:1.1;
+
+    font-weight:900;
+
+    letter-spacing:-.03em;
+
+    color:#071D49;
+
+}
+
+.module-description{
+
+    margin-top:4px;
+
+    font-size:11px;
+
+    line-height:1.5;
+
+    font-weight:600;
+
+    color:#94A3B8;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.primary-button{
+
+    min-height:42px;
+
+    padding:0 14px;
+
+    border:0;
+
+    border-radius:11px;
+
+    background:#B10000;
+
+    color:#FFFFFF;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+}
+
+.primary-button:hover{
+
+    background:#8A0000;
+
+}
+
+.primary-button:active{
+
+    transform:scale(.98);
+
+}
+
+
+/* =========================================================
+   KPI
+========================================================= */
+
+.kpi-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#FFFFFF;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:18px;
+
+    padding:17px;
+
+    box-shadow:
+        0 2px 8px rgba(15,23,42,.035);
+
+}
+
+.kpi-icon{
+
+    width:43px;
+
+    height:43px;
+
+    border-radius:12px;
+
+    background:#EFF6FF;
+
+    color:#2563EB;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.kpi-label{
+
+    margin-top:10px;
+
+    font-size:9px;
+
+    font-weight:900;
+
+    color:#94A3B8;
+
+    text-transform:uppercase;
+
+    letter-spacing:.09em;
+
+}
+
+.kpi-value{
+
+    margin-top:3px;
+
+    font-size:25px;
+
+    line-height:1;
+
+    font-weight:950;
+
+    color:#071D49;
+
+}
+
+
+/* =========================================================
+   FILTER BAR
+========================================================= */
+
+.filter-card{
+
+    background:#FFFFFF;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:17px;
+
+    padding:12px;
+
+    box-shadow:
+        0 2px 8px rgba(15,23,42,.025);
+
+}
+
+.search-box{
+
+    min-height:40px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:#F8FAFC;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:10px;
+
+    padding:0 10px;
+
+}
+
+.search-box:focus-within{
+
+    border-color:#071D49;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(7,29,73,.06);
+
+}
+
+.search-box input{
+
+    width:100%;
+
+    min-width:0;
+
+    border:0;
+
+    outline:0;
+
+    background:transparent;
+
+    color:#334155;
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+.search-box input::placeholder{
+
+    color:#94A3B8;
+
+}
+
+.sort-select{
+
+    min-height:40px;
+
+    padding:0 11px;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:10px;
+
+    background:#F8FAFC;
+
+    color:#475569;
+
+    outline:none;
+
+    font-size:10px;
+
+    font-weight:800;
+
+}
+
+
+/* =========================================================
+   CLIENT CARD
+========================================================= */
+
+.client-card{
+
+    background:#FFFFFF;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:16px;
+
+    padding:15px;
+
+    box-shadow:
+        0 2px 7px rgba(15,23,42,.025);
+
+    transition:
+        box-shadow .15s ease,
+        border-color .15s ease;
+
+}
+
+.client-card:hover{
+
+    border-color:#CBD5E1;
+
+    box-shadow:
+        0 5px 16px rgba(15,23,42,.06);
+
+}
+
+.client-name{
+
+    font-size:14px;
+
+    font-weight:900;
+
+    color:#071D49;
+
+    word-break:break-word;
+
+}
+
+.client-meta{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:7px 15px;
+
+    margin-top:8px;
+
+    color:#64748B;
+
+    font-size:10px;
+
+    font-family:ui-monospace,
+                SFMono-Regular,
+                Menlo,
+                Monaco,
+                Consolas,
+                monospace;
+
+}
+
+.client-meta strong{
+
+    color:#334155;
+
+}
+
+.client-id{
+
+    color:#B10000 !important;
+
+    font-weight:900;
+
+}
+
+.client-contact{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    margin-top:8px;
+
+    color:#64748B;
+
+    font-size:10px;
+
+    font-weight:700;
+
+}
+
+.status-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:3px 7px;
+
+    border-radius:6px;
+
+    border:1px solid;
+
+    font-size:8px;
+
+    line-height:1;
+
+    font-weight:900;
+
+    text-transform:uppercase;
+
+    letter-spacing:.07em;
+
+}
+
+.status-active{
+
+    background:#ECFDF5;
+
+    border-color:#A7F3D0;
+
+    color:#059669;
+
+}
+
+.status-regular{
+
+    background:#EFF6FF;
+
+    border-color:#BFDBFE;
+
+    color:#2563EB;
+
+}
+
+.status-inactive{
+
+    background:#F8FAFC;
+
+    border-color:#E2E8F0;
+
+    color:#64748B;
+
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.action-button{
+
+    min-width:38px;
+
+    height:38px;
+
+    padding:0 10px;
+
+    border-radius:10px;
+
+    border:1px solid #E2E8F0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:5px;
+
+    font-size:9px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+}
+
+.action-call{
+
+    background:#ECFDF5;
+
+    border-color:#A7F3D0;
+
+    color:#059669;
+
+}
+
+.action-whatsapp{
+
+    background:#F0FDF4;
+
+    border-color:#BBF7D0;
+
+    color:#16A34A;
+
+}
+
+.action-view{
+
+    background:#F8FAFC;
+
+    color:#475569;
+
+}
+
+.action-view:hover{
+
+    background:#F1F5F9;
+
+    color:#071D49;
+
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.modal-backdrop{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:5000;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:15px;
+
+    background:
+        rgba(7,29,73,.54);
+
+    backdrop-filter:blur(5px);
+
+}
+
+.modal-card{
+
+    width:100%;
+
+    max-width:520px;
+
+    max-height:92vh;
+
+    overflow:hidden;
+
+    background:#FFFFFF;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 24px 70px
+        rgba(0,0,0,.20);
+
+}
+
+.modal-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    padding:17px 18px;
+
+    border-bottom:1px solid #F1F5F9;
+
+}
+
+.modal-title{
+
+    font-size:15px;
+
+    font-weight:900;
+
+    color:#071D49;
+
+}
+
+.close-button{
+
+    width:34px;
+
+    height:34px;
+
+    border:0;
+
+    border-radius:9px;
+
+    background:#F8FAFC;
+
+    color:#64748B;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+}
+
+.close-button:hover{
+
+    color:#B10000;
+
+    background:#FEF2F2;
+
+}
+
+.modal-body{
+
+    padding:17px 18px;
+
+    overflow-y:auto;
+
+    max-height:calc(92vh - 150px);
+
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.field-label{
+
+    display:block;
+
+    margin-bottom:5px;
+
+    font-size:9px;
+
+    font-weight:900;
+
+    color:#94A3B8;
+
+    text-transform:uppercase;
+
+    letter-spacing:.07em;
+
+}
+
+.field-input{
+
+    width:100%;
+
+    min-height:41px;
+
+    padding:10px 11px;
+
+    border:1px solid #CBD5E1;
+
+    border-radius:10px;
+
+    background:#FFFFFF;
+
+    color:#071D49;
+
+    outline:none;
+
+    font-size:11px;
+
+    font-weight:650;
+
+}
+
+.field-input:focus{
+
+    border-color:#071D49;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(7,29,73,.06);
+
+}
+
+textarea.field-input{
+
+    resize:vertical;
+
+    min-height:75px;
+
+}
+
+
+/* =========================================================
+   EMPTY / LOADING
+========================================================= */
+
+.empty-state{
+
+    padding:42px 20px;
+
+    text-align:center;
+
+    color:#94A3B8;
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+.empty-icon{
+
+    width:45px;
+
+    height:45px;
+
+    margin:0 auto 10px;
+
+    border-radius:12px;
+
+    background:#F8FAFC;
+
+    color:#94A3B8;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:640px){
+
+    .module-title{
+
+        align-items:flex-start;
+
+    }
+
+    .module-heading{
+
+        font-size:19px;
+
+    }
+
+    .module-description{
+
+        display:none;
+
+    }
+
+    .primary-button{
+
+        width:42px;
+
+        padding:0;
+
+        font-size:0;
+
+    }
+
+    .primary-button svg{
+
+        width:18px;
+
+        height:18px;
+
+    }
+
+    .filter-card{
+
+        padding:9px;
+
+    }
+
+    .client-card{
+
+        padding:13px;
+
+    }
+
+    .client-meta{
+
+        gap:6px 10px;
+
+    }
+
+    .action-button{
+
+        min-width:36px;
+
+        height:36px;
+
+    }
+
+}
+
+</style>
+
 </head>
-<body class="font-sans text-slate-700 bg-brand-light antialiased selection:bg-brand-redlight selection:text-brand-red flex flex-col min-h-screen">
 
-    <!-- APP LOADER -->
-    <div id="app-loader" class="fixed inset-0 bg-brand-light z-[100] flex flex-col items-center justify-center">
-        <i data-lucide="loader-2" class="w-10 h-10 text-brand-navy animate-spin mb-4"></i>
-        <p class="text-sm font-bold text-slate-500 tracking-widest uppercase">Loading Directory...</p>
-    </div>
 
-    <!-- MAIN APP WRAPPER -->
-    <div id="main-app" class="hidden flex-col min-h-screen">
-        
-        <!-- NAVIGATION WITH HEADER ADD BUTTON -->
-        <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-20">
-                    <div class="flex items-center gap-4">
-                        <a href="index.html" class="flex items-center gap-3 group border-r border-slate-200 pr-4">
-                            <div class="w-10 h-10 bg-brand-navy rounded-lg flex items-center justify-center text-white shadow-sm transition-colors">
-                                <i data-lucide="users" class="w-5 h-5"></i>
-                            </div>
-                            <div class="flex flex-col">
-                                <span class="font-extrabold text-xl tracking-tight text-brand-navy leading-none">CM FILINGS</span>
-                                <span class="text-[9px] font-bold text-brand-red uppercase tracking-widest leading-none mt-1">Client Directory</span>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- Header Add Button -->
-                    <button id="btn-open-add-modal" class="px-4 py-2.5 bg-brand-red text-white font-bold rounded-xl shadow-md hover:bg-brand-redhover transition-colors flex items-center gap-2 text-xs">
-                        <i data-lucide="user-plus" class="w-4 h-4"></i> Add Client
-                    </button>
-                </div>
-            </div>
-        </header>
+<body>
 
-        <!-- MAIN CONTENT -->
-        <main class="flex-1 hero-pattern py-8 relative">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
-                
-                <!-- KPI CARD -->
-                <div class="grid grid-cols-1 gap-6 mb-6">
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-6 relative overflow-hidden group">
-                        <div class="absolute -right-6 -top-6 w-32 h-32 bg-blue-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
-                        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 shrink-0 relative z-10">
-                            <i data-lucide="users" class="w-7 h-7"></i>
-                        </div>
-                        <div class="relative z-10">
-                            <p class="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-1">Total Registered Clients</p>
-                            <h3 class="text-3xl font-black text-brand-navy leading-none tracking-tight" id="kpi-total-clients">0</h3>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- DIRECTORY CONTAINER -->
-                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                        <h3 class="text-lg font-bold text-brand-navy flex items-center gap-2">
-                            <i data-lucide="database" class="w-5 h-5 text-brand-red"></i> Client Records
-                        </h3>
-                        
-                        <!-- FILTERS -->
-                        <div class="flex flex-wrap items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-100">
-                            <div class="relative flex-1 sm:flex-none">
-                                <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-                                <input type="text" id="search-input" placeholder="Search name, PAN, mobile..." class="text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-lg pl-9 pr-3 py-2 outline-none hover:border-brand-navy transition-colors w-full sm:w-48">
-                            </div>
+<!-- =========================================================
+     LOADING
+========================================================= -->
 
-                            <select id="sort-select" class="text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-lg px-3 py-2 outline-none hover:border-brand-navy transition-colors cursor-pointer">
-                                <option value="name-asc">Sort: Name (A-Z)</option>
-                                <option value="name-desc">Sort: Name (Z-A)</option>
-                                <option value="id-asc">Sort: Client ID</option>
-                                <option value="date-desc">Sort: Newest</option>
-                            </select>
-                        </div>
-                    </div>
+<div
+    id="app-loader"
+    class="fixed inset-0 z-[6000]
+           flex flex-col
+           items-center
+           justify-center
+           bg-[#F4F5F7]"
+>
 
-                    <!-- CLIENT BAR LIST CONTAINER (No Horizontal Scroll) -->
-                    <div id="clients-list-container" class="space-y-3">
-                        <div class="p-8 text-center text-slate-400 font-medium">Loading client directory...</div>
-                    </div>
-                </div>
+    <i
+        data-lucide="loader-2"
+        class="w-9 h-9
+               text-[#071D49]
+               animate-spin
+               mb-3"
+    ></i>
+
+    <p
+        class="text-[10px]
+               font-black
+               tracking-widest
+               uppercase
+               text-slate-500"
+    >
+        Loading Clients...
+    </p>
+
+</div>
+
+
+<!-- =========================================================
+     MODULE
+========================================================= -->
+
+<main
+    id="main-app"
+    class="hidden hero-pattern
+           min-h-screen
+           px-4
+           py-5
+           sm:px-6
+           sm:py-7"
+>
+
+<div class="max-w-5xl mx-auto">
+
+
+    <!-- =====================================================
+         MODULE TITLE
+    ====================================================== -->
+
+    <div class="module-title">
+
+        <div class="module-title-left">
+
+            <div class="module-icon">
+
+                <i
+                    data-lucide="users"
+                    class="w-5 h-5"
+                ></i>
 
             </div>
-        </main>
 
-        <!-- ADD / EDIT CLIENT MODAL -->
-        <div id="client-modal" class="hidden fixed inset-0 bg-brand-navy/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 id="modal-title" class="text-lg font-bold text-brand-navy">Add New Client</h3>
-                    <button id="btn-close-modal" class="text-slate-400 hover:text-brand-red"><i data-lucide="x" class="w-5 h-5"></i></button>
+
+            <div class="min-w-0">
+
+                <div class="module-kicker">
+                    Client Management
                 </div>
-                
-                <form id="client-form" class="space-y-4 max-h-[70vh] overflow-y-auto pr-1">
-                    <input type="hidden" id="form-firebase-id">
-                    
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Client ID</label>
-                            <input type="text" id="form-client-id" placeholder="e.g. CLI001" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-mono font-bold uppercase outline-none bg-white">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Status</label>
-                            <select id="form-status" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none bg-white">
-                                <option value="Active">Active</option>
-                                <option value="Regular">Regular</option>
-                                <option value="Non Active">Non Active</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Client Name *</label>
-                        <input type="text" id="form-client-name" required class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none bg-white" placeholder="Full Name or Business Name">
-                    </div>
+                <h1 class="module-heading">
+                    Clients
+                </h1>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <div class="flex justify-between items-center mb-1">
-                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Mobile (10 Digits) *</label>
-                                <button type="button" id="btn-pick-contact" class="text-[10px] font-bold text-brand-red hover:underline flex items-center gap-1">
-                                    <i data-lucide="contact" class="w-3 h-3"></i> Pick Contact
-                                </button>
-                            </div>
-                            <input type="tel" id="form-mobile" required pattern="[0-9]{10}" maxlength="10" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-mono font-bold outline-none bg-white" placeholder="9876543210">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Email</label>
-                            <input type="email" id="form-email" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs outline-none bg-white" placeholder="client@email.com">
-                        </div>
-                    </div>
+                <p class="module-description">
+                    Manage registered clients, contact details,
+                    statutory information and client records.
+                </p>
 
-                    <div class="grid grid-cols-3 gap-3">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">PAN</label>
-                            <input type="text" id="form-pan" maxlength="10" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-mono uppercase outline-none bg-white" placeholder="PAN">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Adhaar</label>
-                            <input type="text" id="form-adhar" maxlength="12" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-mono outline-none bg-white" placeholder="Adhaar">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">GSTIN</label>
-                            <input type="text" id="form-gstin" maxlength="15" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-mono uppercase outline-none bg-white" placeholder="GST">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Address</label>
-                        <textarea id="form-address" rows="2" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs outline-none bg-white resize-none" placeholder="Client street address..."></textarea>
-                    </div>
-
-                    <button type="submit" id="btn-save-client" class="w-full py-3.5 bg-brand-navy text-white font-bold rounded-xl shadow-md hover:bg-brand-navyhover transition-colors flex items-center justify-center gap-2 mt-4 text-xs">
-                        Save Client Profile
-                    </button>
-                </form>
             </div>
+
         </div>
 
-        <!-- VIEW DETAILS MODAL -->
-        <div id="view-modal" class="hidden fixed inset-0 bg-brand-navy/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200">
-                <div class="flex justify-between items-center mb-6 border-b border-slate-100 pb-4">
-                    <div>
-                        <h3 id="view-name" class="text-lg font-extrabold text-brand-navy">Client Name</h3>
-                        <p class="text-xs font-mono text-brand-red font-bold" id="view-id">ID: ---</p>
-                    </div>
-                    <button id="btn-close-view" class="text-slate-400 hover:text-brand-red"><i data-lucide="x" class="w-5 h-5"></i></button>
-                </div>
-                
-                <div class="space-y-3 text-xs">
-                    <div class="flex justify-between py-1.5 border-b border-slate-50"><span class="font-bold text-slate-400">Mobile:</span> <span id="view-mobile" class="font-mono font-semibold">---</span></div>
-                    <div class="flex justify-between py-1.5 border-b border-slate-50"><span class="font-bold text-slate-400">Email:</span> <span id="view-email" class="font-medium">---</span></div>
-                    <div class="flex justify-between py-1.5 border-b border-slate-50"><span class="font-bold text-slate-400">PAN:</span> <span id="view-pan" class="font-mono font-semibold uppercase">---</span></div>
-                    <div class="flex justify-between py-1.5 border-b border-slate-50"><span class="font-bold text-slate-400">Adhaar:</span> <span id="view-adhar" class="font-mono font-semibold">---</span></div>
-                    <div class="flex justify-between py-1.5 border-b border-slate-50"><span class="font-bold text-slate-400">GSTIN:</span> <span id="view-gstin" class="font-mono font-semibold uppercase">---</span></div>
-                    <div class="flex justify-between py-1.5 border-b border-slate-50"><span class="font-bold text-slate-400">Status:</span> <span id="view-status" class="font-bold">---</span></div>
-                    <div class="pt-2"><span class="block font-bold text-slate-400 mb-1">Address:</span> <p id="view-address" class="text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-100">---</p></div>
-                </div>
 
-                <div class="flex gap-3 mt-6">
-                    <button id="btn-modal-edit" class="flex-1 py-3 bg-brand-navy text-white font-bold rounded-xl shadow-sm hover:bg-brand-navyhover transition-colors text-xs flex items-center justify-center gap-1.5">
-                        <i data-lucide="edit-2" class="w-3.5 h-3.5"></i> Edit Profile
-                    </button>
-                    <button id="btn-modal-delete" class="flex-1 py-3 bg-red-50 text-brand-red font-bold rounded-xl shadow-sm hover:bg-red-100 transition-colors text-xs flex items-center justify-center gap-1.5 border border-brand-red/20">
-                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Delete Client
-                    </button>
-                </div>
-            </div>
-        </div>
+        <button
+            id="btn-open-add-modal"
+            type="button"
+            class="primary-button"
+            title="Add Client"
+        >
 
-        <!-- FOOTER -->
-        <footer class="bg-white border-t border-slate-200 pt-8 pb-8 mt-auto">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-xs font-medium text-slate-500">
-                <p>&copy; 2026 CM Filings. Client Portal.</p>
-                <div class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-brand-red"></i> Secure Portal</div>
-            </div>
-        </footer>
+            <i
+                data-lucide="user-plus"
+                class="w-4 h-4"
+            ></i>
+
+            <span>
+                Add Client
+            </span>
+
+        </button>
+
     </div>
 
-    <!-- FIREBASE & LOGIC SCRIPT -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, doc, setDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
-            authDomain: "cmfilings-6a37c.firebaseapp.com",
-            projectId: "cmfilings-6a37c",
-            storageBucket: "cmfilings-6a37c.firebasestorage.app",
-            messagingSenderId: "138705123778",
-            appId: "1:138705123778:web:9561bff9f0f5d89bb6fe5b"
-        };
+    <!-- =====================================================
+         KPI
+    ====================================================== -->
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    <div
+        class="grid
+               grid-cols-1
+               sm:grid-cols-2
+               gap-4
+               mb-4"
+    >
+
+        <div class="kpi-card">
+
+            <div class="kpi-icon">
+
+                <i
+                    data-lucide="users"
+                    class="w-5 h-5"
+                ></i>
+
+            </div>
+
+            <div class="kpi-label">
+                Total Registered Clients
+            </div>
+
+            <div
+                id="kpi-total-clients"
+                class="kpi-value"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+            <div
+                class="kpi-icon"
+                style="
+                    background:#ECFDF5;
+                    color:#059669;
+                "
+            >
+
+                <i
+                    data-lucide="user-check"
+                    class="w-5 h-5"
+                ></i>
+
+            </div>
+
+            <div class="kpi-label">
+                Active Clients
+            </div>
+
+            <div
+                id="kpi-active-clients"
+                class="kpi-value"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         FILTER / SEARCH
+    ====================================================== -->
+
+    <div class="filter-card mb-4">
+
+        <div
+            class="flex
+                   flex-col
+                   sm:flex-row
+                   gap-2"
+        >
+
+            <div
+                class="search-box
+                       flex-1"
+            >
+
+                <i
+                    data-lucide="search"
+                    class="w-4 h-4
+                           text-slate-400
+                           flex-shrink-0"
+                ></i>
+
+                <input
+                    id="search-input"
+                    type="search"
+                    autocomplete="off"
+                    placeholder="Search name, ID, PAN, GSTIN, mobile..."
+                >
+
+                <button
+                    id="clear-search"
+                    type="button"
+                    class="hidden
+                           text-slate-400
+                           hover:text-[#B10000]"
+                    title="Clear search"
+                >
+
+                    <i
+                        data-lucide="x-circle"
+                        class="w-4 h-4"
+                    ></i>
+
+                </button>
+
+            </div>
+
+
+            <select
+                id="sort-select"
+                class="sort-select
+                       sm:w-[180px]"
+            >
+
+                <option value="name-asc">
+                    Name A-Z
+                </option>
+
+                <option value="name-desc">
+                    Name Z-A
+                </option>
+
+                <option value="id-asc">
+                    Client ID
+                </option>
+
+                <option value="date-desc">
+                    Newest First
+                </option>
+
+                <option value="date-asc">
+                    Oldest First
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CLIENT RECORDS
+    ====================================================== -->
+
+    <section
+        class="bg-white
+               border
+               border-slate-200
+               rounded-[18px]
+               overflow-hidden
+               shadow-sm"
+    >
+
+        <div
+            class="px-4
+                   sm:px-5
+                   py-4
+                   border-b
+                   border-slate-100
+                   flex
+                   items-center
+                   justify-between
+                   gap-3"
+        >
+
+            <div>
+
+                <h2
+                    class="text-sm
+                           font-black
+                           text-[#071D49]"
+                >
+                    Client Records
+                </h2>
+
+                <p
+                    id="result-count"
+                    class="mt-0.5
+                           text-[9px]
+                           font-bold
+                           text-slate-400"
+                >
+                    Loading...
+                </p>
+
+            </div>
+
+
+            <div
+                class="text-[9px]
+                       font-black
+                       uppercase
+                       tracking-wider
+                       text-slate-400"
+            >
+                Live Data
+            </div>
+
+        </div>
+
+
+        <div
+            id="clients-list-container"
+            class="p-3
+                   sm:p-4
+                   space-y-2.5"
+        >
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+
+                    <i
+                        data-lucide="loader-2"
+                        class="w-5 h-5 animate-spin"
+                    ></i>
+
+                </div>
+
+                Loading client directory...
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+</main>
+
+
+<!-- =========================================================
+     ADD / EDIT MODAL
+========================================================= -->
+
+<div
+    id="client-modal"
+    class="hidden modal-backdrop"
+>
+
+    <div class="modal-card">
+
+
+        <div class="modal-header">
+
+            <div>
+
+                <div
+                    id="modal-kicker"
+                    class="text-[9px]
+                           font-black
+                           uppercase
+                           tracking-widest
+                           text-[#B10000]"
+                >
+                    Client Management
+                </div>
+
+                <h3
+                    id="modal-title"
+                    class="modal-title mt-1"
+                >
+                    Add New Client
+                </h3>
+
+            </div>
+
+
+            <button
+                id="btn-close-modal"
+                type="button"
+                class="close-button"
+            >
+
+                <i
+                    data-lucide="x"
+                    class="w-4 h-4"
+                ></i>
+
+            </button>
+
+        </div>
+
+
+        <form
+            id="client-form"
+            class="modal-body space-y-4"
+        >
+
+            <input
+                type="hidden"
+                id="form-firebase-id"
+            >
+
+
+            <!-- CLIENT ID / STATUS -->
+
+            <div
+                class="grid
+                       grid-cols-2
+                       gap-3"
+            >
+
+                <div>
+
+                    <label
+                        class="field-label"
+                        for="form-client-id"
+                    >
+                        Client ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="form-client-id"
+                        class="field-input
+                               font-mono
+                               uppercase"
+                        placeholder="CLI00001"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label
+                        class="field-label"
+                        for="form-status"
+                    >
+                        Status
+                    </label>
+
+                    <select
+                        id="form-status"
+                        class="field-input"
+                    >
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Regular">
+                            Regular
+                        </option>
+
+                        <option value="Non Active">
+                            Non Active
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- NAME -->
+
+            <div>
+
+                <label
+                    class="field-label"
+                    for="form-client-name"
+                >
+                    Client Name *
+                </label>
+
+                <input
+                    type="text"
+                    id="form-client-name"
+                    required
+                    class="field-input"
+                    placeholder="Full Name / Business Name"
+                >
+
+            </div>
+
+
+            <!-- MOBILE / EMAIL -->
+
+            <div
+                class="grid
+                       grid-cols-1
+                       sm:grid-cols-2
+                       gap-3"
+            >
+
+                <div>
+
+                    <div
+                        class="flex
+                               items-center
+                               justify-between
+                               gap-2
+                               mb-1"
+                    >
+
+                        <label
+                            class="field-label mb-0"
+                            for="form-mobile"
+                        >
+                            Mobile *
+                        </label>
+
+
+                        <button
+                            type="button"
+                            id="btn-pick-contact"
+                            class="text-[9px]
+                                   font-black
+                                   text-[#B10000]
+                                   flex
+                                   items-center
+                                   gap-1"
+                        >
+
+                            <i
+                                data-lucide="contact"
+                                class="w-3 h-3"
+                            ></i>
+
+                            Pick Contact
+
+                        </button>
+
+                    </div>
+
+
+                    <input
+                        type="tel"
+                        id="form-mobile"
+                        required
+                        maxlength="10"
+                        pattern="[0-9]{10}"
+                        inputmode="numeric"
+                        class="field-input font-mono"
+                        placeholder="9876543210"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label
+                        class="field-label"
+                        for="form-email"
+                    >
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="form-email"
+                        class="field-input"
+                        placeholder="client@email.com"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- PAN / AADHAAR / GST -->
+
+            <div
+                class="grid
+                       grid-cols-1
+                       sm:grid-cols-3
+                       gap-3"
+            >
+
+                <div>
+
+                    <label
+                        class="field-label"
+                        for="form-pan"
+                    >
+                        PAN
+                    </label>
+
+                    <input
+                        type="text"
+                        id="form-pan"
+                        maxlength="10"
+                        class="field-input
+                               font-mono
+                               uppercase"
+                        placeholder="ABCDE1234F"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label
+                        class="field-label"
+                        for="form-adhar"
+                    >
+                        Aadhaar
+                    </label>
+
+                    <input
+                        type="text"
+                        id="form-adhar"
+                        maxlength="12"
+                        inputmode="numeric"
+                        class="field-input
+                               font-mono"
+                        placeholder="12 digit Aadhaar"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label
+                        class="field-label"
+                        for="form-gstin"
+                    >
+                        GSTIN
+                    </label>
+
+                    <input
+                        type="text"
+                        id="form-gstin"
+                        maxlength="15"
+                        class="field-input
+                               font-mono
+                               uppercase"
+                        placeholder="GSTIN"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div>
+
+                <label
+                    class="field-label"
+                    for="form-address"
+                >
+                    Address
+                </label>
+
+                <textarea
+                    id="form-address"
+                    rows="3"
+                    class="field-input"
+                    placeholder="Client registered / residential address..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- SAVE -->
+
+            <button
+                type="submit"
+                id="btn-save-client"
+                class="w-full
+                       min-h-[45px]
+                       rounded-xl
+                       bg-[#071D49]
+                       text-white
+                       font-black
+                       text-[11px]
+                       flex
+                       items-center
+                       justify-center
+                       gap-2
+                       hover:bg-[#102A5C]"
+            >
+
+                <i
+                    data-lucide="save"
+                    class="w-4 h-4"
+                ></i>
+
+                Save Client Profile
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     VIEW MODAL
+========================================================= -->
+
+<div
+    id="view-modal"
+    class="hidden modal-backdrop"
+>
+
+    <div class="modal-card max-w-[480px]">
+
+
+        <div class="modal-header">
+
+            <div class="min-w-0">
+
+                <div
+                    id="view-name"
+                    class="text-base
+                           font-black
+                           text-[#071D49]
+                           break-words"
+                >
+                    Client Name
+                </div>
+
+                <div
+                    id="view-id"
+                    class="mt-1
+                           text-[9px]
+                           font-mono
+                           font-black
+                           text-[#B10000]"
+                >
+                    ID: ---
+                </div>
+
+            </div>
+
+
+            <button
+                id="btn-close-view"
+                type="button"
+                class="close-button"
+            >
+
+                <i
+                    data-lucide="x"
+                    class="w-4 h-4"
+                ></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+
+            <!-- STATUS -->
+
+            <div
+                class="flex
+                       items-center
+                       justify-between
+                       gap-3
+                       mb-4
+                       rounded-xl
+                       bg-slate-50
+                       border
+                       border-slate-100
+                       p-3"
+            >
+
+                <span
+                    class="text-[9px]
+                           font-black
+                           uppercase
+                           tracking-wider
+                           text-slate-400"
+                >
+                    Client Status
+                </span>
+
+                <span
+                    id="view-status"
+                    class="status-badge status-active"
+                >
+                    Active
+                </span>
+
+            </div>
+
+
+            <!-- DETAILS -->
+
+            <div class="space-y-0">
+
+
+                <div
+                    class="flex
+                           justify-between
+                           gap-4
+                           py-3
+                           border-b
+                           border-slate-100"
+                >
+
+                    <span
+                        class="text-[10px]
+                               font-black
+                               text-slate-400"
+                    >
+                        Mobile
+                    </span>
+
+                    <span
+                        id="view-mobile"
+                        class="text-[11px]
+                               font-bold
+                               font-mono
+                               text-slate-700
+                               text-right"
+                    >
+                        ---
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="flex
+                           justify-between
+                           gap-4
+                           py-3
+                           border-b
+                           border-slate-100"
+                >
+
+                    <span
+                        class="text-[10px]
+                               font-black
+                               text-slate-400"
+                    >
+                        Email
+                    </span>
+
+                    <span
+                        id="view-email"
+                        class="text-[11px]
+                               font-semibold
+                               text-slate-700
+                               text-right
+                               break-all"
+                    >
+                        ---
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="flex
+                           justify-between
+                           gap-4
+                           py-3
+                           border-b
+                           border-slate-100"
+                >
+
+                    <span
+                        class="text-[10px]
+                               font-black
+                               text-slate-400"
+                    >
+                        PAN
+                    </span>
+
+                    <span
+                        id="view-pan"
+                        class="text-[11px]
+                               font-bold
+                               font-mono
+                               uppercase
+                               text-slate-700
+                               text-right"
+                    >
+                        ---
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="flex
+                           justify-between
+                           gap-4
+                           py-3
+                           border-b
+                           border-slate-100"
+                >
+
+                    <span
+                        class="text-[10px]
+                               font-black
+                               text-slate-400"
+                    >
+                        Aadhaar
+                    </span>
+
+                    <span
+                        id="view-adhar"
+                        class="text-[11px]
+                               font-bold
+                               font-mono
+                               text-slate-700
+                               text-right"
+                    >
+                        ---
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="flex
+                           justify-between
+                           gap-4
+                           py-3
+                           border-b
+                           border-slate-100"
+                >
+
+                    <span
+                        class="text-[10px]
+                               font-black
+                               text-slate-400"
+                    >
+                        GSTIN
+                    </span>
+
+                    <span
+                        id="view-gstin"
+                        class="text-[11px]
+                               font-bold
+                               font-mono
+                               uppercase
+                               text-slate-700
+                               text-right"
+                    >
+                        ---
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="mt-4">
+
+                <div
+                    class="text-[9px]
+                           font-black
+                           uppercase
+                           tracking-wider
+                           text-slate-400
+                           mb-1.5"
+                >
+                    Address
+                </div>
+
+                <div
+                    id="view-address"
+                    class="rounded-xl
+                           border
+                           border-slate-100
+                           bg-slate-50
+                           p-3
+                           text-[11px]
+                           leading-5
+                           font-medium
+                           text-slate-600"
+                >
+                    ---
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div
+                class="grid
+                       grid-cols-2
+                       gap-2
+                       mt-5"
+            >
+
+                <button
+                    id="btn-modal-edit"
+                    type="button"
+                    class="min-h-[43px]
+                           rounded-xl
+                           bg-[#071D49]
+                           text-white
+                           font-black
+                           text-[10px]
+                           flex
+                           items-center
+                           justify-center
+                           gap-1.5"
+                >
+
+                    <i
+                        data-lucide="pencil"
+                        class="w-4 h-4"
+                    ></i>
+
+                    Edit Profile
+
+                </button>
+
+
+                <button
+                    id="btn-modal-delete"
+                    type="button"
+                    class="min-h-[43px]
+                           rounded-xl
+                           bg-red-50
+                           border
+                           border-red-200
+                           text-[#B10000]
+                           font-black
+                           text-[10px]
+                           flex
+                           items-center
+                           justify-center
+                           gap-1.5"
+                >
+
+                    <i
+                        data-lucide="trash-2"
+                        class="w-4 h-4"
+                    ></i>
+
+                    Delete Client
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     FIREBASE LOGIC
+========================================================= -->
+
+<script type="module">
+
+import {
+
+    auth,
+    db
+
+} from "./firebase-config.js";
+
+
+import {
+
+    onAuthStateChanged
+
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+
+import {
+
+    collection,
+    onSnapshot,
+    doc,
+    setDoc,
+    deleteDoc,
+    getDoc,
+    serverTimestamp
+
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const loader =
+    document.getElementById(
+        "app-loader"
+    );
+
+const mainApp =
+    document.getElementById(
+        "main-app"
+    );
+
+const listContainer =
+    document.getElementById(
+        "clients-list-container"
+    );
+
+const searchInput =
+    document.getElementById(
+        "search-input"
+    );
+
+const sortSelect =
+    document.getElementById(
+        "sort-select"
+    );
+
+const clearSearch =
+    document.getElementById(
+        "clear-search"
+    );
+
+const resultCount =
+    document.getElementById(
+        "result-count"
+    );
+
+const totalClients =
+    document.getElementById(
+        "kpi-total-clients"
+    );
+
+const activeClients =
+    document.getElementById(
+        "kpi-active-clients"
+    );
+
+
+/* =========================================================
+   MODAL ELEMENTS
+========================================================= */
+
+const clientModal =
+    document.getElementById(
+        "client-modal"
+    );
+
+const modalTitle =
+    document.getElementById(
+        "modal-title"
+    );
+
+const btnOpenAdd =
+    document.getElementById(
+        "btn-open-add-modal"
+    );
+
+const btnCloseModal =
+    document.getElementById(
+        "btn-close-modal"
+    );
+
+const clientForm =
+    document.getElementById(
+        "client-form"
+    );
+
+const formFirebaseId =
+    document.getElementById(
+        "form-firebase-id"
+    );
+
+const formClientId =
+    document.getElementById(
+        "form-client-id"
+    );
+
+const formClientName =
+    document.getElementById(
+        "form-client-name"
+    );
+
+const formMobile =
+    document.getElementById(
+        "form-mobile"
+    );
+
+const formEmail =
+    document.getElementById(
+        "form-email"
+    );
+
+const formPan =
+    document.getElementById(
+        "form-pan"
+    );
+
+const formAdhar =
+    document.getElementById(
+        "form-adhar"
+    );
+
+const formGstin =
+    document.getElementById(
+        "form-gstin"
+    );
+
+const formAddress =
+    document.getElementById(
+        "form-address"
+    );
+
+const formStatus =
+    document.getElementById(
+        "form-status"
+    );
+
+const btnSaveClient =
+    document.getElementById(
+        "btn-save-client"
+    );
+
+const btnPickContact =
+    document.getElementById(
+        "btn-pick-contact"
+    );
+
+
+/* =========================================================
+   VIEW MODAL
+========================================================= */
+
+const viewModal =
+    document.getElementById(
+        "view-modal"
+    );
+
+const btnCloseView =
+    document.getElementById(
+        "btn-close-view"
+    );
+
+const viewName =
+    document.getElementById(
+        "view-name"
+    );
+
+const viewId =
+    document.getElementById(
+        "view-id"
+    );
+
+const viewMobile =
+    document.getElementById(
+        "view-mobile"
+    );
+
+const viewEmail =
+    document.getElementById(
+        "view-email"
+    );
+
+const viewPan =
+    document.getElementById(
+        "view-pan"
+    );
+
+const viewAdhar =
+    document.getElementById(
+        "view-adhar"
+    );
+
+const viewGstin =
+    document.getElementById(
+        "view-gstin"
+    );
+
+const viewStatus =
+    document.getElementById(
+        "view-status"
+    );
+
+const viewAddress =
+    document.getElementById(
+        "view-address"
+    );
+
+const btnModalEdit =
+    document.getElementById(
+        "btn-modal-edit"
+    );
+
+const btnModalDelete =
+    document.getElementById(
+        "btn-modal-delete"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentUser =
+    null;
+
+let allClientsData =
+    [];
+
+let clientsMap =
+    {};
+
+let activeViewFirebaseId =
+    null;
+
+let unsubscribeClients =
+    null;
+
+
+/* =========================================================
+   AUTHENTICATION + ADMIN ROLE
+========================================================= */
+
+onAuthStateChanged(
+    auth,
+    async user => {
+
+        if(!user){
+
+            window.parent.postMessage(
+                {
+                    type:
+                        "CM_AUTH_REQUIRED"
+                },
+                "*"
+            );
+
+            window.location.replace(
+                "signin.html?error=login_required"
+            );
+
+            return;
+
+        }
+
+
+        currentUser =
+            user;
+
+
+        try{
+
+            /*
+             * Role is attached to:
+             *
+             * users/{Firebase UID}
+             *
+             * Example:
+             *
+             * users
+             *   └── kCQbsK9di9yXO...
+             *        ├── email
+             *        └── role: "admin"
+             */
+
+            const userRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                );
+
+
+            const userSnap =
+                await getDoc(
+                    userRef
+                );
+
+
+            if(
+                !userSnap.exists()
+            ){
+
+                alert(
+                    "Administrator profile not found."
+                );
+
+                window.location.replace(
+                    "signin.html?error=admin_required"
+                );
+
+                return;
+
+            }
+
+
+            const userData =
+                userSnap.data();
+
+
+            const role =
+                String(
+                    userData.role || ""
+                ).trim().toLowerCase();
+
+
+            if(
+                role !== "admin"
+            ){
+
+                alert(
+                    "Administrator access required."
+                );
+
+                window.location.replace(
+                    "signin.html?error=admin_required"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Admin verified.
+             */
+
+            startClientsListener();
+
+
+        }
+        catch(error){
+
+            console.error(
+                "Admin verification failed:",
+                error
+            );
+
+
+            alert(
+                "Unable to verify administrator access."
+            );
+
+
+            window.location.replace(
+                "signin.html?error=admin_required"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   FIRESTORE LISTENER
+========================================================= */
+
+function startClientsListener(){
+
+    if(unsubscribeClients){
+
+        unsubscribeClients();
+
+    }
+
+
+    unsubscribeClients =
+        onSnapshot(
+
+            collection(
+                db,
+                "clients"
+            ),
+
+            snapshot => {
+
+                loader.classList.add(
+                    "hidden"
+                );
+
+                mainApp.classList.remove(
+                    "hidden"
+                );
+
+
+                allClientsData =
+                    [];
+
+                clientsMap =
+                    {};
+
+
+                snapshot.forEach(
+                    docSnap => {
+
+                        const data =
+                            docSnap.data();
+
+
+                        const item = {
+
+                            firebaseId:
+                                docSnap.id,
+
+                            ...data
+
+                        };
+
+
+                        allClientsData.push(
+                            item
+                        );
+
+
+                        clientsMap[
+                            docSnap.id
+                        ] =
+                            item;
+
+                    }
+                );
+
+
+                updateKPIs();
+
+                filterAndRenderClients();
+
+            },
+
+            error => {
+
+                console.error(
+                    "Clients listener error:",
+                    error
+                );
+
+
+                loader.classList.add(
+                    "hidden"
+                );
+
+                mainApp.classList.remove(
+                    "hidden"
+                );
+
+
+                listContainer.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon text-[#B10000] bg-red-50">
+
+                            <i
+                                data-lucide="shield-alert"
+                                class="w-5 h-5"
+                            ></i>
+
+                        </div>
+
+                        <div class="text-[#B10000]">
+                            Unable to load client records.
+                        </div>
+
+                        <div class="mt-1 text-[9px] text-slate-400">
+                            Check Firebase Firestore permissions.
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                lucide.createIcons();
+
+            }
+
+        );
+
+}
+
+
+/* =========================================================
+   KPI
+========================================================= */
+
+function updateKPIs(){
+
+    totalClients.textContent =
+        allClientsData.length;
+
+
+    const active =
+        allClientsData.filter(
+            client => {
+
+                const status =
+                    String(
+                        client.status ||
+                        client.Status ||
+                        "Active"
+                    ).toLowerCase();
+
+
+                return (
+                    status === "active" ||
+                    status === "regular"
+                );
+
+            }
+        ).length;
+
+
+    activeClients.textContent =
+        active;
+
+}
+
+
+/* =========================================================
+   SEARCH + SORT
+========================================================= */
+
+searchInput.addEventListener(
+    "input",
+    () => {
+
+        updateClearSearch();
+
+        filterAndRenderClients();
+
+    }
+);
+
+
+sortSelect.addEventListener(
+    "change",
+    filterAndRenderClients
+);
+
+
+clearSearch.addEventListener(
+    "click",
+    () => {
+
+        searchInput.value =
+            "";
+
+        updateClearSearch();
+
+        filterAndRenderClients();
+
+        searchInput.focus();
+
+    }
+);
+
+
+function updateClearSearch(){
+
+    clearSearch.classList.toggle(
+        "hidden",
+        !searchInput.value.trim()
+    );
+
+}
+
+
+/* =========================================================
+   FILTER + RENDER
+========================================================= */
+
+function filterAndRenderClients(){
+
+    const search =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+    const sort =
+        sortSelect.value;
+
+
+    let filtered =
+        allClientsData.filter(
+            client => {
+
+                const values = [
+
+                    getClientName(
+                        client
+                    ),
+
+                    getClientId(
+                        client
+                    ),
+
+                    getMobile(
+                        client
+                    ),
+
+                    getEmail(
+                        client
+                    ),
+
+                    getPan(
+                        client
+                    ),
+
+                    getAdhar(
+                        client
+                    ),
+
+                    getGstin(
+                        client
+                    ),
+
+                    getAddress(
+                        client
+                    )
+
+                ];
+
+
+                return values.some(
+                    value =>
+                        String(
+                            value || ""
+                        )
+                        .toLowerCase()
+                        .includes(
+                            search
+                        )
+                );
+
+            }
+        );
+
+
+    filtered.sort(
+        (a,b) => {
+
+            const nameA =
+                getClientName(
+                    a
+                ).toLowerCase();
+
+            const nameB =
+                getClientName(
+                    b
+                ).toLowerCase();
+
+
+            const idA =
+                getClientId(
+                    a
+                ).toLowerCase();
+
+            const idB =
+                getClientId(
+                    b
+                ).toLowerCase();
+
+
+            const dateA =
+                getDateValue(
+                    a
+                );
+
+            const dateB =
+                getDateValue(
+                    b
+                );
+
+
+            switch(sort){
+
+                case "name-desc":
+
+                    return nameB.localeCompare(
+                        nameA
+                    );
+
+
+                case "id-asc":
+
+                    return idA.localeCompare(
+                        idB
+                    );
+
+
+                case "date-desc":
+
+                    return dateB - dateA;
+
+
+                case "date-asc":
+
+                    return dateA - dateB;
+
+
+                default:
+
+                    return nameA.localeCompare(
+                        nameB
+                    );
+
+            }
+
+        }
+    );
+
+
+    resultCount.textContent =
+        `${filtered.length} of ${allClientsData.length} client records`;
+
+
+    renderClients(
+        filtered
+    );
+
+}
+
+
+/* =========================================================
+   RENDER CLIENTS
+========================================================= */
+
+function renderClients(
+    clients
+){
+
+    listContainer.innerHTML =
+        "";
+
+
+    if(
+        clients.length === 0
+    ){
+
+        listContainer.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+
+                    <i
+                        data-lucide="search-x"
+                        class="w-5 h-5"
+                    ></i>
+
+                </div>
+
+                <div>
+                    No clients found.
+                </div>
+
+                <div class="mt-1 text-[9px]">
+                    Try another search or add a new client.
+                </div>
+
+            </div>
+
+        `;
+
 
         lucide.createIcons();
 
-        const appLoader = document.getElementById('app-loader');
-        const mainApp = document.getElementById('main-app');
-        const listContainer = document.getElementById('clients-list-container');
-        const kpiTotalClients = document.getElementById('kpi-total-clients');
-        
-        const searchInput = document.getElementById('search-input');
-        const sortSelect = document.getElementById('sort-select');
+        return;
 
-        // Modal Elements
-        const clientModal = document.getElementById('client-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const btnOpenAddModal = document.getElementById('btn-open-add-modal');
-        const btnCloseModal = document.getElementById('btn-close-modal');
-        const clientForm = document.getElementById('client-form');
-        
-        const formFirebaseId = document.getElementById('form-firebase-id');
-        const formClientId = document.getElementById('form-client-id');
-        const formClientName = document.getElementById('form-client-name');
-        const formMobile = document.getElementById('form-mobile');
-        const formEmail = document.getElementById('form-email');
-        const formPan = document.getElementById('form-pan');
-        const formAdhar = document.getElementById('form-adhar');
-        const formGstin = document.getElementById('form-gstin');
-        const formAddress = document.getElementById('form-address');
-        const formStatus = document.getElementById('form-status');
-        const btnSaveClient = document.getElementById('btn-save-client');
-        const btnPickContact = document.getElementById('btn-pick-contact');
+    }
 
-        // View Modal Elements
-        const viewModal = document.getElementById('view-modal');
-        const btnCloseView = document.getElementById('btn-close-view');
-        const viewName = document.getElementById('view-name');
-        const viewId = document.getElementById('view-id');
-        const viewMobile = document.getElementById('view-mobile');
-        const viewEmail = document.getElementById('view-email');
-        const viewPan = document.getElementById('view-pan');
-        const viewAdhar = document.getElementById('view-adhar');
-        const viewGstin = document.getElementById('view-gstin');
-        const viewStatus = document.getElementById('view-status');
-        const viewAddress = document.getElementById('view-address');
-        const btnModalEdit = document.getElementById('btn-modal-edit');
-        const btnModalDelete = document.getElementById('btn-modal-delete');
 
-        let allClientsData = [];
-        let clientsMap = {};
-        let activeViewFirebaseId = null;
+    clients.forEach(
+        client => {
 
-        // Load Data from Firestore
-        onSnapshot(collection(db, 'clients'), (snapshot) => {
-            appLoader.classList.add('hidden');
-            mainApp.classList.replace('hidden', 'flex');
+            const id =
+                escapeHTML(
+                    getClientId(
+                        client
+                    ) ||
+                    client.firebaseId
+                );
 
-            allClientsData = [];
-            clientsMap = {};
 
-            snapshot.forEach(docSnap => {
-                const data = docSnap.data();
-                const item = { firebaseId: docSnap.id, ...data };
-                allClientsData.push(item);
-                clientsMap[docSnap.id] = item;
-            });
+            const name =
+                escapeHTML(
+                    getClientName(
+                        client
+                    ) ||
+                    "Unnamed Client"
+                );
 
-            filterAndRenderClients();
-        });
 
-        searchInput.addEventListener('input', filterAndRenderClients);
-        sortSelect.addEventListener('change', filterAndRenderClients);
+            const mobile =
+                getMobile(
+                    client
+                );
 
-        function filterAndRenderClients() {
-            const searchVal = searchInput.value.trim().toLowerCase();
-            const sortVal = sortSelect.value;
 
-            let filtered = allClientsData.filter(c => {
-                const name = (c.clientName || c.ClientName || c.name || '').toLowerCase();
-                const id = (c.clientId || c.ClientId || '').toLowerCase();
-                const pan = (c.pan || c.Pan || '').toLowerCase();
-                const gstin = (c.gstin || c.Gstin || '').toLowerCase();
-                const mobile = (c.mobile || c.Mobile || '').toLowerCase();
+            const email =
+                getEmail(
+                    client
+                );
 
-                return name.includes(searchVal) || id.includes(searchVal) || pan.includes(searchVal) || gstin.includes(searchVal) || mobile.includes(searchVal);
-            });
 
-            filtered.sort((a, b) => {
-                const nameA = (a.clientName || a.ClientName || a.name || '').toLowerCase();
-                const nameB = (b.clientName || b.ClientName || b.name || '').toLowerCase();
-                const idA = (a.clientId || a.ClientId || '').toLowerCase();
-                const idB = (b.clientId || b.ClientId || '').toLowerCase();
-                const dateA = new Date(a.createdAt || a.CreatedAt || 0);
-                const dateB = new Date(b.createdAt || b.CreatedAt || 0);
+            const pan =
+                escapeHTML(
+                    getPan(
+                        client
+                    ) ||
+                    "---"
+                );
 
-                if (sortVal === 'name-asc') return nameA.localeCompare(nameB);
-                if (sortVal === 'name-desc') return nameB.localeCompare(nameA);
-                if (sortVal === 'id-asc') return idA.localeCompare(idB);
-                if (sortVal === 'date-desc') return dateB - dateA;
-                return 0;
-            });
 
-            kpiTotalClients.textContent = allClientsData.length;
-            listContainer.innerHTML = '';
+            const adhar =
+                escapeHTML(
+                    getAdhar(
+                        client
+                    ) ||
+                    "---"
+                );
 
-            if (filtered.length === 0) {
-                listContainer.innerHTML = `<div class="p-8 text-center text-slate-400 font-medium">No clients found matching your query.</div>`;
-                return;
-            }
 
-            filtered.forEach(client => {
-                const id = client.clientId || client.ClientId || client.firebaseId || '---';
-                const name = client.clientName || client.ClientName || client.name || 'Unnamed Client';
-                const mobile = client.mobile || client.Mobile || client.phone || '';
-                const pan = client.pan || client.Pan || '---';
-                const adhar = client.adhar || client.Adhar || client.adharNumber || '---';
-                const status = client.status || client.Status || 'Active';
+            const gstin =
+                escapeHTML(
+                    getGstin(
+                        client
+                    ) ||
+                    "---"
+                );
 
-                // Status Badge Color Handling
-                let statusBadge = '';
-                if (status === 'Regular') {
-                    statusBadge = `<span class="bg-blue-50 text-blue-600 border border-blue-200 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Regular</span>`;
-                } else if (status === 'Non Active') {
-                    statusBadge = `<span class="bg-slate-100 text-slate-500 border border-slate-200 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Non Active</span>`;
-                } else {
-                    statusBadge = `<span class="bg-emerald-50 text-emerald-600 border border-emerald-200 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Active</span>`;
-                }
 
-                // WhatsApp & Call links
-                const waText = encodeURIComponent(`Hello ${name},\n\nGreetings from CM Filings! 🙏\n\n`);
-                const waLink = mobile ? `https://wa.me/91${mobile}?text=${waText}` : '#';
-                const callLink = mobile ? `tel:${mobile}` : '#';
+            const status =
+                getStatus(
+                    client
+                );
 
-                const cardDiv = document.createElement('div');
-                cardDiv.className = "bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4";
-                
-                cardDiv.innerHTML = `
-                    <div class="space-y-1.5 flex-1">
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <h4 class="font-extrabold text-brand-navy text-base">${name}</h4>
-                            ${statusBadge}
+
+            const statusClass =
+                getStatusClass(
+                    status
+                );
+
+
+            const statusText =
+                escapeHTML(
+                    status
+                );
+
+
+            const safeMobile =
+                String(
+                    mobile || ""
+                )
+                .replace(
+                    /\D/g,
+                    ""
+                )
+                .slice(
+                    -10
+                );
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "client-card";
+
+
+            const waText =
+                encodeURIComponent(
+                    `Hello ${getClientName(client)},\n\nGreetings from CM Filings! 🙏\n\n`
+                );
+
+
+            const waLink =
+                safeMobile
+                    ? `https://wa.me/91${safeMobile}?text=${waText}`
+                    : "#";
+
+
+            const callLink =
+                safeMobile
+                    ? `tel:${safeMobile}`
+                    : "#";
+
+
+            card.innerHTML = `
+
+                <div
+                    class="flex
+                           flex-col
+                           sm:flex-row
+                           sm:items-center
+                           justify-between
+                           gap-3"
+                >
+
+                    <div class="min-w-0 flex-1">
+
+                        <div
+                            class="flex
+                                   items-center
+                                   gap-2
+                                   flex-wrap"
+                        >
+
+                            <div class="client-name">
+                                ${name}
+                            </div>
+
+                            <span
+                                class="status-badge ${statusClass}"
+                            >
+                                ${statusText}
+                            </span>
+
                         </div>
-                        <div class="flex items-center gap-4 text-xs font-mono text-slate-500">
-                            <span class="text-brand-red font-bold">ID: ${id}</span>
-                            <span>PAN: <strong class="text-slate-700 uppercase">${pan}</strong></span>
-                            <span>Adhaar: <strong class="text-slate-700">${adhar}</strong></span>
+
+
+                        <div class="client-meta">
+
+                            <span class="client-id">
+                                ID: ${id}
+                            </span>
+
+                            <span>
+                                PAN:
+                                <strong>
+                                    ${pan}
+                                </strong>
+                            </span>
+
+                            <span>
+                                Aadhaar:
+                                <strong>
+                                    ${adhar}
+                                </strong>
+                            </span>
+
+                            ${
+                                gstin !== "---"
+                                ?
+                                `
+                                <span>
+                                    GST:
+                                    <strong>
+                                        ${gstin}
+                                    </strong>
+                                </span>
+                                `
+                                :
+                                ""
+                            }
+
                         </div>
-                        <div class="flex items-center gap-2 pt-1 text-xs text-slate-600 font-semibold">
-                            <i data-lucide="phone-call" class="w-3.5 h-3.5 text-slate-400"></i>
-                            <span>${mobile || 'No Mobile Number'}</span>
+
+
+                        <div class="client-contact">
+
+                            <i
+                                data-lucide="phone"
+                                class="w-3.5 h-3.5 text-slate-400"
+                            ></i>
+
+                            <span>
+                                ${
+                                    escapeHTML(
+                                        mobile
+                                    ) ||
+                                    "No mobile number"
+                                }
+                            </span>
+
+                            ${
+                                email
+                                ?
+                                `
+                                <span
+                                    class="hidden sm:inline text-slate-300"
+                                >
+                                    •
+                                </span>
+
+                                <span
+                                    class="hidden sm:inline truncate max-w-[250px]"
+                                >
+                                    ${escapeHTML(email)}
+                                </span>
+                                `
+                                :
+                                ""
+                            }
+
                         </div>
+
                     </div>
 
-                    <div class="flex items-center gap-2 shrink-0 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100 justify-end">
-                        ${mobile ? `
-                            <a href="${callLink}" class="p-2.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-xl border border-emerald-200 transition-all" title="Call Client">
-                                <i data-lucide="phone" class="w-4 h-4 pointer-events-none"></i>
+
+                    <div
+                        class="flex
+                               items-center
+                               gap-1.5
+                               shrink-0"
+                    >
+
+                        ${
+                            safeMobile
+                            ?
+                            `
+                            <a
+                                href="${callLink}"
+                                class="action-button action-call"
+                                title="Call Client"
+                            >
+
+                                <i
+                                    data-lucide="phone"
+                                    class="w-4 h-4"
+                                ></i>
+
                             </a>
-                            <a href="${waLink}" target="_blank" class="p-2.5 bg-green-50 text-[#25D366] hover:bg-green-100 rounded-xl border border-green-200 transition-all" title="WhatsApp Message">
-                                <i data-lucide="message-circle" class="w-4 h-4 pointer-events-none"></i>
+
+
+                            <a
+                                href="${waLink}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="action-button action-whatsapp"
+                                title="WhatsApp"
+                            >
+
+                                <i
+                                    data-lucide="message-circle"
+                                    class="w-4 h-4"
+                                ></i>
+
                             </a>
-                        ` : `
-                            <button disabled class="p-2.5 bg-slate-100 text-slate-300 rounded-xl border border-slate-200 cursor-not-allowed" title="No Phone Available"><i data-lucide="phone-off" class="w-4 h-4"></i></button>
-                        `}
-                        <button class="btn-full-view p-2.5 bg-slate-50 text-slate-600 hover:text-brand-navy hover:bg-slate-100 rounded-xl border border-slate-200 transition-all flex items-center gap-1.5 text-xs font-bold px-3" data-id="${client.firebaseId}">
-                            <i data-lucide="eye" class="w-4 h-4 pointer-events-none"></i> View & Manage
+                            `
+                            :
+                            ""
+                        }
+
+
+                        <button
+                            type="button"
+                            class="action-button action-view btn-full-view"
+                            data-id="${escapeHTML(client.firebaseId)}"
+                            title="View Client"
+                        >
+
+                            <i
+                                data-lucide="eye"
+                                class="w-4 h-4"
+                            ></i>
+
+                            <span class="hidden sm:inline">
+                                View
+                            </span>
+
                         </button>
-                    </div>
-                `;
-                listContainer.appendChild(cardDiv);
-            });
 
-            lucide.createIcons();
+                    </div>
+
+                </div>
+
+            `;
+
+
+            listContainer.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    lucide.createIcons();
+
+}
+
+
+/* =========================================================
+   CONTACT PICKER
+========================================================= */
+
+btnPickContact.addEventListener(
+    "click",
+    async () => {
+
+        if(
+            !(
+                "contacts" in navigator
+            ) ||
+            !(
+                "ContactsManager" in window ||
+                "contacts" in navigator
+            )
+        ){
+
+            alert(
+                "Contact Picker is not supported on this browser/device."
+            );
+
+            return;
+
         }
 
-        // ==========================================
-        // SMART 10-DIGIT PHONE CONTACT PICKER API
-        // ==========================================
-        btnPickContact.addEventListener('click', async () => {
-            if ('contacts' in navigator && 'Navigator' in window) {
-                try {
-                    const props = ['name', 'tel'];
-                    const opts = { multiple: false };
-                    const contacts = await navigator.contacts.select(props, opts);
-                    
-                    if (contacts && contacts.length > 0) {
-                        const telArray = contacts[0].tel;
-                        if (telArray && telArray.length > 0) {
-                            let rawNum = telArray[0];
-                            let cleanNum = rawNum.replace(/\D/g, '').slice(-10);
-                            formMobile.value = cleanNum;
-                            
-                            if (!formClientName.value && contacts[0].name && contacts[0].name.length > 0) {
-                                formClientName.value = contacts[0].name[0];
-                            }
-                        }
+
+        try{
+
+            const contacts =
+                await navigator.contacts.select(
+                    [
+                        "name",
+                        "tel"
+                    ],
+                    {
+                        multiple:false
                     }
-                } catch (ex) {
-                    console.log("Contact selection canceled or not allowed", ex);
-                }
-            } else {
-                alert("Contact Picker is not supported on this browser/device. Please type the 10-digit number manually.");
-            }
-        });
+                );
 
-        // ==========================================
-        // MODAL EVENT HANDLERS
-        // ==========================================
-        btnOpenAddModal.addEventListener('click', () => {
-            modalTitle.textContent = "Add New Client";
-            clientForm.reset();
-            formFirebaseId.value = "";
-            formClientId.value = "CLI_" + Math.random().toString(36).substring(2, 8).toUpperCase();
-            clientModal.classList.remove('hidden');
-        });
 
-        btnCloseModal.addEventListener('click', () => clientModal.classList.add('hidden'));
-        btnCloseView.addEventListener('click', () => viewModal.classList.add('hidden'));
+            if(
+                !contacts ||
+                !contacts.length
+            ){
 
-        // Open Full View Modal
-        listContainer.addEventListener('click', (e) => {
-            const btn = e.target.closest('.btn-full-view');
-            if (btn) {
-                const firebaseId = btn.getAttribute('data-id');
-                const client = clientsMap[firebaseId];
-                if (client) {
-                    activeViewFirebaseId = firebaseId;
-                    viewName.textContent = client.clientName || client.ClientName || client.name || 'Unnamed';
-                    viewId.textContent = `ID: ${client.clientId || client.ClientId || firebaseId}`;
-                    viewMobile.textContent = client.mobile || client.Mobile || 'No Mobile Provided';
-                    viewEmail.textContent = client.email || client.Email || 'No Email';
-                    viewPan.textContent = client.pan || client.Pan || 'No PAN';
-                    viewAdhar.textContent = client.adhar || client.Adhar || 'No Adhaar';
-                    viewGstin.textContent = client.gstin || client.Gstin || 'No GSTIN';
-                    viewStatus.textContent = client.status || client.Status || 'Active';
-                    viewAddress.textContent = client.address || client.Address || 'No Address Provided';
-
-                    viewModal.classList.remove('hidden');
-                }
-            }
-        });
-
-        // Edit trigger from View Modal
-        btnModalEdit.addEventListener('click', () => {
-            viewModal.classList.add('hidden');
-            const client = clientsMap[activeViewFirebaseId];
-            if (client) {
-                modalTitle.textContent = "Edit Client Profile";
-                formFirebaseId.value = activeViewFirebaseId;
-                formClientId.value = client.clientId || client.ClientId || activeViewFirebaseId;
-                formClientName.value = client.clientName || client.ClientName || client.name || '';
-                formMobile.value = client.mobile || client.Mobile || client.phone || '';
-                formEmail.value = client.email || client.Email || '';
-                formPan.value = client.pan || client.Pan || '';
-                formAdhar.value = client.adhar || client.Adhar || '';
-                formGstin.value = client.gstin || client.Gstin || '';
-                formAddress.value = client.address || client.Address || '';
-                formStatus.value = client.status || client.Status || 'Active';
-
-                clientModal.classList.remove('hidden');
-            }
-        });
-
-        // Delete trigger from View Modal
-        btnModalDelete.addEventListener('click', async () => {
-            if (confirm("Are you sure you want to delete this client record?")) {
-                try {
-                    await deleteDoc(doc(db, 'clients', activeViewFirebaseId));
-                    viewModal.classList.add('hidden');
-                } catch (err) {
-                    console.error("Delete error:", err);
-                    alert("Failed to delete client record.");
-                }
-            }
-        });
-
-        clientForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const fId = formFirebaseId.value;
-            const cId = formClientId.value.trim();
-            const mobileVal = formMobile.value.trim();
-
-            if (mobileVal.length !== 10) {
-                alert("Please enter a valid 10-digit mobile number.");
                 return;
+
             }
 
-            const originalText = btnSaveClient.innerHTML;
-            btnSaveClient.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin inline"></i> Saving...`;
+
+            const contact =
+                contacts[0];
+
+
+            if(
+                contact.tel &&
+                contact.tel.length
+            ){
+
+                const number =
+                    String(
+                        contact.tel[0] || ""
+                    )
+                    .replace(
+                        /\D/g,
+                        ""
+                    )
+                    .slice(
+                        -10
+                    );
+
+
+                formMobile.value =
+                    number;
+
+            }
+
+
+            if(
+                !formClientName.value.trim() &&
+                contact.name &&
+                contact.name.length
+            ){
+
+                formClientName.value =
+                    contact.name[0];
+
+            }
+
+        }
+        catch(error){
+
+            console.log(
+                "Contact picker:",
+                error
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ADD CLIENT
+========================================================= */
+
+btnOpenAdd.addEventListener(
+    "click",
+    openAddModal
+);
+
+
+function openAddModal(){
+
+    clientForm.reset();
+
+
+    formFirebaseId.value =
+        "";
+
+
+    formClientId.value =
+        generateClientId();
+
+
+    formStatus.value =
+        "Active";
+
+
+    modalTitle.textContent =
+        "Add New Client";
+
+
+    btnSaveClient.innerHTML = `
+
+        <i
+            data-lucide="save"
+            class="w-4 h-4"
+        ></i>
+
+        Save Client Profile
+
+    `;
+
+
+    clientModal.classList.remove(
+        "hidden"
+    );
+
+
+    setTimeout(
+        () =>
+            formClientName.focus(),
+        100
+    );
+
+
+    lucide.createIcons();
+
+}
+
+
+/* =========================================================
+   CLOSE MODALS
+========================================================= */
+
+btnCloseModal.addEventListener(
+    "click",
+    closeClientModal
+);
+
+
+btnCloseView.addEventListener(
+    "click",
+    () =>
+        viewModal.classList.add(
+            "hidden"
+        )
+);
+
+
+clientModal.addEventListener(
+    "click",
+    event => {
+
+        if(
+            event.target ===
+            clientModal
+        ){
+
+            closeClientModal();
+
+        }
+
+    }
+);
+
+
+viewModal.addEventListener(
+    "click",
+    event => {
+
+        if(
+            event.target ===
+            viewModal
+        ){
+
+            viewModal.classList.add(
+                "hidden"
+            );
+
+        }
+
+    }
+);
+
+
+function closeClientModal(){
+
+    clientModal.classList.add(
+        "hidden"
+    );
+
+}
+
+
+/* =========================================================
+   VIEW CLIENT
+========================================================= */
+
+listContainer.addEventListener(
+    "click",
+    event => {
+
+        const button =
+            event.target.closest(
+                ".btn-full-view"
+            );
+
+
+        if(!button){
+
+            return;
+
+        }
+
+
+        const firebaseId =
+            button.dataset.id;
+
+
+        const client =
+            clientsMap[
+                firebaseId
+            ];
+
+
+        if(!client){
+
+            return;
+
+        }
+
+
+        activeViewFirebaseId =
+            firebaseId;
+
+
+        populateView(
+            client
+        );
+
+
+        viewModal.classList.remove(
+            "hidden"
+        );
+
+
+        lucide.createIcons();
+
+    }
+);
+
+
+/* =========================================================
+   POPULATE VIEW
+========================================================= */
+
+function populateView(
+    client
+){
+
+    viewName.textContent =
+        getClientName(
+            client
+        ) ||
+        "Unnamed Client";
+
+
+    viewId.textContent =
+        "ID: " +
+        (
+            getClientId(
+                client
+            ) ||
+            client.firebaseId
+        );
+
+
+    viewMobile.textContent =
+        getMobile(
+            client
+        ) ||
+        "No Mobile Provided";
+
+
+    viewEmail.textContent =
+        getEmail(
+            client
+        ) ||
+        "No Email";
+
+
+    viewPan.textContent =
+        getPan(
+            client
+        ) ||
+        "No PAN";
+
+
+    viewAdhar.textContent =
+        getAdhar(
+            client
+        ) ||
+        "No Aadhaar";
+
+
+    viewGstin.textContent =
+        getGstin(
+            client
+        ) ||
+        "No GSTIN";
+
+
+    viewAddress.textContent =
+        getAddress(
+            client
+        ) ||
+        "No Address Provided";
+
+
+    const status =
+        getStatus(
+            client
+        );
+
+
+    viewStatus.textContent =
+        status;
+
+
+    viewStatus.className =
+        "status-badge " +
+        getStatusClass(
+            status
+        );
+
+}
+
+
+/* =========================================================
+   EDIT
+========================================================= */
+
+btnModalEdit.addEventListener(
+    "click",
+    () => {
+
+        const client =
+            clientsMap[
+                activeViewFirebaseId
+            ];
+
+
+        if(!client){
+
+            return;
+
+        }
+
+
+        viewModal.classList.add(
+            "hidden"
+        );
+
+
+        modalTitle.textContent =
+            "Edit Client Profile";
+
+
+        formFirebaseId.value =
+            activeViewFirebaseId;
+
+
+        formClientId.value =
+            getClientId(
+                client
+            );
+
+
+        formClientName.value =
+            getClientName(
+                client
+            );
+
+
+        formMobile.value =
+            getMobile(
+                client
+            );
+
+
+        formEmail.value =
+            getEmail(
+                client
+            );
+
+
+        formPan.value =
+            getPan(
+                client
+            );
+
+
+        formAdhar.value =
+            getAdhar(
+                client
+            );
+
+
+        formGstin.value =
+            getGstin(
+                client
+            );
+
+
+        formAddress.value =
+            getAddress(
+                client
+            );
+
+
+        formStatus.value =
+            getStatus(
+                client
+            );
+
+
+        btnSaveClient.innerHTML = `
+
+            <i
+                data-lucide="save"
+                class="w-4 h-4"
+            ></i>
+
+            Update Client Profile
+
+        `;
+
+
+        clientModal.classList.remove(
+            "hidden"
+        );
+
+
+        lucide.createIcons();
+
+    }
+);
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+btnModalDelete.addEventListener(
+    "click",
+    async () => {
+
+        const client =
+            clientsMap[
+                activeViewFirebaseId
+            ];
+
+
+        if(!client){
+
+            return;
+
+        }
+
+
+        const name =
+            getClientName(
+                client
+            );
+
+
+        const confirmed =
+            confirm(
+                `Delete client "${name}"?\n\nThis action cannot be undone.`
+            );
+
+
+        if(!confirmed){
+
+            return;
+
+        }
+
+
+        btnModalDelete.disabled =
+            true;
+
+
+        btnModalDelete.innerHTML = `
+
+            <i
+                data-lucide="loader-2"
+                class="w-4 h-4 animate-spin"
+            ></i>
+
+            Deleting...
+
+        `;
+
+
+        lucide.createIcons();
+
+
+        try{
+
+            await deleteDoc(
+                doc(
+                    db,
+                    "clients",
+                    activeViewFirebaseId
+                )
+            );
+
+
+            viewModal.classList.add(
+                "hidden"
+            );
+
+
+        }
+        catch(error){
+
+            console.error(
+                "Delete client error:",
+                error
+            );
+
+
+            if(
+                error.code ===
+                "permission-denied"
+            ){
+
+                alert(
+                    "Permission denied. Check your Firebase security rules."
+                );
+
+            }
+            else{
+
+                alert(
+                    "Failed to delete client."
+                );
+
+            }
+
+        }
+        finally{
+
+            btnModalDelete.disabled =
+                false;
+
+
+            btnModalDelete.innerHTML = `
+
+                <i
+                    data-lucide="trash-2"
+                    class="w-4 h-4"
+                ></i>
+
+                Delete Client
+
+            `;
+
+
             lucide.createIcons();
 
-            const clientPayload = {
-                clientId: cId,
-                clientName: formClientName.value.trim(),
-                mobile: mobileVal,
-                email: formEmail.value.trim(),
-                pan: formPan.value.trim().toUpperCase(),
-                adhar: formAdhar.value.trim(),
-                gstin: formGstin.value.trim().toUpperCase(),
-                address: formAddress.value.trim(),
-                status: formStatus.value,
-                updatedAt: new Date().toISOString()
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SAVE / UPDATE
+========================================================= */
+
+clientForm.addEventListener(
+    "submit",
+    async event => {
+
+        event.preventDefault();
+
+
+        if(!currentUser){
+
+            alert(
+                "Administrator authentication is required."
+            );
+
+            return;
+
+        }
+
+
+        const clientName =
+            formClientName.value.trim();
+
+
+        const mobile =
+            formMobile.value.trim();
+
+
+        if(!clientName){
+
+            alert(
+                "Please enter the client name."
+            );
+
+            formClientName.focus();
+
+            return;
+
+        }
+
+
+        if(
+            !/^\d{10}$/.test(
+                mobile
+            )
+        ){
+
+            alert(
+                "Please enter a valid 10-digit mobile number."
+            );
+
+            formMobile.focus();
+
+            return;
+
+        }
+
+
+        let clientId =
+            formClientId.value.trim();
+
+
+        if(!clientId){
+
+            clientId =
+                generateClientId();
+
+        }
+
+
+        clientId =
+            clientId.toUpperCase();
+
+
+        const firebaseId =
+            formFirebaseId.value.trim();
+
+
+        const isEdit =
+            Boolean(
+                firebaseId
+            );
+
+
+        const originalHTML =
+            btnSaveClient.innerHTML;
+
+
+        btnSaveClient.disabled =
+            true;
+
+
+        btnSaveClient.innerHTML = `
+
+            <i
+                data-lucide="loader-2"
+                class="w-4 h-4 animate-spin"
+            ></i>
+
+            ${isEdit ? "Updating..." : "Saving..."}
+
+        `;
+
+
+        lucide.createIcons();
+
+
+        try{
+
+            const documentId =
+                firebaseId ||
+                clientId;
+
+
+            const payload = {
+
+                clientId:
+
+                    clientId,
+
+                clientName:
+
+                    clientName,
+
+                mobile:
+
+                    mobile,
+
+                email:
+
+                    formEmail.value
+                        .trim(),
+
+                pan:
+
+                    formPan.value
+                        .trim()
+                        .toUpperCase(),
+
+                adhar:
+
+                    formAdhar.value
+                        .trim(),
+
+                gstin:
+
+                    formGstin.value
+                        .trim()
+                        .toUpperCase(),
+
+                address:
+
+                    formAddress.value
+                        .trim(),
+
+                status:
+
+                    formStatus.value,
+
+                updatedAt:
+
+                    serverTimestamp(),
+
+                updatedByUID:
+
+                    currentUser.uid,
+
+                updatedByEmail:
+
+                    currentUser.email ||
+                    ""
+
             };
 
-            try {
-                const docId = fId || cId;
-                if (!fId) {
-                    clientPayload.createdAt = new Date().toISOString();
-                }
-                
-                await setDoc(doc(db, 'clients', docId), clientPayload, { merge: true });
 
-                clientModal.classList.add('hidden');
-            } catch (error) {
-                console.error("Error saving client:", error);
-                alert("Failed to save client profile.");
-            } finally {
-                btnSaveClient.innerHTML = originalText;
-                lucide.createIcons();
+            if(!isEdit){
+
+                payload.createdAt =
+                    serverTimestamp();
+
+                payload.createdByUID =
+                    currentUser.uid;
+
+                payload.createdByEmail =
+                    currentUser.email ||
+                    "";
+
             }
-        });
-    </script>
+
+
+            await setDoc(
+                doc(
+                    db,
+                    "clients",
+                    documentId
+                ),
+                payload,
+                {
+                    merge:true
+                }
+            );
+
+
+            clientModal.classList.add(
+                "hidden"
+            );
+
+
+        }
+        catch(error){
+
+            console.error(
+                "Save client error:",
+                error
+            );
+
+
+            if(
+                error.code ===
+                "permission-denied"
+            ){
+
+                alert(
+                    "Permission denied. Your Firebase Security Rules are blocking this operation."
+                );
+
+            }
+            else{
+
+                alert(
+                    "Failed to save client profile."
+                );
+
+            }
+
+        }
+        finally{
+
+            btnSaveClient.disabled =
+                false;
+
+
+            btnSaveClient.innerHTML =
+                originalHTML;
+
+
+            lucide.createIcons();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   GLOBAL SEARCH FROM INDEX.HTML
+========================================================= */
+
+window.addEventListener(
+    "message",
+    event => {
+
+        if(
+            !event.data
+        ){
+
+            return;
+
+        }
+
+
+        if(
+            event.data.type ===
+            "GLOBAL_SEARCH"
+        ){
+
+            searchInput.value =
+                event.data.value ||
+                "";
+
+
+            updateClearSearch();
+
+            filterAndRenderClients();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function getClientName(
+    client
+){
+
+    return (
+        client.clientName ||
+        client.ClientName ||
+        client.name ||
+        ""
+    );
+
+}
+
+
+function getClientId(
+    client
+){
+
+    return (
+        client.clientId ||
+        client.ClientId ||
+        ""
+    );
+
+}
+
+
+function getMobile(
+    client
+){
+
+    return (
+        client.mobile ||
+        client.Mobile ||
+        client.phone ||
+        client.MobileNo ||
+        ""
+    );
+
+}
+
+
+function getEmail(
+    client
+){
+
+    return (
+        client.email ||
+        client.Email ||
+        ""
+    );
+
+}
+
+
+function getPan(
+    client
+){
+
+    return (
+        client.pan ||
+        client.Pan ||
+        client.PAN ||
+        ""
+    );
+
+}
+
+
+function getAdhar(
+    client
+){
+
+    return (
+        client.adhar ||
+        client.Adhar ||
+        client.adharNumber ||
+        client.aadhaar ||
+        client.Aadhaar ||
+        ""
+    );
+
+}
+
+
+function getGstin(
+    client
+){
+
+    return (
+        client.gstin ||
+        client.Gstin ||
+        client.GSTIN ||
+        ""
+    );
+
+}
+
+
+function getAddress(
+    client
+){
+
+    return (
+        client.address ||
+        client.Address ||
+        ""
+    );
+
+}
+
+
+function getStatus(
+    client
+){
+
+    return (
+        client.status ||
+        client.Status ||
+        "Active"
+    );
+
+}
+
+
+function getStatusClass(
+    status
+){
+
+    const value =
+        String(
+            status || ""
+        )
+        .toLowerCase();
+
+
+    if(
+        value ===
+        "regular"
+    ){
+
+        return "status-regular";
+
+    }
+
+
+    if(
+        value ===
+        "non active" ||
+        value ===
+        "inactive"
+    ){
+
+        return "status-inactive";
+
+    }
+
+
+    return "status-active";
+
+}
+
+
+function getDateValue(
+    client
+){
+
+    const value =
+        client.createdAt ||
+        client.CreatedAt;
+
+
+    if(!value){
+
+        return 0;
+
+    }
+
+
+    if(
+        typeof value.toDate ===
+        "function"
+    ){
+
+        return value.toDate().getTime();
+
+    }
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    return isNaN(
+        date.getTime()
+    )
+        ? 0
+        : date.getTime();
+
+}
+
+
+function generateClientId(){
+
+    /*
+     * Example:
+     * CLI20260812A4F7
+     */
+
+    const now =
+        new Date();
+
+
+    const date =
+        now.getFullYear()
+        +
+        String(
+            now.getMonth()+1
+        ).padStart(
+            2,
+            "0"
+        )
+        +
+        String(
+            now.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const random =
+        Math.random()
+        .toString(
+            36
+        )
+        .substring(
+            2,
+            6
+        )
+        .toUpperCase();
+
+
+    return (
+        "CLI" +
+        date +
+        random
+    );
+
+}
+
+
+function escapeHTML(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   INITIAL ICONS
+========================================================= */
+
+lucide.createIcons();
+
+</script>
+
 </body>
+
 </html>
