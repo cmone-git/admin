@@ -497,7 +497,7 @@ body {
 
 
             <img
-                src="assets/name.png"
+                src="assets/name.svg"
                 class="header-name"
                 alt="CM FILINGS">
 
@@ -582,7 +582,7 @@ body {
 
         <iframe
             id="module-frame"
-            src="dashboard.html"
+            src="index.html"
             title="CM Filings Module">
         </iframe>
 
@@ -679,7 +679,7 @@ body {
 
         <button
             class="nav-item active"
-            data-page="dashboard.html"
+            data-page="index.html"
             data-title="Dashboard">
 
             <i data-lucide="layout-dashboard"></i>
@@ -803,7 +803,7 @@ onAuthStateChanged(
         if (!user) {
 
             window.location.replace(
-                "signin.html?error=login_required"
+                "auth.html?error=login_required"
             );
 
         }
