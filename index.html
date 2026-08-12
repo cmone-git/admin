@@ -46,7 +46,7 @@
     </script>
 
     <style>
-        html, body { height: 100%; overflow: hidden; margin: 0; }
+        html, body { height: 100%; margin: 0; overflow: hidden; }
         .hero-pattern {
             background-color: #F4F5F7;
             background-image: radial-gradient(rgba(7, 29, 73, 0.05) 1px, transparent 1px);
@@ -57,7 +57,7 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     </style>
 </head>
-<body class="font-sans text-slate-700 bg-brand-light antialiased flex flex-col h-screen w-screen overflow-hidden">
+<body class="font-sans text-slate-700 bg-brand-light antialiased flex flex-col h-full w-full">
 
     <!-- APP LOADER -->
     <div id="app-loader" class="fixed inset-0 bg-brand-light z-[200] flex flex-col items-center justify-center">
@@ -66,13 +66,13 @@
     </div>
 
     <!-- MAIN APP WRAPPER -->
-    <div id="main-app" class="hidden flex flex-col h-full w-full overflow-hidden">
+    <div id="main-app" class="hidden flex flex-col h-full w-full justify-between overflow-hidden">
         
         <!-- 1. FIXED TOP HEADER -->
-        <header class="h-20 bg-white/95 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-4 sm:px-8 shrink-0 z-40">
+        <header class="h-18 bg-white/95 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-4 sm:px-8 shrink-0 z-40">
             <div class="flex items-center gap-3.5">
                 <img src="assets/logo.png" alt="Logo" class="w-11 h-11 object-contain">
-                <img src="assets/name.svg" alt="CM FILINGS" class="h-11 object-contain">
+                <img src="assets/name.svg" alt="CM Filings" class="h-8 object-contain">
             </div>
 
             <!-- Header Tools & Profile Dropdown -->
@@ -100,13 +100,13 @@
             </div>
         </header>
 
-        <!-- 2. WORKSPACE VIEWPORT -->
-        <div class="flex-1 relative overflow-hidden bg-brand-light flex flex-col">
+        <!-- 2. SCROLLABLE WORKSPACE VIEWPORT -->
+        <div class="flex-1 relative overflow-y-auto bg-brand-light flex flex-col">
             
             <!-- DEFAULT HOME DASHBOARD VIEWLET -->
-            <div id="home-dashboard-view" class="absolute inset-0 overflow-y-auto hero-pattern p-4 sm:p-6 lg:p-8 space-y-6">
+            <div id="home-dashboard-view" class="hero-pattern p-4 sm:p-6 lg:p-8 space-y-6 flex-1">
                 
-                <div class="max-w-7xl mx-auto space-y-6 pb-28">
+                <div class="max-w-7xl mx-auto space-y-6 pb-12">
                     
                     <!-- KPI Analytics Cards -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -230,7 +230,7 @@
         </div>
 
         <!-- 3. FIXED BOTTOM MOBILE NAVIGATION BAR -->
-        <nav class="h-20 bg-white border-t border-slate-200 flex items-center justify-around px-2 shrink-0 z-40">
+        <nav class="h-18 bg-white border-t border-slate-200 flex items-center justify-around px-2 shrink-0 z-40">
             <button onclick="openHomeDashboard()" class="flex flex-col items-center justify-center text-brand-red font-bold p-2">
                 <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
                 <span class="text-[10px] mt-1 font-extrabold tracking-wider">Dashboard</span>
