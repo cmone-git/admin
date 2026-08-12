@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing - CM FILINGS</title>
+    
+    <!-- PWA & Favicon Assets -->
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+    <meta name="theme-color" content="#071D49">
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#B10000',
+                            redhover: '#8A0000',
+                            redlight: '#FDF2F2',
+                            navy: '#071D49',
+                            navyhover: '#102a5c',
+                            light: '#F4F5F7',
+                            white: '#FFFFFF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .hero-pattern {
+            background-color: #F4F5F7;
+            background-image: radial-gradient(rgba(7, 29, 73, 0.05) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .spinner-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid transparent;
+            border-top-color: var(--navy-dark, #b10000);
+            border-right-color: var(--navy-mid, #3b3b3b);
+            border-radius: 50%;
+            animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        }
+
+        .spinner-track {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid #F1F5F9;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-700 bg-brand-light antialiased flex flex-col h-screen w-screen overflow-hidden m-0">
+
+    <div class="flex-1 hero-pattern flex flex-col items-center justify-center p-4">
+        <div class="flex flex-col items-center max-w-xs w-full text-center">
+            
+            <!-- Logo Container with Spinning Accent Ring -->
+            <div class="relative w-24 h-24 flex justify-center items-center mb-6">
+                <div class="spinner-track"></div>
+                <div class="spinner-ring"></div>
+                <img src="assets/logo.png" alt="CM Filings Logo" class="w-10 h-10 object-contain z-10">
+            </div>
+
+            <!-- Dynamic Processing Message -->
+            <div class="w-full">
+                <h2 class="text-xs font-extrabold tracking-widest uppercase text-brand-navy" id="processing-msg">Loading Workspace...</h2>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module">
+        lucide.createIcons();
+
+        // Check if a custom message is passed via URL parameters (e.g. processing.html?msg=Loading%20Clients)
+        const urlParams = new URLSearchParams(window.location.search);
+        const msg = urlParams.get('msg');
+        if (msg) {
+            document.getElementById('processing-msg').textContent = decodeURIComponent(msg);
+        }
+    </script>
+</body>
+</html>
