@@ -62,8 +62,8 @@
             width: 100%;
             height: 100%;
             border: 3px solid transparent;
-            border-top-color: var(--navy-dark, #071D49);
-            border-right-color: var(--navy-mid, #1E3E62);
+            border-top-color: var(--navy-dark, #b10000);
+            border-right-color: var(--navy-mid, #3b3b3b);
             border-radius: 50%;
             animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
         }
@@ -90,11 +90,8 @@
             </div>
 
             <!-- Dynamic Processing Message -->
-            <div class="space-y-3 w-full">
+            <div class="w-full">
                 <h2 class="text-xs font-extrabold tracking-widest uppercase text-brand-navy" id="processing-msg">Loading Workspace...</h2>
-                <div class="w-full h-1 bg-slate-200 rounded-full overflow-hidden">
-                    <div id="progress-fill" class="h-full bg-brand-red rounded-full transition-all duration-300" style="width: 30%;"></div>
-                </div>
             </div>
 
         </div>
@@ -109,15 +106,6 @@
         if (msg) {
             document.getElementById('processing-msg').textContent = decodeURIComponent(msg);
         }
-
-        // Smooth simulated progress bar movement
-        let progress = 30;
-        const progressFill = document.getElementById('progress-fill');
-        const interval = setInterval(() => {
-            progress += Math.floor(Math.random() * 20) + 10;
-            if (progress > 95) progress = 95;
-            progressFill.style.width = `${progress}%`;
-        }, 150);
     </script>
 </body>
 </html>
