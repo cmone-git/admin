@@ -1,766 +1,3183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corporate Compliance - CM FILINGS</title>
-    
-    <!-- PWA & Favicon Assets -->
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
-    <meta name="theme-color" content="#071D49">
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+               maximum-scale=1.0, user-scalable=no">
 
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+<title>Compliance - CM FILINGS</title>
 
-    <!-- Tailwind Configuration -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            red: '#B10000',
-                            redhover: '#8A0000',
-                            redlight: '#FDF2F2',
-                            navy: '#071D49',
-                            navyhover: '#102a5c',
-                            light: '#F4F5F7',
-                            white: '#FFFFFF'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
+<link rel="icon" type="image/png" href="assets/logo.png">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                brand: {
+                    red: '#B10000',
+                    redhover: '#8A0000',
+                    redlight: '#FDF2F2',
+                    navy: '#071D49',
+                    navyhover: '#102A5C',
+                    light: '#F4F5F7',
+                    white: '#FFFFFF'
                 }
+            },
+            fontFamily: {
+                sans: ['Inter', 'Arial', 'sans-serif']
             }
         }
-    </script>
+    }
+};
+</script>
 
-    <style>
-        html { scroll-behavior: smooth; }
-        .hero-pattern {
-            background-color: #F4F5F7;
-            background-image: radial-gradient(rgba(7, 29, 73, 0.05) 1px, transparent 1px);
-            background-size: 28px 28px;
-        }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-    </style>
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    background: #F4F5F7;
+    color: #334155;
+    overflow-x: hidden;
+}
+
+/*
+    IMPORTANT:
+    This file is loaded inside index.html iframe.
+    Therefore there is NO header and NO bottom navigation here.
+*/
+
+#app-loader {
+    min-height: 300px;
+}
+
+.module-page {
+    min-height: 100%;
+    padding: 20px 14px 30px;
+}
+
+.hero-pattern {
+    background-color: #F4F5F7;
+    background-image:
+        radial-gradient(
+            rgba(7, 29, 73, 0.045) 1px,
+            transparent 1px
+        );
+    background-size: 28px 28px;
+}
+
+.module-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, .035);
+}
+
+.module-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.module-heading {
+    min-width: 0;
+}
+
+.module-heading h1 {
+    margin: 0;
+    color: #071D49;
+    font-size: 22px;
+    line-height: 1.15;
+    font-weight: 900;
+    letter-spacing: -.4px;
+}
+
+.module-heading p {
+    margin: 5px 0 0;
+    color: #64748B;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.module-title-icon {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FDF2F2;
+    color: #B10000;
+}
+
+.btn-primary {
+    border: 0;
+    background: #B10000;
+    color: #FFFFFF;
+    min-height: 42px;
+    padding: 0 15px;
+    border-radius: 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-primary:hover {
+    background: #8A0000;
+}
+
+.btn-secondary {
+    border: 1px solid #E2E8F0;
+    background: #FFFFFF;
+    color: #475569;
+    min-height: 40px;
+    padding: 0 13px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background: #F8FAFC;
+}
+
+.btn-danger {
+    border: 1px solid #FECACA;
+    background: #FEF2F2;
+    color: #B10000;
+    min-height: 40px;
+    padding: 0 13px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #94A3B8;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    border: 1px solid #CBD5E1;
+    background: #FFFFFF;
+    color: #334155;
+    border-radius: 10px;
+    outline: none;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.form-input,
+.form-select {
+    height: 42px;
+    padding: 0 12px;
+}
+
+.form-textarea {
+    min-height: 80px;
+    padding: 10px 12px;
+    resize: vertical;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: #071D49;
+    box-shadow: 0 0 0 3px rgba(7, 29, 73, .06);
+}
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.kpi-card {
+    min-width: 0;
+    padding: 15px;
+    border-radius: 16px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+}
+
+.kpi-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 9px;
+}
+
+.kpi-label {
+    color: #94A3B8;
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.kpi-value {
+    color: #071D49;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-top: 4px;
+}
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 14px;
+}
+
+.search-box {
+    position: relative;
+    flex: 1 1 200px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94A3B8;
+    pointer-events: none;
+}
+
+.search-box input {
+    padding-left: 34px;
+}
+
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    min-width: 850px;
+}
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 29, 73, .55);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+    z-index: 5000;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 560px;
+    max-height: calc(100dvh - 28px);
+    overflow-y: auto;
+    background: #FFFFFF;
+    border-radius: 18px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, .22);
+}
+
+.modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: #FFFFFF;
+    padding: 17px;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.modal-body {
+    padding: 17px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+@media (max-width: 640px) {
+
+    .module-page {
+        padding: 14px 10px 24px;
+    }
+
+    .module-title-row {
+        align-items: flex-start;
+    }
+
+    .module-heading h1 {
+        font-size: 19px;
+    }
+
+    .module-heading p {
+        font-size: 10px;
+    }
+
+    .module-title-icon {
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
+    }
+
+    .btn-primary {
+        min-height: 38px;
+        padding: 0 11px;
+        font-size: 10px;
+    }
+
+    .btn-primary span {
+        display: none;
+    }
+
+    .kpi-card {
+        padding: 12px;
+    }
+
+    .kpi-value {
+        font-size: 19px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+}
+
+@media (min-width: 768px) {
+    .module-page {
+        padding: 24px;
+    }
+}
+
+@media (min-width: 1100px) {
+    .module-page {
+        padding: 28px;
+    }
+}
+</style>
 </head>
-<body class="font-sans text-slate-700 bg-brand-light antialiased selection:bg-brand-redlight selection:text-brand-red flex flex-col min-h-screen">
 
-    <!-- APP LOADER -->
-    <div id="app-loader" class="fixed inset-0 bg-brand-light z-[100] flex flex-col items-center justify-center">
-        <i data-lucide="loader-2" class="w-10 h-10 text-brand-navy animate-spin mb-4"></i>
-        <p class="text-sm font-bold text-slate-500 tracking-widest uppercase">Loading Compliance Vault...</p>
-    </div>
+<body class="hero-pattern">
 
-    <!-- MAIN APP WRAPPER -->
-    <div id="main-app" class="hidden flex-col min-h-screen">
-        
-        <!-- NAVIGATION -->
-        <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-20">
-                    <div class="flex items-center gap-4">
-                        <a href="index.html" class="flex items-center gap-3 group border-r border-slate-200 pr-4">
-                            <div class="w-10 h-10 bg-brand-navy rounded-lg flex items-center justify-center text-white shadow-sm transition-colors">
-                                <i data-lucide="shield-alert" class="w-5 h-5"></i>
-                            </div>
-                            <div class="flex flex-col">
-                                <span class="font-extrabold text-xl tracking-tight text-brand-navy leading-none">CM FILINGS</span>
-                                <span class="text-[9px] font-bold text-brand-red uppercase tracking-widest leading-none mt-1">Compliance Dashboard</span>
-                            </div>
-                        </a>
-                        <a href="index.html" class="hidden sm:flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-brand-navy transition-colors">
-                            <i data-lucide="home" class="w-4 h-4"></i> Home Dashboard
-                        </a>
-                    </div>
-                    
-                    <!-- Header Add Button -->
-                    <button id="btn-open-add-modal" class="px-4 py-2.5 bg-brand-red text-white font-bold rounded-xl shadow-md hover:bg-brand-redhover transition-colors flex items-center gap-2 text-xs">
-                        <i data-lucide="plus-circle" class="w-4 h-4"></i> Add Compliance
-                    </button>
-                </div>
+<!-- LOADER -->
+<div id="app-loader"
+     class="flex flex-col items-center justify-center">
+    <i data-lucide="loader-2"
+       class="w-8 h-8 text-brand-navy animate-spin mb-3"></i>
+
+    <p class="text-[10px] font-extrabold tracking-widest uppercase text-slate-400">
+        Loading Compliance...
+    </p>
+</div>
+
+
+<!-- MAIN MODULE -->
+<div id="main-app" class="hidden module-page">
+
+<div class="module-container">
+
+    <!-- MODULE TITLE -->
+    <div class="module-title-row">
+
+        <div class="flex items-center gap-10 min-w-0">
+
+            <div class="module-title-icon">
+                <i data-lucide="clipboard-check"
+                   class="w-5 h-5"></i>
             </div>
-        </header>
 
-        <!-- MAIN CONTENT -->
-        <main class="flex-1 hero-pattern py-8 relative">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                
-                <div class="mb-8 text-center lg:text-left">
-                    <h2 class="text-xs font-extrabold tracking-widest uppercase text-brand-red mb-2">Corporate Control</h2>
-                    <h1 class="text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight">Compliance & Invoicing Engine</h1>
-                    <p class="text-slate-500 font-medium mt-2">Track filing statuses, view mapped client credentials, and auto-generate proforma invoices.</p>
-                </div>
-
-                <!-- KPI CARDS -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-6 relative overflow-hidden group">
-                        <div class="absolute -right-6 -top-6 w-32 h-32 bg-amber-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
-                        <div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 shrink-0 relative z-10">
-                            <i data-lucide="clock" class="w-7 h-7"></i>
-                        </div>
-                        <div class="relative z-10">
-                            <p class="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-1">Active / Pending Compliances</p>
-                            <h3 class="text-3xl font-black text-brand-navy leading-none tracking-tight" id="kpi-pending-count">0</h3>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-6 relative overflow-hidden group">
-                        <div class="absolute -right-6 -top-6 w-32 h-32 bg-brand-redlight rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
-                        <div class="w-14 h-14 bg-brand-redlight rounded-2xl flex items-center justify-center text-brand-red shrink-0 relative z-10">
-                            <i data-lucide="indian-rupee" class="w-7 h-7"></i>
-                        </div>
-                        <div class="relative z-10">
-                            <p class="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-1">Total Compliance Dues</p>
-                            <h3 class="text-3xl font-black text-brand-red leading-none tracking-tight" id="kpi-total-dues">₹0.00</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- COMPLIANCE TABLE CONTAINER -->
-                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                        <h3 class="text-lg font-bold text-brand-navy flex items-center gap-2">
-                            <i data-lucide="list-checks" class="w-5 h-5 text-brand-red"></i> Compliance Register
-                        </h3>
-                        
-                        <!-- FILTERS -->
-                        <div class="flex flex-wrap items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-100">
-                            <div class="relative">
-                                <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-                                <input type="text" id="search-input" placeholder="Search client, task, ID..." class="text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-lg pl-9 pr-3 py-2 outline-none hover:border-brand-navy transition-colors w-full sm:w-48">
-                            </div>
-
-                            <select id="filter-status" class="text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-lg px-3 py-2 outline-none hover:border-brand-navy transition-colors cursor-pointer">
-                                <option value="All">All Statuses</option>
-                                <option value="Pending">Pending</option>
-                                <option value="In Progress">In Progress</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-
-                            <select id="sort-select" class="text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-lg px-3 py-2 outline-none hover:border-brand-navy transition-colors cursor-pointer">
-                                <option value="date-desc">Sort: Newest</option>
-                                <option value="client-asc">Sort: Client Name</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-slate-600 whitespace-nowrap">
-                            <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-200">
-                                <tr>
-                                    <th class="py-3 px-4 rounded-tl-lg">Compliance ID & Task</th>
-                                    <th class="py-3 px-4">Client Name & ID</th>
-                                    <th class="py-3 px-4">Due Date</th>
-                                    <th class="py-3 px-4">Fee / Invoice</th>
-                                    <th class="py-3 px-4">Status</th>
-                                    <th class="py-3 px-4 rounded-tr-lg text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="compliance-table-body" class="divide-y divide-slate-100">
-                                <tr>
-                                    <td colspan="6" class="px-4 py-8 text-center text-slate-400 font-medium">Loading register...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
+            <div class="module-heading">
+                <h1>Compliance</h1>
+                <p>
+                    Track filings, due dates, payments and compliance work.
+                </p>
             </div>
-        </main>
 
-        <!-- ADD / EDIT COMPLIANCE MODAL -->
-        <div id="compliance-modal" class="hidden fixed inset-0 bg-brand-navy/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 id="modal-title" class="text-lg font-bold text-brand-navy">Add Compliance Task</h3>
-                    <button id="btn-close-modal" class="text-slate-400 hover:text-brand-red"><i data-lucide="x" class="w-5 h-5"></i></button>
-                </div>
-                
-                <form id="compliance-form" class="space-y-4 max-h-[70vh] overflow-y-auto pr-1">
-                    <input type="hidden" id="form-firebase-id">
-                    
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Compliance ID</label>
-                            <input type="text" id="form-comp-id" readonly class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-mono font-bold bg-slate-50 text-slate-500">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Compliance Status</label>
-                            <select id="form-status" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none bg-white">
-                                <option value="Pending">Pending</option>
-                                <option value="In Progress">In Progress</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Client ID (Search) *</label>
-                            <input list="client-id-list" type="text" id="form-client-id" required class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-mono font-bold outline-none bg-white" placeholder="Type ID...">
-                            <datalist id="client-id-list"></datalist>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Client Name (Search) *</label>
-                            <input list="client-name-list" type="text" id="form-client-name" required class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none bg-white" placeholder="Type Name...">
-                            <datalist id="client-name-list"></datalist>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Task Title / Filing Name *</label>
-                            <input type="text" id="form-task-title" required class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none bg-white" placeholder="e.g. GSTR-3B Return Filing">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Due Date *</label>
-                            <input type="date" id="form-due-date" required class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none bg-white">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Professional Fee / Amount (₹) *</label>
-                            <input type="number" id="form-amount" required min="0" step="0.01" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-extrabold text-brand-navy outline-none bg-white" placeholder="0.00">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Payment Status</label>
-                            <select id="form-payment-status" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none bg-white">
-                                <option value="Unpaid">Unpaid (Auto-Invoiced)</option>
-                                <option value="Paid">Paid</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Narration / Remarks</label>
-                        <textarea id="form-narration" rows="2" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs outline-none bg-white resize-none" placeholder="Filing notes or credentials instructions..."></textarea>
-                    </div>
-
-                    <button type="submit" id="btn-save-comp" class="w-full py-3.5 bg-brand-navy text-white font-bold rounded-xl shadow-md hover:bg-brand-navyhover transition-colors flex items-center justify-center gap-2 mt-4 text-xs">
-                        Save & Auto-Generate Proforma Invoice
-                    </button>
-                </form>
-            </div>
         </div>
 
-        <!-- VIEW DETAILS & CREDENTIALS DRAWER / MODAL -->
-        <div id="view-modal" class="hidden fixed inset-0 bg-brand-navy/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
-                <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
-                    <div>
-                        <h3 id="view-task-title" class="text-base font-extrabold text-brand-navy">Task Title</h3>
-                        <p class="text-xs font-mono text-brand-red font-bold" id="view-comp-id">CMP: ---</p>
-                    </div>
-                    <button id="btn-close-view" class="text-slate-400 hover:text-brand-red"><i data-lucide="x" class="w-5 h-5"></i></button>
-                </div>
-                
-                <div class="space-y-4 text-xs">
-                    <div class="grid grid-cols-2 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                        <div><span class="block text-slate-400 font-bold mb-0.5">Client Name:</span> <span id="view-client-name" class="font-bold text-slate-700">---</span></div>
-                        <div><span class="block text-slate-400 font-bold mb-0.5">Client ID:</span> <span id="view-client-id" class="font-mono font-semibold">---</span></div>
-                        <div><span class="block text-slate-400 font-bold mb-0.5">Due Date:</span> <span id="view-due-date" class="font-semibold text-slate-700">---</span></div>
-                        <div><span class="block text-slate-400 font-bold mb-0.5">Amount:</span> <span id="view-amount" class="font-extrabold text-brand-red">---</span></div>
-                    </div>
+        <button id="btn-open-add-modal"
+                class="btn-primary"
+                type="button">
 
-                    <!-- MAPPED CLIENT CREDENTIALS SECTION -->
-                    <div>
-                        <h4 class="text-xs font-extrabold text-brand-navy uppercase tracking-wider mb-2 flex items-center gap-1.5"><i data-lucide="key-round" class="w-4 h-4 text-brand-red"></i> Mapped Portal Credentials</h4>
-                        <div id="client-creds-container" class="space-y-2 bg-slate-50/50 p-3 rounded-xl border border-slate-100 min-h-[60px]">
-                            <p class="text-slate-400 italic text-center py-2">Loading client credentials...</p>
-                        </div>
-                    </div>
+            <i data-lucide="plus"
+               class="w-4 h-4"></i>
 
-                    <div><span class="block font-bold text-slate-400 mb-1">Narration:</span> <p id="view-narration" class="text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-100">---</p></div>
-                    <div class="text-[10px] text-slate-400 pt-2 border-t border-slate-50">Created By: <span id="view-created-by" class="font-semibold">---</span> | Updated: <span id="view-updated-at">---</span></div>
-                </div>
+            <span>Add Compliance</span>
+        </button>
 
-                <div class="flex gap-3 mt-6">
-                    <button id="btn-modal-edit" class="flex-1 py-3 bg-brand-navy text-white font-bold rounded-xl shadow-sm hover:bg-brand-navyhover transition-colors text-xs flex items-center justify-center gap-1.5">
-                        <i data-lucide="edit-2" class="w-3.5 h-3.5"></i> Edit Task
-                    </button>
-                    <button id="btn-modal-delete" class="flex-1 py-3 bg-red-50 text-brand-red font-bold rounded-xl shadow-sm hover:bg-red-100 transition-colors text-xs flex items-center justify-center gap-1.5 border border-brand-red/20">
-                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Delete Task
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- FOOTER -->
-        <footer class="bg-white border-t border-slate-200 pt-8 pb-8 mt-auto">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-xs font-medium text-slate-500">
-                <p>&copy; 2026 CM Filings. Compliance Engine.</p>
-                <div class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-brand-red"></i> Secure Vault</div>
-            </div>
-        </footer>
     </div>
 
-    <!-- GLOBAL COPY HELPER -->
-    <script>
-        window.copyToClipboard = function(text, btnElement) {
-            navigator.clipboard.writeText(text).then(() => {
-                const originalHTML = btnElement.innerHTML;
-                btnElement.innerHTML = `<span class="text-emerald-600 text-[10px] font-bold">Copied!</span>`;
-                setTimeout(() => {
-                    btnElement.innerHTML = originalHTML;
-                    lucide.createIcons();
-                }, 1500);
-            });
-        };
-    </script>
 
-    <!-- FIREBASE & LOGIC SCRIPT -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, doc, setDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <!-- KPI -->
+    <div class="kpi-grid">
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
-            authDomain: "cmfilings-6a37c.firebaseapp.com",
-            projectId: "cmfilings-6a37c",
-            storageBucket: "cmfilings-6a37c.firebasestorage.app",
-            messagingSenderId: "138705123778",
-            appId: "1:138705123778:web:9561bff9f0f5d89bb6fe5b"
-        };
+        <div class="kpi-card">
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+            <div class="kpi-icon bg-amber-50 text-amber-600">
+                <i data-lucide="clock"
+                   class="w-5 h-5"></i>
+            </div>
 
-        lucide.createIcons();
+            <div class="kpi-label">
+                Active / Pending
+            </div>
 
-        const appLoader = document.getElementById('app-loader');
-        const mainApp = document.getElementById('main-app');
-        const tableBody = document.getElementById('compliance-table-body');
-        
-        const kpiPendingCount = document.getElementById('kpi-pending-count');
-        const kpiTotalDues = document.getElementById('kpi-total-dues');
-        
-        const searchInput = document.getElementById('search-input');
-        const filterStatus = document.getElementById('filter-status');
-        const sortSelect = document.getElementById('sort-select');
+            <div id="kpi-pending-count"
+                 class="kpi-value">
+                0
+            </div>
 
-        // Modal Elements
-        const complianceModal = document.getElementById('compliance-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const btnOpenAddModal = document.getElementById('btn-open-add-modal');
-        const btnCloseModal = document.getElementById('btn-close-modal');
-        const complianceForm = document.getElementById('compliance-form');
-        
-        const formFirebaseId = document.getElementById('form-firebase-id');
-        const formCompId = document.getElementById('form-comp-id');
-        const formStatus = document.getElementById('form-status');
-        const formClientId = document.getElementById('form-client-id');
-        const formClientName = document.getElementById('form-client-name');
-        const formTaskTitle = document.getElementById('form-task-title');
-        const formDueDate = document.getElementById('form-due-date');
-        const formAmount = document.getElementById('form-amount');
-        const formPaymentStatus = document.getElementById('form-payment-status');
-        const formNarration = document.getElementById('form-narration');
-        const btnSaveComp = document.getElementById('btn-save-comp');
+        </div>
 
-        const clientIdList = document.getElementById('client-id-list');
-        const clientNameList = document.getElementById('client-name-list');
 
-        // View Modal Elements
-        const viewModal = document.getElementById('view-modal');
-        const btnCloseView = document.getElementById('btn-close-view');
-        const viewTaskTitle = document.getElementById('view-task-title');
-        const viewCompId = document.getElementById('view-comp-id');
-        const viewClientName = document.getElementById('view-client-name');
-        const viewClientId = document.getElementById('view-client-id');
-        const viewDueDate = document.getElementById('view-due-date');
-        const viewAmount = document.getElementById('view-amount');
-        const clientCredsContainer = document.getElementById('client-creds-container');
-        const viewNarration = document.getElementById('view-narration');
-        const viewCreatedBy = document.getElementById('view-created-by');
-        const viewUpdatedAt = document.getElementById('view-updated-at');
-        const btnModalEdit = document.getElementById('btn-modal-edit');
-        const btnModalDelete = document.getElementById('btn-modal-delete');
+        <div class="kpi-card">
 
-        let allCompData = [];
-        let compMap = {};
-        let clientsData = [];
-        let allCredsData = [];
-        let activeViewFirebaseId = null;
+            <div class="kpi-icon bg-red-50 text-brand-red">
+                <i data-lucide="indian-rupee"
+                   class="w-5 h-5"></i>
+            </div>
 
-        // 1. Load Clients for Auto-Fill Dropdowns
-        onSnapshot(collection(db, 'clients'), (snapshot) => {
-            clientsData = snapshot.docs.map(doc => ({ firebaseId: doc.id, ...doc.data() }));
-            clientIdList.innerHTML = '';
-            clientNameList.innerHTML = '';
+            <div class="kpi-label">
+                Total Dues
+            </div>
 
-            clientsData.forEach(client => {
-                const nameStr = client.clientName || client.ClientName || client.name || '';
-                const idStr = client.clientId || client.ClientId || client.firebaseId || '';
-                if(nameStr) {
-                    const opt = document.createElement('option');
-                    opt.value = nameStr;
-                    clientNameList.appendChild(opt);
-                }
-                if(idStr) {
-                    const optId = document.createElement('option');
-                    optId.value = idStr;
-                    clientIdList.appendChild(optId);
-                }
-            });
-        });
+            <div id="kpi-total-dues"
+                 class="kpi-value text-brand-red">
+                ₹0.00
+            </div>
 
-        // 2. Load Credentials for Mapped Client Views
-        onSnapshot(collection(db, 'credentials'), (snapshot) => {
-            allCredsData = snapshot.docs.map(doc => ({ firebaseId: doc.id, ...doc.data() }));
-        });
+        </div>
 
-        // 3. Load Compliance Records from Firestore
-        onSnapshot(collection(db, 'compliances'), (snapshot) => {
-            appLoader.classList.add('hidden');
-            mainApp.classList.replace('hidden', 'flex');
+    </div>
+
+
+    <!-- REGISTER -->
+    <section class="card p-4 sm:p-6">
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+
+            <div>
+                <h2 class="text-sm font-extrabold text-brand-navy">
+                    Compliance Register
+                </h2>
+
+                <p class="text-[10px] text-slate-400 font-semibold mt-1">
+                    Current compliance records
+                </p>
+            </div>
+
+
+            <!-- FILTERS -->
+            <div class="filter-bar mb-0">
+
+                <div class="search-box">
+                    <i data-lucide="search"
+                       class="w-4 h-4"></i>
+
+                    <input id="search-input"
+                           class="form-input"
+                           type="search"
+                           placeholder="Search client, task, ID...">
+                </div>
+
+
+                <select id="filter-status"
+                        class="form-select"
+                        style="width:auto;min-width:130px">
+
+                    <option value="All">
+                        All Statuses
+                    </option>
+
+                    <option value="Pending">
+                        Pending
+                    </option>
+
+                    <option value="In Progress">
+                        In Progress
+                    </option>
+
+                    <option value="Completed">
+                        Completed
+                    </option>
+
+                </select>
+
+
+                <select id="sort-select"
+                        class="form-select"
+                        style="width:auto;min-width:125px">
+
+                    <option value="date-desc">
+                        Newest
+                    </option>
+
+                    <option value="client-asc">
+                        Client A-Z
+                    </option>
+
+                    <option value="due-asc">
+                        Due Date
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- TABLE -->
+        <div class="table-wrap">
+
+            <table class="w-full text-left text-xs">
+
+                <thead class="bg-slate-50 text-slate-400 uppercase font-extrabold text-[9px] tracking-wider border-y border-slate-200">
+
+                    <tr>
+
+                        <th class="py-3 px-3">
+                            Compliance
+                        </th>
+
+                        <th class="py-3 px-3">
+                            Client
+                        </th>
+
+                        <th class="py-3 px-3">
+                            Due Date
+                        </th>
+
+                        <th class="py-3 px-3">
+                            Fee
+                        </th>
+
+                        <th class="py-3 px-3">
+                            Status
+                        </th>
+
+                        <th class="py-3 px-3 text-right">
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="compliance-table-body"
+                       class="divide-y divide-slate-100">
+
+                    <tr>
+
+                        <td colspan="6"
+                            class="py-10 text-center text-slate-400">
+
+                            Loading compliance register...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</div>
+</div>
+
+
+<!-- ADD / EDIT MODAL -->
+<div id="compliance-modal"
+     class="modal-backdrop hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header flex items-center justify-between">
+
+            <div>
+
+                <h3 id="modal-title"
+                    class="text-base font-extrabold text-brand-navy">
+                    Add Compliance
+                </h3>
+
+                <p class="text-[9px] text-slate-400 font-semibold mt-1">
+                    Create or update compliance work
+                </p>
+
+            </div>
+
+            <button id="btn-close-modal"
+                    type="button"
+                    class="text-slate-400 hover:text-brand-red">
+
+                <i data-lucide="x"
+                   class="w-5 h-5"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <form id="compliance-form"
+                  class="space-y-4">
+
+                <input type="hidden"
+                       id="form-firebase-id">
+
+
+                <div class="grid grid-cols-2 gap-3">
+
+                    <div>
+
+                        <label class="form-label">
+                            Compliance ID
+                        </label>
+
+                        <input id="form-comp-id"
+                               class="form-input bg-slate-50"
+                               readonly>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="form-label">
+                            Status
+                        </label>
+
+                        <select id="form-status"
+                                class="form-select">
+
+                            <option value="Pending">
+                                Pending
+                            </option>
+
+                            <option value="In Progress">
+                                In Progress
+                            </option>
+
+                            <option value="Completed">
+                                Completed
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+                    <div>
+
+                        <label class="form-label">
+                            Client ID *
+                        </label>
+
+                        <input id="form-client-id"
+                               list="client-id-list"
+                               class="form-input"
+                               required
+                               placeholder="Client ID">
+
+                        <datalist id="client-id-list"></datalist>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="form-label">
+                            Client Name *
+                        </label>
+
+                        <input id="form-client-name"
+                               list="client-name-list"
+                               class="form-input"
+                               required
+                               placeholder="Client name">
+
+                        <datalist id="client-name-list"></datalist>
+
+                    </div>
+
+                </div>
+
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+                    <div>
+
+                        <label class="form-label">
+                            Task / Filing *
+                        </label>
+
+                        <input id="form-task-title"
+                               class="form-input"
+                               required
+                               placeholder="GSTR-3B Return Filing">
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="form-label">
+                            Due Date *
+                        </label>
+
+                        <input id="form-due-date"
+                               type="date"
+                               class="form-input"
+                               required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+                    <div>
+
+                        <label class="form-label">
+                            Professional Fee *
+                        </label>
+
+                        <input id="form-amount"
+                               type="number"
+                               min="0"
+                               step="0.01"
+                               class="form-input font-extrabold"
+                               required
+                               placeholder="0.00">
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="form-label">
+                            Payment Status
+                        </label>
+
+                        <select id="form-payment-status"
+                                class="form-select">
+
+                            <option value="Unpaid">
+                                Unpaid
+                            </option>
+
+                            <option value="Paid">
+                                Paid
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <label class="form-label">
+                        Narration / Remarks
+                    </label>
+
+                    <textarea id="form-narration"
+                              class="form-textarea"
+                              placeholder="Filing notes or remarks..."></textarea>
+
+                </div>
+
+
+                <button id="btn-save-comp"
+                        type="submit"
+                        class="btn-primary w-full">
+
+                    <i data-lucide="save"
+                       class="w-4 h-4"></i>
+
+                    Save Compliance
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- VIEW MODAL -->
+<div id="view-modal"
+     class="modal-backdrop hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header flex items-center justify-between">
+
+            <div>
+
+                <h3 id="view-task-title"
+                    class="text-base font-extrabold text-brand-navy">
+                    Compliance
+                </h3>
+
+                <p id="view-comp-id"
+                   class="text-[10px] font-mono font-bold text-brand-red mt-1">
+                    CMP: ---
+                </p>
+
+            </div>
+
+            <button id="btn-close-view"
+                    type="button"
+                    class="text-slate-400 hover:text-brand-red">
+
+                <i data-lucide="x"
+                   class="w-5 h-5"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="modal-body space-y-4">
+
+            <div class="grid grid-cols-2 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
+
+                <div>
+                    <span class="block text-[9px] uppercase font-bold text-slate-400">
+                        Client
+                    </span>
+
+                    <span id="view-client-name"
+                          class="text-xs font-bold text-slate-700">
+                        ---
+                    </span>
+                </div>
+
+
+                <div>
+                    <span class="block text-[9px] uppercase font-bold text-slate-400">
+                        Client ID
+                    </span>
+
+                    <span id="view-client-id"
+                          class="text-xs font-mono font-bold">
+                        ---
+                    </span>
+                </div>
+
+
+                <div>
+                    <span class="block text-[9px] uppercase font-bold text-slate-400">
+                        Due Date
+                    </span>
+
+                    <span id="view-due-date"
+                          class="text-xs font-semibold">
+                        ---
+                    </span>
+                </div>
+
+
+                <div>
+                    <span class="block text-[9px] uppercase font-bold text-slate-400">
+                        Amount
+                    </span>
+
+                    <span id="view-amount"
+                          class="text-xs font-extrabold text-brand-red">
+                        ---
+                    </span>
+                </div>
+
+            </div>
+
+
+            <!-- CREDENTIALS -->
+            <div>
+
+                <h4 class="text-[10px] uppercase tracking-wider font-extrabold text-brand-navy mb-2 flex items-center gap-1.5">
+
+                    <i data-lucide="key-round"
+                       class="w-4 h-4 text-brand-red"></i>
+
+                    Client Credentials
+
+                </h4>
+
+
+                <div id="client-creds-container"
+                     class="bg-slate-50/60 border border-slate-100 rounded-xl p-3">
+
+                    <p class="text-[10px] text-slate-400 text-center py-2">
+                        Loading credentials...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <span class="block text-[9px] uppercase font-bold text-slate-400 mb-1">
+                    Narration
+                </span>
+
+                <p id="view-narration"
+                   class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                    ---
+                </p>
+
+            </div>
+
+
+            <div class="text-[9px] text-slate-400 border-t border-slate-100 pt-3">
+
+                Created by:
+                <span id="view-created-by"
+                      class="font-semibold">
+                    ---
+                </span>
+
+                <br>
+
+                Updated:
+                <span id="view-updated-at"
+                      class="font-semibold">
+                    ---
+                </span>
+
+            </div>
+
+
+            <div class="flex gap-2">
+
+                <button id="btn-modal-edit"
+                        class="flex-1 btn-secondary bg-brand-navy text-white border-brand-navy">
+
+                    <i data-lucide="edit-2"
+                       class="w-4 h-4"></i>
+
+                    Edit
+
+                </button>
+
+
+                <button id="btn-modal-delete"
+                        class="flex-1 btn-danger">
+
+                    <i data-lucide="trash-2"
+                       class="w-4 h-4"></i>
+
+                    Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+window.copyToClipboard = async function(text, button) {
+
+    try {
+
+        await navigator.clipboard.writeText(text);
+
+        const old = button.innerHTML;
+
+        button.innerHTML =
+            '<span class="text-emerald-600 text-[9px] font-bold">Copied</span>';
+
+        setTimeout(() => {
+
+            button.innerHTML = old;
+
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+
+        }, 1200);
+
+    } catch (error) {
+
+        console.error(error);
+        alert("Unable to copy.");
+
+    }
+
+};
+</script>
+
+
+<script type="module">
+
+import { auth, db } from "./firebase-config.js";
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+import {
+    collection,
+    onSnapshot,
+    doc,
+    setDoc,
+    deleteDoc,
+    getDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+
+/* ==========================================
+   ELEMENTS
+========================================== */
+
+const appLoader =
+    document.getElementById("app-loader");
+
+const mainApp =
+    document.getElementById("main-app");
+
+const tableBody =
+    document.getElementById("compliance-table-body");
+
+const kpiPendingCount =
+    document.getElementById("kpi-pending-count");
+
+const kpiTotalDues =
+    document.getElementById("kpi-total-dues");
+
+const searchInput =
+    document.getElementById("search-input");
+
+const filterStatus =
+    document.getElementById("filter-status");
+
+const sortSelect =
+    document.getElementById("sort-select");
+
+
+/* MODAL */
+
+const complianceModal =
+    document.getElementById("compliance-modal");
+
+const modalTitle =
+    document.getElementById("modal-title");
+
+const btnOpenAddModal =
+    document.getElementById("btn-open-add-modal");
+
+const btnCloseModal =
+    document.getElementById("btn-close-modal");
+
+const complianceForm =
+    document.getElementById("compliance-form");
+
+const formFirebaseId =
+    document.getElementById("form-firebase-id");
+
+const formCompId =
+    document.getElementById("form-comp-id");
+
+const formStatus =
+    document.getElementById("form-status");
+
+const formClientId =
+    document.getElementById("form-client-id");
+
+const formClientName =
+    document.getElementById("form-client-name");
+
+const formTaskTitle =
+    document.getElementById("form-task-title");
+
+const formDueDate =
+    document.getElementById("form-due-date");
+
+const formAmount =
+    document.getElementById("form-amount");
+
+const formPaymentStatus =
+    document.getElementById("form-payment-status");
+
+const formNarration =
+    document.getElementById("form-narration");
+
+const btnSaveComp =
+    document.getElementById("btn-save-comp");
+
+const clientIdList =
+    document.getElementById("client-id-list");
+
+const clientNameList =
+    document.getElementById("client-name-list");
+
+
+/* VIEW MODAL */
+
+const viewModal =
+    document.getElementById("view-modal");
+
+const btnCloseView =
+    document.getElementById("btn-close-view");
+
+const viewTaskTitle =
+    document.getElementById("view-task-title");
+
+const viewCompId =
+    document.getElementById("view-comp-id");
+
+const viewClientName =
+    document.getElementById("view-client-name");
+
+const viewClientId =
+    document.getElementById("view-client-id");
+
+const viewDueDate =
+    document.getElementById("view-due-date");
+
+const viewAmount =
+    document.getElementById("view-amount");
+
+const clientCredsContainer =
+    document.getElementById("client-creds-container");
+
+const viewNarration =
+    document.getElementById("view-narration");
+
+const viewCreatedBy =
+    document.getElementById("view-created-by");
+
+const viewUpdatedAt =
+    document.getElementById("view-updated-at");
+
+const btnModalEdit =
+    document.getElementById("btn-modal-edit");
+
+const btnModalDelete =
+    document.getElementById("btn-modal-delete");
+
+
+/* ==========================================
+   STATE
+========================================== */
+
+let currentUser = null;
+
+let allCompData = [];
+let compMap = {};
+
+let clientsData = [];
+let allCredsData = [];
+
+let activeViewFirebaseId = null;
+
+
+/* ==========================================
+   FIREBASE AUTH / ADMIN PROTECTION
+========================================== */
+
+function denyAccess() {
+
+    try {
+        window.top.location.href =
+            "signin.html?error=admin_required";
+    } catch {
+
+        window.location.href =
+            "signin.html?error=admin_required";
+
+    }
+
+}
+
+
+async function verifyAdmin(user) {
+
+    if (!user) {
+        denyAccess();
+        return false;
+    }
+
+    try {
+
+        const userRef =
+            doc(db, "users", user.uid);
+
+        const userSnap =
+            await getDoc(userRef);
+
+        if (!userSnap.exists()) {
+
+            await signOut(auth);
+
+            denyAccess();
+
+            return false;
+        }
+
+        const userData =
+            userSnap.data();
+
+        const role =
+            String(userData.role || "")
+                .trim()
+                .toLowerCase();
+
+        if (role !== "admin") {
+
+            await signOut(auth);
+
+            denyAccess();
+
+            return false;
+        }
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "Admin verification failed:",
+            error
+        );
+
+        try {
+            await signOut(auth);
+        } catch {}
+
+        denyAccess();
+
+        return false;
+    }
+}
+
+
+/* ==========================================
+   DATE HELPERS
+========================================== */
+
+function toDate(value) {
+
+    if (!value) return null;
+
+    if (
+        typeof value === "object" &&
+        typeof value.toDate === "function"
+    ) {
+        return value.toDate();
+    }
+
+    const d = new Date(value);
+
+    return isNaN(d.getTime())
+        ? null
+        : d;
+}
+
+
+function formatDate(value) {
+
+    const d = toDate(value);
+
+    if (!d) return "N/A";
+
+    return d.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+}
+
+
+function formatDateTime(value) {
+
+    const d = toDate(value);
+
+    if (!d) return "N/A";
+
+    return d.toLocaleString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
+}
+
+
+/* ==========================================
+   SAFE HTML
+========================================== */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* ==========================================
+   CLIENT HELPERS
+========================================== */
+
+function getClientId(client) {
+
+    return String(
+        client.clientId ||
+        client.ClientId ||
+        client.firebaseId ||
+        ""
+    );
+}
+
+
+function getClientName(client) {
+
+    return String(
+        client.clientName ||
+        client.ClientName ||
+        client.name ||
+        ""
+    );
+}
+
+
+/* ==========================================
+   LOAD CLIENTS
+========================================== */
+
+function loadClients() {
+
+    return new Promise((resolve) => {
+
+        onSnapshot(
+            collection(db, "clients"),
+
+            snapshot => {
+
+                clientsData =
+                    snapshot.docs.map(
+                        d => ({
+                            firebaseId: d.id,
+                            ...d.data()
+                        })
+                    );
+
+                clientIdList.innerHTML = "";
+                clientNameList.innerHTML = "";
+
+                clientsData.forEach(client => {
+
+                    const id =
+                        getClientId(client);
+
+                    const name =
+                        getClientName(client);
+
+                    if (id) {
+
+                        const option =
+                            document.createElement("option");
+
+                        option.value = id;
+
+                        clientIdList.appendChild(
+                            option
+                        );
+                    }
+
+                    if (name) {
+
+                        const option =
+                            document.createElement("option");
+
+                        option.value = name;
+
+                        clientNameList.appendChild(
+                            option
+                        );
+                    }
+
+                });
+
+                resolve();
+
+            },
+
+            error => {
+
+                console.error(
+                    "Clients listener:",
+                    error
+                );
+
+                resolve();
+
+            }
+        );
+
+    });
+
+}
+
+
+/* ==========================================
+   LOAD CREDENTIALS
+========================================== */
+
+function loadCredentials() {
+
+    onSnapshot(
+        collection(db, "credentials"),
+
+        snapshot => {
+
+            allCredsData =
+                snapshot.docs.map(
+                    d => ({
+                        firebaseId: d.id,
+                        ...d.data()
+                    })
+                );
+
+        },
+
+        error => {
+
+            console.error(
+                "Credentials listener:",
+                error
+            );
+
+            allCredsData = [];
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   LOAD COMPLIANCE
+========================================== */
+
+function loadCompliance() {
+
+    onSnapshot(
+        collection(db, "compliances"),
+
+        snapshot => {
 
             allCompData = [];
             compMap = {};
 
             snapshot.forEach(docSnap => {
-                const data = docSnap.data();
-                const item = { firebaseId: docSnap.id, ...data };
+
+                const item = {
+                    firebaseId: docSnap.id,
+                    ...docSnap.data()
+                };
+
                 allCompData.push(item);
-                compMap[docSnap.id] = item;
+
+                compMap[
+                    docSnap.id
+                ] = item;
+
             });
 
-            filterAndRenderComp();
-        });
+            renderCompliance();
 
-        searchInput.addEventListener('input', filterAndRenderComp);
-        filterStatus.addEventListener('change', filterAndRenderComp);
-        sortSelect.addEventListener('change', filterAndRenderComp);
+            appLoader.classList.add("hidden");
 
-        // Smart Auto-fill logic
-        formClientId.addEventListener('input', (e) => {
-            const val = e.target.value.trim().toLowerCase();
-            const matched = clientsData.find(c => (c.clientId || c.ClientId || c.firebaseId || '').toLowerCase() === val);
-            if(matched) {
-                formClientName.value = matched.clientName || matched.ClientName || matched.name || '';
-            }
-        });
+            mainApp.classList.remove("hidden");
 
-        formClientName.addEventListener('input', (e) => {
-            const val = e.target.value.trim().toLowerCase();
-            const matched = clientsData.find(c => (c.clientName || c.ClientName || c.name || '').toLowerCase() === val);
-            if(matched) {
-                formClientId.value = matched.clientId || matched.ClientId || matched.firebaseId || '';
-            }
-        });
+        },
 
-        function filterAndRenderComp() {
-            const searchVal = searchInput.value.trim().toLowerCase();
-            const statVal = filterStatus.value;
-            const sortVal = sortSelect.value;
+        error => {
 
-            let filtered = allCompData.filter(c => {
-                const title = (c.taskTitle || '').toLowerCase();
-                const client = (c.clientName || '').toLowerCase();
-                const cId = (c.clientId || '').toLowerCase();
-                const compId = (c.complianceID || '').toLowerCase();
+            console.error(
+                "Compliance listener:",
+                error
+            );
 
-                const matchesSearch = title.includes(searchVal) || client.includes(searchVal) || cId.includes(searchVal) || compId.includes(searchVal);
-                const matchesStatus = (statVal === 'All' || c.status === statVal);
+            appLoader.innerHTML = `
+                <div class="text-center px-5">
+                    <i data-lucide="shield-alert"
+                       class="w-9 h-9 text-red-500 mx-auto mb-3"></i>
 
-                return matchesSearch && matchesStatus;
-            });
+                    <p class="text-sm font-bold text-slate-600">
+                        Unable to load compliance records
+                    </p>
 
-            filtered.sort((a, b) => {
-                const nameA = (a.clientName || '').toLowerCase();
-                const nameB = (b.clientName || '').toLowerCase();
-                const dateA = new Date(a.createdAt || 0);
-                const dateB = new Date(b.createdAt || 0);
-
-                if (sortVal === 'client-asc') return nameA.localeCompare(nameB);
-                if (sortVal === 'date-desc') return dateB - dateA;
-                return 0;
-            });
-
-            // KPIs
-            let pendingCount = 0;
-            let totalDues = 0;
-
-            allCompData.forEach(c => {
-                if(c.status !== 'Completed') pendingCount++;
-                if(c.paymentStatus !== 'Paid') totalDues += parseFloat(c.amount || 0);
-            });
-
-            kpiPendingCount.textContent = pendingCount;
-            kpiTotalDues.textContent = `₹${totalDues.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-
-            tableBody.innerHTML = '';
-
-            if (filtered.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-slate-400 font-medium">No compliance records found.</td></tr>`;
-                return;
-            }
-
-            filtered.forEach(comp => {
-                const compId = comp.complianceID || comp.firebaseId || 'CMP-000';
-                const taskTitle = comp.taskTitle || 'Filing';
-                const clientName = comp.clientName || 'Client';
-                const clientId = comp.clientId || '---';
-                const dueDate = comp.dueDate || 'N/A';
-                const amount = parseFloat(comp.amount || 0).toFixed(2);
-                const status = comp.status || 'Pending';
-                const payStatus = comp.paymentStatus || 'Unpaid';
-
-                let statusBadge = '';
-                if(status === 'Completed') statusBadge = `<span class="bg-emerald-50 text-emerald-600 border border-emerald-200 px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Completed</span>`;
-                else if(status === 'In Progress') statusBadge = `<span class="bg-blue-50 text-blue-600 border border-blue-200 px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider">In Progress</span>`;
-                else statusBadge = `<span class="bg-amber-50 text-amber-600 border border-amber-200 px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Pending</span>`;
-
-                let payBadge = payStatus === 'Paid' 
-                    ? `<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">Paid</span>`
-                    : `<span class="text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">Unpaid</span>`;
-
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-50 transition-colors group";
-                tr.innerHTML = `
-                    <td class="py-3 px-4">
-                        <div class="font-bold text-brand-navy">${taskTitle}</div>
-                        <div class="font-mono text-xs text-brand-red font-semibold">ID: ${compId}</div>
-                    </td>
-                    <td class="py-3 px-4">
-                        <div class="font-bold text-slate-700">${clientName}</div>
-                        <div class="font-mono text-xs text-slate-400">${clientId}</div>
-                    </td>
-                    <td class="py-3 px-4 font-mono text-xs text-slate-600">${dueDate}</td>
-                    <td class="py-3 px-4">
-                        <div class="font-extrabold text-slate-800">₹${amount}</div>
-                        <div>${payBadge}</div>
-                    </td>
-                    <td class="py-3 px-4">${statusBadge}</td>
-                    <td class="py-3 px-4 text-right">
-                        <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="btn-full-view p-2 text-slate-400 hover:text-brand-navy bg-white border border-slate-200 rounded-lg shadow-sm transition-all" data-id="${comp.firebaseId}" title="View & Credentials">
-                                <i data-lucide="eye" class="w-3.5 h-3.5 pointer-events-none"></i>
-                            </button>
-                            <button class="btn-edit-comp p-2 text-slate-400 hover:text-brand-red bg-white border border-slate-200 rounded-lg shadow-sm transition-all" data-id="${comp.firebaseId}" title="Edit Task">
-                                <i data-lucide="edit-2" class="w-3.5 h-3.5 pointer-events-none"></i>
-                            </button>
-                        </div>
-                    </td>
-                `;
-                tableBody.appendChild(tr);
-            });
+                    <p class="text-[10px] text-slate-400 mt-1">
+                        Check your Firebase permissions.
+                    </p>
+                </div>
+            `;
 
             lucide.createIcons();
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   AUTH START
+========================================== */
+
+onAuthStateChanged(
+    auth,
+    async user => {
+
+        const allowed =
+            await verifyAdmin(user);
+
+        if (!allowed) return;
+
+        currentUser = user;
+
+        loadClients();
+
+        loadCredentials();
+
+        loadCompliance();
+
+    }
+);
+
+
+/* ==========================================
+   RENDER
+========================================== */
+
+function renderCompliance() {
+
+    const search =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+    const statusFilter =
+        filterStatus.value;
+
+    const sort =
+        sortSelect.value;
+
+
+    let filtered =
+        allCompData.filter(comp => {
+
+            const title =
+                String(comp.taskTitle || "")
+                    .toLowerCase();
+
+            const client =
+                String(comp.clientName || "")
+                    .toLowerCase();
+
+            const clientId =
+                String(comp.clientId || "")
+                    .toLowerCase();
+
+            const compId =
+                String(comp.complianceID || "")
+                    .toLowerCase();
+
+            const matchesSearch =
+                !search ||
+                title.includes(search) ||
+                client.includes(search) ||
+                clientId.includes(search) ||
+                compId.includes(search);
+
+            const matchesStatus =
+                statusFilter === "All" ||
+                String(comp.status || "Pending") ===
+                    statusFilter;
+
+            return (
+                matchesSearch &&
+                matchesStatus
+            );
+
+        });
+
+
+    filtered.sort((a, b) => {
+
+        if (sort === "client-asc") {
+
+            return String(a.clientName || "")
+                .localeCompare(
+                    String(b.clientName || "")
+                );
         }
 
-        // ==========================================
-        // MODAL & AUTO PROFORMA ENGINE
-        // ==========================================
-        btnOpenAddModal.addEventListener('click', () => {
-            modalTitle.textContent = "Add Compliance Task";
-            complianceForm.reset();
-            formFirebaseId.value = "";
-            formCompId.value = "CMP_" + Math.random().toString(36).substring(2, 8).toUpperCase();
-            complianceModal.classList.remove('hidden');
-        });
 
-        btnCloseModal.addEventListener('click', () => complianceModal.classList.add('hidden'));
-        btnCloseView.addEventListener('click', () => viewModal.classList.add('hidden'));
+        if (sort === "due-asc") {
 
-        // Open Full View Modal with Credentials Mapping
-        tableBody.addEventListener('click', (e) => {
-            const btn = e.target.closest('.btn-full-view');
-            if (btn) {
-                const firebaseId = btn.getAttribute('data-id');
-                const comp = compMap[firebaseId];
-                if (comp) {
-                    activeViewFirebaseId = firebaseId;
-                    viewTaskTitle.textContent = comp.taskTitle || 'Task';
-                    viewCompId.textContent = `CMP: ${comp.complianceID || firebaseId}`;
-                    viewClientName.textContent = comp.clientName || '---';
-                    viewClientId.textContent = comp.clientId || '---';
-                    viewDueDate.textContent = comp.dueDate || 'N/A';
-                    viewAmount.textContent = `₹${parseFloat(comp.amount || 0).toFixed(2)} (${comp.paymentStatus || 'Unpaid'})`;
-                    viewNarration.textContent = comp.narration || 'No notes provided.';
-                    viewCreatedBy.textContent = comp.createdBy || 'Admin';
-                    viewUpdatedAt.textContent = comp.updatedAt ? new Date(comp.updatedAt).toLocaleDateString() : 'N/A';
+            const da =
+                toDate(a.dueDate)?.getTime() ||
+                Infinity;
 
-                    // Render Mapped Credentials for this specific Client ID
-                    clientCredsContainer.innerHTML = '';
-                    const clientCreds = allCredsData.filter(c => c.clientId === comp.clientId);
+            const db =
+                toDate(b.dueDate)?.getTime() ||
+                Infinity;
 
-                    if (clientCreds.length === 0) {
-                        clientCredsContainer.innerHTML = `<p class="text-slate-400 italic text-center text-xs py-2">No portal credentials stored for this client yet.</p>`;
-                    } else {
-                        clientCreds.forEach(cr => {
-                            const credDiv = document.createElement('div');
-                            credDiv.className = "bg-white p-2.5 rounded-lg border border-slate-200 text-xs flex items-center justify-between gap-2 mb-1";
-                            credDiv.innerHTML = `
-                                <div>
-                                    <span class="font-extrabold text-brand-navy">${cr.portalName}</span>
-                                    <div class="font-mono text-[10px] text-slate-500">User: ${cr.userName} | Pass: ••••••••</div>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <button onclick="copyToClipboard('${cr.userName}', this)" class="p-1.5 text-slate-400 hover:text-brand-navy bg-slate-50 rounded border border-slate-200" title="Copy Username"><i data-lucide="user" class="w-3 h-3"></i></button>
-                                    <button onclick="copyToClipboard('${cr.password}', this)" class="p-1.5 text-slate-400 hover:text-brand-red bg-slate-50 rounded border border-slate-200" title="Copy Password"><i data-lucide="key" class="w-3 h-3"></i></button>
-                                </div>
-                            `;
-                            clientCredsContainer.appendChild(credDiv);
-                        });
-                    }
+            return da - db;
+        }
 
-                    viewModal.classList.remove('hidden');
-                    lucide.createIcons();
+
+        const da =
+            toDate(a.createdAt)?.getTime() ||
+            0;
+
+        const db =
+            toDate(b.createdAt)?.getTime() ||
+            0;
+
+        return db - da;
+
+    });
+
+
+    /* KPI */
+
+    const pending =
+        allCompData.filter(
+            c => String(c.status || "Pending") !==
+                "Completed"
+        ).length;
+
+
+    const dues =
+        allCompData.reduce(
+            (total, c) => {
+
+                if (
+                    String(c.paymentStatus || "Unpaid") ===
+                    "Paid"
+                ) {
+                    return total;
                 }
+
+                return total +
+                    Number(c.amount || 0);
+
+            },
+            0
+        );
+
+
+    kpiPendingCount.textContent =
+        pending.toLocaleString("en-IN");
+
+
+    kpiTotalDues.textContent =
+        "₹" +
+        dues.toLocaleString(
+            "en-IN",
+            {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
             }
+        );
 
-            const btnEdit = e.target.closest('.btn-edit-comp');
-            if (btnEdit) {
-                const firebaseId = btnEdit.getAttribute('data-id');
-                const comp = compMap[firebaseId];
-                if (comp) {
-                    modalTitle.textContent = "Edit Compliance Task";
-                    formFirebaseId.value = firebaseId;
-                    formCompId.value = comp.complianceID || firebaseId;
-                    formStatus.value = comp.status || 'Pending';
-                    formClientId.value = comp.clientId || '';
-                    formClientName.value = comp.clientName || '';
-                    formTaskTitle.value = comp.taskTitle || '';
-                    formDueDate.value = comp.dueDate || '';
-                    formAmount.value = comp.amount || '';
-                    formPaymentStatus.value = comp.paymentStatus || 'Unpaid';
-                    formNarration.value = comp.narration || '';
 
-                    complianceModal.classList.remove('hidden');
+    /* TABLE */
+
+    tableBody.innerHTML = "";
+
+
+    if (!filtered.length) {
+
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="6"
+                    class="py-10 text-center">
+
+                    <div class="flex flex-col items-center">
+
+                        <i data-lucide="clipboard-x"
+                           class="w-8 h-8 text-slate-300 mb-2"></i>
+
+                        <p class="text-xs font-bold text-slate-400">
+                            No compliance records found.
+                        </p>
+
+                    </div>
+
+                </td>
+            </tr>
+        `;
+
+        lucide.createIcons();
+
+        return;
+    }
+
+
+    filtered.forEach(comp => {
+
+        const compId =
+            comp.complianceID ||
+            comp.firebaseId ||
+            "CMP-000";
+
+
+        const title =
+            comp.taskTitle ||
+            "Filing";
+
+
+        const clientName =
+            comp.clientName ||
+            "Client";
+
+
+        const clientId =
+            comp.clientId ||
+            "---";
+
+
+        const amount =
+            Number(comp.amount || 0);
+
+
+        const status =
+            comp.status ||
+            "Pending";
+
+
+        const payment =
+            comp.paymentStatus ||
+            "Unpaid";
+
+
+        let statusBadge = "";
+
+
+        if (status === "Completed") {
+
+            statusBadge = `
+                <span class="status-badge
+                             bg-emerald-50
+                             text-emerald-600
+                             border
+                             border-emerald-200">
+                    Completed
+                </span>
+            `;
+
+        } else if (status === "In Progress") {
+
+            statusBadge = `
+                <span class="status-badge
+                             bg-blue-50
+                             text-blue-600
+                             border
+                             border-blue-200">
+                    In Progress
+                </span>
+            `;
+
+        } else {
+
+            statusBadge = `
+                <span class="status-badge
+                             bg-amber-50
+                             text-amber-600
+                             border
+                             border-amber-200">
+                    Pending
+                </span>
+            `;
+
+        }
+
+
+        const paymentBadge =
+            payment === "Paid"
+
+            ? `
+                <span class="text-[9px]
+                             font-extrabold
+                             text-emerald-600
+                             bg-emerald-50
+                             px-1.5
+                             py-0.5
+                             rounded
+                             border
+                             border-emerald-200">
+                    Paid
+                </span>
+            `
+
+            : `
+                <span class="text-[9px]
+                             font-extrabold
+                             text-amber-600
+                             bg-amber-50
+                             px-1.5
+                             py-0.5
+                             rounded
+                             border
+                             border-amber-200">
+                    Unpaid
+                </span>
+            `;
+
+
+        const tr =
+            document.createElement("tr");
+
+
+        tr.className =
+            "hover:bg-slate-50 transition-colors";
+
+
+        tr.innerHTML = `
+
+            <td class="py-3 px-3">
+
+                <div class="font-bold text-brand-navy">
+                    ${escapeHtml(title)}
+                </div>
+
+                <div class="font-mono text-[9px]
+                            text-brand-red font-bold mt-1">
+                    ${escapeHtml(compId)}
+                </div>
+
+            </td>
+
+
+            <td class="py-3 px-3">
+
+                <div class="font-bold text-slate-700">
+                    ${escapeHtml(clientName)}
+                </div>
+
+                <div class="font-mono text-[9px]
+                            text-slate-400 mt-1">
+                    ${escapeHtml(clientId)}
+                </div>
+
+            </td>
+
+
+            <td class="py-3 px-3
+                       font-mono text-[10px]
+                       text-slate-600">
+
+                ${escapeHtml(
+                    formatDate(comp.dueDate)
+                )}
+
+            </td>
+
+
+            <td class="py-3 px-3">
+
+                <div class="font-extrabold text-slate-800">
+                    ₹${amount.toLocaleString(
+                        "en-IN",
+                        {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }
+                    )}
+                </div>
+
+                <div class="mt-1">
+                    ${paymentBadge}
+                </div>
+
+            </td>
+
+
+            <td class="py-3 px-3">
+                ${statusBadge}
+            </td>
+
+
+            <td class="py-3 px-3 text-right">
+
+                <div class="flex items-center
+                            justify-end gap-1.5">
+
+                    <button
+                        class="btn-full-view
+                               p-2
+                               bg-white
+                               border
+                               border-slate-200
+                               rounded-lg
+                               text-slate-500
+                               hover:text-brand-navy"
+                        data-id="${escapeHtml(comp.firebaseId)}"
+                        title="View">
+
+                        <i data-lucide="eye"
+                           class="w-3.5 h-3.5"></i>
+
+                    </button>
+
+
+                    <button
+                        class="btn-edit-comp
+                               p-2
+                               bg-white
+                               border
+                               border-slate-200
+                               rounded-lg
+                               text-slate-500
+                               hover:text-brand-red"
+                        data-id="${escapeHtml(comp.firebaseId)}"
+                        title="Edit">
+
+                        <i data-lucide="edit-2"
+                           class="w-3.5 h-3.5"></i>
+
+                    </button>
+
+                </div>
+
+            </td>
+
+        `;
+
+
+        tableBody.appendChild(tr);
+
+    });
+
+
+    lucide.createIcons();
+
+}
+
+
+/* ==========================================
+   CLIENT AUTO MATCH
+========================================== */
+
+formClientId.addEventListener(
+    "input",
+    () => {
+
+        const value =
+            formClientId.value
+                .trim()
+                .toLowerCase();
+
+
+        const matched =
+            clientsData.find(
+                client =>
+                    getClientId(client)
+                        .toLowerCase() === value
+            );
+
+
+        if (matched) {
+
+            formClientName.value =
+                getClientName(matched);
+
+        }
+
+    }
+);
+
+
+formClientName.addEventListener(
+    "input",
+    () => {
+
+        const value =
+            formClientName.value
+                .trim()
+                .toLowerCase();
+
+
+        const matched =
+            clientsData.find(
+                client =>
+                    getClientName(client)
+                        .toLowerCase() === value
+            );
+
+
+        if (matched) {
+
+            formClientId.value =
+                getClientId(matched);
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   FILTER EVENTS
+========================================== */
+
+searchInput.addEventListener(
+    "input",
+    renderCompliance
+);
+
+filterStatus.addEventListener(
+    "change",
+    renderCompliance
+);
+
+sortSelect.addEventListener(
+    "change",
+    renderCompliance
+);
+
+
+/* ==========================================
+   OPEN ADD
+========================================== */
+
+btnOpenAddModal.addEventListener(
+    "click",
+    () => {
+
+        modalTitle.textContent =
+            "Add Compliance";
+
+        complianceForm.reset();
+
+        formFirebaseId.value = "";
+
+        formCompId.value =
+            "CMP_" +
+            Date.now().toString(36)
+                .toUpperCase();
+
+        formStatus.value =
+            "Pending";
+
+        formPaymentStatus.value =
+            "Unpaid";
+
+        complianceModal.classList.remove(
+            "hidden"
+        );
+
+        lucide.createIcons();
+
+    }
+);
+
+
+/* ==========================================
+   CLOSE MODALS
+========================================== */
+
+btnCloseModal.addEventListener(
+    "click",
+    () => {
+        complianceModal.classList.add(
+            "hidden"
+        );
+    }
+);
+
+
+btnCloseView.addEventListener(
+    "click",
+    () => {
+        viewModal.classList.add(
+            "hidden"
+        );
+    }
+);
+
+
+complianceModal.addEventListener(
+    "click",
+    e => {
+
+        if (e.target === complianceModal) {
+
+            complianceModal.classList.add(
+                "hidden"
+            );
+
+        }
+
+    }
+);
+
+
+viewModal.addEventListener(
+    "click",
+    e => {
+
+        if (e.target === viewModal) {
+
+            viewModal.classList.add(
+                "hidden"
+            );
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   OPEN VIEW / EDIT
+========================================== */
+
+tableBody.addEventListener(
+    "click",
+    e => {
+
+        const viewButton =
+            e.target.closest(
+                ".btn-full-view"
+            );
+
+
+        const editButton =
+            e.target.closest(
+                ".btn-edit-comp"
+            );
+
+
+        if (viewButton) {
+
+            openView(
+                viewButton.dataset.id
+            );
+
+        }
+
+
+        if (editButton) {
+
+            openEdit(
+                editButton.dataset.id
+            );
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   VIEW
+========================================== */
+
+function openView(firebaseId) {
+
+    const comp =
+        compMap[firebaseId];
+
+    if (!comp) return;
+
+
+    activeViewFirebaseId =
+        firebaseId;
+
+
+    viewTaskTitle.textContent =
+        comp.taskTitle || "Compliance";
+
+
+    viewCompId.textContent =
+        "CMP: " +
+        (
+            comp.complianceID ||
+            firebaseId
+        );
+
+
+    viewClientName.textContent =
+        comp.clientName || "---";
+
+
+    viewClientId.textContent =
+        comp.clientId || "---";
+
+
+    viewDueDate.textContent =
+        formatDate(comp.dueDate);
+
+
+    viewAmount.textContent =
+        "₹" +
+        Number(comp.amount || 0)
+            .toLocaleString(
+                "en-IN",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
                 }
+            ) +
+        " (" +
+        (comp.paymentStatus || "Unpaid") +
+        ")";
+
+
+    viewNarration.textContent =
+        comp.narration ||
+        "No notes provided.";
+
+
+    viewCreatedBy.textContent =
+        comp.createdByEmail ||
+        comp.createdBy ||
+        "Admin";
+
+
+    viewUpdatedAt.textContent =
+        formatDateTime(
+            comp.updatedAt
+        );
+
+
+    renderMappedCredentials(
+        comp.clientId
+    );
+
+
+    viewModal.classList.remove(
+        "hidden"
+    );
+
+    lucide.createIcons();
+
+}
+
+
+/* ==========================================
+   CREDENTIALS
+========================================== */
+
+function renderMappedCredentials(
+    clientId
+) {
+
+    clientCredsContainer.innerHTML = "";
+
+
+    const matches =
+        allCredsData.filter(
+            credential => {
+
+                const credentialClientId =
+                    String(
+                        credential.clientId ||
+                        credential.ClientId ||
+                        ""
+                    ).trim()
+                    .toLowerCase();
+
+
+                return credentialClientId ===
+                    String(clientId || "")
+                        .trim()
+                        .toLowerCase();
+
             }
-        });
+        );
 
-        btnModalEdit.addEventListener('click', () => {
-            viewModal.classList.add('hidden');
-            const comp = compMap[activeViewFirebaseId];
-            if (comp) {
-                modalTitle.textContent = "Edit Compliance Task";
-                formFirebaseId.value = activeViewFirebaseId;
-                formCompId.value = comp.complianceID || activeViewFirebaseId;
-                formStatus.value = comp.status || 'Pending';
-                formClientId.value = comp.clientId || '';
-                formClientName.value = comp.clientName || '';
-                formTaskTitle.value = comp.taskTitle || '';
-                formDueDate.value = comp.dueDate || '';
-                formAmount.value = comp.amount || '';
-                formPaymentStatus.value = comp.paymentStatus || 'Unpaid';
-                formNarration.value = comp.narration || '';
 
-                complianceModal.classList.remove('hidden');
+    if (!matches.length) {
+
+        clientCredsContainer.innerHTML = `
+            <p class="text-[10px]
+                      text-slate-400
+                      italic
+                      text-center
+                      py-2">
+                No credentials stored for this client.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    matches.forEach(credential => {
+
+        const portal =
+            credential.portalName ||
+            credential.portal ||
+            "Portal";
+
+
+        const username =
+            credential.userName ||
+            credential.username ||
+            "";
+
+
+        const password =
+            credential.password ||
+            "";
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "bg-white p-3 rounded-xl border border-slate-200 mb-2";
+
+
+        div.innerHTML = `
+
+            <div class="flex items-center
+                        justify-between gap-2">
+
+                <div class="min-w-0">
+
+                    <div class="text-xs
+                                font-extrabold
+                                text-brand-navy">
+
+                        ${escapeHtml(portal)}
+
+                    </div>
+
+                    <div class="text-[9px]
+                                text-slate-500
+                                font-mono mt-1">
+
+                        User:
+                        ${escapeHtml(username)}
+
+                    </div>
+
+                    <div class="text-[9px]
+                                text-slate-500
+                                font-mono">
+
+                        Password:
+                        ••••••••
+
+                    </div>
+
+                </div>
+
+
+                <div class="flex items-center gap-1">
+
+                    <button
+                        class="copy-user
+                               p-1.5
+                               rounded-lg
+                               bg-slate-50
+                               border
+                               border-slate-200"
+                        title="Copy Username">
+
+                        <i data-lucide="user"
+                           class="w-3 h-3"></i>
+
+                    </button>
+
+
+                    <button
+                        class="copy-password
+                               p-1.5
+                               rounded-lg
+                               bg-slate-50
+                               border
+                               border-slate-200"
+                        title="Copy Password">
+
+                        <i data-lucide="key"
+                           class="w-3 h-3"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        div.querySelector(
+            ".copy-user"
+        ).addEventListener(
+            "click",
+            () => {
+
+                window.copyToClipboard(
+                    username,
+                    div.querySelector(
+                        ".copy-user"
+                    )
+                );
+
             }
-        });
+        );
 
-        btnModalDelete.addEventListener('click', async () => {
-            if (confirm("Are you sure you want to delete this compliance record?")) {
-                try {
-                    await deleteDoc(doc(db, 'compliances', activeViewFirebaseId));
-                    viewModal.classList.add('hidden');
-                } catch (err) {
-                    console.error("Delete error:", err);
-                    alert("Failed to delete record.");
-                }
+
+        div.querySelector(
+            ".copy-password"
+        ).addEventListener(
+            "click",
+            () => {
+
+                window.copyToClipboard(
+                    password,
+                    div.querySelector(
+                        ".copy-password"
+                    )
+                );
+
             }
-        });
+        );
 
-        // Form Submit & Auto Proforma Invoice Generator Engine
-        complianceForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const fId = formFirebaseId.value;
-            const cId = formCompId.value.trim();
-            const amountVal = parseFloat(formAmount.value || 0).toFixed(2);
-            const clientNameVal = formClientName.value.trim();
-            const clientIdVal = formClientId.value.trim();
-            const taskTitleVal = formTaskTitle.value.trim();
 
-            const originalText = btnSaveComp.innerHTML;
-            btnSaveComp.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin inline"></i> Processing...`;
-            lucide.createIcons();
+        clientCredsContainer.appendChild(
+            div
+        );
 
-            const currentUserEmail = auth.currentUser ? auth.currentUser.email : 'Admin';
-            const nowIso = new Date().toISOString();
+    });
 
-            const compPayload = {
-                complianceID: cId,
-                status: formStatus.value,
-                clientId: clientIdVal,
-                clientName: clientNameVal,
-                taskTitle: taskTitleVal,
-                dueDate: formDueDate.value,
-                amount: Number(amountVal),
-                paymentStatus: formPaymentStatus.value,
-                narration: formNarration.value.trim(),
-                updatedAt: nowIso
+
+    lucide.createIcons();
+
+}
+
+
+/* ==========================================
+   OPEN EDIT
+========================================== */
+
+function openEdit(firebaseId) {
+
+    const comp =
+        compMap[firebaseId];
+
+    if (!comp) return;
+
+
+    modalTitle.textContent =
+        "Edit Compliance";
+
+
+    formFirebaseId.value =
+        firebaseId;
+
+
+    formCompId.value =
+        comp.complianceID ||
+        firebaseId;
+
+
+    formStatus.value =
+        comp.status ||
+        "Pending";
+
+
+    formClientId.value =
+        comp.clientId ||
+        "";
+
+
+    formClientName.value =
+        comp.clientName ||
+        "";
+
+
+    formTaskTitle.value =
+        comp.taskTitle ||
+        "";
+
+
+    formDueDate.value =
+        comp.dueDate ||
+        "";
+
+
+    formAmount.value =
+        comp.amount ??
+        "";
+
+
+    formPaymentStatus.value =
+        comp.paymentStatus ||
+        "Unpaid";
+
+
+    formNarration.value =
+        comp.narration ||
+        "";
+
+
+    complianceModal.classList.remove(
+        "hidden"
+    );
+
+    lucide.createIcons();
+
+}
+
+
+/* ==========================================
+   EDIT FROM VIEW
+========================================== */
+
+btnModalEdit.addEventListener(
+    "click",
+    () => {
+
+        if (!activeViewFirebaseId)
+            return;
+
+        viewModal.classList.add(
+            "hidden"
+        );
+
+        openEdit(
+            activeViewFirebaseId
+        );
+
+    }
+);
+
+
+/* ==========================================
+   DELETE
+========================================== */
+
+btnModalDelete.addEventListener(
+    "click",
+    async () => {
+
+        if (!activeViewFirebaseId)
+            return;
+
+
+        const confirmed =
+            confirm(
+                "Delete this compliance record?"
+            );
+
+
+        if (!confirmed)
+            return;
+
+
+        try {
+
+            await deleteDoc(
+                doc(
+                    db,
+                    "compliances",
+                    activeViewFirebaseId
+                )
+            );
+
+
+            viewModal.classList.add(
+                "hidden"
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Delete compliance:",
+                error
+            );
+
+            alert(
+                "Unable to delete compliance record."
+            );
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   GENERATE INVOICE NUMBER
+========================================== */
+
+function generateInvoiceNumber(
+    clientId
+) {
+
+    const now =
+        new Date();
+
+
+    const dd =
+        String(
+            now.getDate()
+        ).padStart(2, "0");
+
+
+    const mm =
+        String(
+            now.getMonth() + 1
+        ).padStart(2, "0");
+
+
+    const yy =
+        String(
+            now.getFullYear()
+        ).slice(-2);
+
+
+    const hh =
+        String(
+            now.getHours()
+        ).padStart(2, "0");
+
+
+    const min =
+        String(
+            now.getMinutes()
+        ).padStart(2, "0");
+
+
+    const safeClient =
+        String(
+            clientId || "CLIENT"
+        )
+        .toUpperCase()
+        .replace(
+            /[^A-Z0-9]/g,
+            ""
+        );
+
+
+    return {
+        display:
+            `PI/${dd}${mm}${yy}/${hh}${min}/${safeClient}`,
+
+        id:
+            `PI-${dd}${mm}${yy}-${hh}${min}-${safeClient}`
+    };
+
+}
+
+
+/* ==========================================
+   CREATE / UPDATE
+========================================== */
+
+complianceForm.addEventListener(
+    "submit",
+    async e => {
+
+        e.preventDefault();
+
+
+        if (!currentUser) {
+
+            alert(
+                "Your session has expired. Please sign in again."
+            );
+
+            return;
+        }
+
+
+        const firebaseId =
+            formFirebaseId.value.trim();
+
+
+        const complianceId =
+            formCompId.value.trim();
+
+
+        const clientId =
+            formClientId.value.trim();
+
+
+        const clientName =
+            formClientName.value.trim();
+
+
+        const taskTitle =
+            formTaskTitle.value.trim();
+
+
+        const amount =
+            Number(
+                formAmount.value || 0
+            );
+
+
+        if (!complianceId) {
+
+            alert(
+                "Compliance ID is required."
+            );
+
+            return;
+        }
+
+
+        if (!clientId || !clientName) {
+
+            alert(
+                "Please select a valid client."
+            );
+
+            return;
+        }
+
+
+        if (!taskTitle) {
+
+            alert(
+                "Task / Filing name is required."
+            );
+
+            return;
+        }
+
+
+        if (
+            Number.isNaN(amount) ||
+            amount < 0
+        ) {
+
+            alert(
+                "Please enter a valid amount."
+            );
+
+            return;
+        }
+
+
+        const oldHTML =
+            btnSaveComp.innerHTML;
+
+
+        btnSaveComp.disabled = true;
+
+        btnSaveComp.innerHTML = `
+            <i data-lucide="loader-2"
+               class="w-4 h-4 animate-spin"></i>
+            Saving...
+        `;
+
+        lucide.createIcons();
+
+
+        try {
+
+            const now =
+                new Date();
+
+
+            const docId =
+                firebaseId ||
+                complianceId;
+
+
+            const payload = {
+
+                complianceID:
+                    complianceId,
+
+                clientId:
+                    clientId,
+
+                clientName:
+                    clientName,
+
+                taskTitle:
+                    taskTitle,
+
+                dueDate:
+                    formDueDate.value,
+
+                status:
+                    formStatus.value,
+
+                amount:
+                    amount,
+
+                paymentStatus:
+                    formPaymentStatus.value,
+
+                narration:
+                    formNarration.value.trim(),
+
+                updatedAt:
+                    serverTimestamp(),
+
+                updatedByUID:
+                    currentUser.uid,
+
+                updatedByEmail:
+                    currentUser.email || ""
+
             };
 
-            try {
-                const docId = fId || cId;
-                if (!fId) {
-                    compPayload.createdAt = nowIso;
-                    compPayload.createdBy = currentUserEmail;
-                }
-                
-                // 1. Save Compliance Record
-                await setDoc(doc(db, 'compliances', docId), compPayload, { merge: true });
 
-                // 2. Auto-Generate matching Proforma Invoice if unpaid / priced
-                if (formPaymentStatus.value === 'Unpaid' && Number(amountVal) > 0) {
-                    const dateObj = new Date();
-                    const yy = String(dateObj.getFullYear()).slice(-2);
-                    const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
-                    const dd = String(dateObj.getDate()).padStart(2, '0');
-                    const hh = String(dateObj.getHours()).padStart(2, '0');
-                    const mins = String(dateObj.getMinutes()).padStart(2, '0');
-                    const safeClientId = clientIdVal ? clientIdVal.toUpperCase().replace(/[^A-Z0-9]/g, '') : 'COMP';
+            if (!firebaseId) {
 
-                    const invNoDisplay = `PI/${dd}${mm}${yy}/${hh}${mins}/${safeClientId}`;
-                    const invDocId = `PI-${dd}${mm}${yy}-${hh}${mins}-${safeClientId}`;
+                payload.createdAt =
+                    serverTimestamp();
 
-                    const proformaPayload = {
-                        invoiceNo: invNoDisplay,
-                        clientName: clientNameVal,
-                        clientId: clientIdVal,
-                        mobile: '', // Automatically pulls if client registered, or blank
-                        amount: Number(amountVal),
-                        serviceDescription: taskTitleVal,
-                        period: 'Compliance Fee',
-                        narration: `Auto-generated for compliance task: ${compId}`,
-                        status: 'Unpaid',
-                        clientUrl: `https://client.cmfilings.com/invoice/index.html?id=${invDocId}`,
-                        createdAt: nowIso,
-                        updatedAt: nowIso,
-                        createdBy: currentUserEmail
-                    };
+                payload.createdByUID =
+                    currentUser.uid;
 
-                    await setDoc(doc(db, 'proformaInvoice', invDocId), proformaPayload, { merge: true });
-                }
+                payload.createdByEmail =
+                    currentUser.email || "";
 
-                complianceModal.classList.add('hidden');
-            } catch (error) {
-                console.error("Error saving compliance:", error);
-                alert("Failed to save compliance record.");
-            } finally {
-                btnSaveComp.innerHTML = originalText;
-                lucide.createIcons();
             }
-        });
-    </script>
+
+
+            /*
+                SAVE COMPLIANCE
+            */
+
+            await setDoc(
+                doc(
+                    db,
+                    "compliances",
+                    docId
+                ),
+                payload,
+                {
+                    merge: true
+                }
+            );
+
+
+            /*
+                AUTO PROFORMA INVOICE
+            */
+
+            if (
+                formPaymentStatus.value ===
+                    "Unpaid" &&
+                amount > 0
+            ) {
+
+                const invoice =
+                    generateInvoiceNumber(
+                        clientId
+                    );
+
+
+                /*
+                    Try to pull client mobile
+                */
+
+                const client =
+                    clientsData.find(
+                        c =>
+                            getClientId(c)
+                                .toLowerCase() ===
+                            clientId
+                                .toLowerCase()
+                    );
+
+
+                const mobile =
+                    client
+                        ? (
+                            client.mobile ||
+                            client.Mobile ||
+                            client.phone ||
+                            ""
+                        )
+                        : "";
+
+
+                const invoicePayload = {
+
+                    invoiceNo:
+                        invoice.display,
+
+                    clientId:
+                        clientId,
+
+                    clientName:
+                        clientName,
+
+                    mobile:
+                        mobile,
+
+                    amount:
+                        amount,
+
+                    serviceDescription:
+                        taskTitle,
+
+                    period:
+                        "Compliance Fee",
+
+                    narration:
+                        `Auto-generated for compliance ${complianceId}`,
+
+                    status:
+                        "Unpaid",
+
+                    complianceId:
+                        complianceId,
+
+                    complianceDocId:
+                        docId,
+
+                    createdAt:
+                        serverTimestamp(),
+
+                    updatedAt:
+                        serverTimestamp(),
+
+                    createdByUID:
+                        currentUser.uid,
+
+                    createdByEmail:
+                        currentUser.email || ""
+
+                };
+
+
+                await setDoc(
+                    doc(
+                        db,
+                        "proformaInvoice",
+                        invoice.id
+                    ),
+                    invoicePayload,
+                    {
+                        merge: true
+                    }
+                );
+
+
+                /*
+                    Link invoice back to compliance
+                */
+
+                await setDoc(
+                    doc(
+                        db,
+                        "compliances",
+                        docId
+                    ),
+                    {
+
+                        invoiceId:
+                            invoice.id,
+
+                        invoiceNo:
+                            invoice.display,
+
+                        updatedAt:
+                            serverTimestamp(),
+
+                        updatedByUID:
+                            currentUser.uid,
+
+                        updatedByEmail:
+                            currentUser.email || ""
+
+                    },
+                    {
+                        merge: true
+                    }
+                );
+
+            }
+
+
+            complianceModal.classList.add(
+                "hidden"
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Save compliance error:",
+                error
+            );
+
+
+            alert(
+                "Failed to save compliance record.\n\n" +
+                (
+                    error?.message ||
+                    "Unknown Firebase error."
+                )
+            );
+
+
+        } finally {
+
+            btnSaveComp.disabled =
+                false;
+
+            btnSaveComp.innerHTML =
+                oldHTML;
+
+            lucide.createIcons();
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   ESCAPE KEY
+========================================== */
+
+document.addEventListener(
+    "keydown",
+    e => {
+
+        if (e.key !== "Escape")
+            return;
+
+
+        complianceModal.classList.add(
+            "hidden"
+        );
+
+        viewModal.classList.add(
+            "hidden"
+        );
+
+    }
+);
+
+
+/* ==========================================
+   INITIAL ICONS
+========================================== */
+
+lucide.createIcons();
+
+</script>
+
 </body>
 </html>
