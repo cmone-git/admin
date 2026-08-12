@@ -1,9 +1,8 @@
 const CACHE_NAME = 'cm-filings-v1.0';
 const ASSETS_TO_CACHE = [
   '/',
-  '/imdex.html',
-  '/signin.html',
-  '/signup.html',
+  '/index.html',
+  '/auth.html',
   '/company.html',
   '/clients.html',
   '/contacts.html',
@@ -13,7 +12,7 @@ const ASSETS_TO_CACHE = [
   '/invoice.html',
   '/qr.html',
   '/user.html',
-  '/report.html',
+  '/reports.html',
   '/data.html',
   '/logo.png',
   '/manifest.json'
