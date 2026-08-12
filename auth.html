@@ -1011,43 +1011,24 @@ import {
    FIREBASE CONFIG
 ========================================================= */
 
-const firebaseConfig = {
+<script type="module">
 
-    apiKey:
-        "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
+import {
+    auth,
+    db
+} from "./firebase-config.js";
 
-    authDomain:
-        "cmfilings-6a37c.firebaseapp.com",
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-    projectId:
-        "cmfilings-6a37c",
-
-    storageBucket:
-        "cmfilings-6a37c.firebasestorage.app",
-
-    messagingSenderId:
-        "138705123778",
-
-    appId:
-        "1:138705123778:web:9561bff9f0f5d89bb6fe5b"
-
-};
-
-
-const app =
-    initializeApp(firebaseConfig);
-
-const auth =
-    getAuth(app);
-
-const db =
-    getFirestore(app);
-
-const storage =
-    getStorage(app);
-
-
-lucide.createIcons();
+import {
+    collection,
+    onSnapshot,
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 
 /* =========================================================
