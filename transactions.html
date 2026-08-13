@@ -101,29 +101,45 @@
                 </div>
 
                 <!-- KPI CARDS -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-6 relative overflow-hidden group">
-                        <div class="absolute -right-6 -top-6 w-32 h-32 bg-emerald-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
-                        <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600 shrink-0 relative z-10">
-                            <i data-lucide="wallet" class="w-7 h-7"></i>
-                        </div>
-                        <div class="relative z-10">
-                            <p class="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-1">Total Transaction Volume</p>
-                            <h3 class="text-3xl font-black text-brand-navy leading-none tracking-tight" id="kpi-total-vol">₹0.00</h3>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-6 relative overflow-hidden group">
-                        <div class="absolute -right-6 -top-6 w-32 h-32 bg-blue-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
-                        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 shrink-0 relative z-10">
-                            <i data-lucide="file-check-2" class="w-7 h-7"></i>
-                        </div>
-                        <div class="relative z-10">
-                            <p class="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-1">Total Vouchers Logged</p>
-                            <h3 class="text-3xl font-black text-brand-navy leading-none tracking-tight" id="kpi-total-count">0</h3>
-                        </div>
-                    </div>
-                </div>
+                <div class="grid grid-cols-2 gap-3 sm:gap-6 mb-8">
+
+    <!-- KPI 1 -->
+    <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm flex items-center gap-3 sm:gap-6 relative overflow-hidden group">
+        <div class="w-10 h-10 sm:w-14 sm:h-14 bg-emerald-100 rounded-xl sm:rounded-2xl flex items-center justify-center text-emerald-600 shrink-0 relative z-10">
+            <i data-lucide="wallet" class="w-5 h-5 sm:w-7 sm:h-7"></i>
+        </div>
+
+        <div class="relative z-10 min-w-0">
+            <p class="text-[9px] sm:text-xs font-extrabold text-slate-400 uppercase tracking-wider sm:tracking-widest mb-1">
+                Total Transaction Volume
+            </p>
+
+            <h3 class="text-xl sm:text-3xl font-black text-brand-navy leading-none tracking-tight truncate"
+                id="kpi-total-vol">
+                ₹0.00
+            </h3>
+        </div>
+    </div>
+
+    <!-- KPI 2 -->
+    <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm flex items-center gap-3 sm:gap-6 relative overflow-hidden group">
+        <div class="w-10 h-10 sm:w-14 sm:h-14 bg-blue-100 rounded-xl sm:rounded-2xl flex items-center justify-center text-blue-600 shrink-0 relative z-10">
+            <i data-lucide="file-check-2" class="w-5 h-5 sm:w-7 sm:h-7"></i>
+        </div>
+
+        <div class="relative z-10 min-w-0">
+            <p class="text-[9px] sm:text-xs font-extrabold text-slate-400 uppercase tracking-wider sm:tracking-widest mb-1">
+                Total Vouchers Logged
+            </p>
+
+            <h3 class="text-xl sm:text-3xl font-black text-brand-navy leading-none tracking-tight"
+                id="kpi-total-count">
+                0
+            </h3>
+        </div>
+    </div>
+
+</div>
 
                 <!-- TABLE REGISTER SECTION -->
                 <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
