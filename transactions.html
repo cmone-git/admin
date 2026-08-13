@@ -1,129 +1,601 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Transactions Register - CM FILINGS</title>
 
-    <!-- PWA & Favicon Assets -->
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
-    <meta name="theme-color" content="#071D49">
 
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- ==========================================
+         PWA & FAVICON
+         ========================================== -->
 
-    <!-- Tailwind CSS -->
+    <link
+        rel="icon"
+        type="image/png"
+        href="logo.png"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="logo.png"
+    >
+
+    <meta
+        name="theme-color"
+        content="#071D49"
+    >
+
+
+    <!-- ==========================================
+         GOOGLE FONT
+         ========================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- ==========================================
+         TAILWIND
+         ========================================== -->
+
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Lucide Icons -->
+
+    <!-- ==========================================
+         LUCIDE ICONS
+         ========================================== -->
+
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Tailwind Configuration -->
+
+    <!-- ==========================================
+         TAILWIND CONFIG
+         ========================================== -->
+
     <script>
+
         tailwind.config = {
+
             theme: {
+
                 extend: {
+
                     colors: {
+
                         brand: {
+
                             red: '#B10000',
+
                             redhover: '#8A0000',
+
                             redlight: '#FDF2F2',
+
                             navy: '#071D49',
+
                             navyhover: '#102a5c',
+
                             light: '#F4F5F7',
+
                             white: '#FFFFFF'
+
                         }
+
                     },
+
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+
+                        sans: [
+                            'Inter',
+                            'sans-serif'
+                        ]
+
                     }
+
                 }
+
             }
-        }
+
+        };
+
     </script>
 
+
+    <!-- ==========================================
+         CUSTOM CSS
+         ========================================== -->
+
     <style>
+
         html {
             scroll-behavior: smooth;
         }
 
-        .hero-pattern {
-            background-color: #F4F5F7;
-            background-image: radial-gradient(
-                rgba(7, 29, 73, 0.05) 1px,
-                transparent 1px
-            );
-            background-size: 28px 28px;
+
+        body {
+            overflow-x: hidden;
         }
+
+
+        /* ==========================================
+           TRANSPARENT MODULE HEADER
+           ========================================== */
+
+        .module-header {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 60;
+
+            height: 44px;
+
+            display: flex;
+
+            align-items: center;
+
+            padding-left: 10px;
+
+            background: transparent;
+
+        }
+
+
+        /* ==========================================
+           MINIMAL MUTED BACK ARROW
+           ========================================== */
+
+        .module-back-arrow {
+
+            width: 30px;
+
+            height: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 0;
+
+            margin: 0;
+
+            border: none;
+
+            outline: none;
+
+            background: transparent;
+
+            box-shadow: none;
+
+            color: #94a3b8;
+
+            cursor: pointer;
+
+            opacity: 0.75;
+
+            transition:
+                color 0.2s ease,
+                opacity 0.2s ease,
+                transform 0.2s ease;
+
+        }
+
+
+        .module-back-arrow:hover {
+
+            color: #64748b;
+
+            opacity: 1;
+
+            transform: translateX(-2px);
+
+        }
+
+
+        .module-back-arrow:active {
+
+            transform: translateX(-3px);
+
+        }
+
+
+        .module-back-arrow svg {
+
+            width: 19px;
+
+            height: 19px;
+
+            stroke-width: 1.8;
+
+        }
+
+
+        /* ==========================================
+           BACKGROUND PATTERN
+           ========================================== */
+
+        .hero-pattern {
+
+            background-color: #F4F5F7;
+
+            background-image:
+
+                radial-gradient(
+                    rgba(7, 29, 73, 0.05) 1px,
+                    transparent 1px
+                );
+
+            background-size: 28px 28px;
+
+        }
+
+
+        /* ==========================================
+           SCROLLBAR
+           ========================================== */
 
         ::-webkit-scrollbar {
+
             width: 5px;
+
             height: 5px;
+
         }
+
 
         ::-webkit-scrollbar-track {
+
             background: transparent;
+
         }
+
 
         ::-webkit-scrollbar-thumb {
+
             background: #cbd5e1;
+
             border-radius: 10px;
+
         }
+
+
+        /* ==========================================
+           KPI MOBILE
+           ========================================== */
+
+        .kpi-card {
+
+            min-width: 0;
+
+        }
+
+
+        .kpi-label {
+
+            line-height: 1.35;
+
+        }
+
+
+        @media (max-width: 640px) {
+
+            .module-header {
+
+                height: 42px;
+
+                padding-left: 7px;
+
+            }
+
+
+            .module-back-arrow {
+
+                width: 28px;
+
+                height: 28px;
+
+            }
+
+
+            .module-back-arrow svg {
+
+                width: 18px;
+
+                height: 18px;
+
+            }
+
+        }
+
     </style>
+
 </head>
 
-<body class="font-sans text-slate-700 bg-brand-light antialiased selection:bg-brand-redlight selection:text-brand-red flex flex-col min-h-screen">
 
-    <!-- MAIN APP WRAPPER -->
-    <div id="main-app" class="hidden flex-col min-h-screen">
+<body
+    class="
+        font-sans
+        text-slate-700
+        bg-brand-light
+        antialiased
+        selection:bg-brand-redlight
+        selection:text-brand-red
+        flex
+        flex-col
+        min-h-screen
+    "
+>
 
-        <!-- MAIN CONTENT -->
-        <main class="flex-1 hero-pattern py-8 relative">
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- ==========================================
+         MINIMAL TRANSPARENT MODULE HEADER
+         ========================================== -->
 
-                <!-- PAGE TITLE -->
-                <div class="mb-8 text-center lg:text-left">
+    <header class="module-header">
 
-                    <h2 class="text-xs font-extrabold tracking-widest uppercase text-brand-red mb-2">
+        <button
+            type="button"
+            id="module-back-arrow"
+            class="module-back-arrow"
+            aria-label="Back"
+            title="Back"
+        >
+
+            <i
+                data-lucide="arrow-left"
+            ></i>
+
+        </button>
+
+    </header>
+
+
+    <!-- ==========================================
+         MAIN APP
+         ========================================== -->
+
+    <div
+        id="main-app"
+        class="
+            hidden
+            flex-col
+            min-h-screen
+        "
+    >
+
+
+        <!-- ==========================================
+             MAIN CONTENT
+             ========================================== -->
+
+        <main
+            class="
+                flex-1
+                hero-pattern
+                py-8
+                relative
+            "
+        >
+
+            <div
+                class="
+                    max-w-7xl
+                    mx-auto
+                    px-4
+                    sm:px-6
+                    lg:px-8
+                    relative
+                    z-10
+                "
+            >
+
+
+                <!-- ==========================================
+                     PAGE TITLE
+                     ========================================== -->
+
+                <div
+                    class="
+                        mb-8
+                        text-center
+                        lg:text-left
+                    "
+                >
+
+                    <h2
+                        class="
+                            text-xs
+                            font-extrabold
+                            tracking-widest
+                            uppercase
+                            text-brand-red
+                            mb-2
+                        "
+                    >
                         Finance & Ledger
                     </h2>
 
-                    <h1 class="text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight">
+
+                    <h1
+                        class="
+                            text-3xl
+                            md:text-4xl
+                            font-extrabold
+                            text-brand-navy
+                            tracking-tight
+                        "
+                    >
                         Transactions Register
                     </h1>
 
-                    <p class="text-slate-500 font-medium mt-2">
+
+                    <p
+                        class="
+                            text-sm
+                            sm:text-base
+                            text-slate-500
+                            font-medium
+                            mt-2
+                        "
+                    >
                         Manage receipts, payments, and journal postings with auto-sequenced voucher IDs.
                     </p>
 
                 </div>
 
 
-                <!-- KPI CARDS -->
-                <!-- ALWAYS 2 CARDS IN ONE ROW -->
-                <div class="grid grid-cols-2 gap-3 sm:gap-6 mb-8">
+                <!-- ==========================================
+                     KPI CARDS
+                     ALWAYS 2 IN ONE ROW
+                     ========================================== -->
 
-                    <!-- KPI 1 -->
-                    <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm flex items-center gap-3 sm:gap-6 relative overflow-hidden group">
+                <div
+                    class="
+                        grid
+                        grid-cols-2
+                        gap-3
+                        sm:gap-6
+                        mb-8
+                    "
+                >
 
-                        <div class="absolute -right-6 -top-6 w-24 h-24 sm:w-32 sm:h-32 bg-emerald-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
 
-                        <div class="w-10 h-10 sm:w-14 sm:h-14 bg-emerald-100 rounded-xl sm:rounded-2xl flex items-center justify-center text-emerald-600 shrink-0 relative z-10">
-                            <i data-lucide="wallet" class="w-5 h-5 sm:w-7 sm:h-7"></i>
+                    <!-- ======================================
+                         KPI 1
+                         ====================================== -->
+
+                    <div
+                        class="
+                            kpi-card
+                            bg-white
+                            rounded-2xl
+                            sm:rounded-3xl
+                            p-4
+                            sm:p-6
+                            border
+                            border-slate-200
+                            shadow-sm
+                            flex
+                            items-center
+                            gap-3
+                            sm:gap-6
+                            relative
+                            overflow-hidden
+                            group
+                        "
+                    >
+
+                        <div
+                            class="
+                                absolute
+                                -right-6
+                                -top-6
+                                w-24
+                                h-24
+                                sm:w-32
+                                sm:h-32
+                                bg-emerald-50
+                                rounded-full
+                                opacity-50
+                                group-hover:scale-110
+                                transition-transform
+                                duration-500
+                            "
+                        ></div>
+
+
+                        <div
+                            class="
+                                w-10
+                                h-10
+                                sm:w-14
+                                sm:h-14
+                                bg-emerald-100
+                                rounded-xl
+                                sm:rounded-2xl
+                                flex
+                                items-center
+                                justify-center
+                                text-emerald-600
+                                shrink-0
+                                relative
+                                z-10
+                            "
+                        >
+
+                            <i
+                                data-lucide="wallet"
+                                class="
+                                    w-5
+                                    h-5
+                                    sm:w-7
+                                    sm:h-7
+                                "
+                            ></i>
+
                         </div>
 
-                        <div class="relative z-10 min-w-0">
 
-                            <p class="text-[9px] sm:text-xs font-extrabold text-slate-400 uppercase tracking-wider sm:tracking-widest mb-1">
+                        <div
+                            class="
+                                relative
+                                z-10
+                                min-w-0
+                            "
+                        >
+
+                            <p
+                                class="
+                                    kpi-label
+                                    text-[10px]
+                                    sm:text-xs
+                                    font-extrabold
+                                    text-slate-400
+                                    uppercase
+                                    tracking-wide
+                                    sm:tracking-widest
+                                    mb-1
+                                "
+                            >
                                 Total Transaction Volume
                             </p>
 
-                            <h3 id="kpi-total-vol"
-                                class="text-xl sm:text-3xl font-black text-brand-navy leading-none tracking-tight truncate">
+
+                            <h3
+                                id="kpi-total-vol"
+                                class="
+                                    text-lg
+                                    sm:text-3xl
+                                    font-black
+                                    text-brand-navy
+                                    leading-none
+                                    tracking-tight
+                                    truncate
+                                "
+                            >
                                 ₹0.00
                             </h3>
 
@@ -132,23 +604,118 @@
                     </div>
 
 
-                    <!-- KPI 2 -->
-                    <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm flex items-center gap-3 sm:gap-6 relative overflow-hidden group">
+                    <!-- ======================================
+                         KPI 2
+                         ====================================== -->
 
-                        <div class="absolute -right-6 -top-6 w-24 h-24 sm:w-32 sm:h-32 bg-blue-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+                    <div
+                        class="
+                            kpi-card
+                            bg-white
+                            rounded-2xl
+                            sm:rounded-3xl
+                            p-4
+                            sm:p-6
+                            border
+                            border-slate-200
+                            shadow-sm
+                            flex
+                            items-center
+                            gap-3
+                            sm:gap-6
+                            relative
+                            overflow-hidden
+                            group
+                        "
+                    >
 
-                        <div class="w-10 h-10 sm:w-14 sm:h-14 bg-blue-100 rounded-xl sm:rounded-2xl flex items-center justify-center text-blue-600 shrink-0 relative z-10">
-                            <i data-lucide="file-check-2" class="w-5 h-5 sm:w-7 sm:h-7"></i>
+                        <div
+                            class="
+                                absolute
+                                -right-6
+                                -top-6
+                                w-24
+                                h-24
+                                sm:w-32
+                                sm:h-32
+                                bg-blue-50
+                                rounded-full
+                                opacity-50
+                                group-hover:scale-110
+                                transition-transform
+                                duration-500
+                            "
+                        ></div>
+
+
+                        <div
+                            class="
+                                w-10
+                                h-10
+                                sm:w-14
+                                sm:h-14
+                                bg-blue-100
+                                rounded-xl
+                                sm:rounded-2xl
+                                flex
+                                items-center
+                                justify-center
+                                text-blue-600
+                                shrink-0
+                                relative
+                                z-10
+                            "
+                        >
+
+                            <i
+                                data-lucide="file-check-2"
+                                class="
+                                    w-5
+                                    h-5
+                                    sm:w-7
+                                    sm:h-7
+                                "
+                            ></i>
+
                         </div>
 
-                        <div class="relative z-10 min-w-0">
 
-                            <p class="text-[9px] sm:text-xs font-extrabold text-slate-400 uppercase tracking-wider sm:tracking-widest mb-1">
+                        <div
+                            class="
+                                relative
+                                z-10
+                                min-w-0
+                            "
+                        >
+
+                            <p
+                                class="
+                                    kpi-label
+                                    text-[10px]
+                                    sm:text-xs
+                                    font-extrabold
+                                    text-slate-400
+                                    uppercase
+                                    tracking-wide
+                                    sm:tracking-widest
+                                    mb-1
+                                "
+                            >
                                 Total Vouchers Logged
                             </p>
 
-                            <h3 id="kpi-total-count"
-                                class="text-xl sm:text-3xl font-black text-brand-navy leading-none tracking-tight">
+
+                            <h3
+                                id="kpi-total-count"
+                                class="
+                                    text-lg
+                                    sm:text-3xl
+                                    font-black
+                                    text-brand-navy
+                                    leading-none
+                                    tracking-tight
+                                "
+                            >
                                 0
                             </h3>
 
@@ -159,16 +726,56 @@
                 </div>
 
 
-                <!-- TABLE REGISTER SECTION -->
-                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <!-- ==========================================
+                     TABLE REGISTER
+                     ========================================== -->
 
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div
+                    class="
+                        bg-white
+                        rounded-3xl
+                        p-5
+                        sm:p-8
+                        border
+                        border-slate-200
+                        shadow-sm
+                    "
+                >
 
-                        <!-- TITLE -->
-                        <h3 class="text-lg font-bold text-brand-navy flex items-center gap-2">
 
-                            <i data-lucide="list"
-                               class="w-5 h-5 text-brand-red"></i>
+                    <!-- TABLE HEADER -->
+
+                    <div
+                        class="
+                            flex
+                            flex-col
+                            md:flex-row
+                            md:items-center
+                            justify-between
+                            gap-4
+                            mb-6
+                        "
+                    >
+
+                        <h3
+                            class="
+                                text-lg
+                                font-bold
+                                text-brand-navy
+                                flex
+                                items-center
+                                gap-2
+                            "
+                        >
+
+                            <i
+                                data-lucide="list"
+                                class="
+                                    w-5
+                                    h-5
+                                    text-brand-red
+                                "
+                            ></i>
 
                             Vouchers Log
 
@@ -176,28 +783,81 @@
 
 
                         <!-- FILTERS -->
-                        <div class="flex flex-wrap items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-100">
 
-                            <!-- SEARCH -->
-                            <div class="relative">
+                        <div
+                            class="
+                                flex
+                                flex-wrap
+                                items-center
+                                gap-2
+                                bg-slate-50
+                                p-2
+                                rounded-xl
+                                border
+                                border-slate-100
+                            "
+                        >
 
-                                <i data-lucide="search"
-                                   class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+                            <div
+                                class="relative"
+                            >
+
+                                <i
+                                    data-lucide="search"
+                                    class="
+                                        w-4
+                                        h-4
+                                        text-slate-400
+                                        absolute
+                                        left-3
+                                        top-2.5
+                                    "
+                                ></i>
+
 
                                 <input
                                     type="text"
                                     id="search-input"
                                     placeholder="Search voucher, client, ref..."
-                                    class="text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-lg pl-9 pr-3 py-2 outline-none hover:border-brand-navy transition-colors w-full sm:w-56"
+                                    class="
+                                        text-sm
+                                        font-semibold
+                                        text-slate-600
+                                        bg-white
+                                        border
+                                        border-slate-200
+                                        rounded-lg
+                                        pl-9
+                                        pr-3
+                                        py-2
+                                        outline-none
+                                        hover:border-brand-navy
+                                        transition-colors
+                                        w-full
+                                        sm:w-56
+                                    "
                                 >
 
                             </div>
 
 
-                            <!-- TYPE FILTER -->
                             <select
                                 id="filter-type"
-                                class="text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-lg px-3 py-2 outline-none hover:border-brand-navy transition-colors cursor-pointer"
+                                class="
+                                    text-sm
+                                    font-semibold
+                                    text-slate-600
+                                    bg-white
+                                    border
+                                    border-slate-200
+                                    rounded-lg
+                                    px-3
+                                    py-2
+                                    outline-none
+                                    hover:border-brand-navy
+                                    transition-colors
+                                    cursor-pointer
+                                "
                             >
 
                                 <option value="All">
@@ -228,15 +888,43 @@
 
 
                     <!-- TABLE -->
-                    <div class="overflow-x-auto">
 
-                        <table class="w-full text-left text-sm text-slate-600 whitespace-nowrap">
+                    <div
+                        class="overflow-x-auto"
+                    >
 
-                            <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-200">
+                        <table
+                            class="
+                                w-full
+                                text-left
+                                text-sm
+                                text-slate-600
+                                whitespace-nowrap
+                            "
+                        >
+
+                            <thead
+                                class="
+                                    bg-slate-50
+                                    text-slate-400
+                                    uppercase
+                                    font-bold
+                                    text-[10px]
+                                    tracking-wider
+                                    border-b
+                                    border-slate-200
+                                "
+                            >
 
                                 <tr>
 
-                                    <th class="py-3 px-4 rounded-tl-lg">
+                                    <th
+                                        class="
+                                            py-3
+                                            px-4
+                                            rounded-tl-lg
+                                        "
+                                    >
                                         Date & Voucher No
                                     </th>
 
@@ -256,7 +944,14 @@
                                         Amount
                                     </th>
 
-                                    <th class="py-3 px-4 rounded-tr-lg text-right">
+                                    <th
+                                        class="
+                                            py-3
+                                            px-4
+                                            rounded-tr-lg
+                                            text-right
+                                        "
+                                    >
                                         Actions
                                     </th>
 
@@ -265,16 +960,24 @@
                             </thead>
 
 
-                            <tbody id="transactions-table-body"
-                                   class="divide-y divide-slate-100">
+                            <tbody
+                                id="transactions-table-body"
+                                class="divide-y divide-slate-100"
+                            >
 
                                 <tr>
 
-                                    <td colspan="6"
-                                        class="px-4 py-8 text-center text-slate-400 font-medium">
-
+                                    <td
+                                        colspan="6"
+                                        class="
+                                            px-4
+                                            py-8
+                                            text-center
+                                            text-slate-400
+                                            font-medium
+                                        "
+                                    >
                                         Loading ledger...
-
                                     </td>
 
                                 </tr>
@@ -292,25 +995,78 @@
         </main>
 
 
-        <!-- ADD VOUCHER MODAL -->
-        <div id="voucher-modal"
-             class="hidden fixed inset-0 bg-brand-navy/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <!-- ==========================================
+             ADD VOUCHER MODAL
+             ========================================== -->
 
-            <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200">
+        <div
+            id="voucher-modal"
+            class="
+                hidden
+                fixed
+                inset-0
+                bg-brand-navy/50
+                backdrop-blur-sm
+                z-[100]
+                flex
+                items-center
+                justify-center
+                p-4
+            "
+        >
+
+            <div
+                class="
+                    bg-white
+                    rounded-3xl
+                    p-6
+                    sm:p-8
+                    max-w-lg
+                    w-full
+                    shadow-2xl
+                    border
+                    border-slate-200
+                "
+            >
 
                 <!-- MODAL HEADER -->
-                <div class="flex justify-between items-center mb-6">
 
-                    <h3 id="modal-title"
-                        class="text-lg font-bold text-brand-navy">
+                <div
+                    class="
+                        flex
+                        justify-between
+                        items-center
+                        mb-6
+                    "
+                >
+
+                    <h3
+                        id="modal-title"
+                        class="
+                            text-lg
+                            font-bold
+                            text-brand-navy
+                        "
+                    >
                         Create New Voucher
                     </h3>
 
-                    <button id="btn-close-modal"
-                            class="text-slate-400 hover:text-brand-red">
 
-                        <i data-lucide="x"
-                           class="w-5 h-5"></i>
+                    <button
+                        id="btn-close-modal"
+                        type="button"
+                        class="
+                            text-slate-400
+                            hover:text-brand-red
+                            p-1
+                        "
+                        aria-label="Close"
+                    >
+
+                        <i
+                            data-lucide="x"
+                            class="w-5 h-5"
+                        ></i>
 
                     </button>
 
@@ -318,26 +1074,67 @@
 
 
                 <!-- FORM -->
-                <form id="voucher-form"
-                      class="space-y-4 max-h-[70vh] overflow-y-auto pr-1">
 
-                    <input type="hidden"
-                           id="form-firebase-id">
+                <form
+                    id="voucher-form"
+                    class="
+                        space-y-4
+                        max-h-[70vh]
+                        overflow-y-auto
+                        pr-1
+                    "
+                >
+
+                    <input
+                        type="hidden"
+                        id="form-firebase-id"
+                    >
 
 
                     <!-- VOUCHER TYPE -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                    <div
+                        class="
+                            grid
+                            grid-cols-1
+                            sm:grid-cols-2
+                            gap-4
+                        "
+                    >
 
                         <div>
 
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                            <label
+                                class="
+                                    block
+                                    text-[10px]
+                                    font-bold
+                                    text-slate-400
+                                    uppercase
+                                    tracking-wider
+                                    mb-1
+                                "
+                            >
                                 Voucher Type *
                             </label>
+
 
                             <select
                                 id="form-voucher-type"
                                 required
-                                class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none bg-white text-brand-navy"
+                                class="
+                                    w-full
+                                    px-3
+                                    py-2.5
+                                    rounded-xl
+                                    border
+                                    border-slate-300
+                                    text-sm
+                                    font-bold
+                                    outline-none
+                                    bg-white
+                                    text-brand-navy
+                                "
                             >
 
                                 <option value="PAYMENT">
@@ -363,15 +1160,38 @@
 
                         <div>
 
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                            <label
+                                class="
+                                    block
+                                    text-[10px]
+                                    font-bold
+                                    text-slate-400
+                                    uppercase
+                                    tracking-wider
+                                    mb-1
+                                "
+                            >
                                 Generated Voucher No
                             </label>
+
 
                             <input
                                 type="text"
                                 id="form-voucher-no"
                                 readonly
-                                class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-mono font-extrabold bg-slate-50 text-brand-red"
+                                class="
+                                    w-full
+                                    px-3
+                                    py-2.5
+                                    rounded-xl
+                                    border
+                                    border-slate-300
+                                    text-sm
+                                    font-mono
+                                    font-extrabold
+                                    bg-slate-50
+                                    text-brand-red
+                                "
                             >
 
                         </div>
@@ -380,43 +1200,102 @@
 
 
                     <!-- CLIENT -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+
+                    <div
+                        class="
+                            grid
+                            grid-cols-1
+                            sm:grid-cols-3
+                            gap-3
+                        "
+                    >
 
                         <div>
 
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                            <label
+                                class="
+                                    block
+                                    text-[10px]
+                                    font-bold
+                                    text-slate-400
+                                    uppercase
+                                    tracking-wider
+                                    mb-1
+                                "
+                            >
                                 Client ID (Search)
                             </label>
+
 
                             <input
                                 list="client-id-list"
                                 type="text"
                                 id="form-client-id"
-                                class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-mono font-bold outline-none bg-white"
+                                class="
+                                    w-full
+                                    px-3
+                                    py-2.5
+                                    rounded-xl
+                                    border
+                                    border-slate-300
+                                    text-sm
+                                    font-mono
+                                    font-bold
+                                    outline-none
+                                    bg-white
+                                "
                                 placeholder="Search ID..."
                             >
 
-                            <datalist id="client-id-list"></datalist>
+                            <datalist
+                                id="client-id-list"
+                            ></datalist>
 
                         </div>
 
 
-                        <div class="sm:col-span-2">
+                        <div
+                            class="sm:col-span-2"
+                        >
 
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                            <label
+                                class="
+                                    block
+                                    text-[10px]
+                                    font-bold
+                                    text-slate-400
+                                    uppercase
+                                    tracking-wider
+                                    mb-1
+                                "
+                            >
                                 Client Name (Search)
                             </label>
+
 
                             <input
                                 list="client-name-list"
                                 type="text"
                                 id="form-client-name"
                                 required
-                                class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none bg-white"
+                                class="
+                                    w-full
+                                    px-3
+                                    py-2.5
+                                    rounded-xl
+                                    border
+                                    border-slate-300
+                                    text-sm
+                                    font-bold
+                                    outline-none
+                                    bg-white
+                                "
                                 placeholder="Search Name..."
                             >
 
-                            <datalist id="client-name-list"></datalist>
+                            <datalist
+                                id="client-name-list"
+                            ></datalist>
 
                         </div>
 
@@ -424,19 +1303,50 @@
 
 
                     <!-- MOBILE + AMOUNT -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                    <div
+                        class="
+                            grid
+                            grid-cols-1
+                            sm:grid-cols-2
+                            gap-4
+                        "
+                    >
 
                         <div>
 
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                            <label
+                                class="
+                                    block
+                                    text-[10px]
+                                    font-bold
+                                    text-slate-400
+                                    uppercase
+                                    tracking-wider
+                                    mb-1
+                                "
+                            >
                                 Mobile Number
                             </label>
+
 
                             <input
                                 type="tel"
                                 id="form-mobile"
                                 maxlength="10"
-                                class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-mono font-bold outline-none bg-white"
+                                class="
+                                    w-full
+                                    px-3
+                                    py-2.5
+                                    rounded-xl
+                                    border
+                                    border-slate-300
+                                    text-sm
+                                    font-mono
+                                    font-bold
+                                    outline-none
+                                    bg-white
+                                "
                                 placeholder="10-digit mobile"
                             >
 
@@ -445,9 +1355,20 @@
 
                         <div>
 
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                            <label
+                                class="
+                                    block
+                                    text-[10px]
+                                    font-bold
+                                    text-slate-400
+                                    uppercase
+                                    tracking-wider
+                                    mb-1
+                                "
+                            >
                                 Amount (₹) *
                             </label>
+
 
                             <input
                                 type="number"
@@ -455,7 +1376,19 @@
                                 required
                                 min="1"
                                 step="0.01"
-                                class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-extrabold text-brand-navy outline-none bg-white"
+                                class="
+                                    w-full
+                                    px-3
+                                    py-2.5
+                                    rounded-xl
+                                    border
+                                    border-slate-300
+                                    text-sm
+                                    font-extrabold
+                                    text-brand-navy
+                                    outline-none
+                                    bg-white
+                                "
                                 placeholder="0.00"
                             >
 
@@ -465,16 +1398,39 @@
 
 
                     <!-- REFERENCE -->
+
                     <div>
 
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                        <label
+                            class="
+                                block
+                                text-[10px]
+                                font-bold
+                                text-slate-400
+                                uppercase
+                                tracking-wider
+                                mb-1
+                            "
+                        >
                             Reference No / UTR / Cheque
                         </label>
+
 
                         <input
                             type="text"
                             id="form-ref-no"
-                            class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-mono outline-none bg-white"
+                            class="
+                                w-full
+                                px-3
+                                py-2.5
+                                rounded-xl
+                                border
+                                border-slate-300
+                                text-sm
+                                font-mono
+                                outline-none
+                                bg-white
+                            "
                             placeholder="e.g. UTR123456789"
                         >
 
@@ -482,16 +1438,39 @@
 
 
                     <!-- NARRATION -->
+
                     <div>
 
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                        <label
+                            class="
+                                block
+                                text-[10px]
+                                font-bold
+                                text-slate-400
+                                uppercase
+                                tracking-wider
+                                mb-1
+                            "
+                        >
                             Narration / Description
                         </label>
+
 
                         <textarea
                             id="form-narration"
                             rows="2"
-                            class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs outline-none bg-white resize-none"
+                            class="
+                                w-full
+                                px-3
+                                py-2.5
+                                rounded-xl
+                                border
+                                border-slate-300
+                                text-sm
+                                outline-none
+                                bg-white
+                                resize-none
+                            "
                             placeholder="Transaction remarks..."
                         ></textarea>
 
@@ -499,10 +1478,27 @@
 
 
                     <!-- SAVE -->
+
                     <button
                         type="submit"
                         id="btn-save-voucher"
-                        class="w-full py-3.5 bg-brand-navy text-white font-bold rounded-xl shadow-md hover:bg-brand-navyhover transition-colors flex items-center justify-center gap-2 mt-4 text-xs"
+                        class="
+                            w-full
+                            py-3.5
+                            bg-brand-navy
+                            text-white
+                            font-bold
+                            rounded-xl
+                            shadow-md
+                            hover:bg-brand-navyhover
+                            transition-colors
+                            flex
+                            items-center
+                            justify-center
+                            gap-2
+                            mt-4
+                            text-sm
+                        "
                     >
                         Post Voucher Entry
                     </button>
@@ -514,19 +1510,58 @@
         </div>
 
 
-        <!-- FOOTER -->
-        <footer class="bg-white border-t border-slate-200 pt-8 pb-8 mt-auto">
+        <!-- ==========================================
+             FOOTER
+             ========================================== -->
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-xs font-medium text-slate-500">
+        <footer
+            class="
+                bg-white
+                border-t
+                border-slate-200
+                pt-8
+                pb-8
+                mt-auto
+            "
+        >
+
+            <div
+                class="
+                    max-w-7xl
+                    mx-auto
+                    px-4
+                    sm:px-6
+                    lg:px-8
+                    flex
+                    justify-between
+                    items-center
+                    text-xs
+                    font-medium
+                    text-slate-500
+                "
+            >
 
                 <p>
                     &copy; 2026 CM Filings. Financial Engine.
                 </p>
 
-                <div class="flex items-center gap-2">
 
-                    <i data-lucide="shield-check"
-                       class="w-4 h-4 text-brand-red"></i>
+                <div
+                    class="
+                        flex
+                        items-center
+                        gap-2
+                    "
+                >
+
+                    <i
+                        data-lucide="shield-check"
+                        class="
+                            w-4
+                            h-4
+                            text-brand-red
+                        "
+                    ></i>
 
                     Secure Ledger
 
@@ -539,7 +1574,10 @@
     </div>
 
 
-    <!-- FIREBASE & LOGIC SCRIPT -->
+    <!-- ==========================================
+         FIREBASE & LOGIC
+         ========================================== -->
+
     <script type="module">
 
         import { initializeApp }
@@ -559,137 +1597,213 @@
         from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 
-        // ==========================================
-        // FIREBASE CONFIGURATION
-        // ==========================================
+        /* ==========================================
+           FIREBASE CONFIG
+           ========================================== */
 
         const firebaseConfig = {
 
-            apiKey: "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
+            apiKey:
+                "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
 
-            authDomain: "cmfilings-6a37c.firebaseapp.com",
+            authDomain:
+                "cmfilings-6a37c.firebaseapp.com",
 
-            projectId: "cmfilings-6a37c",
+            projectId:
+                "cmfilings-6a37c",
 
-            storageBucket: "cmfilings-6a37c.firebasestorage.app",
+            storageBucket:
+                "cmfilings-6a37c.firebasestorage.app",
 
-            messagingSenderId: "138705123778",
+            messagingSenderId:
+                "138705123778",
 
-            appId: "1:138705123778:web:9561bff9f0f5d89bb6fe5b"
+            appId:
+                "1:138705123778:web:9561bff9f0f5d89bb6fe5b"
 
         };
 
 
-        // ==========================================
-        // INITIALIZE FIREBASE
-        // ==========================================
+        /* ==========================================
+           INITIALIZE
+           ========================================== */
 
-        const app = initializeApp(firebaseConfig);
+        const app =
+            initializeApp(firebaseConfig);
 
-        const auth = getAuth(app);
+        const auth =
+            getAuth(app);
 
-        const db = getFirestore(app);
+        const db =
+            getFirestore(app);
 
 
-        // ==========================================
-        // INITIALIZE LUCIDE
-        // ==========================================
+        /* ==========================================
+           INITIALIZE ICONS
+           ========================================== */
 
         lucide.createIcons();
 
 
-        // ==========================================
-        // MAIN ELEMENTS
-        // ==========================================
+        /* ==========================================
+           BACK TO MAIN INDEX
+           ========================================== */
+
+        const moduleBackArrow =
+            document.getElementById(
+                'module-back-arrow'
+            );
+
+
+        moduleBackArrow.addEventListener(
+            'click',
+            () => {
+
+                window.location.href =
+                    'index.html';
+
+            }
+        );
+
+
+        /* ==========================================
+           MAIN ELEMENTS
+           ========================================== */
 
         const mainApp =
-            document.getElementById('main-app');
+            document.getElementById(
+                'main-app'
+            );
 
         const tableBody =
-            document.getElementById('transactions-table-body');
+            document.getElementById(
+                'transactions-table-body'
+            );
 
         const kpiTotalVol =
-            document.getElementById('kpi-total-vol');
+            document.getElementById(
+                'kpi-total-vol'
+            );
 
         const kpiTotalCount =
-            document.getElementById('kpi-total-count');
+            document.getElementById(
+                'kpi-total-count'
+            );
 
         const searchInput =
-            document.getElementById('search-input');
+            document.getElementById(
+                'search-input'
+            );
 
         const filterType =
-            document.getElementById('filter-type');
+            document.getElementById(
+                'filter-type'
+            );
 
 
-        // ==========================================
-        // MODAL ELEMENTS
-        // ==========================================
+        /* ==========================================
+           MODAL ELEMENTS
+           ========================================== */
 
         const voucherModal =
-            document.getElementById('voucher-modal');
+            document.getElementById(
+                'voucher-modal'
+            );
 
         const modalTitle =
-            document.getElementById('modal-title');
+            document.getElementById(
+                'modal-title'
+            );
 
         const btnOpenAddModal =
-            document.getElementById('btn-open-add-modal');
+            document.getElementById(
+                'btn-open-add-modal'
+            );
 
         const btnCloseModal =
-            document.getElementById('btn-close-modal');
+            document.getElementById(
+                'btn-close-modal'
+            );
 
         const voucherForm =
-            document.getElementById('voucher-form');
+            document.getElementById(
+                'voucher-form'
+            );
 
 
-        // ==========================================
-        // FORM ELEMENTS
-        // ==========================================
+        /* ==========================================
+           FORM ELEMENTS
+           ========================================== */
 
         const formFirebaseId =
-            document.getElementById('form-firebase-id');
+            document.getElementById(
+                'form-firebase-id'
+            );
 
         const formVoucherType =
-            document.getElementById('form-voucher-type');
+            document.getElementById(
+                'form-voucher-type'
+            );
 
         const formVoucherNo =
-            document.getElementById('form-voucher-no');
+            document.getElementById(
+                'form-voucher-no'
+            );
 
         const formClientId =
-            document.getElementById('form-client-id');
+            document.getElementById(
+                'form-client-id'
+            );
 
         const formClientName =
-            document.getElementById('form-client-name');
+            document.getElementById(
+                'form-client-name'
+            );
 
         const formMobile =
-            document.getElementById('form-mobile');
+            document.getElementById(
+                'form-mobile'
+            );
 
         const formAmount =
-            document.getElementById('form-amount');
+            document.getElementById(
+                'form-amount'
+            );
 
         const formRefNo =
-            document.getElementById('form-ref-no');
+            document.getElementById(
+                'form-ref-no'
+            );
 
         const formNarration =
-            document.getElementById('form-narration');
+            document.getElementById(
+                'form-narration'
+            );
 
         const btnSaveVoucher =
-            document.getElementById('btn-save-voucher');
+            document.getElementById(
+                'btn-save-voucher'
+            );
 
 
-        // ==========================================
-        // CLIENT LISTS
-        // ==========================================
+        /* ==========================================
+           CLIENT LISTS
+           ========================================== */
 
         const clientIdList =
-            document.getElementById('client-id-list');
+            document.getElementById(
+                'client-id-list'
+            );
 
         const clientNameList =
-            document.getElementById('client-name-list');
+            document.getElementById(
+                'client-name-list'
+            );
 
 
-        // ==========================================
-        // DATA STATE
-        // ==========================================
+        /* ==========================================
+           DATA STATE
+           ========================================== */
 
         let clientsData = [];
 
@@ -698,64 +1812,89 @@
         let transactionsMap = {};
 
 
-        // ==========================================
-        // 1. LOAD CLIENTS
-        // ==========================================
+        /* ==========================================
+           LOAD CLIENTS
+           ========================================== */
 
         onSnapshot(
-            collection(db, 'clients'),
+
+            collection(
+                db,
+                'clients'
+            ),
 
             (snapshot) => {
 
                 clientsData =
-                    snapshot.docs.map(doc => ({
-                        firebaseId: doc.id,
-                        ...doc.data()
-                    }));
+                    snapshot.docs.map(
+                        docSnap => ({
+
+                            firebaseId:
+                                docSnap.id,
+
+                            ...docSnap.data()
+
+                        })
+                    );
 
 
-                clientIdList.innerHTML = '';
+                clientIdList.innerHTML =
+                    '';
 
-                clientNameList.innerHTML = '';
-
-
-                clientsData.forEach(client => {
-
-                    const nameStr =
-                        client.clientName ||
-                        client.name ||
-                        '';
-
-                    const idStr =
-                        client.clientId ||
-                        client.id ||
-                        '';
+                clientNameList.innerHTML =
+                    '';
 
 
-                    if (nameStr) {
+                clientsData.forEach(
+                    client => {
 
-                        const opt =
-                            document.createElement('option');
+                        const nameStr =
+                            client.clientName ||
+                            client.name ||
+                            '';
 
-                        opt.value = nameStr;
 
-                        clientNameList.appendChild(opt);
+                        const idStr =
+                            client.clientId ||
+                            client.id ||
+                            '';
+
+
+                        if (nameStr) {
+
+                            const opt =
+                                document.createElement(
+                                    'option'
+                                );
+
+                            opt.value =
+                                nameStr;
+
+                            clientNameList.appendChild(
+                                opt
+                            );
+
+                        }
+
+
+                        if (idStr) {
+
+                            const optId =
+                                document.createElement(
+                                    'option'
+                                );
+
+                            optId.value =
+                                idStr;
+
+                            clientIdList.appendChild(
+                                optId
+                            );
+
+                        }
 
                     }
-
-
-                    if (idStr) {
-
-                        const optId =
-                            document.createElement('option');
-
-                        optId.value = idStr;
-
-                        clientIdList.appendChild(optId);
-
-                    }
-
-                });
+                );
 
             },
 
@@ -767,51 +1906,75 @@
                 );
 
             }
+
         );
 
 
-        // ==========================================
-        // 2. LOAD TRANSACTIONS
-        // ==========================================
+        /* ==========================================
+           LOAD TRANSACTIONS
+           ========================================== */
 
         onSnapshot(
-            collection(db, 'transactions'),
+
+            collection(
+                db,
+                'transactions'
+            ),
 
             (snapshot) => {
 
-                // Show application
-                mainApp.classList.remove('hidden');
+                /* SHOW APP */
 
-                mainApp.classList.add('flex');
+                mainApp.classList.remove(
+                    'hidden'
+                );
+
+                mainApp.classList.add(
+                    'flex'
+                );
 
 
-                // Reset data
+                /* RESET */
+
                 allTransactions = [];
 
                 transactionsMap = {};
 
 
-                // Read transactions
-                snapshot.forEach(docSnap => {
+                /* READ */
 
-                    const data =
-                        docSnap.data();
+                snapshot.forEach(
+                    docSnap => {
 
-                    const item = {
-                        firebaseId: docSnap.id,
-                        ...data
-                    };
+                        const data =
+                            docSnap.data();
 
 
-                    allTransactions.push(item);
+                        const item = {
 
-                    transactionsMap[docSnap.id] =
-                        item;
+                            firebaseId:
+                                docSnap.id,
 
-                });
+                            ...data
+
+                        };
 
 
-                // Render
+                        allTransactions.push(
+                            item
+                        );
+
+
+                        transactionsMap[
+                            docSnap.id
+                        ] = item;
+
+                    }
+                );
+
+
+                /* RENDER */
+
                 filterAndRenderTransactions();
 
             },
@@ -824,19 +1987,22 @@
                 );
 
 
-                // Still show application
-                mainApp.classList.remove('hidden');
+                /* SHOW APP EVEN ON ERROR */
 
-                mainApp.classList.add('flex');
+                mainApp.classList.remove(
+                    'hidden'
+                );
+
+                mainApp.classList.add(
+                    'flex'
+                );
 
 
-                // Reset transaction data
                 allTransactions = [];
 
                 transactionsMap = {};
 
 
-                // Reset KPI cards
                 kpiTotalVol.textContent =
                     '₹0.00';
 
@@ -844,30 +2010,45 @@
                     '0';
 
 
-                // Show error
                 tableBody.innerHTML = `
+
                     <tr>
-                        <td colspan="6"
-                            class="px-4 py-8 text-center text-red-500 font-medium">
 
+                        <td
+                            colspan="6"
+                            class="
+                                px-4
+                                py-8
+                                text-center
+                                text-red-500
+                                font-medium
+                            "
+                        >
                             Unable to load transactions.
-
                         </td>
+
                     </tr>
+
                 `;
 
             }
+
         );
 
 
-        // ==========================================
-        // SEARCH & FILTER
-        // ==========================================
+        /* ==========================================
+           SEARCH
+           ========================================== */
 
         searchInput.addEventListener(
             'input',
             filterAndRenderTransactions
         );
+
+
+        /* ==========================================
+           FILTER
+           ========================================== */
 
         filterType.addEventListener(
             'change',
@@ -875,9 +2056,9 @@
         );
 
 
-        // ==========================================
-        // 3. VOUCHER NUMBER GENERATION
-        // ==========================================
+        /* ==========================================
+           VOUCHER NUMBER
+           ========================================== */
 
         formVoucherType.addEventListener(
             'change',
@@ -890,37 +2071,53 @@
             const type =
                 formVoucherType.value;
 
-            let prefix = "VPCM";
+
+            let prefix =
+                "VPCM";
 
 
-            if (type === "RECEIPT") {
+            if (
+                type === "RECEIPT"
+            ) {
 
-                prefix = "VP-RC";
-
-            }
-
-            else if (type === "CONTRA") {
-
-                prefix = "VP-CN";
-
-            }
-
-            else if (type === "JOURNAL") {
-
-                prefix = "VP-JN";
+                prefix =
+                    "VP-RC";
 
             }
 
+            else if (
+                type === "CONTRA"
+            ) {
 
-            // Count existing vouchers
+                prefix =
+                    "VP-CN";
+
+            }
+
+            else if (
+                type === "JOURNAL"
+            ) {
+
+                prefix =
+                    "VP-JN";
+
+            }
+
+
             const count =
                 allTransactions.filter(
-                    t => t.voucherType === type
+                    t =>
+                        t.voucherType ===
+                        type
                 ).length + 1;
 
 
             const seq =
-                String(count).padStart(4, '0');
+                String(count)
+                    .padStart(
+                        4,
+                        '0'
+                    );
 
 
             formVoucherNo.value =
@@ -929,9 +2126,9 @@
         }
 
 
-        // ==========================================
-        // CLIENT ID -> NAME + MOBILE
-        // ==========================================
+        /* ==========================================
+           CLIENT ID -> NAME + MOBILE
+           ========================================== */
 
         formClientId.addEventListener(
             'input',
@@ -945,13 +2142,20 @@
 
                 const matched =
                     clientsData.find(
-                        c =>
-                            (
-                                c.clientId ||
-                                c.id ||
-                                ''
-                            )
-                            .toLowerCase() === val
+                        c => {
+
+                            const id =
+                                String(
+                                    c.clientId ||
+                                    c.id ||
+                                    ''
+                                )
+                                .toLowerCase();
+
+
+                            return id === val;
+
+                        }
                     );
 
 
@@ -961,6 +2165,7 @@
                         matched.clientName ||
                         matched.name ||
                         '';
+
 
                     formMobile.value =
                         matched.mobile ||
@@ -973,9 +2178,9 @@
         );
 
 
-        // ==========================================
-        // CLIENT NAME -> ID + MOBILE
-        // ==========================================
+        /* ==========================================
+           CLIENT NAME -> ID + MOBILE
+           ========================================== */
 
         formClientName.addEventListener(
             'input',
@@ -989,13 +2194,20 @@
 
                 const matched =
                     clientsData.find(
-                        c =>
-                            (
-                                c.clientName ||
-                                c.name ||
-                                ''
-                            )
-                            .toLowerCase() === val
+                        c => {
+
+                            const name =
+                                String(
+                                    c.clientName ||
+                                    c.name ||
+                                    ''
+                                )
+                                .toLowerCase();
+
+
+                            return name === val;
+
+                        }
                     );
 
 
@@ -1005,6 +2217,7 @@
                         matched.clientId ||
                         matched.id ||
                         '';
+
 
                     formMobile.value =
                         matched.mobile ||
@@ -1017,9 +2230,9 @@
         );
 
 
-        // ==========================================
-        // FILTER & RENDER TRANSACTIONS
-        // ==========================================
+        /* ==========================================
+           FILTER & RENDER
+           ========================================== */
 
         function filterAndRenderTransactions() {
 
@@ -1033,78 +2246,116 @@
                 filterType.value;
 
 
-            // FILTER
             let filtered =
-                allTransactions.filter(t => {
+                allTransactions.filter(
+                    t => {
 
-                    const vNo =
-                        (t.voucherNo || '')
-                        .toLowerCase();
-
-                    const client =
-                        (t.clientName || '')
-                        .toLowerCase();
-
-                    const ref =
-                        (t.refNo || '')
-                        .toLowerCase();
-
-                    const mobile =
-                        (t.mobile || '')
-                        .toLowerCase();
+                        const vNo =
+                            String(
+                                t.voucherNo ||
+                                ''
+                            )
+                            .toLowerCase();
 
 
-                    const matchesSearch =
-                        vNo.includes(searchVal) ||
-                        client.includes(searchVal) ||
-                        ref.includes(searchVal) ||
-                        mobile.includes(searchVal);
+                        const client =
+                            String(
+                                t.clientName ||
+                                ''
+                            )
+                            .toLowerCase();
 
 
-                    const matchesType =
-                        (
+                        const ref =
+                            String(
+                                t.refNo ||
+                                ''
+                            )
+                            .toLowerCase();
+
+
+                        const mobile =
+                            String(
+                                t.mobile ||
+                                ''
+                            )
+                            .toLowerCase();
+
+
+                        const matchesSearch =
+                            vNo.includes(
+                                searchVal
+                            ) ||
+
+                            client.includes(
+                                searchVal
+                            ) ||
+
+                            ref.includes(
+                                searchVal
+                            ) ||
+
+                            mobile.includes(
+                                searchVal
+                            );
+
+
+                        const matchesType =
                             typeVal === 'All' ||
-                            t.voucherType === typeVal
+                            t.voucherType ===
+                                typeVal;
+
+
+                        return (
+                            matchesSearch &&
+                            matchesType
                         );
 
-
-                    return (
-                        matchesSearch &&
-                        matchesType
-                    );
-
-                });
+                    }
+                );
 
 
-            // SORT
+            /* SORT */
+
             filtered.sort(
                 (a, b) =>
-                    new Date(b.createdAt || 0) -
-                    new Date(a.createdAt || 0)
+                    new Date(
+                        b.createdAt || 0
+                    ) -
+                    new Date(
+                        a.createdAt || 0
+                    )
             );
 
 
-            // ======================================
-            // KPI CALCULATIONS
-            // ======================================
+            /* ======================================
+               KPI
+               ====================================== */
 
             let totalVol = 0;
 
 
-            allTransactions.forEach(t => {
+            allTransactions.forEach(
+                t => {
 
-                totalVol +=
-                    parseFloat(t.amount || 0);
+                    totalVol +=
+                        parseFloat(
+                            t.amount || 0
+                        );
 
-            });
+                }
+            );
 
 
             kpiTotalVol.textContent =
                 `₹${totalVol.toLocaleString(
                     'en-IN',
                     {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
+                        minimumFractionDigits:
+                            2,
+
+                        maximumFractionDigits:
+                            2
                     }
                 )}`;
 
@@ -1113,28 +2364,37 @@
                 allTransactions.length;
 
 
-            // ======================================
-            // CLEAR TABLE
-            // ======================================
+            /* CLEAR TABLE */
 
-            tableBody.innerHTML = '';
+            tableBody.innerHTML =
+                '';
 
 
-            // ======================================
-            // NO DATA
-            // ======================================
+            /* NO DATA */
 
-            if (filtered.length === 0) {
+            if (
+                filtered.length === 0
+            ) {
 
                 tableBody.innerHTML = `
+
                     <tr>
-                        <td colspan="6"
-                            class="px-4 py-8 text-center text-slate-400 font-medium">
 
+                        <td
+                            colspan="6"
+                            class="
+                                px-4
+                                py-8
+                                text-center
+                                text-slate-400
+                                font-medium
+                            "
+                        >
                             No transaction vouchers found.
-
                         </td>
+
                     </tr>
+
                 `;
 
                 return;
@@ -1142,182 +2402,340 @@
             }
 
 
-            // ======================================
-            // RENDER ROWS
-            // ======================================
+            /* ======================================
+               RENDER ROWS
+               ====================================== */
 
-            filtered.forEach(tx => {
+            filtered.forEach(
+                tx => {
 
-                const dateObj =
-                    new Date(
-                        tx.createdAt ||
-                        Date.now()
-                    );
-
-
-                const formattedDate =
-                    `${String(
-                        dateObj.getDate()
-                    ).padStart(2, '0')}/` +
-
-                    `${String(
-                        dateObj.getMonth() + 1
-                    ).padStart(2, '0')}/` +
-
-                    `${dateObj.getFullYear()}`;
+                    const dateObj =
+                        new Date(
+                            tx.createdAt ||
+                            Date.now()
+                        );
 
 
-                // TYPE BADGE
-                let typeBadge = '';
+                    const formattedDate =
+
+                        `${String(
+                            dateObj.getDate()
+                        ).padStart(
+                            2,
+                            '0'
+                        )}/` +
+
+                        `${String(
+                            dateObj.getMonth() + 1
+                        ).padStart(
+                            2,
+                            '0'
+                        )}/` +
+
+                        `${dateObj.getFullYear()}`;
 
 
-                if (
-                    tx.voucherType ===
-                    'RECEIPT'
-                ) {
+                    /* TYPE BADGE */
 
-                    typeBadge = `
-                        <span class="bg-emerald-50 text-emerald-600 border border-emerald-200 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
-                            Receipt
-                        </span>
-                    `;
-
-                }
-
-                else if (
-                    tx.voucherType ===
-                    'CONTRA'
-                ) {
-
-                    typeBadge = `
-                        <span class="bg-blue-50 text-blue-600 border border-blue-200 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
-                            Contra
-                        </span>
-                    `;
-
-                }
-
-                else if (
-                    tx.voucherType ===
-                    'JOURNAL'
-                ) {
-
-                    typeBadge = `
-                        <span class="bg-purple-50 text-purple-600 border border-purple-200 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
-                            Journal
-                        </span>
-                    `;
-
-                }
-
-                else {
-
-                    typeBadge = `
-                        <span class="bg-amber-50 text-amber-600 border border-amber-200 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
-                            Payment
-                        </span>
-                    `;
-
-                }
+                    let typeBadge =
+                        '';
 
 
-                // CREATE ROW
-                const tr =
-                    document.createElement('tr');
+                    if (
+                        tx.voucherType ===
+                        'RECEIPT'
+                    ) {
+
+                        typeBadge = `
+
+                            <span
+                                class="
+                                    bg-emerald-50
+                                    text-emerald-600
+                                    border
+                                    border-emerald-200
+                                    px-2
+                                    py-0.5
+                                    rounded
+                                    text-[10px]
+                                    font-bold
+                                    uppercase
+                                    tracking-wider
+                                "
+                            >
+                                Receipt
+                            </span>
+
+                        `;
+
+                    }
+
+                    else if (
+                        tx.voucherType ===
+                        'CONTRA'
+                    ) {
+
+                        typeBadge = `
+
+                            <span
+                                class="
+                                    bg-blue-50
+                                    text-blue-600
+                                    border
+                                    border-blue-200
+                                    px-2
+                                    py-0.5
+                                    rounded
+                                    text-[10px]
+                                    font-bold
+                                    uppercase
+                                    tracking-wider
+                                "
+                            >
+                                Contra
+                            </span>
+
+                        `;
+
+                    }
+
+                    else if (
+                        tx.voucherType ===
+                        'JOURNAL'
+                    ) {
+
+                        typeBadge = `
+
+                            <span
+                                class="
+                                    bg-purple-50
+                                    text-purple-600
+                                    border
+                                    border-purple-200
+                                    px-2
+                                    py-0.5
+                                    rounded
+                                    text-[10px]
+                                    font-bold
+                                    uppercase
+                                    tracking-wider
+                                "
+                            >
+                                Journal
+                            </span>
+
+                        `;
+
+                    }
+
+                    else {
+
+                        typeBadge = `
+
+                            <span
+                                class="
+                                    bg-amber-50
+                                    text-amber-600
+                                    border
+                                    border-amber-200
+                                    px-2
+                                    py-0.5
+                                    rounded
+                                    text-[10px]
+                                    font-bold
+                                    uppercase
+                                    tracking-wider
+                                "
+                            >
+                                Payment
+                            </span>
+
+                        `;
+
+                    }
 
 
-                tr.className =
-                    "hover:bg-slate-50 transition-colors group";
+                    /* CREATE ROW */
+
+                    const tr =
+                        document.createElement(
+                            'tr'
+                        );
 
 
-                tr.innerHTML = `
-
-                    <td class="py-3 px-4">
-
-                        <div class="font-mono font-bold text-brand-red text-xs">
-                            ${tx.voucherNo || '---'}
-                        </div>
-
-                        <div class="text-[10px] text-slate-400">
-                            ${formattedDate}
-                        </div>
-
-                    </td>
+                    tr.className =
+                        "hover:bg-slate-50 transition-colors group";
 
 
-                    <td class="py-3 px-4">
+                    tr.innerHTML = `
 
-                        ${typeBadge}
+                        <td class="py-3 px-4">
 
-                    </td>
+                            <div
+                                class="
+                                    font-mono
+                                    font-bold
+                                    text-brand-red
+                                    text-xs
+                                "
+                            >
+                                ${tx.voucherNo || '---'}
+                            </div>
 
+                            <div
+                                class="
+                                    text-[10px]
+                                    text-slate-400
+                                "
+                            >
+                                ${formattedDate}
+                            </div>
 
-                    <td class="py-3 px-4">
-
-                        <div class="font-bold text-brand-navy">
-                            ${tx.clientName || 'Walk-in / General'}
-                        </div>
-
-                        <div class="font-mono text-xs text-slate-400">
-                            ID: ${tx.clientId || 'N/A'}
-                        </div>
-
-                    </td>
-
-
-                    <td class="py-3 px-4 font-mono text-xs text-slate-600">
-
-                        ${tx.refNo || '---'}
-
-                    </td>
-
-
-                    <td class="py-3 px-4 font-extrabold text-slate-800">
-
-                        ₹${parseFloat(
-                            tx.amount || 0
-                        ).toFixed(2)}
-
-                    </td>
+                        </td>
 
 
-                    <td class="py-3 px-4 text-right">
+                        <td class="py-3 px-4">
 
-                        <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            ${typeBadge}
 
-                            <button
-                                class="btn-delete-tx p-2 text-slate-400 hover:text-brand-red bg-white border border-slate-200 rounded-lg shadow-sm transition-all"
-                                data-id="${tx.firebaseId}"
-                                title="Delete Voucher"
+                        </td>
+
+
+                        <td class="py-3 px-4">
+
+                            <div
+                                class="
+                                    font-bold
+                                    text-brand-navy
+                                "
+                            >
+                                ${
+                                    tx.clientName ||
+                                    'Walk-in / General'
+                                }
+                            </div>
+
+                            <div
+                                class="
+                                    font-mono
+                                    text-xs
+                                    text-slate-400
+                                "
+                            >
+                                ID:
+                                ${
+                                    tx.clientId ||
+                                    'N/A'
+                                }
+                            </div>
+
+                        </td>
+
+
+                        <td
+                            class="
+                                py-3
+                                px-4
+                                font-mono
+                                text-xs
+                                text-slate-600
+                            "
+                        >
+                            ${
+                                tx.refNo ||
+                                '---'
+                            }
+                        </td>
+
+
+                        <td
+                            class="
+                                py-3
+                                px-4
+                                font-extrabold
+                                text-slate-800
+                            "
+                        >
+                            ₹${
+                                parseFloat(
+                                    tx.amount || 0
+                                ).toFixed(2)
+                            }
+                        </td>
+
+
+                        <td
+                            class="
+                                py-3
+                                px-4
+                                text-right
+                            "
+                        >
+
+                            <div
+                                class="
+                                    flex
+                                    items-center
+                                    justify-end
+                                    gap-2
+                                    opacity-0
+                                    group-hover:opacity-100
+                                    transition-opacity
+                                "
                             >
 
-                                <i data-lucide="trash-2"
-                                   class="w-3.5 h-3.5 pointer-events-none">
-                                </i>
+                                <button
+                                    type="button"
+                                    class="
+                                        btn-delete-tx
+                                        p-2
+                                        text-slate-400
+                                        hover:text-brand-red
+                                        bg-white
+                                        border
+                                        border-slate-200
+                                        rounded-lg
+                                        shadow-sm
+                                        transition-all
+                                    "
+                                    data-id="${tx.firebaseId}"
+                                    title="Delete Voucher"
+                                >
 
-                            </button>
+                                    <i
+                                        data-lucide="trash-2"
+                                        class="
+                                            w-3.5
+                                            h-3.5
+                                            pointer-events-none
+                                        "
+                                    ></i>
 
-                        </div>
+                                </button>
 
-                    </td>
+                            </div>
 
-                `;
+                        </td>
 
-
-                tableBody.appendChild(tr);
-
-            });
+                    `;
 
 
-            // Refresh Lucide icons
+                    tableBody.appendChild(
+                        tr
+                    );
+
+                }
+            );
+
+
             lucide.createIcons();
 
         }
 
 
-        // ==========================================
-        // MODAL - OPEN
-        // ==========================================
+        /* ==========================================
+           OPEN MODAL
+           ========================================== */
 
         btnOpenAddModal.addEventListener(
             'click',
@@ -1345,9 +2763,9 @@
         );
 
 
-        // ==========================================
-        // MODAL - CLOSE
-        // ==========================================
+        /* ==========================================
+           CLOSE MODAL
+           ========================================== */
 
         btnCloseModal.addEventListener(
             'click',
@@ -1361,9 +2779,57 @@
         );
 
 
-        // ==========================================
-        // DELETE TRANSACTION
-        // ==========================================
+        /* ==========================================
+           CLICK OUTSIDE MODAL TO CLOSE
+           ========================================== */
+
+        voucherModal.addEventListener(
+            'click',
+            (e) => {
+
+                if (
+                    e.target ===
+                    voucherModal
+                ) {
+
+                    voucherModal.classList.add(
+                        'hidden'
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* ==========================================
+           ESCAPE TO CLOSE MODAL
+           ========================================== */
+
+        document.addEventListener(
+            'keydown',
+            (e) => {
+
+                if (
+                    e.key === 'Escape' &&
+                    !voucherModal.classList.contains(
+                        'hidden'
+                    )
+                ) {
+
+                    voucherModal.classList.add(
+                        'hidden'
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* ==========================================
+           DELETE TRANSACTION
+           ========================================== */
 
         tableBody.addEventListener(
             'click',
@@ -1375,44 +2841,46 @@
                     );
 
 
-                if (btn) {
+                if (!btn) {
+                    return;
+                }
 
-                    const firebaseId =
-                        btn.getAttribute(
-                            'data-id'
+
+                const firebaseId =
+                    btn.getAttribute(
+                        'data-id'
+                    );
+
+
+                if (
+                    confirm(
+                        "Are you sure you want to delete this voucher entry?"
+                    )
+                ) {
+
+                    try {
+
+                        await deleteDoc(
+                            doc(
+                                db,
+                                'transactions',
+                                firebaseId
+                            )
+                        );
+
+                    }
+
+                    catch (err) {
+
+                        console.error(
+                            "Delete error:",
+                            err
                         );
 
 
-                    if (
-                        confirm(
-                            "Are you sure you want to delete this voucher entry?"
-                        )
-                    ) {
-
-                        try {
-
-                            await deleteDoc(
-                                doc(
-                                    db,
-                                    'transactions',
-                                    firebaseId
-                                )
-                            );
-
-                        }
-
-                        catch (err) {
-
-                            console.error(
-                                "Delete error:",
-                                err
-                            );
-
-                            alert(
-                                "Failed to delete voucher."
-                            );
-
-                        }
+                        alert(
+                            "Failed to delete voucher."
+                        );
 
                     }
 
@@ -1422,9 +2890,9 @@
         );
 
 
-        // ==========================================
-        // SUBMIT VOUCHER
-        // ==========================================
+        /* ==========================================
+           SUBMIT VOUCHER
+           ========================================== */
 
         voucherForm.addEventListener(
             'submit',
@@ -1443,17 +2911,25 @@
                     ).toFixed(2);
 
 
-                // Save original button
                 const originalText =
                     btnSaveVoucher.innerHTML;
 
 
-                // Loading state
+                /* LOADING */
+
                 btnSaveVoucher.innerHTML = `
-                    <i data-lucide="loader-2"
-                       class="w-4 h-4 animate-spin inline">
-                    </i>
+
+                    <i
+                        data-lucide="loader-2"
+                        class="
+                            w-4
+                            h-4
+                            animate-spin
+                        "
+                    ></i>
+
                     Posting...
+
                 `;
 
 
@@ -1470,10 +2946,12 @@
                     new Date().toISOString();
 
 
-                // PAYLOAD
+                /* PAYLOAD */
+
                 const txPayload = {
 
-                    voucherNo: vNo,
+                    voucherNo:
+                        vNo,
 
                     voucherType:
                         formVoucherType.value,
@@ -1509,21 +2987,29 @@
 
                 try {
 
-                    // Use voucher number as Firestore document ID
                     await setDoc(
+
                         doc(
                             db,
                             'transactions',
                             vNo
                         ),
+
                         txPayload
+
                     );
 
 
-                    // Close modal
                     voucherModal.classList.add(
                         'hidden'
                     );
+
+
+                    voucherForm.reset();
+
+
+                    formFirebaseId.value =
+                        '';
 
 
                 }
@@ -1535,6 +3021,7 @@
                         error
                     );
 
+
                     alert(
                         "Failed to post voucher entry."
                     );
@@ -1543,7 +3030,6 @@
 
                 finally {
 
-                    // Restore button
                     btnSaveVoucher.innerHTML =
                         originalText;
 
@@ -1557,4 +3043,5 @@
     </script>
 
 </body>
+
 </html>
