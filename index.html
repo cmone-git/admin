@@ -392,14 +392,14 @@
             }
         };
 
-        // Universal Module Loader via processing.html preloader
+        // Universal Module Loader via apploader.html preloader
         window.loadModule = function(url, title) {
             modalModuleTitle.textContent = title;
             homeView.classList.add('hidden');
             moduleModalContainer.classList.remove('hidden');
             
-            // 1. Load processing.html preloader first
-            moduleIframe.src = `processing.html?msg=Loading%20${encodeURIComponent(title)}`;
+            // 1. Load apploader.html preloader first
+            moduleIframe.src = `apploader.html?msg=Loading%20${encodeURIComponent(title)}`;
 
             // 2. Seamlessly swap to actual module after a brief corporate pause
             setTimeout(() => {
