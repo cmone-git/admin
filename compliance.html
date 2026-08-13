@@ -59,6 +59,12 @@
 </head>
 <body class="font-sans text-slate-700 bg-brand-light antialiased selection:bg-brand-redlight selection:text-brand-red flex flex-col min-h-screen">
 
+    <!-- APP LOADER -->
+    <div id="app-loader" class="fixed inset-0 bg-brand-light z-[100] flex flex-col items-center justify-center">
+        <i data-lucide="loader-2" class="w-10 h-10 text-brand-navy animate-spin mb-4"></i>
+        <p class="text-sm font-bold text-slate-500 tracking-widest uppercase">Loading Compliance Register...</p>
+    </div>
+
     <!-- MAIN APP WRAPPER -->
     <div id="main-app" class="hidden flex-col min-h-screen">
 
@@ -66,8 +72,14 @@
         <main class="flex-1 hero-pattern py-8 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
-                <div class="mb-8 text-left lg:text-left">
-                    <h1 class="text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight">Compliance</h1>
+                <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-xs font-extrabold tracking-widest uppercase text-brand-red mb-1">Corporate Tracker</h2>
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight">Compliance Register</h1>
+                    </div>
+                    <button id="btn-open-add-modal" class="px-4 py-2.5 bg-brand-red text-white font-bold rounded-xl shadow-md hover:bg-brand-redhover transition-colors flex items-center justify-center gap-2 text-xs shrink-0">
+                        <i data-lucide="plus-circle" class="w-4 h-4"></i> Add Compliance Task
+                    </button>
                 </div>
 
                 <!-- KPI CARDS -->
@@ -99,7 +111,7 @@
                 <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                         <h3 class="text-lg font-bold text-brand-navy flex items-center gap-2">
-                            <i data-lucide="list-checks" class="w-5 h-5 text-brand-red"></i> Compliance Register
+                            <i data-lucide="list-checks" class="w-5 h-5 text-brand-red"></i> Compliance Records
                         </h3>
                         
                         <!-- FILTERS -->
@@ -223,7 +235,7 @@
             </div>
         </div>
 
-        <!-- VIEW DETAILS & CREDENTIALS DRAWER / MODAL -->
+        <!-- VIEW DETAILS & CREDENTIALS MODAL -->
         <div id="view-modal" class="hidden fixed inset-0 bg-brand-navy/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
             <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
                 <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
@@ -264,6 +276,7 @@
                 </div>
             </div>
         </div>
+    </div>
 
     <!-- GLOBAL COPY HELPER -->
     <script>
@@ -283,7 +296,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, doc, setDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
@@ -693,7 +706,7 @@
                         invoiceNo: invNoDisplay,
                         clientName: clientNameVal,
                         clientId: clientIdVal,
-                        mobile: '', // Automatically pulls if client registered, or blank
+                        mobile: '', 
                         amount: Number(amountVal),
                         serviceDescription: taskTitleVal,
                         period: 'Compliance Fee',
