@@ -59,12 +59,6 @@
 </head>
 <body class="font-sans text-slate-700 bg-brand-light antialiased selection:bg-brand-redlight selection:text-brand-red flex flex-col min-h-screen">
 
-    <!-- APP LOADER -->
-    <div id="app-loader" class="fixed inset-0 bg-brand-light z-[100] flex flex-col items-center justify-center">
-        <i data-lucide="loader-2" class="w-10 h-10 text-brand-navy animate-spin mb-4"></i>
-        <p class="text-sm font-bold text-slate-500 tracking-widest uppercase">Loading Transactions Ledger...</p>
-    </div>
-
     <!-- MAIN APP WRAPPER -->
     <div id="main-app" class="hidden flex-col min-h-screen">
         
@@ -75,10 +69,12 @@
                     <div class="flex items-center gap-4">
                         <a href="dashboard.html" class="flex items-center gap-3 group border-r border-slate-200 pr-4">
                             <div class="w-10 h-10 bg-brand-navy rounded-xl flex items-center justify-center text-white shadow-sm">
-                                <i data-lucide="receipt" class="w-5 h-5"></i>
+                                <i data-lucide="indian-rupee" class="w-5 h-5"></i>
                             </div>
                             <div class="flex flex-col">
-                                <span class="font-extrabold text-xl tracking-tight text-brand-navy leading-none">CM FILINGS</span>
+                                <img src="assets/name.svg"
+     alt="CM FILINGS"
+     class="h-7 w-auto">
                                 <span class="text-[9px] font-bold text-brand-red uppercase tracking-widest leading-none mt-1">Transaction Engine</span>
                             </div>
                         </a>
