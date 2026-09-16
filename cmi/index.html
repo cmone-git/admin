@@ -1,0 +1,2120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<title>COREBIQ Admin Database</title>
+
+<style>
+:root{
+  --bg:#f5f7fa;
+  --surface:#ffffff;
+  --surface2:#f8fafc;
+  --text:#202124;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --primary:#1f2937;
+  --accent:#2f7d5a;
+  --danger:#b42318;
+  --shadow:0 4px 18px rgba(0,0,0,.06);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* LOGIN */
+
+.login-screen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+
+.login-card{
+  width:100%;
+  max-width:420px;
+  background:#fff;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  padding:34px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:30px;
+}
+
+.brand-mark{
+  width:44px;
+  height:44px;
+  border-radius:10px;
+  background:#202124;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  font-size:20px;
+}
+
+.brand-title{
+  font-size:18px;
+  font-weight:800;
+}
+
+.brand-sub{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.login-card h1{
+  font-size:24px;
+  margin:0 0 8px;
+}
+
+.login-card p{
+  margin:0 0 25px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.field{
+  margin-bottom:16px;
+}
+
+.field label{
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:7px;
+}
+
+.field input{
+  width:100%;
+  height:46px;
+  border:1px solid var(--border);
+  padding:0 13px;
+  outline:none;
+  background:#fff;
+}
+
+.field input:focus{
+  border-color:var(--accent);
+}
+
+.login-btn{
+  width:100%;
+  height:46px;
+  border:0;
+  background:var(--primary);
+  color:#fff;
+  font-weight:700;
+}
+
+.login-error{
+  margin-top:15px;
+  color:var(--danger);
+  font-size:13px;
+}
+
+/* APP */
+
+.app{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:250px 1fr;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  width:250px;
+  background:#fff;
+  border-right:1px solid var(--border);
+  padding:20px 14px;
+  z-index:100;
+}
+
+.sidebar-brand{
+  padding:4px 10px 22px;
+}
+
+.sidebar-nav{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.nav-btn{
+  border:0;
+  background:transparent;
+  width:100%;
+  text-align:left;
+  padding:11px 12px;
+  color:#4b5563;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+  background:#f1f5f3;
+  color:#1f513b;
+}
+
+.nav-icon{
+  width:20px;
+  text-align:center;
+}
+
+.sidebar-bottom{
+  position:absolute;
+  bottom:20px;
+  left:14px;
+  right:14px;
+}
+
+.logout-btn{
+  width:100%;
+  padding:11px;
+  border:1px solid var(--border);
+  background:#fff;
+  color:#444;
+}
+
+/* MAIN */
+
+.main{
+  grid-column:2;
+  min-width:0;
+}
+
+.topbar{
+  height:70px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  position:sticky;
+  top:0;
+  z-index:80;
+}
+
+.topbar-title{
+  font-size:17px;
+  font-weight:750;
+}
+
+.admin-user{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.content{
+  padding:28px;
+  max-width:1600px;
+  margin:auto;
+}
+
+/* DASHBOARD */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-bottom:24px;
+}
+
+.stat{
+  background:#fff;
+  border:1px solid var(--border);
+  padding:20px;
+}
+
+.stat-label{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+
+.stat-value{
+  font-size:25px;
+  font-weight:800;
+}
+
+/* COLLECTIONS */
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:16px;
+}
+
+.section-header h2{
+  margin:0;
+  font-size:18px;
+}
+
+.tools{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.search{
+  height:40px;
+  border:1px solid var(--border);
+  padding:0 12px;
+  min-width:230px;
+  outline:none;
+}
+
+.tool-btn{
+  height:40px;
+  padding:0 13px;
+  border:1px solid var(--border);
+  background:#fff;
+}
+
+.tool-btn.primary{
+  background:var(--primary);
+  color:#fff;
+  border-color:var(--primary);
+}
+
+.collection-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:12px;
+}
+
+.collection-card{
+  background:#fff;
+  border:1px solid var(--border);
+  padding:17px;
+  cursor:pointer;
+  transition:.15s;
+}
+
+.collection-card:hover{
+  border-color:#b8c8bf;
+  transform:translateY(-1px);
+}
+
+.collection-name{
+  font-size:14px;
+  font-weight:700;
+  word-break:break-word;
+}
+
+.collection-count{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:7px;
+}
+
+/* DATABASE */
+
+.database-layout{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:18px;
+}
+
+.collection-list{
+  background:#fff;
+  border:1px solid var(--border);
+  max-height:calc(100vh - 170px);
+  overflow:auto;
+}
+
+.collection-list-title{
+  padding:15px;
+  font-size:13px;
+  font-weight:800;
+  border-bottom:1px solid var(--border);
+}
+
+.collection-item{
+  width:100%;
+  text-align:left;
+  border:0;
+  background:#fff;
+  padding:12px 15px;
+  border-bottom:1px solid #f0f1f2;
+  font-size:13px;
+}
+
+.collection-item:hover,
+.collection-item.active{
+  background:#f1f5f3;
+}
+
+.documents{
+  background:#fff;
+  border:1px solid var(--border);
+  min-width:0;
+}
+
+.documents-header{
+  padding:15px 18px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.documents-title{
+  font-size:15px;
+  font-weight:800;
+}
+
+.table-wrap{
+  overflow:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+th,
+td{
+  padding:11px 12px;
+  border-bottom:1px solid #edf0f2;
+  text-align:left;
+  white-space:nowrap;
+  max-width:250px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+th{
+  background:#f8fafc;
+  font-size:11px;
+  color:#5f6368;
+  position:sticky;
+  top:0;
+}
+
+.doc-btn{
+  border:1px solid var(--border);
+  background:#fff;
+  padding:5px 9px;
+  font-size:11px;
+}
+
+/* JSON */
+
+.json-view{
+  margin:18px;
+  background:#202124;
+  color:#e8eaed;
+  padding:18px;
+  overflow:auto;
+  max-height:65vh;
+  font-family:monospace;
+  font-size:12px;
+  line-height:1.55;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+/* EMPTY */
+
+.empty{
+  padding:50px 20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* MOBILE */
+
+.mobile-menu-btn{
+  display:none;
+  border:0;
+  background:transparent;
+  font-size:22px;
+}
+
+@media(max-width:900px){
+
+  .app{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.2s;
+    box-shadow:10px 0 30px rgba(0,0,0,.12);
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    grid-column:1;
+  }
+
+  .mobile-menu-btn{
+    display:block;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .database-layout{
+    grid-template-columns:1fr;
+  }
+
+  .collection-list{
+    max-height:220px;
+  }
+}
+
+@media(max-width:600px){
+
+  .content{
+    padding:16px;
+  }
+
+  .topbar{
+    padding:0 16px;
+    height:62px;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .stat{
+    padding:15px;
+  }
+
+  .stat-value{
+    font-size:21px;
+  }
+
+  .search{
+    width:100%;
+    min-width:0;
+  }
+
+  .tools{
+    width:100%;
+  }
+
+  .login-card{
+    padding:25px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<section id="loginScreen" class="login-screen">
+
+  <div class="login-card">
+
+    <div class="brand">
+
+      <div class="brand-mark">C</div>
+
+      <div>
+        <div class="brand-title">COREBIQ ADMIN</div>
+        <div class="brand-sub">Firebase Database Administration</div>
+      </div>
+
+    </div>
+
+    <h1>Administrator Login</h1>
+
+    <p>
+      Sign in to access the Firebase administration dashboard.
+    </p>
+
+    <div class="field">
+      <label>Email</label>
+      <input
+        id="email"
+        type="email"
+        placeholder="admin@example.com"
+        autocomplete="username">
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input
+        id="password"
+        type="password"
+        placeholder="••••••••"
+        autocomplete="current-password">
+    </div>
+
+    <button id="loginBtn" class="login-btn">
+      Sign In
+    </button>
+
+    <div id="loginError" class="login-error"></div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= APPLICATION ================= -->
+
+<section id="app" class="app hidden">
+
+  <!-- SIDEBAR -->
+
+  <aside id="sidebar" class="sidebar">
+
+    <div class="sidebar-brand">
+
+      <div class="brand">
+        <div class="brand-mark">C</div>
+
+        <div>
+          <div class="brand-title">COREBIQ</div>
+          <div class="brand-sub">Administration</div>
+        </div>
+      </div>
+
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <button
+        class="nav-btn active"
+        data-page="dashboard">
+        <span class="nav-icon">⌂</span>
+        Dashboard
+      </button>
+
+      <button
+        class="nav-btn"
+        data-page="database">
+        <span class="nav-icon">▦</span>
+        Database
+      </button>
+
+      <button
+        class="nav-btn"
+        data-page="clients">
+        <span class="nav-icon">◉</span>
+        Clients
+      </button>
+
+      <button
+        class="nav-btn"
+        data-page="payments">
+        <span class="nav-icon">₹</span>
+        Payments
+      </button>
+
+      <button
+        class="nav-btn"
+        data-page="documents">
+        <span class="nav-icon">□</span>
+        Documents
+      </button>
+
+      <button
+        class="nav-btn"
+        data-page="users">
+        <span class="nav-icon">♙</span>
+        Users
+      </button>
+
+      <button
+        class="nav-btn"
+        data-page="backup">
+        <span class="nav-icon">↓</span>
+        Backup / Export
+      </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <button id="logoutBtn" class="logout-btn">
+        Sign Out
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div style="display:flex;align-items:center;gap:12px">
+
+        <button
+          id="menuBtn"
+          class="mobile-menu-btn">
+          ☰
+        </button>
+
+        <div id="pageTitle" class="topbar-title">
+          Dashboard
+        </div>
+
+      </div>
+
+      <div id="adminUser" class="admin-user"></div>
+
+    </header>
+
+
+    <div class="content">
+
+
+      <!-- DASHBOARD -->
+
+      <section id="dashboardPage">
+
+        <div class="stats">
+
+          <div class="stat">
+            <div class="stat-label">
+              Firestore Collections
+            </div>
+
+            <div
+              id="collectionCount"
+              class="stat-value">
+              —
+            </div>
+          </div>
+
+
+          <div class="stat">
+            <div class="stat-label">
+              Loaded Documents
+            </div>
+
+            <div
+              id="documentCount"
+              class="stat-value">
+              —
+            </div>
+          </div>
+
+
+          <div class="stat">
+            <div class="stat-label">
+              Firebase Project
+            </div>
+
+            <div
+              id="projectId"
+              class="stat-value"
+              style="font-size:14px">
+              —
+            </div>
+          </div>
+
+
+          <div class="stat">
+            <div class="stat-label">
+              Admin Status
+            </div>
+
+            <div
+              class="stat-value"
+              style="font-size:15px">
+              AUTHENTICATED
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="section-header">
+
+          <h2>Database Collections</h2>
+
+          <div class="tools">
+
+            <input
+              id="collectionSearch"
+              class="search"
+              placeholder="Search collections...">
+
+            <button
+              id="refreshBtn"
+              class="tool-btn primary">
+              Refresh
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          id="collectionGrid"
+          class="collection-grid">
+        </div>
+
+      </section>
+
+
+      <!-- DATABASE -->
+
+      <section
+        id="databasePage"
+        class="hidden">
+
+        <div class="section-header">
+
+          <h2>Firestore Database</h2>
+
+          <div class="tools">
+
+            <input
+              id="documentSearch"
+              class="search"
+              placeholder="Search documents...">
+
+            <button
+              id="exportBtn"
+              class="tool-btn">
+              Export JSON
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="database-layout">
+
+          <div class="collection-list">
+
+            <div class="collection-list-title">
+              Collections
+            </div>
+
+            <div id="collectionList">
+            </div>
+
+          </div>
+
+
+          <div class="documents">
+
+            <div class="documents-header">
+
+              <div
+                id="selectedCollection"
+                class="documents-title">
+                Select a collection
+              </div>
+
+              <div id="documentTotal"
+                   class="admin-user">
+              </div>
+
+            </div>
+
+            <div
+              id="documentTable"
+              class="table-wrap">
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- PLACEHOLDER MODULE PAGES -->
+
+      <section id="clientsPage" class="hidden">
+        <div class="empty">
+          Client module can be connected to the same Firestore data engine.
+        </div>
+      </section>
+
+      <section id="paymentsPage" class="hidden">
+        <div class="empty">
+          Payment module can be connected to the same Firestore data engine.
+        </div>
+      </section>
+
+      <section id="documentsPage" class="hidden">
+        <div class="empty">
+          Document module can be connected to the same Firestore data engine.
+        </div>
+      </section>
+
+      <section id="usersPage" class="hidden">
+        <div class="empty">
+          User management can be connected to Firebase Authentication and Firestore.
+        </div>
+      </section>
+
+      <section id="backupPage" class="hidden">
+
+        <div class="stat">
+
+          <h3>Database Backup</h3>
+
+          <p style="color:var(--muted);font-size:13px">
+            Browser export is useful for testing selected collections.
+            A complete Firestore backup should use a server-side
+            Firebase Admin SDK / Google Cloud export.
+          </p>
+
+          <button
+            id="backupExportBtn"
+            class="tool-btn primary">
+            Export Loaded Database JSON
+          </button>
+
+        </div>
+
+      </section>
+
+
+    </div>
+
+  </main>
+
+</section>
+
+
+<!-- ================= FIREBASE ================= -->
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+   ===================================================== */
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
+
+  authDomain:
+    "cmfilings-6a37c.firebaseapp.com",
+
+  projectId:
+    "cmfilings-6a37c",
+
+  storageBucket:
+    "cmfilings-6a37c.firebasestorage.app",
+
+  messagingSenderId:
+    "138705123778",
+
+  appId:
+    "1:138705123778:web:9561bff9f0f5d89bb6fe5b"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+/* =====================================================
+   TEST ADMIN
+   =====================================================
+
+   For TESTING ONLY.
+
+   Create this user in:
+
+   Firebase Console
+   → Authentication
+   → Users
+   → Add user
+
+   Example:
+
+   admin@cminnovations.com
+   your password
+
+   IMPORTANT:
+   The browser-side email check below is NOT the
+   production security mechanism.
+
+   Later we should replace it with Firebase
+   custom claims:
+
+   admin: true
+
+===================================================== */
+
+const TEST_ADMIN_EMAIL =
+  "admin@cminnovations.com";
+
+
+/* =====================================================
+   DOM
+   ===================================================== */
+
+const loginScreen =
+  document.getElementById("loginScreen");
+
+const appScreen =
+  document.getElementById("app");
+
+const emailInput =
+  document.getElementById("email");
+
+const passwordInput =
+  document.getElementById("password");
+
+const loginBtn =
+  document.getElementById("loginBtn");
+
+const loginError =
+  document.getElementById("loginError");
+
+const adminUser =
+  document.getElementById("adminUser");
+
+const projectId =
+  document.getElementById("projectId");
+
+const collectionGrid =
+  document.getElementById("collectionGrid");
+
+const collectionList =
+  document.getElementById("collectionList");
+
+const collectionSearch =
+  document.getElementById("collectionSearch");
+
+const documentSearch =
+  document.getElementById("documentSearch");
+
+const documentTable =
+  document.getElementById("documentTable");
+
+const selectedCollection =
+  document.getElementById("selectedCollection");
+
+const documentTotal =
+  document.getElementById("documentTotal");
+
+
+projectId.textContent =
+  firebaseConfig.projectId;
+
+
+/* =====================================================
+   DATA
+   ===================================================== */
+
+let database = {};
+
+let currentCollection = null;
+
+let currentDocuments = [];
+
+
+/* =====================================================
+   LOGIN
+   ===================================================== */
+
+loginBtn.addEventListener(
+  "click",
+  async () => {
+
+    loginError.textContent = "";
+
+    const email =
+      emailInput.value.trim();
+
+    const password =
+      passwordInput.value;
+
+    if (!email || !password){
+
+      loginError.textContent =
+        "Enter email and password.";
+
+      return;
+    }
+
+    /*
+      TEST ADMIN EMAIL CHECK
+
+      This is only to prevent normal users from entering
+      the dashboard during testing.
+
+      Real protection must be Firestore Rules +
+      Firebase custom admin claim.
+    */
+
+    if (
+      email.toLowerCase() !==
+      TEST_ADMIN_EMAIL.toLowerCase()
+    ){
+
+      loginError.textContent =
+        "This account is not configured as the test administrator.";
+
+      return;
+    }
+
+
+    loginBtn.disabled = true;
+
+    loginBtn.textContent =
+      "Signing in...";
+
+
+    try{
+
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+    }catch(error){
+
+      console.error(error);
+
+      loginError.textContent =
+        getFirebaseError(error);
+
+    }
+
+
+    loginBtn.disabled = false;
+
+    loginBtn.textContent =
+      "Sign In";
+
+  }
+);
+
+
+/* ENTER KEY LOGIN */
+
+passwordInput.addEventListener(
+  "keydown",
+  e => {
+
+    if(e.key === "Enter"){
+      loginBtn.click();
+    }
+
+  }
+);
+
+
+/* =====================================================
+   AUTH STATE
+   ===================================================== */
+
+onAuthStateChanged(
+  auth,
+  async user => {
+
+    if(user){
+
+      /*
+        TEST ADMIN CHECK
+      */
+
+      if(
+        user.email.toLowerCase() !==
+        TEST_ADMIN_EMAIL.toLowerCase()
+      ){
+
+        await signOut(auth);
+
+        loginError.textContent =
+          "Administrator access denied.";
+
+        return;
+      }
+
+
+      loginScreen.classList.add(
+        "hidden"
+      );
+
+      appScreen.classList.remove(
+        "hidden"
+      );
+
+
+      adminUser.textContent =
+        user.email;
+
+
+      await loadDatabase();
+
+    }else{
+
+      loginScreen.classList.remove(
+        "hidden"
+      );
+
+      appScreen.classList.add(
+        "hidden"
+      );
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   FIREBASE ERROR
+   ===================================================== */
+
+function getFirebaseError(error){
+
+  const code =
+    error?.code || "";
+
+  const errors = {
+
+    "auth/invalid-credential":
+      "Invalid email or password.",
+
+    "auth/user-not-found":
+      "User account not found.",
+
+    "auth/wrong-password":
+      "Incorrect password.",
+
+    "auth/invalid-email":
+      "Invalid email address.",
+
+    "auth/too-many-requests":
+      "Too many attempts. Try again later."
+
+  };
+
+  return (
+    errors[code] ||
+    error.message ||
+    "Login failed."
+  );
+
+}
+
+
+/* =====================================================
+   LOAD DATABASE
+   =====================================================
+
+   IMPORTANT:
+
+   Firebase Web SDK cannot enumerate arbitrary
+   top-level Firestore collections.
+
+   Therefore this testing version uses the collection
+   names below.
+
+   Once the Admin SDK backend is added, this entire
+   section can automatically discover collections.
+===================================================== */
+
+const COLLECTIONS = [
+
+  "clients",
+  "client_users",
+
+  "compliance",
+  "gst_returns",
+  "income_tax",
+  "tds",
+  "pf",
+  "esi",
+
+  "accounts",
+  "invoices",
+  "expenses",
+  "transactions",
+
+  "payments",
+  "payment_requests",
+  "payment_qr",
+
+  "documents",
+  "uploads",
+
+  "leads",
+  "contacts",
+  "followups",
+  "activities",
+
+  "users",
+  "staff",
+  "roles",
+
+  "notifications",
+
+  "company_settings",
+  "app_settings"
+
+];
+
+
+async function loadDatabase(){
+
+  collectionGrid.innerHTML =
+    `<div class="empty">
+      Loading Firebase database...
+    </div>`;
+
+  collectionList.innerHTML = "";
+
+  database = {};
+
+  let totalDocuments = 0;
+
+
+  for(
+    const collectionName of COLLECTIONS
+  ){
+
+    try{
+
+      const snapshot =
+        await getDocs(
+          collection(
+            db,
+            collectionName
+          )
+        );
+
+
+      const documents =
+        snapshot.docs.map(
+          doc => ({
+            id:doc.id,
+            ...doc.data()
+          })
+        );
+
+
+      database[collectionName] =
+        documents;
+
+      totalDocuments +=
+        documents.length;
+
+    }catch(error){
+
+      console.warn(
+        "Cannot read collection:",
+        collectionName,
+        error
+      );
+
+      /*
+        Keep collection visible even if it
+        does not exist or permission is denied.
+      */
+
+      database[collectionName] = [];
+
+    }
+
+  }
+
+
+  document.getElementById(
+    "collectionCount"
+  ).textContent =
+    Object.keys(database).length;
+
+
+  document.getElementById(
+    "documentCount"
+  ).textContent =
+    totalDocuments;
+
+
+  renderCollections();
+
+  renderCollectionList();
+
+}
+
+
+/* =====================================================
+   COLLECTION CARDS
+   ===================================================== */
+
+function renderCollections(){
+
+  const search =
+    collectionSearch.value
+      .trim()
+      .toLowerCase();
+
+
+  const names =
+    Object.keys(database)
+      .filter(
+        name =>
+          name.toLowerCase()
+            .includes(search)
+      );
+
+
+  if(!names.length){
+
+    collectionGrid.innerHTML =
+      `<div class="empty">
+        No collections found.
+      </div>`;
+
+    return;
+
+  }
+
+
+  collectionGrid.innerHTML =
+    names.map(
+      name => `
+
+        <div
+          class="collection-card"
+          data-collection="${escapeHtml(name)}">
+
+          <div class="collection-name">
+            ${escapeHtml(name)}
+          </div>
+
+          <div class="collection-count">
+            ${database[name].length} documents
+          </div>
+
+        </div>
+
+      `
+    ).join("");
+
+
+  document
+    .querySelectorAll(
+      ".collection-card"
+    )
+    .forEach(card => {
+
+      card.addEventListener(
+        "click",
+        () => {
+
+          openCollection(
+            card.dataset.collection
+          );
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =====================================================
+   COLLECTION LIST
+   ===================================================== */
+
+function renderCollectionList(){
+
+  collectionList.innerHTML =
+    Object.keys(database)
+      .map(
+        name => `
+
+          <button
+            class="collection-item"
+            data-collection="${escapeHtml(name)}">
+
+            ${escapeHtml(name)}
+
+            <span style="
+              float:right;
+              color:#8a9199;
+              font-size:11px">
+              ${database[name].length}
+            </span>
+
+          </button>
+
+        `
+      ).join("");
+
+
+  document
+    .querySelectorAll(
+      ".collection-item"
+    )
+    .forEach(btn => {
+
+      btn.addEventListener(
+        "click",
+        () => {
+
+          openCollection(
+            btn.dataset.collection
+          );
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =====================================================
+   OPEN COLLECTION
+   ===================================================== */
+
+function openCollection(name){
+
+  currentCollection = name;
+
+  currentDocuments =
+    database[name] || [];
+
+
+  selectedCollection.textContent =
+    name;
+
+  documentTotal.textContent =
+    currentDocuments.length +
+    " documents";
+
+
+  document
+    .querySelectorAll(
+      ".collection-item"
+    )
+    .forEach(
+      el =>
+        el.classList.toggle(
+          "active",
+          el.dataset.collection === name
+        )
+    );
+
+
+  showPage("database");
+
+  renderDocuments();
+
+}
+
+
+/* =====================================================
+   DOCUMENT TABLE
+   ===================================================== */
+
+function renderDocuments(){
+
+  const search =
+    documentSearch.value
+      .trim()
+      .toLowerCase();
+
+
+  let docs =
+    currentDocuments;
+
+
+  if(search){
+
+    docs =
+      docs.filter(
+        doc =>
+          JSON.stringify(doc)
+            .toLowerCase()
+            .includes(search)
+      );
+
+  }
+
+
+  if(!docs.length){
+
+    documentTable.innerHTML =
+      `<div class="empty">
+        No documents found.
+      </div>`;
+
+    return;
+
+  }
+
+
+  /*
+    Collect dynamic field names.
+  */
+
+  const fields =
+    new Set(["id"]);
+
+
+  docs.forEach(
+    doc => {
+
+      Object.keys(doc)
+        .forEach(
+          key => fields.add(key)
+        );
+
+    }
+  );
+
+
+  const columns =
+    Array.from(fields)
+      .slice(0,8);
+
+
+  let html =
+    `<table>
+      <thead>
+        <tr>`;
+
+  columns.forEach(
+    field => {
+
+      html +=
+        `<th>${escapeHtml(field)}</th>`;
+
+    }
+  );
+
+
+  html +=
+    `<th>View</th>
+      </tr>
+      </thead>
+      <tbody>`;
+
+
+  docs.forEach(
+    (doc,index) => {
+
+      html += `<tr>`;
+
+
+      columns.forEach(
+        field => {
+
+          const value =
+            doc[field];
+
+
+          html +=
+            `<td title="${escapeHtml(
+              formatValue(value)
+            )}">
+              ${escapeHtml(
+                formatValue(value)
+              )}
+            </td>`;
+
+        }
+      );
+
+
+      html +=
+        `<td>
+          <button
+            class="doc-btn"
+            data-index="${index}">
+            View JSON
+          </button>
+        </td>`;
+
+
+      html +=
+        `</tr>`;
+
+    }
+  );
+
+
+  html +=
+    `</tbody>
+    </table>`;
+
+
+  documentTable.innerHTML =
+    html;
+
+
+  document
+    .querySelectorAll(
+      ".doc-btn"
+    )
+    .forEach(
+      btn => {
+
+        btn.addEventListener(
+          "click",
+          () => {
+
+            showDocument(
+              docs[
+                Number(
+                  btn.dataset.index
+                )
+              ]
+            );
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* =====================================================
+   DOCUMENT JSON
+   ===================================================== */
+
+function showDocument(doc){
+
+  documentTable.innerHTML =
+    `
+
+      <div class="json-view">
+        ${escapeHtml(
+          JSON.stringify(
+            doc,
+            null,
+            2
+          )
+        )}
+      </div>
+
+      <div style="padding:0 18px 18px">
+
+        <button
+          id="backDocuments"
+          class="tool-btn">
+
+          ← Back to documents
+
+        </button>
+
+        <button
+          id="downloadDocument"
+          class="tool-btn primary"
+          style="margin-left:6px">
+
+          Download JSON
+
+        </button>
+
+      </div>
+
+    `;
+
+
+  document
+    .getElementById(
+      "backDocuments"
+    )
+    .onclick =
+      renderDocuments;
+
+
+  document
+    .getElementById(
+      "downloadDocument"
+    )
+    .onclick =
+      () =>
+        downloadJSON(
+          doc,
+          currentCollection +
+          "-" +
+          doc.id
+        );
+
+}
+
+
+/* =====================================================
+   JSON EXPORT
+   ===================================================== */
+
+function downloadJSON(
+  data,
+  filename
+){
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:"application/json"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    filename + ".json";
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+/* =====================================================
+   EXPORT WHOLE LOADED DATABASE
+   ===================================================== */
+
+function exportDatabase(){
+
+  downloadJSON(
+    database,
+    "corebiq-firestore-export"
+  );
+
+}
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+collectionSearch.addEventListener(
+  "input",
+  renderCollections
+);
+
+
+documentSearch.addEventListener(
+  "input",
+  renderDocuments
+);
+
+
+/* =====================================================
+   REFRESH
+   ===================================================== */
+
+document
+  .getElementById(
+    "refreshBtn"
+  )
+  .addEventListener(
+    "click",
+    loadDatabase
+  );
+
+
+document
+  .getElementById(
+    "exportBtn"
+  )
+  .addEventListener(
+    "click",
+    exportDatabase
+  );
+
+
+document
+  .getElementById(
+    "backupExportBtn"
+  )
+  .addEventListener(
+    "click",
+    exportDatabase
+  );
+
+
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
+document
+  .getElementById(
+    "logoutBtn"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      signOut(auth)
+  );
+
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+
+const pages = [
+  "dashboard",
+  "database",
+  "clients",
+  "payments",
+  "documents",
+  "users",
+  "backup"
+];
+
+
+document
+  .querySelectorAll(
+    ".nav-btn"
+  )
+  .forEach(
+    btn => {
+
+      btn.addEventListener(
+        "click",
+        () => {
+
+          showPage(
+            btn.dataset.page
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+function showPage(page){
+
+  pages.forEach(
+    p => {
+
+      const element =
+        document.getElementById(
+          p + "Page"
+        );
+
+      if(element){
+
+        element.classList.toggle(
+          "hidden",
+          p !== page
+        );
+
+      }
+
+    }
+  );
+
+
+  document
+    .querySelectorAll(
+      ".nav-btn"
+    )
+    .forEach(
+      btn =>
+        btn.classList.toggle(
+          "active",
+          btn.dataset.page === page
+        )
+    );
+
+
+  const titles = {
+
+    dashboard:"Dashboard",
+    database:"Firestore Database",
+    clients:"Clients",
+    payments:"Payments",
+    documents:"Documents",
+    users:"Users",
+    backup:"Backup / Export"
+
+  };
+
+
+  document
+    .getElementById(
+      "pageTitle"
+    )
+    .textContent =
+      titles[page] ||
+      page;
+
+
+  document
+    .getElementById(
+      "sidebar"
+    )
+    .classList.remove(
+      "open"
+    );
+
+}
+
+
+/* =====================================================
+   MOBILE MENU
+   ===================================================== */
+
+document
+  .getElementById(
+    "menuBtn"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById(
+          "sidebar"
+        )
+        .classList.toggle(
+          "open"
+        );
+
+    }
+  );
+
+
+/* =====================================================
+   HELPERS
+   ===================================================== */
+
+function formatValue(value){
+
+  if(value === undefined)
+    return "";
+
+  if(value === null)
+    return "null";
+
+  if(
+    typeof value === "object"
+  ){
+
+    return JSON.stringify(value);
+
+  }
+
+  return String(value);
+
+}
+
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+</script>
+
+</body>
+</html>
