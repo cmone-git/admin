@@ -2687,20 +2687,475 @@ function getFirebaseError(error){
 
 /* =========================================================
    COLLECTIONS FOR TESTING
-   =========================================================
-
-   IMPORTANT:
-
-   Firebase Web SDK does not provide a browser-side
-   API for enumerating every top-level Firestore
-   collection.
-
-   Therefore this TEST version checks the collection
-   names below.
-
-   The production Admin SDK backend can later discover
-   every collection automatically.
    ========================================================= */
+
+const COLLECTIONS = [
+
+  "clients",
+  "client_users",
+  "client_profiles",
+
+  "compliance",
+  "gst_returns",
+  "income_tax",
+  "tds",
+  "pf",
+  "esi",
+  "mca",
+
+  "accounts",
+  "invoices",
+  "expenses",
+  "transactions",
+
+  "payments",
+  "payment_requests",
+  "payment_qr",
+
+  "documents",
+  "uploads",
+
+  "leads",
+  "contacts",
+  "followups",
+  "activities",
+
+  "users",
+  "staff",
+  "roles",
+
+  "notifications",
+
+  "company_settings",
+  "app_settings"
+
+];
+
+
+/* =========================================================
+   LOAD DATABASE
+   ========================================================= */
+
+async function loadDatabase(){
+
+  collectionGrid.innerHTML = `
+    <div class="empty">
+      Connecting to Firestore...
+    </div>
+  `;
+
+  collectionList.innerHTML = "";
+
+  database = {};
+
+  currentCollection = null;
+  currentDocuments = [];
+
+  updateStats(
+    0,
+    0,
+    "Connecting..."
+  );
+
+
+  try {
+
+    /*
+     * Verify that Firebase Authentication really
+     * has an authenticated user before querying.
+     */
+
+    const user = auth.currentUser;
+
+    if(!user){
+
+      throw new Error(
+        "No authenticated Firebase user."
+      );
+
+    }
+
+
+    console.log(
+      "Authenticated user:",
+      user.email
+    );
+
+
+    /*
+     * Force refresh of the Firebase ID token.
+     * This helps ensure Firestore receives the
+     * latest authenticated token.
+     */
+
+    await user.getIdToken(true);
+
+
+    /*
+     * Load collections in PARALLEL instead of
+     * waiting for each collection one by one.
+     */
+
+    const results =
+      await Promise.all(
+        COLLECTIONS.map(
+          name =>
+            loadSingleCollection(name)
+        )
+      );
+
+
+    let totalDocuments = 0;
+
+
+    results.forEach(
+      result => {
+
+        database[
+          result.name
+        ] = result.documents;
+
+
+        totalDocuments +=
+          result.documents.length;
+
+      }
+    );
+
+
+    /*
+     * Update dashboard.
+     */
+
+    updateStats(
+      Object.keys(database).length,
+      totalDocuments,
+      "Connected"
+    );
+
+
+    renderCollections();
+
+    renderCollectionList();
+
+
+    /*
+     * If no documents were returned, show a useful
+     * message rather than appearing frozen.
+     */
+
+    const hasDocuments =
+      Object.values(database)
+        .some(
+          items =>
+            items.length > 0
+        );
+
+
+    if(!hasDocuments){
+
+      collectionGrid.innerHTML = `
+        <div class="empty">
+
+          Firestore connection successful,
+          but no documents were returned from
+          the configured collections.
+
+          <br><br>
+
+          Check the collection names or Firestore
+          data in the Firebase Console.
+
+        </div>
+      `;
+
+    }
+
+
+    console.log(
+      "Firestore database loaded:",
+      database
+    );
+
+
+  } catch(error){
+
+    console.error(
+      "DATABASE LOAD ERROR:",
+      error
+    );
+
+
+    updateStats(
+      "!",
+      "!",
+      "Error"
+    );
+
+
+    collectionGrid.innerHTML = `
+
+      <div class="empty">
+
+        <strong>
+          Firestore connection failed
+        </strong>
+
+        <br><br>
+
+        ${escapeHtml(
+          getFirestoreError(error)
+        )}
+
+        <br><br>
+
+        Open your browser console for details.
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   LOAD ONE COLLECTION
+   ========================================================= */
+
+async function loadSingleCollection(name){
+
+  try{
+
+    console.log(
+      "Loading collection:",
+      name
+    );
+
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          name
+        )
+      );
+
+
+    const documents =
+      snapshot.docs.map(
+        doc => {
+
+          return {
+
+            id:doc.id,
+
+            ...doc.data()
+
+          };
+
+        }
+      );
+
+
+    return {
+
+      name:name,
+
+      documents:documents,
+
+      error:null
+
+    };
+
+
+  }catch(error){
+
+    console.warn(
+      "Collection error:",
+      name,
+      error
+    );
+
+
+    /*
+     * Don't stop the entire dashboard because
+     * one collection fails.
+     */
+
+    return {
+
+      name:name,
+
+      documents:[],
+
+      error:error.message
+
+    };
+
+  }
+
+}
+
+
+/* =========================================================
+   UPDATE DASHBOARD STATS
+   ========================================================= */
+
+function updateStats(
+  collections,
+  documents,
+  status
+){
+
+  const collectionElement =
+    document.getElementById(
+      "collectionCount"
+    );
+
+
+  const documentElement =
+    document.getElementById(
+      "documentCount"
+    );
+
+
+  const authElement =
+    document.querySelector(
+      ".stat:nth-child(4) .stat-value"
+    );
+
+
+  if(collectionElement){
+
+    collectionElement.textContent =
+      collections;
+
+  }
+
+
+  if(documentElement){
+
+    documentElement.textContent =
+      documents;
+
+  }
+
+
+  if(authElement){
+
+    if(status === "Connected"){
+
+      authElement.innerHTML = `
+        <span class="status-badge">
+          ● Connected
+        </span>
+      `;
+
+    }else if(status === "Error"){
+
+      authElement.innerHTML = `
+        <span
+          class="status-badge"
+          style="
+            background:#fff3f2;
+            color:#a33a32;
+          "
+        >
+          ● Firestore Error
+        </span>
+      `;
+
+    }else{
+
+      authElement.innerHTML = `
+        <span
+          class="status-badge"
+        >
+          ● ${escapeHtml(status)}
+        </span>
+      `;
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   FIRESTORE ERROR MESSAGE
+   ========================================================= */
+
+function getFirestoreError(error){
+
+  const code =
+    error?.code || "";
+
+
+  if(
+    code ===
+    "permission-denied"
+  ){
+
+    return `
+      Firestore permission denied.
+
+      Your Firebase Authentication account is
+      authenticated, but Firestore Rules did not
+      authorize the request.
+    `;
+
+  }
+
+
+  if(
+    code ===
+    "failed-precondition"
+  ){
+
+    return `
+      Firestore failed-precondition error.
+      Check the Firebase project and Firestore
+      database configuration.
+    `;
+
+  }
+
+
+  if(
+    code ===
+    "unavailable"
+  ){
+
+    return `
+      Firestore is temporarily unavailable.
+      Check your internet connection and try again.
+    `;
+
+  }
+
+
+  if(
+    code ===
+    "unauthenticated"
+  ){
+
+    return `
+      Firebase considers this request unauthenticated.
+      Sign out and sign in again.
+    `;
+
+  }
+
+
+  return (
+    error?.message ||
+    "Unknown Firestore error."
+  );
+
+}
 
 const COLLECTIONS = [
 
