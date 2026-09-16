@@ -2,38 +2,87 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-<title>COREBIQ Admin Database</title>
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+>
+
+<meta
+  name="theme-color"
+  content="#f5f7fa"
+>
+
+<title>COREBIQ Admin</title>
 
 <style>
+
+/* =========================================================
+   COREBIQ ADMIN
+   Firebase Database Administration
+   ========================================================= */
+
 :root{
   --bg:#f5f7fa;
   --surface:#ffffff;
-  --surface2:#f8fafc;
+  --surface-soft:#f8fafc;
+
   --text:#202124;
+  --text-soft:#3c4043;
   --muted:#6b7280;
-  --border:#e5e7eb;
-  --primary:#1f2937;
-  --accent:#2f7d5a;
-  --danger:#b42318;
-  --shadow:0 4px 18px rgba(0,0,0,.06);
+
+  --border:#e3e6e8;
+  --border-dark:#d4d8dc;
+
+  --primary:#202124;
+  --primary-hover:#111315;
+
+  --green:#2f7d5a;
+  --green-soft:#eef7f2;
+
+  --danger:#a33a32;
+  --danger-soft:#fff3f2;
+
+  --shadow:
+    0 8px 30px rgba(32,33,36,.07);
+
+  --radius:4px;
 }
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
 
 *{
   box-sizing:border-box;
 }
 
+html,
 body{
   margin:0;
-  font-family:Inter,Arial,sans-serif;
+  padding:0;
+  width:100%;
+  min-height:100%;
+}
+
+body{
   background:var(--bg);
   color:var(--text);
+
+  font-family:
+    Inter,
+    "Google Sans",
+    Arial,
+    sans-serif;
+
+  -webkit-font-smoothing:antialiased;
 }
 
 button,
-input{
+input,
+textarea,
+select{
   font:inherit;
 }
 
@@ -41,652 +90,1716 @@ button{
   cursor:pointer;
 }
 
-.hidden{
-  display:none!important;
+button:disabled{
+  cursor:not-allowed;
+  opacity:.65;
 }
 
-/* LOGIN */
+.hidden{
+  display:none !important;
+}
+
+
+/* =========================================================
+   LOGIN SCREEN
+   ========================================================= */
 
 .login-screen{
+
   min-height:100vh;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   padding:24px;
+
 }
+
 
 .login-card{
+
   width:100%;
   max-width:420px;
-  background:#fff;
+
+  background:var(--surface);
+
   border:1px solid var(--border);
+
   box-shadow:var(--shadow);
-  padding:34px;
+
+  padding:36px;
+
 }
+
+
+/* BRAND */
 
 .brand{
+
   display:flex;
   align-items:center;
+
   gap:12px;
+
   margin-bottom:30px;
+
 }
 
+
 .brand-mark{
+
   width:44px;
   height:44px;
-  border-radius:10px;
-  background:#202124;
-  color:#fff;
+
+  flex:none;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
+  background:#202124;
+  color:#fff;
+
+  border-radius:10px;
+
+  font-size:21px;
   font-weight:800;
-  font-size:20px;
+
 }
+
 
 .brand-title{
+
   font-size:18px;
   font-weight:800;
+
+  letter-spacing:-.2px;
+
 }
+
 
 .brand-sub{
+
+  margin-top:3px;
+
   font-size:12px;
+
   color:var(--muted);
-  margin-top:2px;
+
 }
+
+
+/* LOGIN TITLE */
 
 .login-card h1{
-  font-size:24px;
+
   margin:0 0 8px;
+
+  font-size:25px;
+
+  line-height:1.2;
+
+  letter-spacing:-.5px;
+
 }
 
-.login-card p{
-  margin:0 0 25px;
+
+.login-card > p{
+
+  margin:0 0 27px;
+
   color:var(--muted);
+
   font-size:14px;
+
+  line-height:1.5;
+
 }
+
+
+/* FIELD */
 
 .field{
-  margin-bottom:16px;
+
+  margin-bottom:17px;
+
 }
+
 
 .field label{
+
   display:block;
-  font-size:13px;
-  font-weight:600;
+
   margin-bottom:7px;
+
+  font-size:13px;
+
+  font-weight:600;
+
+  color:var(--text-soft);
+
 }
+
+
+.input-wrap{
+
+  position:relative;
+
+}
+
 
 .field input{
+
   width:100%;
-  height:46px;
-  border:1px solid var(--border);
+
+  height:47px;
+
   padding:0 13px;
-  outline:none;
+
+  border:1px solid var(--border-dark);
+
   background:#fff;
+
+  color:var(--text);
+
+  outline:none;
+
+  border-radius:2px;
+
+  transition:border-color .15s,
+             box-shadow .15s;
+
 }
+
 
 .field input:focus{
-  border-color:var(--accent);
+
+  border-color:var(--green);
+
+  box-shadow:
+    0 0 0 3px rgba(47,125,90,.09);
+
 }
+
+
+/* PASSWORD INPUT */
+
+.password-input{
+
+  padding-right:76px !important;
+
+}
+
+
+/* SHOW PASSWORD */
+
+.password-toggle{
+
+  position:absolute;
+
+  right:0;
+  top:0;
+
+  height:47px;
+
+  padding:0 12px;
+
+  border:0;
+
+  background:transparent;
+
+  color:#5f6368;
+
+  font-size:12px;
+
+  font-weight:600;
+
+}
+
+
+.password-toggle:hover{
+
+  color:var(--text);
+
+}
+
+
+/* LOGIN BUTTON */
 
 .login-btn{
+
   width:100%;
-  height:46px;
+
+  height:47px;
+
+  margin-top:4px;
+
   border:0;
+
+  border-radius:2px;
+
   background:var(--primary);
+
   color:#fff;
+
   font-weight:700;
+
+  font-size:14px;
+
+  transition:
+    background .15s,
+    transform .1s;
+
 }
+
+
+.login-btn:hover{
+
+  background:var(--primary-hover);
+
+}
+
+
+.login-btn:active{
+
+  transform:translateY(1px);
+
+}
+
+
+/* ERROR */
 
 .login-error{
-  margin-top:15px;
+
+  min-height:20px;
+
+  margin-top:14px;
+
   color:var(--danger);
+
   font-size:13px;
+
+  line-height:1.4;
+
 }
 
-/* APP */
+
+/* LOGIN INFO */
+
+.login-info{
+
+  margin-top:20px;
+
+  padding-top:17px;
+
+  border-top:1px solid var(--border);
+
+  font-size:11px;
+
+  line-height:1.5;
+
+  color:#7b8085;
+
+}
+
+
+/* =========================================================
+   APPLICATION
+   ========================================================= */
 
 .app{
+
   min-height:100vh;
+
   display:grid;
+
   grid-template-columns:250px 1fr;
+
 }
 
-/* SIDEBAR */
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
 
 .sidebar{
+
   position:fixed;
+
   left:0;
   top:0;
   bottom:0;
+
   width:250px;
+
   background:#fff;
+
   border-right:1px solid var(--border);
+
   padding:20px 14px;
-  z-index:100;
+
+  z-index:200;
+
 }
+
 
 .sidebar-brand{
-  padding:4px 10px 22px;
+
+  padding:3px 10px 22px;
+
 }
+
+
+.sidebar .brand{
+
+  margin-bottom:0;
+
+}
+
+
+.sidebar .brand-mark{
+
+  width:40px;
+  height:40px;
+
+  font-size:19px;
+
+}
+
+
+.sidebar .brand-title{
+
+  font-size:16px;
+
+}
+
+
+.sidebar .brand-sub{
+
+  font-size:11px;
+
+}
+
+
+/* NAV */
 
 .sidebar-nav{
+
   display:flex;
+
   flex-direction:column;
-  gap:4px;
+
+  gap:3px;
+
 }
+
 
 .nav-btn{
-  border:0;
-  background:transparent;
+
   width:100%;
-  text-align:left;
-  padding:11px 12px;
-  color:#4b5563;
-  font-size:14px;
+
   display:flex;
+
   align-items:center;
+
   gap:11px;
+
+  padding:11px 12px;
+
+  border:0;
+
+  border-radius:3px;
+
+  background:transparent;
+
+  color:#4b5563;
+
+  text-align:left;
+
+  font-size:13px;
+
 }
 
-.nav-btn:hover,
-.nav-btn.active{
-  background:#f1f5f3;
-  color:#1f513b;
+
+.nav-btn:hover{
+
+  background:#f5f7f8;
+
 }
+
+
+.nav-btn.active{
+
+  background:var(--green-soft);
+
+  color:#235d43;
+
+  font-weight:650;
+
+}
+
 
 .nav-icon{
+
   width:20px;
+
+  flex:none;
+
   text-align:center;
+
+  font-size:15px;
+
 }
+
+
+/* SIDEBAR BOTTOM */
 
 .sidebar-bottom{
+
   position:absolute;
-  bottom:20px;
+
   left:14px;
   right:14px;
+  bottom:20px;
+
 }
+
 
 .logout-btn{
+
   width:100%;
-  padding:11px;
+
+  height:40px;
+
   border:1px solid var(--border);
+
   background:#fff;
-  color:#444;
+
+  color:#4b5563;
+
+  font-size:13px;
+
+  border-radius:3px;
+
 }
 
-/* MAIN */
+
+.logout-btn:hover{
+
+  background:#f7f8f9;
+
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
 
 .main{
+
   grid-column:2;
+
   min-width:0;
+
 }
+
 
 .topbar{
+
   height:70px;
-  background:#fff;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 28px;
+
   position:sticky;
+
   top:0;
-  z-index:80;
+
+  z-index:150;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:15px;
+
+  padding:0 28px;
+
+  background:#fff;
+
+  border-bottom:1px solid var(--border);
+
 }
+
+
+.topbar-left{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+}
+
 
 .topbar-title{
+
   font-size:17px;
+
   font-weight:750;
+
+  letter-spacing:-.2px;
+
 }
+
 
 .admin-user{
-  font-size:12px;
+
+  max-width:350px;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+
   color:var(--muted);
+
+  font-size:12px;
+
 }
+
+
+/* MOBILE MENU BUTTON */
+
+.mobile-menu-btn{
+
+  display:none;
+
+  width:38px;
+  height:38px;
+
+  border:1px solid var(--border);
+
+  background:#fff;
+
+  border-radius:3px;
+
+  font-size:19px;
+
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
 
 .content{
-  padding:28px;
+
+  width:100%;
+
   max-width:1600px;
-  margin:auto;
+
+  margin:0 auto;
+
+  padding:28px;
+
 }
 
-/* DASHBOARD */
+
+/* =========================================================
+   STATISTICS
+   ========================================================= */
 
 .stats{
+
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-  margin-bottom:24px;
+
+  grid-template-columns:
+    repeat(4, minmax(0,1fr));
+
+  gap:15px;
+
+  margin-bottom:25px;
+
 }
+
 
 .stat{
+
   background:#fff;
+
   border:1px solid var(--border);
-  padding:20px;
+
+  padding:19px;
+
 }
+
 
 .stat-label{
-  font-size:12px;
-  color:var(--muted);
+
   margin-bottom:8px;
+
+  color:var(--muted);
+
+  font-size:11px;
+
+  font-weight:600;
+
+  text-transform:uppercase;
+
+  letter-spacing:.45px;
+
 }
+
 
 .stat-value{
-  font-size:25px;
+
+  color:var(--text);
+
+  font-size:24px;
+
   font-weight:800;
+
+  letter-spacing:-.5px;
+
 }
 
-/* COLLECTIONS */
+
+/* =========================================================
+   SECTION HEADER
+   ========================================================= */
 
 .section-header{
+
   display:flex;
-  justify-content:space-between;
+
   align-items:center;
+
+  justify-content:space-between;
+
   gap:15px;
-  margin-bottom:16px;
+
+  margin-bottom:15px;
+
 }
+
 
 .section-header h2{
+
   margin:0;
+
   font-size:18px;
+
+  font-weight:750;
+
 }
+
+
+/* TOOLS */
 
 .tools{
+
   display:flex;
+
+  align-items:center;
+
   gap:8px;
+
   flex-wrap:wrap;
+
 }
+
 
 .search{
+
+  width:230px;
+
   height:40px;
-  border:1px solid var(--border);
+
   padding:0 12px;
-  min-width:230px;
+
+  border:1px solid var(--border);
+
+  background:#fff;
+
   outline:none;
+
+  border-radius:2px;
+
+  font-size:13px;
+
 }
+
+
+.search:focus{
+
+  border-color:var(--green);
+
+}
+
+
+/* BUTTON */
 
 .tool-btn{
+
   height:40px;
+
   padding:0 13px;
+
   border:1px solid var(--border);
+
   background:#fff;
+
+  color:#3c4043;
+
+  border-radius:2px;
+
+  font-size:12px;
+
+  font-weight:600;
+
 }
+
+
+.tool-btn:hover{
+
+  background:#f7f8f9;
+
+}
+
 
 .tool-btn.primary{
+
   background:var(--primary);
+
   color:#fff;
+
   border-color:var(--primary);
+
 }
+
+
+.tool-btn.primary:hover{
+
+  background:#111315;
+
+}
+
+
+/* =========================================================
+   COLLECTION GRID
+   ========================================================= */
 
 .collection-grid{
+
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+
+  grid-template-columns:
+    repeat(auto-fill,minmax(220px,1fr));
+
   gap:12px;
+
 }
+
 
 .collection-card{
+
   background:#fff;
+
   border:1px solid var(--border);
+
   padding:17px;
+
   cursor:pointer;
-  transition:.15s;
+
+  transition:
+    border-color .15s,
+    transform .15s,
+    box-shadow .15s;
+
 }
+
 
 .collection-card:hover{
-  border-color:#b8c8bf;
+
+  border-color:#b9c7bf;
+
   transform:translateY(-1px);
+
+  box-shadow:
+    0 5px 15px rgba(32,33,36,.05);
+
 }
+
 
 .collection-name{
-  font-size:14px;
+
+  color:var(--text);
+
+  font-size:13px;
+
   font-weight:700;
+
   word-break:break-word;
+
 }
+
 
 .collection-count{
-  color:var(--muted);
-  font-size:12px;
+
   margin-top:7px;
+
+  color:var(--muted);
+
+  font-size:11px;
+
 }
 
-/* DATABASE */
+
+/* =========================================================
+   DATABASE LAYOUT
+   ========================================================= */
 
 .database-layout{
+
   display:grid;
-  grid-template-columns:260px 1fr;
-  gap:18px;
+
+  grid-template-columns:260px minmax(0,1fr);
+
+  gap:16px;
+
 }
+
+
+/* COLLECTION LIST */
 
 .collection-list{
+
+  max-height:
+    calc(100vh - 155px);
+
+  overflow-y:auto;
+
   background:#fff;
+
   border:1px solid var(--border);
-  max-height:calc(100vh - 170px);
-  overflow:auto;
+
 }
+
 
 .collection-list-title{
-  padding:15px;
-  font-size:13px;
-  font-weight:800;
+
+  padding:14px 15px;
+
   border-bottom:1px solid var(--border);
+
+  color:#3c4043;
+
+  font-size:12px;
+
+  font-weight:800;
+
+  text-transform:uppercase;
+
+  letter-spacing:.4px;
+
 }
+
 
 .collection-item{
+
   width:100%;
-  text-align:left;
+
+  display:block;
+
+  padding:11px 14px;
+
   border:0;
-  background:#fff;
-  padding:12px 15px;
+
   border-bottom:1px solid #f0f1f2;
-  font-size:13px;
+
+  background:#fff;
+
+  color:#4b5563;
+
+  text-align:left;
+
+  font-size:12px;
+
+  word-break:break-word;
+
 }
 
-.collection-item:hover,
-.collection-item.active{
-  background:#f1f5f3;
+
+.collection-item:hover{
+
+  background:#f7f9f8;
+
 }
+
+
+.collection-item.active{
+
+  background:var(--green-soft);
+
+  color:#235d43;
+
+  font-weight:700;
+
+}
+
+
+/* DOCUMENTS */
 
 .documents{
-  background:#fff;
-  border:1px solid var(--border);
+
   min-width:0;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
 }
+
 
 .documents-header{
-  padding:15px 18px;
-  border-bottom:1px solid var(--border);
+
+  min-height:54px;
+
   display:flex;
-  justify-content:space-between;
+
   align-items:center;
+
+  justify-content:space-between;
+
   gap:12px;
-  flex-wrap:wrap;
+
+  padding:12px 16px;
+
+  border-bottom:1px solid var(--border);
+
 }
+
 
 .documents-title{
-  font-size:15px;
+
+  color:var(--text);
+
+  font-size:14px;
+
   font-weight:800;
+
 }
+
 
 .table-wrap{
+
+  width:100%;
+
   overflow:auto;
+
 }
 
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
 table{
+
   width:100%;
+
   border-collapse:collapse;
+
   font-size:12px;
+
 }
+
 
 th,
 td{
+
   padding:11px 12px;
+
   border-bottom:1px solid #edf0f2;
+
   text-align:left;
+
+  vertical-align:middle;
+
   white-space:nowrap;
-  max-width:250px;
+
+  max-width:260px;
+
   overflow:hidden;
+
   text-overflow:ellipsis;
+
 }
+
 
 th{
-  background:#f8fafc;
-  font-size:11px;
-  color:#5f6368;
+
   position:sticky;
+
   top:0;
+
+  z-index:2;
+
+  background:#f8fafc;
+
+  color:#687078;
+
+  font-size:10px;
+
+  font-weight:800;
+
+  text-transform:uppercase;
+
+  letter-spacing:.3px;
+
 }
+
+
+td{
+
+  color:#454b50;
+
+}
+
+
+tr:hover td{
+
+  background:#fafbfb;
+
+}
+
 
 .doc-btn{
+
+  padding:6px 9px;
+
   border:1px solid var(--border);
+
   background:#fff;
-  padding:5px 9px;
-  font-size:11px;
+
+  color:#444;
+
+  font-size:10px;
+
+  border-radius:2px;
+
 }
 
-/* JSON */
+
+.doc-btn:hover{
+
+  background:#f5f7f8;
+
+}
+
+
+/* =========================================================
+   JSON VIEW
+   ========================================================= */
 
 .json-view{
+
   margin:18px;
-  background:#202124;
-  color:#e8eaed;
-  padding:18px;
-  overflow:auto;
+
   max-height:65vh;
-  font-family:monospace;
+
+  overflow:auto;
+
+  padding:18px;
+
+  background:#202124;
+
+  color:#e8eaed;
+
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+
   font-size:12px;
-  line-height:1.55;
+
+  line-height:1.6;
+
   white-space:pre-wrap;
+
   word-break:break-word;
+
 }
 
-/* EMPTY */
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
 
 .empty{
-  padding:50px 20px;
+
+  width:100%;
+
+  padding:55px 20px;
+
   text-align:center;
+
   color:var(--muted);
-  font-size:14px;
+
+  font-size:13px;
+
 }
 
-/* MOBILE */
 
-.mobile-menu-btn{
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status-badge{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:5px;
+
+  padding:4px 7px;
+
+  border-radius:20px;
+
+  background:var(--green-soft);
+
+  color:#235d43;
+
+  font-size:10px;
+
+  font-weight:700;
+
+}
+
+
+/* =========================================================
+   MOBILE SIDEBAR OVERLAY
+   ========================================================= */
+
+.sidebar-overlay{
+
   display:none;
-  border:0;
-  background:transparent;
-  font-size:22px;
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:190;
+
+  background:rgba(0,0,0,.28);
+
 }
+
+
+.sidebar-overlay.show{
+
+  display:block;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:1050px){
+
+  .stats{
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+  }
+
+}
+
 
 @media(max-width:900px){
 
   .app{
+
     grid-template-columns:1fr;
-  }
 
-  .sidebar{
-    transform:translateX(-100%);
-    transition:.2s;
-    box-shadow:10px 0 30px rgba(0,0,0,.12);
-  }
-
-  .sidebar.open{
-    transform:translateX(0);
   }
 
   .main{
+
     grid-column:1;
+
   }
+
+
+  .sidebar{
+
+    transform:translateX(-100%);
+
+    transition:transform .22s ease;
+
+    box-shadow:
+      8px 0 25px rgba(0,0,0,.12);
+
+  }
+
+
+  .sidebar.open{
+
+    transform:translateX(0);
+
+  }
+
 
   .mobile-menu-btn{
+
     display:block;
+
   }
 
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
 
   .database-layout{
+
     grid-template-columns:1fr;
+
   }
+
 
   .collection-list{
-    max-height:220px;
+
+    max-height:230px;
+
   }
+
 }
 
-@media(max-width:600px){
 
-  .content{
+@media(max-width:680px){
+
+  .login-screen{
+
     padding:16px;
+
   }
 
-  .topbar{
-    padding:0 16px;
-    height:62px;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
-  .stat{
-    padding:15px;
-  }
-
-  .stat-value{
-    font-size:21px;
-  }
-
-  .search{
-    width:100%;
-    min-width:0;
-  }
-
-  .tools{
-    width:100%;
-  }
 
   .login-card{
-    padding:25px;
+
+    padding:26px 22px;
+
   }
+
+
+  .content{
+
+    padding:16px;
+
+  }
+
+
+  .topbar{
+
+    height:64px;
+
+    padding:0 16px;
+
+  }
+
+
+  .stats{
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap:10px;
+
+  }
+
+
+  .stat{
+
+    padding:15px;
+
+  }
+
+
+  .stat-value{
+
+    font-size:20px;
+
+  }
+
+
+  .section-header{
+
+    align-items:flex-start;
+
+    flex-direction:column;
+
+  }
+
+
+  .tools{
+
+    width:100%;
+
+  }
+
+
+  .search{
+
+    width:100%;
+
+  }
+
+
+  .tools .tool-btn{
+
+    flex:1;
+
+  }
+
+
+  .admin-user{
+
+    max-width:145px;
+
+  }
+
 }
+
+
+@media(max-width:430px){
+
+  .login-card{
+
+    padding:24px 18px;
+
+  }
+
+
+  .brand-title{
+
+    font-size:16px;
+
+  }
+
+
+  .login-card h1{
+
+    font-size:23px;
+
+  }
+
+
+  .stats{
+
+    gap:8px;
+
+  }
+
+
+  .stat{
+
+    padding:13px;
+
+  }
+
+
+  .stat-label{
+
+    font-size:9px;
+
+  }
+
+
+  .stat-value{
+
+    font-size:18px;
+
+  }
+
+}
+
 </style>
 </head>
 
+
 <body>
 
-<!-- ================= LOGIN ================= -->
 
-<section id="loginScreen" class="login-screen">
+<!-- =======================================================
+     LOGIN
+     ======================================================= -->
+
+<section
+  id="loginScreen"
+  class="login-screen"
+>
 
   <div class="login-card">
 
+
+    <!-- BRAND -->
+
     <div class="brand">
 
-      <div class="brand-mark">C</div>
+      <div class="brand-mark">
+        C
+      </div>
 
       <div>
-        <div class="brand-title">COREBIQ ADMIN</div>
-        <div class="brand-sub">Firebase Database Administration</div>
+
+        <div class="brand-title">
+          COREBIQ ADMIN
+        </div>
+
+        <div class="brand-sub">
+          Firebase Database Administration
+        </div>
+
       </div>
 
     </div>
 
-    <h1>Administrator Login</h1>
+
+    <!-- TITLE -->
+
+    <h1>
+      Administrator Login
+    </h1>
 
     <p>
       Sign in to access the Firebase administration dashboard.
     </p>
 
+
+    <!-- EMAIL -->
+
     <div class="field">
-      <label>Email</label>
+
+      <label for="email">
+        Email
+      </label>
+
       <input
         id="email"
         type="email"
-        placeholder="admin@example.com"
-        autocomplete="username">
+        placeholder="Enter administrator email"
+        autocomplete="username"
+        spellcheck="false"
+      >
+
     </div>
+
+
+    <!-- PASSWORD -->
 
     <div class="field">
-      <label>Password</label>
-      <input
-        id="password"
-        type="password"
-        placeholder="••••••••"
-        autocomplete="current-password">
+
+      <label for="password">
+        Password
+      </label>
+
+      <div class="input-wrap">
+
+        <input
+          id="password"
+          class="password-input"
+          type="password"
+          placeholder="Enter password"
+          autocomplete="current-password"
+        >
+
+        <button
+          id="passwordToggle"
+          class="password-toggle"
+          type="button"
+          aria-label="Show password"
+        >
+          Show
+        </button>
+
+      </div>
+
     </div>
 
-    <button id="loginBtn" class="login-btn">
+
+    <!-- LOGIN -->
+
+    <button
+      id="loginBtn"
+      class="login-btn"
+      type="button"
+    >
       Sign In
     </button>
 
-    <div id="loginError" class="login-error"></div>
+
+    <!-- ERROR -->
+
+    <div
+      id="loginError"
+      class="login-error"
+      role="alert"
+    ></div>
+
+
+    <div class="login-info">
+
+      Access is controlled by Firebase Authentication
+      and your Firestore administrator security rules.
+
+    </div>
 
   </div>
 
 </section>
 
 
-<!-- ================= APPLICATION ================= -->
 
-<section id="app" class="app hidden">
+<!-- =======================================================
+     APPLICATION
+     ======================================================= -->
 
-  <!-- SIDEBAR -->
+<section
+  id="app"
+  class="app hidden"
+>
 
-  <aside id="sidebar" class="sidebar">
+
+  <!-- SIDEBAR OVERLAY -->
+
+  <div
+    id="sidebarOverlay"
+    class="sidebar-overlay"
+  ></div>
+
+
+  <!-- =====================================================
+       SIDEBAR
+       ===================================================== -->
+
+  <aside
+    id="sidebar"
+    class="sidebar"
+  >
+
 
     <div class="sidebar-brand">
 
       <div class="brand">
-        <div class="brand-mark">C</div>
+
+        <div class="brand-mark">
+          C
+        </div>
 
         <div>
-          <div class="brand-title">COREBIQ</div>
-          <div class="brand-sub">Administration</div>
+
+          <div class="brand-title">
+            COREBIQ
+          </div>
+
+          <div class="brand-sub">
+            Administration
+          </div>
+
         </div>
+
       </div>
 
     </div>
 
+
     <nav class="sidebar-nav">
+
 
       <button
         class="nav-btn active"
-        data-page="dashboard">
+        data-page="dashboard"
+        type="button"
+      >
         <span class="nav-icon">⌂</span>
-        Dashboard
+        <span>Dashboard</span>
       </button>
+
 
       <button
         class="nav-btn"
-        data-page="database">
+        data-page="database"
+        type="button"
+      >
         <span class="nav-icon">▦</span>
-        Database
+        <span>Database</span>
       </button>
+
 
       <button
         class="nav-btn"
-        data-page="clients">
+        data-page="clients"
+        type="button"
+      >
         <span class="nav-icon">◉</span>
-        Clients
+        <span>Clients</span>
       </button>
+
 
       <button
         class="nav-btn"
-        data-page="payments">
+        data-page="payments"
+        type="button"
+      >
         <span class="nav-icon">₹</span>
-        Payments
+        <span>Payments</span>
       </button>
+
 
       <button
         class="nav-btn"
-        data-page="documents">
+        data-page="documents"
+        type="button"
+      >
         <span class="nav-icon">□</span>
-        Documents
+        <span>Documents</span>
       </button>
+
 
       <button
         class="nav-btn"
-        data-page="users">
+        data-page="users"
+        type="button"
+      >
         <span class="nav-icon">♙</span>
-        Users
+        <span>Users</span>
       </button>
+
 
       <button
         class="nav-btn"
-        data-page="backup">
+        data-page="backup"
+        type="button"
+      >
         <span class="nav-icon">↓</span>
-        Backup / Export
+        <span>Backup / Export</span>
       </button>
+
 
     </nav>
 
+
     <div class="sidebar-bottom">
 
-      <button id="logoutBtn" class="logout-btn">
+      <button
+        id="logoutBtn"
+        class="logout-btn"
+        type="button"
+      >
         Sign Out
       </button>
 
@@ -695,67 +1808,101 @@ th{
   </aside>
 
 
-  <!-- MAIN -->
+
+  <!-- =====================================================
+       MAIN
+       ===================================================== -->
 
   <main class="main">
 
+
+    <!-- TOPBAR -->
+
     <header class="topbar">
 
-      <div style="display:flex;align-items:center;gap:12px">
+      <div class="topbar-left">
 
         <button
           id="menuBtn"
-          class="mobile-menu-btn">
+          class="mobile-menu-btn"
+          type="button"
+          aria-label="Open menu"
+        >
           ☰
         </button>
 
-        <div id="pageTitle" class="topbar-title">
+        <div
+          id="pageTitle"
+          class="topbar-title"
+        >
           Dashboard
         </div>
 
       </div>
 
-      <div id="adminUser" class="admin-user"></div>
+
+      <div
+        id="adminUser"
+        class="admin-user"
+      ></div>
 
     </header>
 
 
+
+    <!-- CONTENT -->
+
     <div class="content">
 
 
-      <!-- DASHBOARD -->
+      <!-- =================================================
+           DASHBOARD
+           ================================================= -->
 
-      <section id="dashboardPage">
+      <section
+        id="dashboardPage"
+      >
+
+
+        <!-- STATS -->
 
         <div class="stats">
 
+
           <div class="stat">
+
             <div class="stat-label">
-              Firestore Collections
+              Collections
             </div>
 
             <div
               id="collectionCount"
-              class="stat-value">
+              class="stat-value"
+            >
               —
             </div>
+
           </div>
 
 
           <div class="stat">
+
             <div class="stat-label">
               Loaded Documents
             </div>
 
             <div
               id="documentCount"
-              class="stat-value">
+              class="stat-value"
+            >
               —
             </div>
+
           </div>
 
 
           <div class="stat">
+
             <div class="stat-label">
               Firebase Project
             </div>
@@ -763,41 +1910,59 @@ th{
             <div
               id="projectId"
               class="stat-value"
-              style="font-size:14px">
+              style="font-size:13px"
+            >
               —
             </div>
+
           </div>
 
 
           <div class="stat">
+
             <div class="stat-label">
-              Admin Status
+              Authentication
             </div>
 
             <div
               class="stat-value"
-              style="font-size:15px">
-              AUTHENTICATED
+              style="font-size:13px"
+            >
+              <span class="status-badge">
+                ● Authenticated
+              </span>
             </div>
+
           </div>
+
 
         </div>
 
 
+
+        <!-- COLLECTIONS -->
+
         <div class="section-header">
 
-          <h2>Database Collections</h2>
+          <h2>
+            Database Collections
+          </h2>
+
 
           <div class="tools">
 
             <input
               id="collectionSearch"
               class="search"
-              placeholder="Search collections...">
+              type="search"
+              placeholder="Search collections..."
+            >
 
             <button
               id="refreshBtn"
-              class="tool-btn primary">
+              class="tool-btn primary"
+              type="button"
+            >
               Refresh
             </button>
 
@@ -808,32 +1973,45 @@ th{
 
         <div
           id="collectionGrid"
-          class="collection-grid">
-        </div>
+          class="collection-grid"
+        ></div>
+
 
       </section>
 
 
-      <!-- DATABASE -->
+
+      <!-- =================================================
+           DATABASE
+           ================================================= -->
 
       <section
         id="databasePage"
-        class="hidden">
+        class="hidden"
+      >
+
 
         <div class="section-header">
 
-          <h2>Firestore Database</h2>
+          <h2>
+            Firestore Database
+          </h2>
+
 
           <div class="tools">
 
             <input
               id="documentSearch"
               class="search"
-              placeholder="Search documents...">
+              type="search"
+              placeholder="Search documents..."
+            >
 
             <button
               id="exportBtn"
-              class="tool-btn">
+              class="tool-btn"
+              type="button"
+            >
               Export JSON
             </button>
 
@@ -844,87 +2022,224 @@ th{
 
         <div class="database-layout">
 
+
+          <!-- COLLECTIONS -->
+
           <div class="collection-list">
 
             <div class="collection-list-title">
               Collections
             </div>
 
-            <div id="collectionList">
-            </div>
+            <div
+              id="collectionList"
+            ></div>
 
           </div>
 
 
+          <!-- DOCUMENTS -->
+
           <div class="documents">
+
 
             <div class="documents-header">
 
               <div
                 id="selectedCollection"
-                class="documents-title">
+                class="documents-title"
+              >
                 Select a collection
               </div>
 
-              <div id="documentTotal"
-                   class="admin-user">
-              </div>
+              <div
+                id="documentTotal"
+                class="admin-user"
+              ></div>
 
             </div>
+
 
             <div
               id="documentTable"
-              class="table-wrap">
-            </div>
+              class="table-wrap"
+            ></div>
+
 
           </div>
 
+
         </div>
+
 
       </section>
 
 
-      <!-- PLACEHOLDER MODULE PAGES -->
 
-      <section id="clientsPage" class="hidden">
-        <div class="empty">
-          Client module can be connected to the same Firestore data engine.
-        </div>
-      </section>
+      <!-- =================================================
+           CLIENTS
+           ================================================= -->
 
-      <section id="paymentsPage" class="hidden">
-        <div class="empty">
-          Payment module can be connected to the same Firestore data engine.
-        </div>
-      </section>
-
-      <section id="documentsPage" class="hidden">
-        <div class="empty">
-          Document module can be connected to the same Firestore data engine.
-        </div>
-      </section>
-
-      <section id="usersPage" class="hidden">
-        <div class="empty">
-          User management can be connected to Firebase Authentication and Firestore.
-        </div>
-      </section>
-
-      <section id="backupPage" class="hidden">
+      <section
+        id="clientsPage"
+        class="hidden"
+      >
 
         <div class="stat">
 
-          <h3>Database Backup</h3>
+          <h3>
+            Clients
+          </h3>
 
-          <p style="color:var(--muted);font-size:13px">
-            Browser export is useful for testing selected collections.
-            A complete Firestore backup should use a server-side
-            Firebase Admin SDK / Google Cloud export.
+          <p style="
+            color:var(--muted);
+            font-size:13px;
+            line-height:1.6;
+          ">
+
+            Client records can be managed through the
+            same Firestore database engine.
+
           </p>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =================================================
+           PAYMENTS
+           ================================================= -->
+
+      <section
+        id="paymentsPage"
+        class="hidden"
+      >
+
+        <div class="stat">
+
+          <h3>
+            Payments
+          </h3>
+
+          <p style="
+            color:var(--muted);
+            font-size:13px;
+            line-height:1.6;
+          ">
+
+            Payment records and payment QR transactions
+            can be connected to the database viewer.
+
+          </p>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =================================================
+           DOCUMENTS
+           ================================================= -->
+
+      <section
+        id="documentsPage"
+        class="hidden"
+      >
+
+        <div class="stat">
+
+          <h3>
+            Documents
+          </h3>
+
+          <p style="
+            color:var(--muted);
+            font-size:13px;
+            line-height:1.6;
+          ">
+
+            Documents and upload records can be managed
+            from the central administration system.
+
+          </p>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =================================================
+           USERS
+           ================================================= -->
+
+      <section
+        id="usersPage"
+        class="hidden"
+      >
+
+        <div class="stat">
+
+          <h3>
+            Users
+          </h3>
+
+          <p style="
+            color:var(--muted);
+            font-size:13px;
+            line-height:1.6;
+          ">
+
+            Firebase Authentication users and Firestore
+            user profiles can be integrated here.
+
+          </p>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =================================================
+           BACKUP
+           ================================================= -->
+
+      <section
+        id="backupPage"
+        class="hidden"
+      >
+
+        <div class="stat">
+
+          <h3>
+            Database Backup / Export
+          </h3>
+
+          <p style="
+            color:var(--muted);
+            font-size:13px;
+            line-height:1.6;
+          ">
+
+            This testing function exports the collections
+            loaded by this browser application.
+
+            A true complete Firestore backup should be
+            performed server-side using Google Cloud /
+            Firebase export.
+
+          </p>
+
 
           <button
             id="backupExportBtn"
-            class="tool-btn primary">
+            class="tool-btn primary"
+            type="button"
+          >
             Export Loaded Database JSON
           </button>
 
@@ -940,35 +2255,50 @@ th{
 </section>
 
 
-<!-- ================= FIREBASE ================= -->
+
+<!-- =======================================================
+     FIREBASE
+     ======================================================= -->
 
 <script type="module">
 
+
+/* =========================================================
+   FIREBASE IMPORTS
+   ========================================================= */
+
 import {
   initializeApp
-} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+} from
+"https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+
 
 import {
   getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut
-} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+} from
+"https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
 
 import {
   getFirestore,
   collection,
   getDocs
-} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+} from
+"https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 
-/* =====================================================
-   FIREBASE CONFIG
-   ===================================================== */
+
+/* =========================================================
+   FIREBASE CONFIGURATION
+   ========================================================= */
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
+  apiKey:
+    "AIzaSyCXyKSTlmlzkYnH2LW408cVVWV1CPvlfBo",
 
   authDomain:
     "cmfilings-6a37c.firebaseapp.com",
@@ -988,103 +2318,107 @@ const firebaseConfig = {
 };
 
 
-const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+/* =========================================================
+   INITIALIZE FIREBASE
+   ========================================================= */
 
-const db = getFirestore(app);
-
-
-/* =====================================================
-   TEST ADMIN
-   =====================================================
-
-   For TESTING ONLY.
-
-   Create this user in:
-
-   Firebase Console
-   → Authentication
-   → Users
-   → Add user
-
-   Example:
-
-   admin@cminnovations.com
-   your password
-
-   IMPORTANT:
-   The browser-side email check below is NOT the
-   production security mechanism.
-
-   Later we should replace it with Firebase
-   custom claims:
-
-   admin: true
-
-===================================================== */
-
-const TEST_ADMIN_EMAIL =
-  "admin@cminnovations.com";
+const firebaseApp =
+  initializeApp(firebaseConfig);
 
 
-/* =====================================================
+const auth =
+  getAuth(firebaseApp);
+
+
+const db =
+  getFirestore(firebaseApp);
+
+
+
+/* =========================================================
    DOM
-   ===================================================== */
+   ========================================================= */
 
 const loginScreen =
   document.getElementById("loginScreen");
 
+
 const appScreen =
   document.getElementById("app");
+
 
 const emailInput =
   document.getElementById("email");
 
+
 const passwordInput =
   document.getElementById("password");
+
+
+const passwordToggle =
+  document.getElementById("passwordToggle");
+
 
 const loginBtn =
   document.getElementById("loginBtn");
 
+
 const loginError =
   document.getElementById("loginError");
+
 
 const adminUser =
   document.getElementById("adminUser");
 
-const projectId =
-  document.getElementById("projectId");
 
 const collectionGrid =
   document.getElementById("collectionGrid");
 
+
 const collectionList =
   document.getElementById("collectionList");
+
 
 const collectionSearch =
   document.getElementById("collectionSearch");
 
+
 const documentSearch =
   document.getElementById("documentSearch");
+
 
 const documentTable =
   document.getElementById("documentTable");
 
+
 const selectedCollection =
   document.getElementById("selectedCollection");
+
 
 const documentTotal =
   document.getElementById("documentTotal");
 
 
-projectId.textContent =
+const sidebar =
+  document.getElementById("sidebar");
+
+
+const sidebarOverlay =
+  document.getElementById("sidebarOverlay");
+
+
+
+document.getElementById(
+  "projectId"
+).textContent =
   firebaseConfig.projectId;
 
 
-/* =====================================================
-   DATA
-   ===================================================== */
+
+/* =========================================================
+   APPLICATION STATE
+   ========================================================= */
 
 let database = {};
 
@@ -1093,126 +2427,177 @@ let currentCollection = null;
 let currentDocuments = [];
 
 
-/* =====================================================
+
+/* =========================================================
+   PASSWORD SHOW / HIDE
+   ========================================================= */
+
+passwordToggle.addEventListener(
+  "click",
+  () => {
+
+    const isPassword =
+      passwordInput.type === "password";
+
+
+    if(isPassword){
+
+      passwordInput.type =
+        "text";
+
+      passwordToggle.textContent =
+        "Hide";
+
+      passwordToggle.setAttribute(
+        "aria-label",
+        "Hide password"
+      );
+
+    }else{
+
+      passwordInput.type =
+        "password";
+
+      passwordToggle.textContent =
+        "Show";
+
+      passwordToggle.setAttribute(
+        "aria-label",
+        "Show password"
+      );
+
+    }
+
+  }
+);
+
+
+
+/* =========================================================
    LOGIN
-   ===================================================== */
+   ========================================================= */
 
 loginBtn.addEventListener(
   "click",
-  async () => {
+  login
+);
 
-    loginError.textContent = "";
 
-    const email =
-      emailInput.value.trim();
+async function login(){
 
-    const password =
-      passwordInput.value;
+  loginError.textContent = "";
 
-    if (!email || !password){
+  const email =
+    emailInput.value.trim();
 
-      loginError.textContent =
-        "Enter email and password.";
+  const password =
+    passwordInput.value;
 
-      return;
+
+  if(!email){
+
+    loginError.textContent =
+      "Enter your email address.";
+
+    emailInput.focus();
+
+    return;
+
+  }
+
+
+  if(!password){
+
+    loginError.textContent =
+      "Enter your password.";
+
+    passwordInput.focus();
+
+    return;
+
+  }
+
+
+  loginBtn.disabled = true;
+
+  loginBtn.textContent =
+    "Signing in...";
+
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Firebase Login Error:",
+      error
+    );
+
+
+    loginError.textContent =
+      getFirebaseError(error);
+
+  }
+
+
+  loginBtn.disabled = false;
+
+  loginBtn.textContent =
+    "Sign In";
+
+}
+
+
+
+/* =========================================================
+   ENTER KEY
+   ========================================================= */
+
+emailInput.addEventListener(
+  "keydown",
+  event => {
+
+    if(event.key === "Enter"){
+
+      passwordInput.focus();
+
     }
-
-    /*
-      TEST ADMIN EMAIL CHECK
-
-      This is only to prevent normal users from entering
-      the dashboard during testing.
-
-      Real protection must be Firestore Rules +
-      Firebase custom admin claim.
-    */
-
-    if (
-      email.toLowerCase() !==
-      TEST_ADMIN_EMAIL.toLowerCase()
-    ){
-
-      loginError.textContent =
-        "This account is not configured as the test administrator.";
-
-      return;
-    }
-
-
-    loginBtn.disabled = true;
-
-    loginBtn.textContent =
-      "Signing in...";
-
-
-    try{
-
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-    }catch(error){
-
-      console.error(error);
-
-      loginError.textContent =
-        getFirebaseError(error);
-
-    }
-
-
-    loginBtn.disabled = false;
-
-    loginBtn.textContent =
-      "Sign In";
 
   }
 );
 
-
-/* ENTER KEY LOGIN */
 
 passwordInput.addEventListener(
   "keydown",
-  e => {
+  event => {
 
-    if(e.key === "Enter"){
-      loginBtn.click();
+    if(event.key === "Enter"){
+
+      login();
+
     }
 
   }
 );
 
 
-/* =====================================================
-   AUTH STATE
-   ===================================================== */
+
+/* =========================================================
+   FIREBASE AUTH STATE
+   ========================================================= */
 
 onAuthStateChanged(
   auth,
   async user => {
 
     if(user){
-
-      /*
-        TEST ADMIN CHECK
-      */
-
-      if(
-        user.email.toLowerCase() !==
-        TEST_ADMIN_EMAIL.toLowerCase()
-      ){
-
-        await signOut(auth);
-
-        loginError.textContent =
-          "Administrator access denied.";
-
-        return;
-      }
-
 
       loginScreen.classList.add(
         "hidden"
@@ -1224,10 +2609,15 @@ onAuthStateChanged(
 
 
       adminUser.textContent =
-        user.email;
+        user.email ||
+        "Authenticated Administrator";
+
+
+      loginError.textContent = "";
 
 
       await loadDatabase();
+
 
     }else{
 
@@ -1245,22 +2635,27 @@ onAuthStateChanged(
 );
 
 
-/* =====================================================
-   FIREBASE ERROR
-   ===================================================== */
+
+/* =========================================================
+   FIREBASE ERROR MESSAGES
+   ========================================================= */
 
 function getFirebaseError(error){
 
   const code =
     error?.code || "";
 
+
   const errors = {
 
     "auth/invalid-credential":
       "Invalid email or password.",
 
+    "auth/invalid-login-credentials":
+      "Invalid email or password.",
+
     "auth/user-not-found":
-      "User account not found.",
+      "No Firebase Authentication account was found.",
 
     "auth/wrong-password":
       "Incorrect password.",
@@ -1268,40 +2663,55 @@ function getFirebaseError(error){
     "auth/invalid-email":
       "Invalid email address.",
 
+    "auth/user-disabled":
+      "This Firebase account has been disabled.",
+
     "auth/too-many-requests":
-      "Too many attempts. Try again later."
+      "Too many login attempts. Please try again later.",
+
+    "auth/network-request-failed":
+      "Network error. Check your internet connection."
 
   };
 
+
   return (
     errors[code] ||
-    error.message ||
-    "Login failed."
+    error?.message ||
+    "Unable to sign in."
   );
 
 }
 
 
-/* =====================================================
-   LOAD DATABASE
-   =====================================================
+
+/* =========================================================
+   COLLECTIONS FOR TESTING
+   =========================================================
 
    IMPORTANT:
 
-   Firebase Web SDK cannot enumerate arbitrary
-   top-level Firestore collections.
+   Firebase Web SDK does not provide a browser-side
+   API for enumerating every top-level Firestore
+   collection.
 
-   Therefore this testing version uses the collection
+   Therefore this TEST version checks the collection
    names below.
 
-   Once the Admin SDK backend is added, this entire
-   section can automatically discover collections.
-===================================================== */
+   The production Admin SDK backend can later discover
+   every collection automatically.
+   ========================================================= */
 
 const COLLECTIONS = [
 
+  /* CLIENT */
+
   "clients",
   "client_users",
+  "client_profiles",
+
+
+  /* COMPLIANCE */
 
   "compliance",
   "gst_returns",
@@ -1309,29 +2719,51 @@ const COLLECTIONS = [
   "tds",
   "pf",
   "esi",
+  "mca",
+
+
+  /* ACCOUNTS */
 
   "accounts",
   "invoices",
   "expenses",
   "transactions",
 
+
+  /* PAYMENTS */
+
   "payments",
   "payment_requests",
   "payment_qr",
 
+
+  /* DOCUMENTS */
+
   "documents",
   "uploads",
+
+
+  /* CRM */
 
   "leads",
   "contacts",
   "followups",
   "activities",
 
+
+  /* USERS */
+
   "users",
   "staff",
   "roles",
 
+
+  /* NOTIFICATIONS */
+
   "notifications",
+
+
+  /* SETTINGS */
 
   "company_settings",
   "app_settings"
@@ -1339,16 +2771,26 @@ const COLLECTIONS = [
 ];
 
 
+
+/* =========================================================
+   LOAD DATABASE
+   ========================================================= */
+
 async function loadDatabase(){
 
   collectionGrid.innerHTML =
-    `<div class="empty">
-      Loading Firebase database...
-    </div>`;
+    `
+      <div class="empty">
+        Loading Firestore data...
+      </div>
+    `;
+
 
   collectionList.innerHTML = "";
 
+
   database = {};
+
 
   let totalDocuments = 0;
 
@@ -1370,33 +2812,48 @@ async function loadDatabase(){
 
       const documents =
         snapshot.docs.map(
-          doc => ({
-            id:doc.id,
-            ...doc.data()
-          })
+          doc => {
+
+            return {
+
+              id:doc.id,
+
+              ...doc.data()
+
+            };
+
+          }
         );
 
 
-      database[collectionName] =
-        documents;
+      database[
+        collectionName
+      ] = documents;
+
 
       totalDocuments +=
         documents.length;
 
+
     }catch(error){
 
       console.warn(
-        "Cannot read collection:",
+        "Collection unavailable:",
         collectionName,
         error
       );
 
-      /*
-        Keep collection visible even if it
-        does not exist or permission is denied.
-      */
 
-      database[collectionName] = [];
+      /*
+       * Keep the collection visible.
+       * This makes it easy to identify collections
+       * that require different permissions or do not
+       * currently exist.
+       */
+
+      database[
+        collectionName
+      ] = [];
 
     }
 
@@ -1422,9 +2879,10 @@ async function loadDatabase(){
 }
 
 
-/* =====================================================
-   COLLECTION CARDS
-   ===================================================== */
+
+/* =========================================================
+   RENDER COLLECTION CARDS
+   ========================================================= */
 
 function renderCollections(){
 
@@ -1438,7 +2896,8 @@ function renderCollections(){
     Object.keys(database)
       .filter(
         name =>
-          name.toLowerCase()
+          name
+            .toLowerCase()
             .includes(search)
       );
 
@@ -1446,9 +2905,11 @@ function renderCollections(){
   if(!names.length){
 
     collectionGrid.innerHTML =
-      `<div class="empty">
-        No collections found.
-      </div>`;
+      `
+        <div class="empty">
+          No collections found.
+        </div>
+      `;
 
     return;
 
@@ -1457,23 +2918,29 @@ function renderCollections(){
 
   collectionGrid.innerHTML =
     names.map(
-      name => `
+      name => {
 
-        <div
-          class="collection-card"
-          data-collection="${escapeHtml(name)}">
+        return `
 
-          <div class="collection-name">
-            ${escapeHtml(name)}
+          <div
+            class="collection-card"
+            data-collection="${escapeHtml(name)}"
+          >
+
+            <div class="collection-name">
+              ${escapeHtml(name)}
+            </div>
+
+            <div class="collection-count">
+              ${database[name].length}
+              document${database[name].length === 1 ? "" : "s"}
+            </div>
+
           </div>
 
-          <div class="collection-count">
-            ${database[name].length} documents
-          </div>
+        `;
 
-        </div>
-
-      `
+      }
     ).join("");
 
 
@@ -1481,83 +2948,115 @@ function renderCollections(){
     .querySelectorAll(
       ".collection-card"
     )
-    .forEach(card => {
+    .forEach(
+      card => {
 
-      card.addEventListener(
-        "click",
-        () => {
+        card.addEventListener(
+          "click",
+          () => {
 
-          openCollection(
-            card.dataset.collection
-          );
+            openCollection(
+              card.dataset.collection
+            );
 
-        }
-      );
+          }
+        );
 
-    });
+      }
+    );
 
 }
 
 
-/* =====================================================
+
+/* =========================================================
    COLLECTION LIST
-   ===================================================== */
+   ========================================================= */
 
 function renderCollectionList(){
 
+  const names =
+    Object.keys(database);
+
+
+  if(!names.length){
+
+    collectionList.innerHTML =
+      `
+        <div class="empty">
+          No collections.
+        </div>
+      `;
+
+    return;
+
+  }
+
+
   collectionList.innerHTML =
-    Object.keys(database)
-      .map(
-        name => `
+    names.map(
+      name => {
+
+        return `
 
           <button
             class="collection-item"
-            data-collection="${escapeHtml(name)}">
+            data-collection="${escapeHtml(name)}"
+            type="button"
+          >
 
             ${escapeHtml(name)}
 
             <span style="
               float:right;
               color:#8a9199;
-              font-size:11px">
+              font-size:10px;
+            ">
               ${database[name].length}
             </span>
 
           </button>
 
-        `
-      ).join("");
+        `;
+
+      }
+    ).join("");
 
 
   document
     .querySelectorAll(
       ".collection-item"
     )
-    .forEach(btn => {
+    .forEach(
+      button => {
 
-      btn.addEventListener(
-        "click",
-        () => {
+        button.addEventListener(
+          "click",
+          () => {
 
-          openCollection(
-            btn.dataset.collection
-          );
+            openCollection(
+              button.dataset.collection
+            );
 
-        }
-      );
+          }
+        );
 
-    });
+      }
+    );
 
 }
 
 
-/* =====================================================
+
+/* =========================================================
    OPEN COLLECTION
-   ===================================================== */
+   ========================================================= */
 
 function openCollection(name){
 
-  currentCollection = name;
+  currentCollection =
+    name;
+
 
   currentDocuments =
     database[name] || [];
@@ -1565,6 +3064,7 @@ function openCollection(name){
 
   selectedCollection.textContent =
     name;
+
 
   documentTotal.textContent =
     currentDocuments.length +
@@ -1576,24 +3076,31 @@ function openCollection(name){
       ".collection-item"
     )
     .forEach(
-      el =>
-        el.classList.toggle(
+      element => {
+
+        element.classList.toggle(
           "active",
-          el.dataset.collection === name
-        )
+          element.dataset.collection === name
+        );
+
+      }
     );
 
 
-  showPage("database");
+  showPage(
+    "database"
+  );
+
 
   renderDocuments();
 
 }
 
 
-/* =====================================================
-   DOCUMENT TABLE
-   ===================================================== */
+
+/* =========================================================
+   RENDER DOCUMENTS
+   ========================================================= */
 
 function renderDocuments(){
 
@@ -1611,10 +3118,13 @@ function renderDocuments(){
 
     docs =
       docs.filter(
-        doc =>
-          JSON.stringify(doc)
+        doc => {
+
+          return JSON.stringify(doc)
             .toLowerCase()
-            .includes(search)
+            .includes(search);
+
+        }
       );
 
   }
@@ -1623,9 +3133,11 @@ function renderDocuments(){
   if(!docs.length){
 
     documentTable.innerHTML =
-      `<div class="empty">
-        No documents found.
-      </div>`;
+      `
+        <div class="empty">
+          No documents found in this collection.
+        </div>
+      `;
 
     return;
 
@@ -1633,11 +3145,11 @@ function renderDocuments(){
 
 
   /*
-    Collect dynamic field names.
-  */
+   * Build columns dynamically.
+   */
 
   const fields =
-    new Set(["id"]);
+    new Set();
 
 
   docs.forEach(
@@ -1645,7 +3157,8 @@ function renderDocuments(){
 
       Object.keys(doc)
         .forEach(
-          key => fields.add(key)
+          key =>
+            fields.add(key)
         );
 
     }
@@ -1657,26 +3170,43 @@ function renderDocuments(){
       .slice(0,8);
 
 
-  let html =
-    `<table>
+  let html = `
+
+    <table>
+
       <thead>
-        <tr>`;
+
+        <tr>
+  `;
+
 
   columns.forEach(
     field => {
 
       html +=
-        `<th>${escapeHtml(field)}</th>`;
+        `
+          <th>
+            ${escapeHtml(field)}
+          </th>
+        `;
 
     }
   );
 
 
-  html +=
-    `<th>View</th>
-      </tr>
+  html += `
+
+          <th>
+            Action
+          </th>
+
+        </tr>
+
       </thead>
-      <tbody>`;
+
+      <tbody>
+
+  `;
 
 
   docs.forEach(
@@ -1688,43 +3218,54 @@ function renderDocuments(){
       columns.forEach(
         field => {
 
-          const value =
-            doc[field];
+          html += `
 
-
-          html +=
-            `<td title="${escapeHtml(
-              formatValue(value)
-            )}">
+            <td
+              title="${escapeHtml(
+                formatValue(doc[field])
+              )}"
+            >
               ${escapeHtml(
-                formatValue(value)
+                formatValue(doc[field])
               )}
-            </td>`;
+            </td>
+
+          `;
 
         }
       );
 
 
-      html +=
-        `<td>
+      html += `
+
+        <td>
+
           <button
             class="doc-btn"
-            data-index="${index}">
+            data-index="${index}"
+            type="button"
+          >
             View JSON
           </button>
-        </td>`;
+
+        </td>
+
+      `;
 
 
-      html +=
-        `</tr>`;
+      html += `</tr>`;
 
     }
   );
 
 
-  html +=
-    `</tbody>
-    </table>`;
+  html += `
+
+      </tbody>
+
+    </table>
+
+  `;
 
 
   documentTable.innerHTML =
@@ -1736,16 +3277,16 @@ function renderDocuments(){
       ".doc-btn"
     )
     .forEach(
-      btn => {
+      button => {
 
-        btn.addEventListener(
+        button.addEventListener(
           "click",
           () => {
 
             showDocument(
               docs[
                 Number(
-                  btn.dataset.index
+                  button.dataset.index
                 )
               ]
             );
@@ -1759,9 +3300,10 @@ function renderDocuments(){
 }
 
 
-/* =====================================================
-   DOCUMENT JSON
-   ===================================================== */
+
+/* =========================================================
+   SHOW DOCUMENT
+   ========================================================= */
 
 function showDocument(doc){
 
@@ -1778,23 +3320,31 @@ function showDocument(doc){
         )}
       </div>
 
-      <div style="padding:0 18px 18px">
+
+      <div
+        style="
+          padding:0 18px 18px;
+          display:flex;
+          gap:7px;
+          flex-wrap:wrap;
+        "
+      >
 
         <button
           id="backDocuments"
-          class="tool-btn">
-
-          ← Back to documents
-
+          class="tool-btn"
+          type="button"
+        >
+          ← Back
         </button>
+
 
         <button
           id="downloadDocument"
           class="tool-btn primary"
-          style="margin-left:6px">
-
+          type="button"
+        >
           Download JSON
-
         </button>
 
       </div>
@@ -1806,16 +3356,20 @@ function showDocument(doc){
     .getElementById(
       "backDocuments"
     )
-    .onclick =
-      renderDocuments;
+    .addEventListener(
+      "click",
+      renderDocuments
+    );
 
 
   document
     .getElementById(
       "downloadDocument"
     )
-    .onclick =
-      () =>
+    .addEventListener(
+      "click",
+      () => {
+
         downloadJSON(
           doc,
           currentCollection +
@@ -1823,12 +3377,31 @@ function showDocument(doc){
           doc.id
         );
 
+      }
+    );
+
 }
 
 
-/* =====================================================
-   JSON EXPORT
-   ===================================================== */
+
+/* =========================================================
+   EXPORT DATABASE
+   ========================================================= */
+
+function exportDatabase(){
+
+  downloadJSON(
+    database,
+    "corebiq-firestore-export"
+  );
+
+}
+
+
+
+/* =========================================================
+   DOWNLOAD JSON
+   ========================================================= */
 
 function downloadJSON(
   data,
@@ -1845,7 +3418,8 @@ function downloadJSON(
         )
       ],
       {
-        type:"application/json"
+        type:
+          "application/json"
       }
     );
 
@@ -1854,38 +3428,41 @@ function downloadJSON(
     URL.createObjectURL(blob);
 
 
-  const a =
+  const link =
     document.createElement("a");
 
-  a.href = url;
 
-  a.download =
-    filename + ".json";
-
-  a.click();
-
-  URL.revokeObjectURL(url);
-
-}
+  link.href =
+    url;
 
 
-/* =====================================================
-   EXPORT WHOLE LOADED DATABASE
-   ===================================================== */
+  link.download =
+    filename +
+    ".json";
 
-function exportDatabase(){
 
-  downloadJSON(
-    database,
-    "corebiq-firestore-export"
+  document.body.appendChild(
+    link
+  );
+
+
+  link.click();
+
+
+  link.remove();
+
+
+  URL.revokeObjectURL(
+    url
   );
 
 }
 
 
-/* =====================================================
-   SEARCH
-   ===================================================== */
+
+/* =========================================================
+   SEARCH COLLECTIONS
+   ========================================================= */
 
 collectionSearch.addEventListener(
   "input",
@@ -1893,15 +3470,21 @@ collectionSearch.addEventListener(
 );
 
 
+
+/* =========================================================
+   SEARCH DOCUMENTS
+   ========================================================= */
+
 documentSearch.addEventListener(
   "input",
   renderDocuments
 );
 
 
-/* =====================================================
+
+/* =========================================================
    REFRESH
-   ===================================================== */
+   ========================================================= */
 
 document
   .getElementById(
@@ -1912,6 +3495,11 @@ document
     loadDatabase
   );
 
+
+
+/* =========================================================
+   EXPORT BUTTONS
+   ========================================================= */
 
 document
   .getElementById(
@@ -1933,9 +3521,10 @@ document
   );
 
 
-/* =====================================================
+
+/* =========================================================
    LOGOUT
-   ===================================================== */
+   ========================================================= */
 
 document
   .getElementById(
@@ -1943,16 +3532,32 @@ document
   )
   .addEventListener(
     "click",
-    () =>
-      signOut(auth)
+    async () => {
+
+      try{
+
+        await signOut(auth);
+
+      }catch(error){
+
+        console.error(
+          "Logout error:",
+          error
+        );
+
+      }
+
+    }
   );
 
 
-/* =====================================================
-   NAVIGATION
-   ===================================================== */
+
+/* =========================================================
+   PAGE NAVIGATION
+   ========================================================= */
 
 const pages = [
+
   "dashboard",
   "database",
   "clients",
@@ -1960,6 +3565,7 @@ const pages = [
   "documents",
   "users",
   "backup"
+
 ];
 
 
@@ -1968,14 +3574,14 @@ document
     ".nav-btn"
   )
   .forEach(
-    btn => {
+    button => {
 
-      btn.addEventListener(
+      button.addEventListener(
         "click",
         () => {
 
           showPage(
-            btn.dataset.page
+            button.dataset.page
           );
 
         }
@@ -1985,21 +3591,23 @@ document
   );
 
 
+
 function showPage(page){
 
   pages.forEach(
-    p => {
+    name => {
 
       const element =
         document.getElementById(
-          p + "Page"
+          name + "Page"
         );
+
 
       if(element){
 
         element.classList.toggle(
           "hidden",
-          p !== page
+          name !== page
         );
 
       }
@@ -2013,23 +3621,39 @@ function showPage(page){
       ".nav-btn"
     )
     .forEach(
-      btn =>
-        btn.classList.toggle(
+      button => {
+
+        button.classList.toggle(
           "active",
-          btn.dataset.page === page
-        )
+          button.dataset.page === page
+        );
+
+      }
     );
 
 
   const titles = {
 
-    dashboard:"Dashboard",
-    database:"Firestore Database",
-    clients:"Clients",
-    payments:"Payments",
-    documents:"Documents",
-    users:"Users",
-    backup:"Backup / Export"
+    dashboard:
+      "Dashboard",
+
+    database:
+      "Firestore Database",
+
+    clients:
+      "Clients",
+
+    payments:
+      "Payments",
+
+    documents:
+      "Documents",
+
+    users:
+      "Users",
+
+    backup:
+      "Backup / Export"
 
   };
 
@@ -2042,21 +3666,13 @@ function showPage(page){
       titles[page] ||
       page;
 
-
-  document
-    .getElementById(
-      "sidebar"
-    )
-    .classList.remove(
-      "open"
-    );
-
 }
 
 
-/* =====================================================
-   MOBILE MENU
-   ===================================================== */
+
+/* =========================================================
+   MOBILE SIDEBAR
+   ========================================================= */
 
 document
   .getElementById(
@@ -2066,53 +3682,117 @@ document
     "click",
     () => {
 
-      document
-        .getElementById(
-          "sidebar"
-        )
-        .classList.toggle(
-          "open"
-        );
+      sidebar.classList.add(
+        "open"
+      );
+
+      sidebarOverlay.classList.add(
+        "show"
+      );
 
     }
   );
 
 
-/* =====================================================
-   HELPERS
-   ===================================================== */
+sidebarOverlay.addEventListener(
+  "click",
+  closeSidebar
+);
+
+
+function closeSidebar(){
+
+  sidebar.classList.remove(
+    "open"
+  );
+
+  sidebarOverlay.classList.remove(
+    "show"
+  );
+
+}
+
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+
+
+/* =========================================================
+   FORMAT VALUE
+   ========================================================= */
 
 function formatValue(value){
 
-  if(value === undefined)
+  if(
+    value === undefined
+  ){
+
     return "";
 
-  if(value === null)
+  }
+
+
+  if(
+    value === null
+  ){
+
     return "null";
+
+  }
+
 
   if(
     typeof value === "object"
   ){
 
-    return JSON.stringify(value);
+    try{
+
+      return JSON.stringify(
+        value
+      );
+
+    }catch{
+
+      return "[Object]";
+
+    }
 
   }
+
 
   return String(value);
 
 }
 
-
-function escapeHtml(value){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
 
 </script>
 
